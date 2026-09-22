@@ -1,0 +1,502 @@
+[
+  {
+    "id": "BQ-K8",
+    "name": "BQ-K8 Bodycam + PoC",
+    "price": 299,
+    "image": "/images/BQ-K8-poster.webp",
+    "description": "BODYCAM + POC 4G. 1080p Video, Night Vision, SOS Alarm, Team Collaboration. No distance limits.",
+    "specs": [
+      {
+        "label": "Resolution",
+        "value": "1080p HD"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE"
+      },
+      {
+        "label": "Features",
+        "value": "Night Vision, GPS"
+      },
+      {
+        "label": "Storage",
+        "value": "SD Card Supported"
+      }
+    ]
+  },
+  {
+    "id": "G-280-2",
+    "name": "G-280-2",
+    "price": 165,
+    "image": "/images/G-280-2.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "G-510",
+    "name": "G-510",
+    "price": 248,
+    "image": "/images/G-510.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "G-889",
+    "name": "G-889",
+    "price": 220,
+    "image": "/images/G-889.webp",
+    "description": "Professional Dual-Antenna PoC Radio with full keypad and large display.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "G-F1",
+    "name": "G-F1",
+    "price": 185,
+    "image": "/images/G-F1.webp",
+    "description": "Smart-style PoC Radio featuring a large touchscreen interface.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "G-H28jpg",
+    "name": "G-H28",
+    "price": 100,
+    "image": "/images/G-H28jpg.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "G-P0",
+    "name": "G-P0",
+    "price": 205,
+    "image": "/images/G-P0.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0055",
+    "name": "IMG-20260922-WA0055",
+    "price": 111,
+    "image": "/images/IMG-20260922-WA0055.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0057",
+    "name": "IMG-20260922-WA0057",
+    "price": 195,
+    "image": "/images/IMG-20260922-WA0057.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0058",
+    "name": "IMG-20260922-WA0058",
+    "price": 200,
+    "image": "/images/IMG-20260922-WA0058.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0060",
+    "name": "IMG-20260922-WA0060",
+    "price": 133,
+    "image": "/images/IMG-20260922-WA0060.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0062",
+    "name": "IMG-20260922-WA0062",
+    "price": 142,
+    "image": "/images/IMG-20260922-WA0062.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0064",
+    "name": "IMG-20260922-WA0064",
+    "price": 175,
+    "image": "/images/IMG-20260922-WA0064.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0066",
+    "name": "IMG-20260922-WA0066",
+    "price": 204,
+    "image": "/images/IMG-20260922-WA0066.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0067",
+    "name": "IMG-20260922-WA0067",
+    "price": 229,
+    "image": "/images/IMG-20260922-WA0067.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0068",
+    "name": "IMG-20260922-WA0068",
+    "price": 127,
+    "image": "/images/IMG-20260922-WA0068.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0069",
+    "name": "IMG-20260922-WA0069",
+    "price": 115,
+    "image": "/images/IMG-20260922-WA0069.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "IMG-20260922-WA0070",
+    "name": "IMG-20260922-WA0070",
+    "price": 139,
+    "image": "/images/IMG-20260922-WA0070.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "Model-G-M2",
+    "name": "G-M2",
+    "price": 115,
+    "image": "/images/Model G-M2.webp",
+    "description": "Ultra-compact wearable PoC Radio with a large central PTT button.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  },
+  {
+    "id": "P0-floating",
+    "name": "P0 floating",
+    "price": 222,
+    "image": "/images/P0 floating.webp",
+    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "specs": [
+      {
+        "label": "Network",
+        "value": "4G / LTE PoC"
+      },
+      {
+        "label": "Battery",
+        "value": "High Capacity Li-ion"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Certified"
+      },
+      {
+        "label": "Encryption",
+        "value": "AES-256"
+      }
+    ]
+  }
+]
