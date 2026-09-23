@@ -27,6 +27,28 @@ const DIMENSION_KEYS: (keyof ComparisonDimensionData)[] = [
   'certifications'
 ];
 
+export function getShortModelName(p: Product): string {
+  const map: Record<string, string> = {
+    'G-889': 'G-889 (Dual-Antenna)',
+    'G-F1': 'G-F1 (Smart PoC)',
+    'G-280-2': 'G-280-2 (Dual-Mode)',
+    'Model-G-M2': 'G-M2 (Wearable Clip)',
+    'G-510': 'G-510 (Pocket PoC)',
+    'G-H28': 'G-H28 (Tactical Keypad)',
+    'G-P0-Black': 'P0 (Marine Floating)',
+    'P0-Ex-Blue': 'P0-Ex (ATEX Marine)',
+    'WA0058-Vehicle': 'WA0058 (Vehicle Base)',
+    'WA0060-Armor': 'WA0060 (Mil-Spec Armor)',
+    'WA0062-TriMode': 'WA0062 (Tri-Mode DMR)',
+    'WA0064-LongRange': 'WA0064 (Long-Range)',
+    'WA0055-GlobalLTE': 'WA0055 (Global LTE)',
+    'WA0057-TacticalField': 'WA0057 (Tactical Field)',
+    'WA0066-Alervites': 'Alervites (Ultra-Slim)',
+    'WA0069-Bodycam': 'BQ-K8 (Bodycam 4G)'
+  };
+  return map[p.id] || p.shortName || p.name;
+}
+
 function getAdvantage(dimKey: keyof ComparisonDimensionData, p1: Product, p2: Product): 'p1' | 'p2' | 'tie' {
   const v1 = p1.comparison[dimKey].toLowerCase();
   const v2 = p2.comparison[dimKey].toLowerCase();
@@ -138,7 +160,7 @@ export function initComparison(): void {
 
   const availableProducts = getAvailableProducts();
   const productOptions = availableProducts.map(p =>
-    `<option value="${p.id}">${p.name} [${p.badge}]</option>`
+    `<option value="${p.id}">${getShortModelName(p)}</option>`
   ).join('');
 
   container.innerHTML = `
@@ -151,27 +173,35 @@ export function initComparison(): void {
         </div>
 
         <div class="bg-white rounded-3xl p-4 sm:p-8 shadow-lg border border-gray-100 mb-8">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-5">
+          <!-- 2-Column Model Selectors Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label class="block text-xs sm:text-sm font-semibold text-navy-800 mb-2">Model A</label>
-              <select id="compare-select-1" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium">
+              <label id="label-select-1" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
+                Primary Device
+              </label>
+              <select id="compare-select-1" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium transition-all">
                 <option value="">Select a model...</option>
                 ${productOptions}
               </select>
             </div>
-            <div class="sm:col-span-2 lg:col-span-1 flex items-center sm:items-end">
-              <button id="compare-btn-preset" class="w-full sm:w-auto px-4 sm:px-6 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-navy-800 hover:bg-navy-900 transition-colors flex items-center justify-center gap-2 text-xs sm:text-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                Compare Top Sellers
-              </button>
-            </div>
+
             <div>
-              <label class="block text-xs sm:text-sm font-semibold text-navy-800 mb-2">Model B</label>
-              <select id="compare-select-2" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium">
+              <label id="label-select-2" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
+                Comparison Device
+              </label>
+              <select id="compare-select-2" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium transition-all">
                 <option value="">Select a model...</option>
                 ${productOptions}
               </select>
             </div>
+          </div>
+
+          <!-- Centered Preset Button -->
+          <div class="flex justify-center items-center my-3 mb-6">
+            <button id="compare-btn-preset" class="px-6 py-2.5 rounded-full font-bold uppercase tracking-wider text-white bg-navy-800 hover:bg-navy-900 transition-all shadow-md flex items-center justify-center gap-2 text-xs active:scale-95">
+              <svg class="w-4 h-4 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+              Compare Top Sellers
+            </button>
           </div>
 
           <div id="comparison-table-container" class="hidden">
@@ -179,9 +209,9 @@ export function initComparison(): void {
               <table class="w-full table-fixed comparison-table">
                 <thead>
                   <tr class="bg-navy-800 text-white">
-                    <th class="px-4 py-4 text-left font-bold uppercase tracking-wider text-xs w-[30%]">Dimension</th>
-                    <th class="px-4 py-4 text-center font-bold uppercase tracking-wider text-xs w-[35%] border-l border-navy-700">Model A</th>
-                    <th class="px-4 py-4 text-center font-bold uppercase tracking-wider text-xs w-[35%] border-l border-navy-700">Model B</th>
+                    <th class="px-4 py-4 text-left font-bold uppercase tracking-wider text-xs w-[30%]">Technical Dimension</th>
+                    <th id="compare-th-1" class="px-4 py-4 text-center font-bold uppercase tracking-wider text-xs w-[35%] border-l border-navy-700">Model 1</th>
+                    <th id="compare-th-2" class="px-4 py-4 text-center font-bold uppercase tracking-wider text-xs w-[35%] border-l border-navy-700">Model 2</th>
                   </tr>
                 </thead>
                 <tbody id="comparison-tbody"></tbody>
@@ -221,6 +251,11 @@ export function initComparison(): void {
     emptyState.classList.add('hidden');
     tableContainer.classList.remove('hidden');
     mobileContainer.classList.remove('hidden');
+
+    const header1 = document.getElementById('compare-th-1');
+    const header2 = document.getElementById('compare-th-2');
+    if (header1) header1.textContent = p1.name;
+    if (header2) header2.textContent = p2.name;
 
     tbody.innerHTML = DIMENSION_KEYS.map(key => {
       const dim = DIMENSION_LABELS[key];
@@ -292,9 +327,20 @@ export function initComparison(): void {
     `;
   }
 
+  function updateSelectorLabels(): void {
+    const label1 = document.getElementById('label-select-1');
+    const label2 = document.getElementById('label-select-2');
+    const p1 = products.find(p => p.id === select1.value);
+    const p2 = products.find(p => p.id === select2.value);
+    if (label1) label1.textContent = p1 ? `Model: ${getShortModelName(p1)}` : 'Select Model 1';
+    if (label2) label2.textContent = p2 ? `Model: ${getShortModelName(p2)}` : 'Select Model 2';
+  }
+
   function handleSelectChange(): void {
     const id1 = select1.value;
     const id2 = select2.value;
+
+    updateSelectorLabels();
 
     if (id1 && id2 && id1 !== id2) {
       renderComparison(id1, id2);

@@ -16,6 +16,7 @@ export interface ComparisonDimensionData {
 export interface Product {
   id: string;
   name: string;
+  shortName?: string;
   badge: string;
   image: string;
   description: string;

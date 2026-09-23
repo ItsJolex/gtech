@@ -43,6 +43,32 @@ if (catalogContainer && modalOverlay && modalContent) {
         ` : product.stockStatus === 'low_stock' ? `
           <span class="absolute top-1.5 right-1.5 bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider shadow">Low Stock</span>
         ` : ''}
+
+        <!-- BOTTOM-LEFT: Cellular SIM Pricing Button -->
+        <button onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
+                class="absolute bottom-1.5 left-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim"
+                title="View Cellular SIM Pricing & International Data Plans"
+                aria-label="View SIM pricing">
+          <!-- SIM Card Silhouette SVG -->
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover/sim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+            <rect x="8" y="10" width="8" height="8" rx="1"/>
+            <path d="M12 10v8M8 14h8"/>
+          </svg>
+        </button>
+
+        <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button -->
+        <button onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}')"
+                class="absolute bottom-1.5 right-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec"
+                title="Deep-Dive Technical Specifications"
+                aria-label="View detailed specifications">
+          <!-- Question Mark / Info Silhouette SVG -->
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover/spec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </button>
       </div>
 
       <h3 class="text-xs sm:text-base font-bold text-navy-800 line-clamp-2 leading-tight mb-1 min-h-[2rem] sm:min-h-[2.5rem]" title="${product.name}">
@@ -161,6 +187,124 @@ if (catalogContainer && modalOverlay && modalContent) {
     if (fallback) {
       const event = new CustomEvent('compare-products', { detail: { id1: p.id, id2: fallback.id } });
       window.dispatchEvent(event);
+    }
+  };
+
+  (window as any).openSimPricingModal = (productId: string) => {
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+
+    modalContent.innerHTML = `
+      <div class="relative">
+        <button onclick="closeModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all focus:outline-none" aria-label="Close modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 shadow-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block">Cellular IoT Telemetry</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-navy-800">Global PoC SIM Cards & Coverage Rates</h2>
+          </div>
+        </div>
+
+        <p class="text-gray-600 text-xs sm:text-sm mb-6 leading-relaxed">
+          All G-TECH PoC devices operate via encrypted cellular networks with zero distance limits. You can bundle your hardware order with pre-configured, multi-carrier SIM cards providing uninterrupted Tier-1 roaming.
+        </p>
+
+        <!-- Multi-Country Rates Table -->
+        <div class="space-y-3 mb-6">
+          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🇺🇸</span>
+              <div>
+                <h4 class="text-sm font-bold text-navy-800">United States & Canada</h4>
+                <p class="text-[11px] text-gray-500">Tier-1 Multi-Carrier: AT&T, Verizon & T-Mobile</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-base font-extrabold text-navy-800">$15<span class="text-xs font-normal text-gray-500">/mo</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">$150/year (Save 17%)</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🌎</span>
+              <div>
+                <h4 class="text-sm font-bold text-navy-800">Latin America (Pan-Regional)</h4>
+                <p class="text-[11px] text-gray-500">Auto-Hopping: Movistar, Claro, Digitel & Entel</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-base font-extrabold text-navy-800">$12<span class="text-xs font-normal text-gray-500">/mo</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">$120/year (Save 17%)</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🇪🇺</span>
+              <div>
+                <h4 class="text-sm font-bold text-navy-800">Europe & United Kingdom</h4>
+                <p class="text-[11px] text-gray-500">Full EU Roaming: Vodafone, Telefónica & EE</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-base font-extrabold text-navy-800">€14<span class="text-xs font-normal text-gray-500">/mo</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">€140/year (Save 17%)</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🌐</span>
+              <div>
+                <h4 class="text-sm font-bold text-navy-800">Global Multi-IMSI (140+ Countries)</h4>
+                <p class="text-[11px] text-gray-500">Defense & Maritime Global Data Roaming</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-base font-extrabold text-navy-800">$22<span class="text-xs font-normal text-gray-500">/mo</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">$220/year (Save 17%)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIM Features Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] mb-6 text-gray-600">
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Zero Activation Fees</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> AES-256 Voice Tunnel</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Pre-Configured APN</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Automatic Carrier Hopping</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unlimited PTT Airtime</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Cancel Anytime</span>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
+          <button onclick="closeModal()" class="w-full sm:w-auto px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+            Close
+          </button>
+          <a href="https://wa.me/584149428999?text=Hello%20G-TECH,%20I%20would%20like%20to%20order%20the%20${encodeURIComponent(product.name)}%20bundled%20with%20a%20Global%20SIM%20card."
+             target="_blank"
+             class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-crimson-800 hover:bg-crimson-900 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Inquire Hardware + SIM via WhatsApp
+          </a>
+        </div>
+      </div>
+    `;
+    modalOverlay.classList.remove('hidden');
+    modalOverlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  };
+
+  (window as any).openDeepDiveModal = (productId: string) => {
+    if ((window as any).openModal) {
+      (window as any).openModal(productId);
     }
   };
 
