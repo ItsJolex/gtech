@@ -1,502 +1,242 @@
 [
   {
-    "id": "BQ-K8",
-    "name": "BQ-K8 Bodycam + PoC",
-    "price": 299,
-    "image": "/images/BQ-K8-poster.webp",
-    "description": "BODYCAM + POC 4G. 1080p Video, Night Vision, SOS Alarm, Team Collaboration. No distance limits.",
-    "specs": [
-      {
-        "label": "Resolution",
-        "value": "1080p HD"
-      },
-      {
-        "label": "Network",
-        "value": "4G LTE"
-      },
-      {
-        "label": "Features",
-        "value": "Night Vision, GPS"
-      },
-      {
-        "label": "Storage",
-        "value": "SD Card Supported"
-      }
-    ]
-  },
-  {
-    "id": "G-280-2",
-    "name": "G-280-2",
-    "price": 165,
-    "image": "/images/G-280-2.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "G-510",
-    "name": "G-510",
-    "price": 248,
-    "image": "/images/G-510.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
     "id": "G-889",
-    "name": "G-889",
-    "price": 220,
+    "name": "Model G-889 PoC Dual-Antenna Radio",
+    "badge": "Dual-Antenna PoC",
     "image": "/images/G-889.webp",
-    "description": "Professional Dual-Antenna PoC Radio with full keypad and large display.",
+    "description": "High-performance hybrid PoC radio equipped with dual antennas (extended UHF/VHF whip and LTE stubby) for maximum sensitivity and nationwide cellular coverage. Features a full 12-key alphanumeric keypad, vibrant color display, and high-output audio speaker.",
     "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
+      { "label": "Network", "value": "4G LTE Nationwide PoC" },
+      { "label": "Antenna System", "value": "Dual (UV Whip + LTE Stub)" },
+      { "label": "Keypad", "value": "Full DTMF Alphanumeric" },
+      { "label": "Display", "value": "1.77\" High-Contrast Color LCD" },
+      { "label": "Audio", "value": "2W High-Output Speaker" },
+      { "label": "Certifications", "value": "CE / FCC Approved" }
     ]
   },
   {
     "id": "G-F1",
-    "name": "G-F1",
-    "price": 185,
+    "name": "Model G-F1 Smart PoC Radio",
+    "badge": "Smart PoC Terminal",
     "image": "/images/G-F1.webp",
-    "description": "Smart-style PoC Radio featuring a large touchscreen interface.",
+    "description": "Streamlined smart-form PoC handheld radio featuring a high-definition vertical color display and minimalist 3-key navigation. Engineered for rapid dispatch, intuitive group switching, and crystal-clear digital push-to-talk audio.",
     "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
+      { "label": "Network", "value": "4G LTE / Wi-Fi PoC" },
+      { "label": "Navigation", "value": "Simplified 3-Key Dispatch" },
+      { "label": "Display", "value": "Large Vertical Color Screen" },
+      { "label": "Form Factor", "value": "Protected Stubby Antenna Fin" },
+      { "label": "Battery", "value": "High-Capacity Li-ion" },
+      { "label": "Certifications", "value": "CE / FCC Approved" }
     ]
   },
   {
-    "id": "G-H28jpg",
-    "name": "G-H28",
-    "price": 100,
-    "image": "/images/G-H28jpg.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "id": "G-280-2",
+    "name": "Model G-280-2 Dual-Mode Radio",
+    "badge": "3W UHF + 4G PoC",
+    "image": "/images/G-280-2.webp",
+    "description": "Versatile hybrid communication terminal operating across UHF 400-470MHz at 3W RF power combined with cellular push-to-talk. Features dedicated Call, OK, and End keys, dual top selector dials, and ruggedized housing.",
     "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "G-P0",
-    "name": "G-P0",
-    "price": 205,
-    "image": "/images/G-P0.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0055",
-    "name": "IMG-20260922-WA0055",
-    "price": 111,
-    "image": "/images/IMG-20260922-WA0055.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0057",
-    "name": "IMG-20260922-WA0057",
-    "price": 195,
-    "image": "/images/IMG-20260922-WA0057.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0058",
-    "name": "IMG-20260922-WA0058",
-    "price": 200,
-    "image": "/images/IMG-20260922-WA0058.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0060",
-    "name": "IMG-20260922-WA0060",
-    "price": 133,
-    "image": "/images/IMG-20260922-WA0060.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0062",
-    "name": "IMG-20260922-WA0062",
-    "price": 142,
-    "image": "/images/IMG-20260922-WA0062.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0064",
-    "name": "IMG-20260922-WA0064",
-    "price": 175,
-    "image": "/images/IMG-20260922-WA0064.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0066",
-    "name": "IMG-20260922-WA0066",
-    "price": 204,
-    "image": "/images/IMG-20260922-WA0066.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0067",
-    "name": "IMG-20260922-WA0067",
-    "price": 229,
-    "image": "/images/IMG-20260922-WA0067.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0068",
-    "name": "IMG-20260922-WA0068",
-    "price": 127,
-    "image": "/images/IMG-20260922-WA0068.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0069",
-    "name": "IMG-20260922-WA0069",
-    "price": 115,
-    "image": "/images/IMG-20260922-WA0069.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
-    ]
-  },
-  {
-    "id": "IMG-20260922-WA0070",
-    "name": "IMG-20260922-WA0070",
-    "price": 139,
-    "image": "/images/IMG-20260922-WA0070.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
-    "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
+      { "label": "RF Output Power", "value": "3 Watts" },
+      { "label": "Frequency Band", "value": "UHF 400 - 470 MHz" },
+      { "label": "Network", "value": "4G LTE Cellular PoC" },
+      { "label": "Controls", "value": "Dual Top Rotary Knobs" },
+      { "label": "Interface", "value": "Tactile Call / OK / End" },
+      { "label": "Certifications", "value": "CE / FCC Certified" }
     ]
   },
   {
     "id": "Model-G-M2",
-    "name": "G-M2",
-    "price": 115,
+    "name": "Model G-M2 Wearable Clip PoC Radio",
+    "badge": "Wearable Clip-On",
     "image": "/images/Model G-M2.webp",
-    "description": "Ultra-compact wearable PoC Radio with a large central PTT button.",
+    "description": "Ultra-lightweight clip-on wearable PoC transceiver engineered for discreet hospitality, security patrol, and event coordination. Features an oversized tactile central PTT button, digital status screen, and robust belt/lapel clip.",
     "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
+      { "label": "Form Factor", "value": "Wearable Clip-On Transceiver" },
+      { "label": "PTT Interface", "value": "Oversized Central Tactile Key" },
+      { "label": "Display", "value": "Digital LCD Status Display" },
+      { "label": "Audio", "value": "Integrated Speaker & Headset Port" },
+      { "label": "Network", "value": "4G LTE Nationwide PoC" },
+      { "label": "Certifications", "value": "CE / FCC Approved" }
     ]
   },
   {
-    "id": "P0-floating",
-    "name": "P0 floating",
-    "price": 222,
-    "image": "/images/P0 floating.webp",
-    "description": "Professional PoC Radio with nationwide coverage and robust design.",
+    "id": "G-510",
+    "name": "Model G-510 Pocket PoC Radio",
+    "badge": "Tactical Pocket PoC",
+    "image": "/images/G-510.webp",
+    "description": "Ergonomic pocket-sized PoC radio built with an integrated low-profile antenna and programmable function key (P1). Designed for all-day frontline operations requiring discreet, dependable push-to-talk connectivity.",
     "specs": [
-      {
-        "label": "Network",
-        "value": "4G / LTE PoC"
-      },
-      {
-        "label": "Battery",
-        "value": "High Capacity Li-ion"
-      },
-      {
-        "label": "Waterproof",
-        "value": "IP68 Certified"
-      },
-      {
-        "label": "Encryption",
-        "value": "AES-256"
-      }
+      { "label": "Network", "value": "4G LTE Worldwide Cellular" },
+      { "label": "Keypad", "value": "Menu, Up/Down, Back, Power, P1" },
+      { "label": "Antenna", "value": "Protected Fixed Stubby" },
+      { "label": "Speaker", "value": "High-Clarity Acoustic Grille" },
+      { "label": "Battery", "value": "Extended Shift Li-ion" },
+      { "label": "Certifications", "value": "CE / FCC Approved" }
+    ]
+  },
+  {
+    "id": "G-H28",
+    "name": "Model G-H28 Tactical PoC Radio",
+    "badge": "Tactical Keypad PoC",
+    "image": "/images/G-H28jpg.webp",
+    "description": "Mission-ready PoC handheld featuring a high-visibility lime-green tactical PTT button, dedicated LED emergency flashlight, full alphanumeric keypad, and reinforced drop-resistant composite body.",
+    "specs": [
+      { "label": "Flashlight", "value": "Integrated Tactical LED" },
+      { "label": "PTT", "value": "High-Vis Lime Green Side Key" },
+      { "label": "Keypad", "value": "Full DTMF Alphanumeric" },
+      { "label": "Network", "value": "4G LTE Push-To-Talk" },
+      { "label": "Display", "value": "Sunlight-Readable Color LCD" },
+      { "label": "Certifications", "value": "CE / FCC Certified" }
+    ]
+  },
+  {
+    "id": "G-P0-Black",
+    "name": "Model P0 Floating Marine Radio (Tactical Black)",
+    "badge": "IP68 Floating Marine",
+    "image": "/images/G-P0.webp",
+    "description": "Specialized maritime and water-rescue PoC radio engineered with positive buoyancy that floats on water. Features a large 2.4-inch display, sealed acoustic chamber, and IP68 waterproof submersible construction in Tactical Black.",
+    "specs": [
+      { "label": "Buoyancy", "value": "Floats on Water (Positive)" },
+      { "label": "Waterproof", "value": "IP68 Submersible Sealed" },
+      { "label": "Display", "value": "2.4-inch High-Definition Screen" },
+      { "label": "Colorway", "value": "Tactical Black Edition" },
+      { "label": "Network", "value": "4G LTE Cellular PoC" },
+      { "label": "Audio", "value": "Water-Dispersing Acoustic Chamber" }
+    ]
+  },
+  {
+    "id": "P0-Ex-Blue",
+    "name": "Model P0-Ex Floating Marine Radio (ATEX Blue Edition)",
+    "badge": "ATEX / Ex Explosion-Proof",
+    "image": "/images/P0 floating.webp",
+    "description": "Certified explosion-proof (Ex) intrinsically safe edition of the P0 floating radio. Finished in high-visibility safety marine blue, designed for oil & gas refineries, chemical handling, offshore rigs, and maritime fleets.",
+    "specs": [
+      { "label": "Safety Standard", "value": "Ex Explosion-Proof Certified" },
+      { "label": "Buoyancy", "value": "Floats on Water (Positive)" },
+      { "label": "Waterproof", "value": "IP68 Submersible Sealed" },
+      { "label": "Display", "value": "2.4-inch Armored Glass Panel" },
+      { "label": "Colorway", "value": "Safety Marine Blue" },
+      { "label": "Network", "value": "4G LTE Cellular PoC" }
+    ]
+  },
+  {
+    "id": "WA0058-Vehicle",
+    "name": "G-TECH Vehicle-PoC Mobile Transceiver",
+    "badge": "Fleet Mobile Radio",
+    "image": "/images/IMG-20260922-WA0058.webp",
+    "description": "Heavy-duty mobile PoC vehicle transceiver for fleet trucks, emergency apparatus, security patrols, and commercial transport. Features a heavy-duty palm microphone, backlit SOS & dispatch keys, external vehicle antenna port, and dashboard mounting bracket.",
+    "specs": [
+      { "label": "Application", "value": "In-Vehicle Fleet / Base Station" },
+      { "label": "Microphone", "value": "Heavy-Duty Branded Palm Mic" },
+      { "label": "Controls", "value": "SOS, INFO, Group Keys & Volume Dial" },
+      { "label": "Display", "value": "Full Color Vehicle Status Screen" },
+      { "label": "Power Input", "value": "12V / 24V DC Vehicle System" },
+      { "label": "Coverage", "value": "Nationwide Unlimited PoC" }
+    ]
+  },
+  {
+    "id": "WA0060-Armor",
+    "name": "G-TECH Digital Armor Dual-Knob Radio",
+    "badge": "Mil-Spec Dual-Knob",
+    "image": "/images/IMG-20260922-WA0060.webp",
+    "description": "Ruggedized dual-knob digital radio available in Tactical Black and Military Olive Green armor. Engineered with dedicated top rotary channel and volume dials, an instant front SOS alarm button, and reinforced shock-absorbing exoskeleton.",
+    "specs": [
+      { "label": "Housing", "value": "Reinforced Exoskeleton (Black / OD Green)" },
+      { "label": "Controls", "value": "Dual Top Knobs (Channel & Volume)" },
+      { "label": "Emergency", "value": "Instant Front SOS Alarm Key" },
+      { "label": "Display", "value": "High-Contrast Protected LCD" },
+      { "label": "Audio", "value": "Slotted High-Acoustic Grille" },
+      { "label": "Network", "value": "4G LTE PoC Push-To-Talk" }
+    ]
+  },
+  {
+    "id": "WA0062-TriMode",
+    "name": "G-TECH Tri-Mode Hybrid PoC + DMR Radio",
+    "badge": "Tri-Mode VHF/UHF + PoC",
+    "image": "/images/IMG-20260922-WA0062.webp",
+    "description": "True multi-mission hybrid transceiver combining conventional VHF/UHF direct RF frequency communication with unlimited nationwide 4G LTE PoC. Features dual dedicated antennas (UV whip + LTE stub), A/B dual-channel monitoring, and a full tactical DTMF keypad.",
+    "specs": [
+      { "label": "Operating Modes", "value": "VHF + UHF Direct RF + 4G PoC" },
+      { "label": "Antenna System", "value": "Dual Port (UV Whip + LTE Stubby)" },
+      { "label": "Dual Watch", "value": "Simultaneous A/B Channel Monitoring" },
+      { "label": "Keypad", "value": "Full DTMF Keypad with V/M & Menu" },
+      { "label": "Display", "value": "Full Color Telemetry Display" },
+      { "label": "Coverage", "value": "Direct Line-of-Sight + Global LTE" }
+    ]
+  },
+  {
+    "id": "WA0064-LongRange",
+    "name": "G-TECH Long-Range Command PoC + VHF/UHF Radio",
+    "badge": "Command Hybrid Radio",
+    "image": "/images/IMG-20260922-WA0064.webp",
+    "description": "Enterprise command transceiver featuring an ultra-extended high-gain antenna, triple top rotary dials, ergonomic orange rubberized tactical side grips, full navigation D-pad, and high-impact reinforced housing for extreme range and harsh field conditions.",
+    "specs": [
+      { "label": "RF Bands", "value": "UHF + VHF Direct RF + 4G LTE PoC" },
+      { "label": "Antenna", "value": "Extended High-Gain Tactical Whip" },
+      { "label": "Controls", "value": "Triple Top Rotary Dials + D-Pad" },
+      { "label": "Ergonomics", "value": "High-Traction Orange Side Grips" },
+      { "label": "Keypad", "value": "Full Numeric DTMF Matrix" },
+      { "label": "Housing", "value": "Impact-Shielded Heavy-Duty Body" }
+    ]
+  },
+  {
+    "id": "WA0055-GlobalLTE",
+    "name": "G-TECH Global LTE Tactical Radio",
+    "badge": "Global LTE PoC",
+    "image": "/images/IMG-20260922-WA0055.webp",
+    "description": "Flagship global cellular push-to-talk transceiver featuring an integrated rectangular LTE antenna module, vibrant high-definition screen, tactile navigation matrix, and acoustic noise-cancelling front audio speaker.",
+    "specs": [
+      { "label": "Network", "value": "Global Multi-Band 4G LTE PoC" },
+      { "label": "Antenna", "value": "Integrated Shielded LTE Antenna Block" },
+      { "label": "Display", "value": "Sunlight-Readable Color LCD" },
+      { "label": "Controls", "value": "Rapid 3-Key Dispatch Navigation" },
+      { "label": "Audio", "value": "DSP Acoustic Noise-Reduction Grille" },
+      { "label": "Branding", "value": "Official G-TECH.US Hardware" }
+    ]
+  },
+  {
+    "id": "WA0057-TacticalField",
+    "name": "G-TECH Tactical Field PoC Radio",
+    "badge": "Tactical Field PoC",
+    "image": "/images/IMG-20260922-WA0057.webp",
+    "description": "Heavy-duty field communications radio featuring a high-gain stubby antenna with blue color-code ring, top rotary knob, high-output front speaker, and a 6-button tactical dispatch keypad with dedicated individual and group call buttons.",
+    "specs": [
+      { "label": "Network", "value": "4G LTE Nationwide Push-to-Talk" },
+      { "label": "Dispatch Keys", "value": "Individual Call, Group Call, Menu, Back" },
+      { "label": "Antenna", "value": "High-Bandwidth Stubby with Blue ID Ring" },
+      { "label": "Audio", "value": "High-Decibel Industrial Speaker" },
+      { "label": "Rotary Control", "value": "Top Stepped Volume / Power Knob" },
+      { "label": "Certifications", "value": "CE / FCC Compliance" }
+    ]
+  },
+  {
+    "id": "WA0066-Alervites",
+    "name": "Alervites G-34181 / G-34173 Commercial PoC Radio",
+    "badge": "Ultra-Slim Commercial",
+    "image": "/images/IMG-20260922-WA0066.webp",
+    "description": "Sleek, contemporary commercial PoC radio available in three professional finishes: Gunmetal Gray, Obsidian Black, and Desert Tan. Designed for corporate security, luxury hospitality, event management, and retail logistics.",
+    "specs": [
+      { "label": "Finishes", "value": "Gunmetal Gray, Obsidian Black, Desert Tan" },
+      { "label": "Screen Telemetry", "value": "Live 4G, Battery, Group Name & Clock" },
+      { "label": "Design", "value": "Ultra-Slim Ergonomic Commercial Body" },
+      { "label": "Controls", "value": "Minimalist Center Jog Dial & Shortcuts" },
+      { "label": "Network", "value": "4G LTE Nationwide Push-To-Talk" },
+      { "label": "Speaker", "value": "Precision Perforated Acoustic Matrix" }
+    ]
+  },
+  {
+    "id": "WA0069-Bodycam",
+    "name": "BQ-K8 Bodycam + 4G PoC Terminal",
+    "badge": "1080p Video + 4G PoC",
+    "image": "/images/IMG-20260922-WA0069.webp",
+    "description": "Integrated law enforcement and private security wearable combining 1080p full HD video recording, 8-LED infrared night vision, live GPS tracking, and real-time 4G PoC two-way voice communication with one-touch recording and SOS alarms.",
+    "specs": [
+      { "label": "Video Resolution", "value": "1080p Full HD Video Recording" },
+      { "label": "Night Vision", "value": "8 High-Intensity Infrared LEDs" },
+      { "label": "Voice PTT", "value": "Real-Time 4G PoC Two-Way Voice" },
+      { "label": "Emergency", "value": "Instant Flash Alarm & SOS Beacon" },
+      { "label": "Storage", "value": "MicroSD Loop / Segmented Recording" },
+      { "label": "Deployment", "value": "Police, Fire, Security & Tactical Units" }
     ]
   }
 ]
