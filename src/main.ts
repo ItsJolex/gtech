@@ -19,8 +19,8 @@ if (catalogContainer && modalOverlay && modalContent) {
   // Render cards
   catalogContainer.innerHTML = productsData.map(product => `
     <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col relative group cursor-pointer hover:-translate-y-1" onclick="openModal('${product.id}')">
-      <div class="aspect-square bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center p-3 border border-gray-100/80">
-        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy">
+      <div class="aspect-[3/4] bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center border border-gray-100/80">
+        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
       </div>
       <div class="flex justify-between items-start mb-2 gap-2">
         <h3 class="text-base md:text-lg font-bold text-navy-800 line-clamp-1" title="${product.name}">${product.name}</h3>
@@ -43,8 +43,8 @@ if (catalogContainer && modalOverlay && modalContent) {
     
     modalContent.innerHTML = `
       <div class="flex flex-col md:flex-row gap-8">
-        <div class="w-full md:w-1/2 aspect-square bg-gray-50 rounded-2xl p-6 flex items-center justify-center border border-gray-100">
-          <img src="${p.image}" alt="${p.name}" class="max-w-full max-h-full object-contain drop-shadow-md">
+        <div class="w-full md:w-1/2 aspect-[3/4] bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-100">
+          <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
         </div>
         <div class="w-full md:w-1/2 flex flex-col">
           <div class="flex justify-between items-start mb-2">
