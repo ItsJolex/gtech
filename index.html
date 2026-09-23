@@ -26,15 +26,23 @@
             <a href="#contact" class="text-gray-200 hover:text-white font-semibold transition-colors">Contact</a>
           </nav>
 
-          <!-- Desktop CTA -->
-          <div class="hidden md:flex">
+          <!-- Desktop CTA & Cart -->
+          <div class="hidden md:flex items-center gap-4">
+            <button id="cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Abrir carrito de cotización" title="Estación de Cotización">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              <span id="cart-badge" class="absolute -top-1 -right-1 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-bounce-subtle">0</span>
+            </button>
             <a href="https://wa.me/584149428999" target="_blank" class="bg-crimson-800 hover:bg-crimson-900 text-white px-6 py-2 rounded-full font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-105">
               Get a Quote
             </a>
           </div>
 
-          <!-- Mobile Hamburger -->
-          <div class="md:hidden flex items-center">
+          <!-- Mobile Hamburger & Cart -->
+          <div class="md:hidden flex items-center gap-2">
+            <button id="mobile-cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Abrir carrito de cotización">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              <span id="mobile-cart-badge" class="absolute -top-1 -right-1 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-bounce-subtle">0</span>
+            </button>
             <button id="mobile-menu-btn" class="text-white hover:text-gray-300 focus:outline-none p-2">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -48,6 +56,8 @@
       <div id="mobile-menu" class="hidden md:hidden bg-navy-900 border-t border-navy-700">
         <div class="px-4 pt-3 pb-4 space-y-2">
           <a href="#systems" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Systems</a>
+          <a href="#finder" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Asistente de Misión</a>
+          <a href="#comparison" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Comparador</a>
           <a href="#specs" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Specs</a>
           <a href="#contact" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Contact</a>
           <a href="https://wa.me/584149428999" target="_blank" class="mobile-nav-link block mt-4 text-center bg-crimson-800 hover:bg-crimson-900 text-white px-5 py-3 rounded-full font-bold uppercase tracking-wide transition-colors">Get a Quote</a>
@@ -110,6 +120,13 @@
         </div>
       </div>
     </section>
+
+    <!-- Tactical Mission Finder Section -->
+    <div id="finder-section"></div>
+
+    <!-- Tactical Comparison Section -->
+    <div id="comparison-section"></div>
+
     <!-- Technical Specs -->
     <section id="specs" class="py-20 bg-navy-800 text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -188,6 +205,9 @@
         </div>
       </div>
     </div>
+
+    <!-- Cart Drawer Container (Off-Canvas) -->
+    <div id="cart-drawer-container" class="hidden"></div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

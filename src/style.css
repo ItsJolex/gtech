@@ -8,4 +8,289 @@
   .clip-diagonal {
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   }
+  
+  .tactical-glow-crimson {
+    box-shadow: 0 0 20px -5px rgba(172, 34, 32, 0.4);
+  }
+  
+  .tactical-glow-navy {
+    box-shadow: 0 0 25px -5px rgba(26, 41, 61, 0.5);
+  }
+  
+  .tactical-advantage-cell {
+    border: 2px solid rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+  }
+  
+  .tactical-advantage-badge {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    border: 1px solid #a7f3d0;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.25s ease-out forwards;
+  }
+  
+  .animate-bounce-subtle {
+    animation: bounceSubtle 0.2s ease-out;
+  }
+  
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes bounceSubtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+  }
+  
+  .hover-lift {
+    @apply hover:-translate-y-1 hover:shadow-xl transition-all duration-300;
+  }
+  
+  .btn-tactical {
+    @apply px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-tactical-crimson {
+    @apply btn-tactical bg-crimson-800 hover:bg-crimson-900 text-white shadow-lg hover:shadow-xl tactical-glow-crimson;
+  }
+  
+  .btn-tactical-navy {
+    @apply btn-tactical bg-navy-800 hover:bg-navy-900 text-white;
+  }
+  
+  .btn-tactical-green {
+    @apply btn-tactical bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-tactical-outline {
+    @apply btn-tactical bg-gray-100 hover:bg-gray-200 text-navy-800;
+  }
+  
+  .card-product {
+    @apply bg-white rounded-2xl p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col hover:-translate-y-1 cursor-pointer;
+  }
+  
+  .input-tactical {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 font-medium transition-all;
+  }
+  
+  .modal-overlay {
+    @apply fixed inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4;
+  }
+  
+  .drawer-container {
+    @apply fixed inset-0 z-[199] bg-black/50 backdrop-blur-sm animate-fade-in;
+  }
+  
+  .drawer-content {
+    @apply fixed inset-y-0 right-0 z-[200] w-full sm:max-w-md bg-navy-900 border-l border-navy-700 shadow-2xl animate-slide-in-right flex flex-col;
+  }
+  
+  .comparison-table {
+    @apply w-full min-w-[800px];
+  }
+  
+  .comparison-table th {
+    @apply px-4 py-4 text-left font-bold uppercase tracking-wider text-xs;
+  }
+  
+  .comparison-table td {
+    @apply px-4 py-4 text-center;
+  }
+  
+  .comparison-table tbody tr {
+    @apply border-b border-gray-100 hover:bg-gray-50;
+  }
+  
+  .toast {
+    @apply fixed bottom-24 right-4 bg-navy-900 text-white px-6 py-3 rounded-xl shadow-2xl z-50 animate-slide-in-right text-sm font-medium;
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #1e293b transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #1e293b;
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: #334155;
+  }
+}
+
+@layer components {
+  .product-card {
+    @apply bg-white rounded-2xl p-5 sm:p-6 shadow-md border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col relative group cursor-pointer hover:-translate-y-1;
+  }
+  
+  .product-image {
+    @apply aspect-[3/4] bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center border border-gray-100/80;
+  }
+  
+  .product-image img {
+    @apply w-full h-full object-cover group-hover:scale-105 transition-transform duration-300;
+  }
+  
+  .badge-tactical {
+    @apply inline-block text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-navy-50 text-navy-700 border border-navy-100;
+  }
+  
+  .btn-whatsapp {
+    @apply p-2 text-white bg-green-500 hover:bg-green-600 rounded-full transition-transform hover:scale-110 shadow-sm flex items-center justify-center flex-shrink-0;
+  }
+  
+  .btn-add-cart {
+    @apply p-2 text-white bg-crimson-700 hover:bg-crimson-800 rounded-full transition-all hover:scale-110 shadow-sm flex items-center justify-center flex-shrink-0 tactical-glow-crimson;
+  }
+  
+  .modal-close {
+    @apply absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all focus:outline-none;
+  }
+  
+  .spec-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-2.5;
+  }
+  
+  .spec-item {
+    @apply bg-white p-3 rounded-lg border border-gray-100 shadow-sm;
+  }
+  
+  .spec-label {
+    @apply block text-xs text-gray-500 mb-0.5;
+  }
+  
+  .spec-value {
+    @apply block text-sm font-bold text-navy-800 break-words;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased;
+  }
+  
+  * {
+    @apply border-gray-200;
+  }
+}
+
+/* Custom color palette */
+:root {
+  --color-navy-50: #f0f4f8;
+  --color-navy-100: #d9e2ec;
+  --color-navy-200: #bcccdc;
+  --color-navy-300: #9fb3c8;
+  --color-navy-400: #829ab1;
+  --color-navy-500: #627d98;
+  --color-navy-600: #486581;
+  --color-navy-700: #334e68;
+  --color-navy-800: #243b53;
+  --color-navy-900: #1a293d;
+  --color-crimson-50: #fef2f2;
+  --color-crimson-100: #fee2e2;
+  --color-crimson-200: #fecaca;
+  --color-crimson-300: #fca5a5;
+  --color-crimson-400: #f87171;
+  --color-crimson-500: #ef4444;
+  --color-crimson-600: #dc2626;
+  --color-crimson-700: #b91c1c;
+  --color-crimson-800: #991b1b;
+  --color-crimson-900: #7f1d1d;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  @apply outline-none ring-2 ring-crimson-500 ring-offset-2 ring-offset-white;
+}
+
+/* Selection styling */
+::selection {
+  @apply bg-crimson-600 text-white;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Finder option styles - cannot use @apply with group variants */
+.finder-option {
+  @apply w-full text-left p-5 rounded-2xl border-2 border-navy-700 bg-navy-900/50 transition-all duration-200 flex items-start gap-4;
+}
+.finder-option:hover {
+  @apply border-crimson-600 bg-navy-800/50;
+}
+.finder-option .group-hover\:bg-crimson-900\/30:hover {
+  @apply bg-crimson-900/30;
+}
+.finder-option:hover .group-hover\:text-crimson-400 {
+  @apply text-crimson-400;
+}
+.finder-option:hover .group-hover\:text-crimson-200 {
+  @apply text-crimson-200;
+}
+.finder-option:hover .group-hover\:text-navy-300 {
+  @apply text-navy-300;
+}
+.finder-option:hover .group-hover\:text-crimson-500 {
+  @apply text-crimson-500;
+}
+.finder-option:hover .group-hover\:translate-x-1 {
+  @apply translate-x-1;
+}
+
+/* Card product image hover */
+.group:hover .group-hover\:scale-105 {
+  @apply scale-105;
+}
+
+/* Modal overlay and drawer */
+.modal-overlay {
+  @apply fixed inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4;
+}
+
+.drawer-container {
+  @apply fixed inset-0 z-[199] bg-black/50 backdrop-blur-sm animate-fade-in;
+}
+
+.drawer-content {
+  @apply fixed inset-y-0 right-0 z-[200] w-full sm:max-w-md bg-navy-900 border-l border-navy-700 shadow-2xl animate-slide-in-right flex flex-col;
 }
