@@ -35,6 +35,46 @@
     border: 1px solid #a7f3d0;
   }
   
+  .tactical-advantage-badge--compact {
+    font-size: 8px;
+    padding: 1px 5px;
+    margin-top: 2px;
+    display: block;
+    width: fit-content;
+  }
+  
+  /* Radar sweep & tactical avatar aura */
+  @keyframes radar-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .animate-radar-spin {
+    animation: radar-spin 20s linear infinite;
+  }
+  
+  .radar-sweep {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: conic-gradient(from 0deg, rgba(26, 41, 61, 0.18) 0deg, rgba(26, 41, 61, 0.05) 45deg, transparent 90deg);
+    animation: radar-spin 8s linear infinite;
+  }
+  
+  @keyframes avatar-glow {
+    0%, 100% { opacity: 0.35; transform: scale(0.95); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+  }
+  
+  .avatar-glow {
+    animation: avatar-glow 4s ease-in-out infinite;
+  }
+  
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  
   .animate-slide-in-right {
     animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
@@ -107,7 +147,7 @@
   }
   
   .comparison-table {
-    @apply w-full min-w-[800px];
+    @apply w-full table-fixed;
   }
   
   .comparison-table th {

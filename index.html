@@ -28,7 +28,7 @@
 
           <!-- Desktop CTA & Cart -->
           <div class="hidden md:flex items-center gap-4">
-            <button id="cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Abrir carrito de cotización" title="Estación de Cotización">
+            <button id="cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Open Quotation Cart" title="Quotation Station">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
               <span id="cart-badge" class="absolute -top-1 -right-1 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-bounce-subtle">0</span>
             </button>
@@ -39,7 +39,7 @@
 
           <!-- Mobile Hamburger & Cart -->
           <div class="md:hidden flex items-center gap-2">
-            <button id="mobile-cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Abrir carrito de cotización">
+            <button id="mobile-cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Open Quotation Cart">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
               <span id="mobile-cart-badge" class="absolute -top-1 -right-1 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-bounce-subtle">0</span>
             </button>
@@ -56,8 +56,8 @@
       <div id="mobile-menu" class="hidden md:hidden bg-navy-900 border-t border-navy-700">
         <div class="px-4 pt-3 pb-4 space-y-2">
           <a href="#systems" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Systems</a>
-          <a href="#finder" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Asistente de Misión</a>
-          <a href="#comparison" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Comparador</a>
+          <a href="#finder" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Mission Finder</a>
+          <a href="#comparison" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Compare</a>
           <a href="#specs" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Specs</a>
           <a href="#contact" class="mobile-nav-link block px-4 py-3 text-white font-semibold rounded-lg hover:bg-navy-800 transition-colors">Contact</a>
           <a href="https://wa.me/584149428999" target="_blank" class="mobile-nav-link block mt-4 text-center bg-crimson-800 hover:bg-crimson-900 text-white px-5 py-3 rounded-full font-bold uppercase tracking-wide transition-colors">Get a Quote</a>
@@ -66,44 +66,81 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="relative bg-white pt-16 pb-36 sm:pt-20 sm:pb-40 lg:pt-32 lg:pb-44 clip-diagonal">
-      <div class="absolute inset-0 bg-[radial-gradient(#E5E7EB_1px,transparent_1px)] [background-size:24px_24px] opacity-30"></div>
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center lg:text-left flex flex-col lg:flex-row items-center gap-12">
-        <div class="lg:w-1/2">
-          <h1 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold text-navy-800 leading-tight mb-6">
-            TACTICAL PUSH-TO-TALK <br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-crimson-800 to-crimson-700">OVER CELLULAR</span>
+    <section class="relative bg-white pt-10 pb-20 sm:pt-16 sm:pb-32 lg:pt-24 lg:pb-36 clip-diagonal overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(#E5E7EB_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+      
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        
+        <!-- Left Column: Copy & Actions -->
+        <div class="lg:w-1/2 text-center lg:text-left z-10">
+          
+          <!-- New Slogan Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-crimson-50 text-crimson-800 text-xs sm:text-sm font-extrabold uppercase tracking-widest border border-crimson-200/80 mb-4 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-crimson-600 animate-pulse"></span>
+            Push to Talk. Ready to Act.
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-navy-800 leading-tight mb-4 tracking-tight">
+            TACTICAL PUSH-TO-TALK <br class="hidden sm:inline" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-crimson-800 to-crimson-600">OVER CELLULAR</span>
           </h1>
-          <p class="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            High-performance PoC Radios designed for seamless nationwide communication. Reliable, rugged, and engineered for those who demand excellence in the field.
+
+          <p class="text-sm sm:text-base lg:text-lg text-gray-600 mb-6 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Defense-grade PoC radios engineered for flawless, nationwide push-to-talk communication. Built to survive extreme environments with zero downtime.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="#systems" class="bg-crimson-800 hover:bg-crimson-900 text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest transition-all shadow-md hover:shadow-lg text-sm text-center">
-              View Catalog
+
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+            <a href="#systems" class="bg-crimson-800 hover:bg-crimson-900 text-white px-6 sm:px-8 py-3 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm text-center shadow-md hover:shadow-lg transition-all active:scale-95">
+              Explore Systems
             </a>
-            <a href="#contact" class="border-2 border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest transition-all text-sm text-center">
-              Consult an Expert
+            <a href="https://wa.me/584149428999?text=Hello%20G-TECH,%20I%20would%20like%20to%20consult%20with%20a%20tactical%20hardware%20engineer." target="_blank" class="border-2 border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-white px-6 sm:px-8 py-3 rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm text-center transition-all active:scale-95">
+              Consult an Engineer
             </a>
           </div>
+
+          <!-- Quick Trust Indicators -->
+          <div class="mt-6 sm:mt-8 pt-4 border-t border-gray-100 flex items-center justify-center lg:justify-start gap-4 sm:gap-6 text-[11px] sm:text-xs text-gray-500 font-semibold uppercase tracking-wider">
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Nationwide 4G</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-navy-600"></span> Mil-Spec Tested</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-crimson-600"></span> Instant Dispatch</span>
+          </div>
         </div>
-        <div class="lg:w-1/2 relative w-full">
-          <!-- Decorative UI Element for Hero -->
-          <div class="relative w-full max-w-sm sm:max-w-md mx-auto">
-            <div class="absolute inset-0 bg-navy-800 rounded-full opacity-5 blur-3xl"></div>
-            <div class="relative bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col justify-center items-center">
-              <div class="w-full flex justify-between items-center mb-6 border-b pb-4">
-                <span class="text-xs font-bold text-gray-400 uppercase">Network Status</span>
-                <span class="flex items-center gap-2 text-xs font-bold text-green-600">
-                  <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                  ONLINE
-                </span>
+
+        <!-- Right Column: Avatar Stage with Tactical Aura & Floating Telemetry -->
+        <div class="lg:w-1/2 relative w-full flex items-center justify-center">
+          <div class="relative w-full max-w-[320px] sm:max-w-sm lg:max-w-md mx-auto flex items-end justify-center">
+            
+            <!-- Animated Background Tactical Aura -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-navy-800/10 via-crimson-800/5 to-transparent rounded-full filter blur-2xl -z-10 avatar-glow"></div>
+            <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-navy-800/10 -z-10 animate-radar-spin"></div>
+            <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full -z-10 radar-sweep"></div>
+            <div class="absolute w-48 h-48 sm:w-60 sm:h-60 rounded-full border border-dashed border-crimson-800/20 -z-10 animate-radar-spin" style="animation-duration: 30s; animation-direction: reverse;"></div>
+
+            <!-- Floating Badge 1: Top Left -->
+            <div class="absolute top-6 -left-2 sm:left-0 bg-white/95 backdrop-blur-sm border border-gray-200/80 px-3 py-1.5 rounded-xl shadow-lg z-20 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <div class="text-left">
+                <span class="block text-[9px] font-bold text-gray-400 uppercase leading-none">Network</span>
+                <span class="text-[11px] font-extrabold text-navy-800">4G LTE Active</span>
               </div>
-              <img src="/images/BQ-K8-poster.webp" alt="G-TECH BQ-K8" class="w-auto max-h-60 sm:max-h-72 md:max-h-80 object-contain rounded-xl shadow-lg mb-6 border border-gray-200">
-              <h3 class="text-navy-800 font-bold text-xl mb-2">G-TECH.US PoC Systems</h3>
-              <p class="text-gray-500 text-sm text-center">Nationwide Coverage Active</p>
             </div>
+
+            <!-- Floating Badge 2: Bottom Right -->
+            <div class="absolute bottom-8 -right-2 sm:right-0 bg-white/95 backdrop-blur-sm border border-gray-200/80 px-3 py-1.5 rounded-xl shadow-lg z-20 flex items-center gap-2">
+              <svg class="w-4 h-4 text-crimson-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+              <div class="text-left">
+                <span class="block text-[9px] font-bold text-gray-400 uppercase leading-none">Security</span>
+                <span class="text-[11px] font-extrabold text-navy-800">AES-256 Encrypted</span>
+              </div>
+            </div>
+
+            <!-- Brand Cutout Avatar -->
+            <img src="/images/hero-avatar.webp" 
+                 alt="G-TECH.US Tactical Communications Expert" 
+                 class="relative z-10 w-full max-h-[380px] sm:max-h-[440px] object-contain drop-shadow-2xl [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)] select-none pointer-events-none" />
           </div>
         </div>
+
       </div>
     </section>
 
@@ -115,7 +152,7 @@
           <h2 class="text-3xl md:text-4xl font-extrabold text-navy-800">PoC Radios Catalog</h2>
         </div>
         
-        <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+        <div id="catalog-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-6 px-2 sm:px-6">
           <!-- Populated dynamically via JS -->
         </div>
       </div>

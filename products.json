@@ -9,7 +9,7 @@
     "stockStatus": "in_stock",
     "stockCount": 45,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "Si buscas máxima recepción dual con teclado DTMF, el Tri-Mode agrega frecuencias analógicas directas VHF/UHF.",
+    "fallbackReason": "Looking for maximum dual reception with a DTMF keypad? Tri-Mode adds direct VHF/UHF analog frequencies.",
     "specs": [
       { "label": "Network", "value": "4G LTE Nationwide PoC" },
       { "label": "Antenna System", "value": "Dual (UV Whip + LTE Stub)" },
@@ -21,13 +21,13 @@
     "comparison": {
       "connectivity": "Dual-Antenna 4G LTE PoC",
       "protection": "Mil-Spec Drop Resistant",
-      "batteryRuntime": "28 Horas (Turno Extendido)",
-      "audioOutput": "2.0W Altavoz de Alta Presión",
-      "controls": "Teclado Alfanumérico DTMF Completo",
-      "formFactor": "Portátil Táctico con Antenas Duales",
+      "batteryRuntime": "28 Hours (Extended Shift)",
+      "audioOutput": "2.0W High-Pressure Speaker",
+      "controls": "Full DTMF Alphanumeric Keypad",
+      "formFactor": "Tactical Handheld (Dual Antenna)",
       "antenna": "Dual Port (UV Whip + LTE Stub)",
-      "emergency": "Alarma de Emergencia + Canal de Guardia",
-      "videoVision": "No disponible (Telemetría de Audio)",
+      "emergency": "Emergency Alarm + Guard Channel",
+      "videoVision": "Not available (Audio Telemetry)",
       "certifications": "CE / FCC Approved"
     },
     "tags": ["dual-antenna", "keypad", "tactical", "security", "long-shift"]
@@ -42,7 +42,7 @@
     "stockStatus": "in_stock",
     "stockCount": 32,
     "fallbackSimilarId": "WA0055-GlobalLTE",
-    "fallbackReason": "El Global LTE ofrece pantalla HD similar con antena integrada y navegación de 3 teclas para despacho rápido.",
+    "fallbackReason": "Global LTE offers a similar HD display with integrated antenna and 3-key navigation for rapid dispatch.",
     "specs": [
       { "label": "Network", "value": "4G LTE / Wi-Fi PoC" },
       { "label": "Navigation", "value": "Simplified 3-Key Dispatch" },
@@ -53,14 +53,14 @@
     ],
     "comparison": {
       "connectivity": "4G LTE / Wi-Fi PoC",
-      "protection": "IP67 Resistente a Agua y Polvo",
-      "batteryRuntime": "22 Horas (Turno Estándar)",
-      "audioOutput": "1.5W con Cancelación DSP",
-      "controls": "Navegación Simplificada 3 Teclas",
-      "formFactor": "Terminal Inteligente Vertical Ultracompacto",
-      "antenna": "Stubby Integrada Protegida",
-      "emergency": "Botón SOS en Pantalla Táctil",
-      "videoVision": "No disponible",
+      "protection": "IP67 Water & Dust Resistant",
+      "batteryRuntime": "22 Hours (Standard Shift)",
+      "audioOutput": "1.5W with DSP Cancellation",
+      "controls": "Simplified 3-Key Navigation",
+      "formFactor": "Ultra-Compact Vertical Smart Terminal",
+      "antenna": "Protected Integrated Stubby",
+      "emergency": "On-Screen SOS Button",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Approved"
     },
     "tags": ["smart-terminal", "3-key", "compact", "dispatch", "global-lte"]
@@ -75,7 +75,7 @@
     "stockStatus": "in_stock",
     "stockCount": 28,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "El Tri-Mode ofrece UHF 3W + VHF + 4G PoC con teclado DTMF completo y monitoreo dual A/B.",
+    "fallbackReason": "Tri-Mode offers UHF 3W + VHF + 4G PoC with a full DTMF keypad and dual A/B monitoring.",
     "specs": [
       { "label": "RF Output Power", "value": "3 Watts" },
       { "label": "Frequency Band", "value": "UHF 400 - 470 MHz" },
@@ -85,15 +85,15 @@
       { "label": "Certifications", "value": "CE / FCC Certified" }
     ],
     "comparison": {
-      "connectivity": "Híbrido UHF 3W Analógico + 4G PoC",
-      "protection": "Carcasa Rugerizada Mil-Spec",
-      "batteryRuntime": "24 Horas (Operación Mixta)",
-      "audioOutput": "2.0W con Supresión de Ruido",
-      "controls": "Duales Perillas Rotatorias + Teclas Dedicadas",
-      "formFactor": "Terminal Híbrido de Mano",
-      "antenna": "Látigo UHF de Alta Ganancia",
-      "emergency": "Tecla Call Dedicada + Alerta",
-      "videoVision": "No disponible",
+      "connectivity": "Hybrid UHF 3W Analog + 4G PoC",
+      "protection": "Ruggedized Mil-Spec Housing",
+      "batteryRuntime": "24 Hours (Mixed Operation)",
+      "audioOutput": "2.0W with Noise Suppression",
+      "controls": "Dual Rotary Knobs + Dedicated Keys",
+      "formFactor": "Hybrid Handheld Terminal",
+      "antenna": "High-Gain UHF Whip",
+      "emergency": "Dedicated Call Key + Alert",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Certified"
     },
     "tags": ["hybrid-rf", "dual-knob", "uhf", "tactical", "vehicle"]
@@ -108,7 +108,7 @@
     "stockStatus": "in_stock",
     "stockCount": 67,
     "fallbackSimilarId": "G-510",
-    "fallbackReason": "El G-510 Pocket PoC ofrece antena stubby protegida y tecla programable P1 en factor de forma de bolsillo.",
+    "fallbackReason": "G-510 Pocket PoC offers a protected stubby antenna and programmable P1 key in a pocket-sized form factor.",
     "specs": [
       { "label": "Form Factor", "value": "Wearable Clip-On Transceiver" },
       { "label": "PTT Interface", "value": "Oversized Central Tactile Key" },
@@ -119,14 +119,14 @@
     ],
     "comparison": {
       "connectivity": "4G LTE Nationwide PoC",
-      "protection": "IP65 Resistente a Salpicaduras",
-      "batteryRuntime": "18 Horas (Turno Compacto)",
-      "audioOutput": "1.5W Altavoz Integrado",
-      "controls": "PTT Sobredimensionado Central + Teclas Laterales",
-      "formFactor": "Clip Solapero Ultraliviano (85g)",
-      "antenna": "Integrada Oculta",
-      "emergency": "Alerta Silenciosa por PTT Largo",
-      "videoVision": "No disponible",
+      "protection": "IP65 Splash Resistant",
+      "batteryRuntime": "18 Hours (Compact Shift)",
+      "audioOutput": "1.5W Integrated Speaker",
+      "controls": "Oversized Central PTT + Side Keys",
+      "formFactor": "Ultra-Lightweight Lapel Clip (85g)",
+      "antenna": "Hidden Integrated Antenna",
+      "emergency": "Silent Alert via Long PTT Press",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Approved"
     },
     "tags": ["wearable", "clip-on", "lightweight", "security", "hospitality", "voice-only"]
@@ -141,7 +141,7 @@
     "stockStatus": "low_stock",
     "stockCount": 8,
     "fallbackSimilarId": "Model-G-M2",
-    "fallbackReason": "El G-M2 Wearable ofrece PTT central sobredimensionado y clip para porte manos libres.",
+    "fallbackReason": "G-M2 Wearable offers an oversized central PTT and clip for hands-free carry.",
     "specs": [
       { "label": "Network", "value": "4G LTE Worldwide Cellular" },
       { "label": "Keypad", "value": "Menu, Up/Down, Back, Power, P1" },
@@ -151,15 +151,15 @@
       { "label": "Certifications", "value": "CE / FCC Approved" }
     ],
     "comparison": {
-      "connectivity": "4G LTE Mundial PoC",
-      "protection": "IP67 Sumergible Temporal",
-      "batteryRuntime": "26 Horas (Turno Extendido)",
-      "audioOutput": "1.8W Grille Acústica de Alta Claridad",
-      "controls": "5 Teclas + Tecla Programable P1",
-      "formFactor": "Bolsillo Ultracompacto Ergonómico",
-      "antenna": "Stubby Fija Protegida",
-      "emergency": "Tecla P1 Programable para SOS",
-      "videoVision": "No disponible",
+      "connectivity": "4G LTE Worldwide PoC",
+      "protection": "IP67 Temporarily Submersible",
+      "batteryRuntime": "26 Hours (Extended Shift)",
+      "audioOutput": "1.8W High-Clarity Acoustic Grille",
+      "controls": "5 Keys + Programmable P1 Key",
+      "formFactor": "Ergonomic Ultra-Compact Pocket",
+      "antenna": "Protected Fixed Stubby",
+      "emergency": "Programmable P1 Key for SOS",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Approved"
     },
     "tags": ["pocket", "compact", "stubby", "voice-only", "long-shift"]
@@ -174,7 +174,7 @@
     "stockStatus": "in_stock",
     "stockCount": 21,
     "fallbackSimilarId": "G-889",
-    "fallbackReason": "El G-889 Dual-Antenna ofrece antenas duales y teclado DTMF completo con mayor sensibilidad RF.",
+    "fallbackReason": "G-889 Dual-Antenna offers dual antennas and a full DTMF keypad with greater RF sensitivity.",
     "specs": [
       { "label": "Flashlight", "value": "Integrated Tactical LED" },
       { "label": "PTT", "value": "High-Vis Lime Green Side Key" },
@@ -185,14 +185,14 @@
     ],
     "comparison": {
       "connectivity": "4G LTE PoC Push-To-Talk",
-      "protection": "Compuesto Reforzado Anti-Caídas",
-      "batteryRuntime": "24 Horas (Operación Táctica)",
-      "audioOutput": "2.0W con Cancelación DSP",
-      "controls": "Teclado DTMF Completo + PTT Verde Táctico",
-      "formFactor": "Terminal Táctico de Mano Reforzado",
-      "antenna": "Stubby Táctica Protegida",
-      "emergency": "Linterna LED Estroboscópica + Alarma",
-      "videoVision": "No disponible",
+      "protection": "Reinforced Drop-Resistant Composite",
+      "batteryRuntime": "24 Hours (Tactical Operation)",
+      "audioOutput": "2.0W with DSP Cancellation",
+      "controls": "Full DTMF Keypad + Tactical Green PTT",
+      "formFactor": "Reinforced Tactical Handheld",
+      "antenna": "Protected Tactical Stubby",
+      "emergency": "Strobe LED Flashlight + Alarm",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Certified"
     },
     "tags": ["tactical", "keypad", "flashlight", "security", "long-shift"]
@@ -207,7 +207,7 @@
     "stockStatus": "in_stock",
     "stockCount": 15,
     "fallbackSimilarId": "P0-Ex-Blue",
-    "fallbackReason": "La edición ATEX Blue mantiene flotabilidad IP68 y añade certificación antiexplosión para entornos peligrosos.",
+    "fallbackReason": "The ATEX Blue edition keeps IP68 buoyancy and adds explosion-proof certification for hazardous environments.",
     "specs": [
       { "label": "Buoyancy", "value": "Floats on Water (Positive)" },
       { "label": "Waterproof", "value": "IP68 Submersible Sealed" },
@@ -218,14 +218,14 @@
     ],
     "comparison": {
       "connectivity": "4G LTE Cellular PoC",
-      "protection": "IP68 Flotante / Cámara Acústica Auto-Desaloje",
-      "batteryRuntime": "22 Horas (Marítimo Continuo)",
-      "audioOutput": "2.0W Cámara Acústica Desaloja Agua",
-      "controls": "Teclado Frontal Sellado 4 Teclas",
-      "formFactor": "Marino Flotante de Mano (Tactical Black)",
-      "antenna": "Stubby Marina Sellada",
-      "emergency": "Flotabilidad Positiva + Alerta Visual",
-      "videoVision": "No disponible",
+      "protection": "IP68 Floating / Self-Draining Acoustic Chamber",
+      "batteryRuntime": "22 Hours (Continuous Maritime)",
+      "audioOutput": "2.0W Water-Draining Acoustic Chamber",
+      "controls": "Sealed 4-Key Front Keypad",
+      "formFactor": "Floating Marine Handheld (Tactical Black)",
+      "antenna": "Sealed Marine Stubby",
+      "emergency": "Positive Buoyancy + Visual Alert",
+      "videoVision": "Not available",
       "certifications": "CE / FCC / IP68 / MIL-STD-810H"
     },
     "tags": ["marine", "floating", "ip68", "water-rescue", "global-lte"]
@@ -240,7 +240,7 @@
     "stockStatus": "out_of_stock",
     "stockCount": 0,
     "fallbackSimilarId": "G-P0-Black",
-    "fallbackReason": "El P0 Tactical Black mantiene idéntica flotabilidad IP68 y cámara acústica sin certificación ATEX.",
+    "fallbackReason": "P0 Tactical Black keeps identical IP68 buoyancy and acoustic chamber without ATEX certification.",
     "specs": [
       { "label": "Safety Standard", "value": "Ex Explosion-Proof Certified" },
       { "label": "Buoyancy", "value": "Floats on Water (Positive)" },
@@ -251,14 +251,14 @@
     ],
     "comparison": {
       "connectivity": "4G LTE Cellular PoC",
-      "protection": "ATEX Zone 1/21 + IP68 Flotante",
-      "batteryRuntime": "20 Horas (Seguridad Intrínseca)",
-      "audioOutput": "1.8W Cámara Acústica Certificada Ex",
-      "controls": "Teclado Sellado Anti-Chispas 4 Teclas",
-      "formFactor": "Marino Flotante ATEX (Safety Blue)",
-      "antenna": "Stubby Marina Intrínsecamente Segura",
-      "emergency": "Flotabilidad + Certificación Ex + Alerta",
-      "videoVision": "No disponible",
+      "protection": "ATEX Zone 1/21 + IP68 Floating",
+      "batteryRuntime": "20 Hours (Intrinsic Safety)",
+      "audioOutput": "1.8W Ex-Certified Acoustic Chamber",
+      "controls": "Sealed 4-Key Spark-Proof Keypad",
+      "formFactor": "Floating Marine ATEX (Safety Blue)",
+      "antenna": "Intrinsically Safe Marine Stubby",
+      "emergency": "Buoyancy + Ex Certification + Alert",
+      "videoVision": "Not available",
       "certifications": "ATEX Ex / IECEx / IP68 / CE / FCC / MIL-STD-810H"
     },
     "tags": ["marine", "atex", "floating", "explosion-proof", "oil-gas", "global-lte"]
@@ -273,7 +273,7 @@
     "stockStatus": "in_stock",
     "stockCount": 19,
     "fallbackSimilarId": "WA0064-LongRange",
-    "fallbackReason": "El Long-Range Command puede configurarse como base vehicular con antena de alta ganancia y triple dial.",
+    "fallbackReason": "Long-Range Command can be configured as a vehicle base station with a high-gain antenna and triple dial.",
     "specs": [
       { "label": "Application", "value": "In-Vehicle Fleet / Base Station" },
       { "label": "Microphone", "value": "Heavy-Duty Branded Palm Mic" },
@@ -283,16 +283,16 @@
       { "label": "Coverage", "value": "Nationwide Unlimited PoC" }
     ],
     "comparison": {
-      "connectivity": "4G LTE PoC Vehicular Ilimitado",
-      "protection": "Chasis Metálico Disipador Térmico",
-      "batteryRuntime": "Ilimitada (Alimentación Vehicular 12V/24V)",
-      "audioOutput": "3.0W Altavoz Externo + Micrófono Palma",
-      "controls": "SOS Retroiluminado + Dial Volumen + Teclas Grupo",
-      "formFactor": "Transceptor Móvil Fijo Tablero",
-      "antenna": "Puerto Externo para Antena Vehicular",
-      "emergency": "SOS Dedicado Retroiluminado + INFO",
-      "videoVision": "No disponible",
-      "certifications": "CE / FCC / E-Mark Vehicular"
+      "connectivity": "Unlimited 4G LTE Vehicular PoC",
+      "protection": "Heat-Dissipating Metal Chassis",
+      "batteryRuntime": "Unlimited (12V/24V Vehicle Powered)",
+      "audioOutput": "3.0W External Speaker + Palm Mic",
+      "controls": "Backlit SOS + Volume Dial + Group Keys",
+      "formFactor": "Fixed Dashboard Mobile Transceiver",
+      "antenna": "External Vehicle Antenna Port",
+      "emergency": "Dedicated Backlit SOS + INFO",
+      "videoVision": "Not available",
+      "certifications": "CE / FCC / Vehicular E-Mark"
     },
     "tags": ["vehicle", "fleet", "mobile", "base-station", "12v-24v", "global-lte"]
   },
@@ -306,7 +306,7 @@
     "stockStatus": "in_stock",
     "stockCount": 34,
     "fallbackSimilarId": "G-280-2",
-    "fallbackReason": "El G-280-2 Dual-Mode ofrece perillas duales similares con UHF 3W analógico + 4G PoC.",
+    "fallbackReason": "G-280-2 Dual-Mode offers similar dual knobs with analog UHF 3W + 4G PoC.",
     "specs": [
       { "label": "Housing", "value": "Reinforced Exoskeleton (Black / OD Green)" },
       { "label": "Controls", "value": "Dual Top Knobs (Channel & Volume)" },
@@ -317,14 +317,14 @@
     ],
     "comparison": {
       "connectivity": "4G LTE PoC Push-To-Talk",
-      "protection": "Exoesqueleto Absorbente Mil-Spec 810H",
-      "batteryRuntime": "30 Horas (Turno Doble)",
-      "audioOutput": "2.5W Rejilla Ranurada Alta Acústica",
-      "controls": "Dual Top Knobs (Canal/Volumen) + SOS Frontal",
-      "formFactor": "Blindado Dual-Knob (Black / OD Green)",
-      "antenna": "Stubby Táctica Reforzada",
-      "emergency": "SOS Frontal Instantáneo + Baliza Audible",
-      "videoVision": "No disponible",
+      "protection": "Shock-Absorbing Mil-Spec 810H Exoskeleton",
+      "batteryRuntime": "30 Hours (Double Shift)",
+      "audioOutput": "2.5W Slotted High-Acoustic Grille",
+      "controls": "Dual Top Knobs (Channel/Volume) + Front SOS",
+      "formFactor": "Armored Dual-Knob (Black / OD Green)",
+      "antenna": "Reinforced Tactical Stubby",
+      "emergency": "Instant Front SOS + Audible Beacon",
+      "videoVision": "Not available",
       "certifications": "CE / FCC / MIL-STD-810H"
     },
     "tags": ["dual-knob", "mil-spec", "armor", "sos", "tactical", "voice-only"]
@@ -339,7 +339,7 @@
     "stockStatus": "in_stock",
     "stockCount": 12,
     "fallbackSimilarId": "G-889",
-    "fallbackReason": "El G-889 Dual-Antenna ofrece dual antenna PoC con teclado DTMF sin frecuencias analógicas directas.",
+    "fallbackReason": "G-889 Dual-Antenna offers dual-antenna PoC with a DTMF keypad without direct analog frequencies.",
     "specs": [
       { "label": "Operating Modes", "value": "VHF + UHF Direct RF + 4G PoC" },
       { "label": "Antenna System", "value": "Dual Port (UV Whip + LTE Stubby)" },
@@ -349,15 +349,15 @@
       { "label": "Coverage", "value": "Direct Line-of-Sight + Global LTE" }
     ],
     "comparison": {
-      "connectivity": "Tri-Modo: VHF + UHF Direct RF + 4G PoC",
+      "connectivity": "Tri-Mode: VHF + UHF Direct RF + 4G PoC",
       "protection": "MIL-STD-810H / IP67",
-      "batteryRuntime": "26 Horas (Tri-Modo Activo)",
-      "audioOutput": "2.2W DSP Cancelación Ruido Ambiental",
-      "controls": "Teclado DTMF Completo + V/M + Menu",
-      "formFactor": "Terminal Híbrido Táctico de Mano",
-      "antenna": "Dual Independiente (UV Whip + LTE Stub)",
-      "emergency": "Canal Guardia 16/9 + Alarma Emergencia",
-      "videoVision": "No disponible (Telemetría Avanzada)",
+      "batteryRuntime": "26 Hours (Tri-Mode Active)",
+      "audioOutput": "2.2W DSP Ambient Noise Cancellation",
+      "controls": "Full DTMF Keypad + V/M + Menu",
+      "formFactor": "Tactical Hybrid Handheld Terminal",
+      "antenna": "Independent Dual (UV Whip + LTE Stub)",
+      "emergency": "Guard Channel 16/9 + Emergency Alarm",
+      "videoVision": "Not available (Advanced Telemetry)",
       "certifications": "CE / FCC / MIL-STD-810H / DMR Tier II"
     },
     "tags": ["hybrid-rf", "tri-mode", "vhf", "uhf", "dtmf", "tactical", "dual-antenna"]
@@ -372,7 +372,7 @@
     "stockStatus": "out_of_stock",
     "stockCount": 0,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "El Tri-Mode ofrece VHF/UHF/4G PoC con antenas duales y teclado DTMF en factor de forma de mano.",
+    "fallbackReason": "Tri-Mode offers VHF/UHF/4G PoC with dual antennas and DTMF keypad in a handheld form factor.",
     "specs": [
       { "label": "RF Bands", "value": "UHF + VHF Direct RF + 4G LTE PoC" },
       { "label": "Antenna", "value": "Extended High-Gain Tactical Whip" },
@@ -383,14 +383,14 @@
     ],
     "comparison": {
       "connectivity": "Tri-Modo: VHF + UHF Direct RF + 4G PoC",
-      "protection": "Carcasa Blindada Impact-Shielded",
-      "batteryRuntime": "36 Horas (Comando Extendido)",
-      "audioOutput": "2.5W Potencia Máxima con DSP",
-      "controls": "Triple Dial Rotatorio + D-Pad Navegación",
-      "formFactor": "Comando Táctico de Alto Alcance",
-      "antenna": "Látigo Ultra-Alta Ganancia Extendido",
-      "emergency": "SOS + Baliza + Grips Naranja Visibles",
-      "videoVision": "No disponible",
+      "protection": "Impact-Shielded Heavy-Duty Housing",
+      "batteryRuntime": "36 Hours (Extended Command)",
+      "audioOutput": "2.5W Maximum Power with DSP",
+      "controls": "Triple Rotary Dials + Navigation D-Pad",
+      "formFactor": "High-Range Tactical Command",
+      "antenna": "Extended Ultra-High-Gain Whip",
+      "emergency": "SOS + Beacon + Visible Orange Grips",
+      "videoVision": "Not available",
       "certifications": "CE / FCC / MIL-STD-810H"
     },
     "tags": ["tri-mode", "vhf", "uhf", "long-range", "command", "dual-knob", "tactical"]
@@ -405,7 +405,7 @@
     "stockStatus": "in_stock",
     "stockCount": 41,
     "fallbackSimilarId": "G-F1",
-    "fallbackReason": "El G-F1 Smart PoC ofrece pantalla vertical HD y navegación 3-teclas similar en formato más compacto.",
+    "fallbackReason": "G-F1 Smart PoC offers a vertical HD display and similar 3-key navigation in a more compact format.",
     "specs": [
       { "label": "Network", "value": "Global Multi-Band 4G LTE PoC" },
       { "label": "Antenna", "value": "Integrated Shielded LTE Antenna Block" },
@@ -417,13 +417,13 @@
     "comparison": {
       "connectivity": "Global Multi-Band 4G LTE PoC",
       "protection": "IP67 / MIL-STD-810G",
-      "batteryRuntime": "28 Horas (Cobertura Global)",
-      "audioOutput": "2.0W DSP Cancelación Acústica",
-      "controls": "Matriz Navegación 3 Teclas Rápidas",
-      "formFactor": "Táctico Global con Antena Blindada",
-      "antenna": "Bloque LTE Integrado Blindado",
-      "emergency": "Alerta Global + Canal Emergencia",
-      "videoVision": "No disponible",
+      "batteryRuntime": "28 Hours (Global Coverage)",
+      "audioOutput": "2.0W DSP Acoustic Cancellation",
+      "controls": "Rapid 3-Key Navigation Matrix",
+      "formFactor": "Global Tactical with Shielded Antenna",
+      "antenna": "Shielded Integrated LTE Block",
+      "emergency": "Global Alert + Emergency Channel",
+      "videoVision": "Not available",
       "certifications": "CE / FCC / MIL-STD-810G"
     },
     "tags": ["global-lte", "3-key", "dispatch", "tactical", "noise-cancelling"]
@@ -438,7 +438,7 @@
     "stockStatus": "in_stock",
     "stockCount": 26,
     "fallbackSimilarId": "WA0060-Armor",
-    "fallbackReason": "El Digital Armor ofrece dual-knob, SOS frontal y exoesqueleto Mil-Spec en colores tácticos.",
+    "fallbackReason": "Digital Armor offers dual-knob, front SOS, and a Mil-Spec exoskeleton in tactical colors.",
     "specs": [
       { "label": "Network", "value": "4G LTE Nationwide Push-to-Talk" },
       { "label": "Dispatch Keys", "value": "Individual Call, Group Call, Menu, Back" },
@@ -450,13 +450,13 @@
     "comparison": {
       "connectivity": "4G LTE Nationwide PoC",
       "protection": "IP67 Industrial Field-Grade",
-      "batteryRuntime": "24 Horas (Campo Intensivo)",
-      "audioOutput": "2.2W Altavoz Industrial Frontal",
-      "controls": "6 Teclas Despacho Táctico + Dial Superior",
-      "formFactor": "Campo Pesado con Anillo ID Azul",
-      "antenna": "Stubby Alta Ganancia Anillo Azul",
-      "emergency": "Llamada Individual/Grupo Dedicada",
-      "videoVision": "No disponible",
+      "batteryRuntime": "24 Hours (Intensive Field)",
+      "audioOutput": "2.2W Front Industrial Speaker",
+      "controls": "6 Tactical Dispatch Keys + Top Dial",
+      "formFactor": "Heavy-Duty Field with Blue ID Ring",
+      "antenna": "High-Gain Stubby with Blue Ring",
+      "emergency": "Dedicated Individual/Group Call",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Compliance"
     },
     "tags": ["tactical", "field", "dispatch", "rotary-knob", "voice-only"]
@@ -471,7 +471,7 @@
     "stockStatus": "in_stock",
     "stockCount": 53,
     "fallbackSimilarId": "G-F1",
-    "fallbackReason": "El G-F1 Smart PoC ofrece terminal inteligente con pantalla vertical HD para despacho corporativo.",
+    "fallbackReason": "G-F1 Smart PoC offers a smart terminal with a vertical HD display for corporate dispatch.",
     "specs": [
       { "label": "Finishes", "value": "Gunmetal Gray, Obsidian Black, Desert Tan" },
       { "label": "Screen Telemetry", "value": "Live 4G, Battery, Group Name & Clock" },
@@ -483,13 +483,13 @@
     "comparison": {
       "connectivity": "4G LTE Nationwide PoC",
       "protection": "IP54 Comercial Premium",
-      "batteryRuntime": "20 Horas (Jornada Comercial)",
-      "audioOutput": "1.5W Matriz Acústica Perforada Precisión",
-      "controls": "Jog Dial Central Minimalista + Atajos",
-      "formFactor": "Ultra-Slim Comercial (3 Acabados)",
-      "antenna": "Integrada Oculta Comercial",
-      "emergency": "Atajo Rápido a Grupo Emergencia",
-      "videoVision": "No disponible",
+      "batteryRuntime": "20 Hours (Commercial Day)",
+      "audioOutput": "1.5W Precision Perforated Acoustic Matrix",
+      "controls": "Minimalist Center Jog Dial + Shortcuts",
+      "formFactor": "Ultra-Slim Commercial (3 Finishes)",
+      "antenna": "Hidden Commercial Integrated Antenna",
+      "emergency": "Quick Emergency Group Shortcut",
+      "videoVision": "Not available",
       "certifications": "CE / FCC Commercial Grade"
     },
     "tags": ["commercial", "slim", "corporate", "hospitality", "events", "global-lte"]
@@ -504,7 +504,7 @@
     "stockStatus": "low_stock",
     "stockCount": 6,
     "fallbackSimilarId": "G-H28",
-    "fallbackReason": "El G-H28 Tactical ofrece linterna LED estroboscópica, PTT verde táctico y teclado DTMF completo sin video.",
+    "fallbackReason": "G-H28 Tactical offers a strobe LED flashlight, tactical green PTT, and full DTMF keypad without video.",
     "specs": [
       { "label": "Video Resolution", "value": "1080p Full HD Video Recording" },
       { "label": "Night Vision", "value": "8 High-Intensity Infrared LEDs" },
@@ -516,13 +516,13 @@
     "comparison": {
       "connectivity": "4G LTE PoC + GPS Live Tracking",
       "protection": "IP67 / MIL-STD-810H Bodycam Grade",
-      "batteryRuntime": "12 Horas (Video + PoC Simultáneo)",
-      "audioOutput": "2.0W Voz Bidireccional + Grabación",
-      "controls": "One-Touch Record + PTT + SOS Frontal",
-      "formFactor": "Bodycam Wearable Integrado",
-      "antenna": "LTE Integrada + GPS",
+      "batteryRuntime": "12 Hours (Simultaneous Video + PoC)",
+      "audioOutput": "2.0W Two-Way Voice + Recording",
+      "controls": "One-Touch Record + PTT + Front SOS",
+      "formFactor": "Integrated Wearable Bodycam",
+      "antenna": "Integrated LTE + GPS",
       "emergency": "Flash Alarm + SOS Beacon + GPS Locator",
-      "videoVision": "1080p Full HD + 8 IR LEDs Visión Nocturna",
+      "videoVision": "1080p Full HD + 8 IR Night-Vision LEDs",
       "certifications": "CE / FCC / MIL-STD-810H / IP67"
     },
     "tags": ["bodycam", "video", "night-vision", "gps", "security", "law-enforcement", "global-lte"]
