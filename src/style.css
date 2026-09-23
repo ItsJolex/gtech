@@ -86,6 +86,65 @@
   .animate-bounce-subtle {
     animation: bounceSubtle 0.2s ease-out;
   }
+
+  /* Transition animations for Deep Specs */
+  @keyframes photoMorphToTop {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-16px) scale(0.95);
+      opacity: 0.85;
+    }
+    100% {
+      transform: translateY(-24px) scale(0.92);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes deepSpecsSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-photo-morph {
+    animation: photoMorphToTop 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-deep-specs-in {
+    animation: deepSpecsSlideUp 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Custom scrollbar for modal deep specs dossier */
+  #modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+
+  #modal-content::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  #modal-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #modal-content::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  #modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+  }
   
   @keyframes slideInRight {
     from { transform: translateX(100%); }

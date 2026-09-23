@@ -1,7 +1,178 @@
 import productsData from '../products.json';
+import type { Product } from './types';
 import { initCart, openCartDrawer, closeCartDrawer, addToCart, subscribe as subscribeCart } from './cart';
 import { initComparison } from './comparison';
 import { initFinder, resetFinder } from './finder';
+
+function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
+  const stockBadge = !p.inStock
+    ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-800 text-xs font-bold uppercase tracking-wider">SOLD OUT</span>'
+    : p.stockStatus === 'low_stock'
+      ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider">LOW STOCK</span>'
+      : '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">IN STOCK</span>';
+
+  return `
+    <div class="relative ${fromModal ? 'animate-deep-specs-in' : 'animate-fade-in'}">
+      <!-- Top Action Bar -->
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+          ${fromModal ? `
+            <button onclick="window.openModal('${p.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+              Back to Overview
+            </button>
+          ` : `
+            <span class="text-xs font-extrabold uppercase tracking-widest text-crimson-700 bg-crimson-50 px-2.5 py-1 rounded-md border border-crimson-100">
+              Technical Dossier
+            </span>
+          `}
+          <span class="text-xs text-gray-500 font-medium">Model ID: ${p.id}</span>
+        </div>
+
+        <button onclick="closeModal()" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- IMAGE AT THE TOP -->
+      <div id="deep-specs-top-hero" class="w-full max-w-md mx-auto aspect-[16/10] sm:h-64 bg-gradient-to-b from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center p-4 border border-gray-200/80 relative mb-6 shadow-sm overflow-hidden group">
+        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain max-h-56 filter drop-shadow-md group-hover:scale-105 transition-transform duration-300">
+
+        <div class="absolute top-2 left-2 flex items-center gap-1.5">
+          <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+            ${p.badge}
+          </span>
+          ${stockBadge}
+        </div>
+
+        <!-- SIM Quick Action Button in Deep Hero -->
+        <button onclick="window.openSimPricingModal('${p.id}')"
+                class="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-md flex items-center gap-1.5 transition-all hover:scale-105 text-xs font-bold text-emerald-300">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
+          SIM Coverage Rates
+        </button>
+      </div>
+
+      <!-- PRODUCT TITLE & BRIEF -->
+      <div class="text-center max-w-2xl mx-auto mb-6">
+        <h2 class="text-xl sm:text-2xl font-black text-navy-900 tracking-tight mb-2">${p.name}</h2>
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${p.description}</p>
+      </div>
+
+      <!-- EXTENSIVE SPECIFICATIONS DOSSIER (SCROLLABLE BELOW) -->
+      <div class="space-y-4 mb-6">
+        <!-- Section 1: Radio Frequency & Network Connectivity -->
+        <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-crimson-600"></span>
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">RF, Cellular & Telemetry Architecture</h3>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Network Telemetry</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.connectivity}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Antenna Port System</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.antenna}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">SIM & Encryption</span>
+              <span class="text-xs sm:text-sm font-bold text-emerald-700">Multi-IMSI 4G / AES-256 Voice</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Audio, Keypad & Dispatch Controls -->
+        <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">Acoustics & Operational Controls</h3>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Speaker Output Pressure</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.audioOutput}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Interface & Keypad</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.controls}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Emergency Protocol</span>
+              <span class="text-xs sm:text-sm font-bold text-crimson-700">${p.comparison.emergency}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Battery Runtime, Form Factor & Rugged Durability -->
+        <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">Endurance, Ingress & Field Standards</h3>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Shift Battery Endurance</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.batteryRuntime}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Ingress & Durability Rating</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.protection}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Chassis Form Factor</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.formFactor}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Optics & Video Sensor</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.videoVision}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Regulatory Approvals</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.certifications}</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Operating Temperature</span>
+              <span class="text-xs sm:text-sm font-bold text-navy-900">-20°C to +60°C (-4°F to 140°F)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Granular Hardware Specs Matrix -->
+        <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900 mb-3">Field Specifications Breakdown</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${p.specs.map(s => `
+              <div class="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-lg border border-gray-100 text-xs">
+                <span class="text-gray-500 font-medium">${s.label}</span>
+                <span class="font-bold text-navy-800 text-right">${s.value}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Action Footer -->
+      <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
+        <button onclick="closeModal()" class="w-full sm:w-auto px-5 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+          Close Dossier
+        </button>
+        <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
+                class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson">
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span>${!p.inStock ? 'Alternative Available' : 'Add to Quotation'}</span>
+        </button>
+        <a href="https://wa.me/584149428999?text=Hello%20G-TECH,%20I'm%20inquiring%20about%20technical%20specs%20for%20the%20${encodeURIComponent(p.name)}"
+           target="_blank"
+           class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap">
+          <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span>WhatsApp Inquiry</span>
+        </a>
+      </div>
+    </div>
+  `;
+}
 
 const menuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -29,7 +200,7 @@ if (catalogContainer && modalOverlay && modalContent) {
   catalogContainer.innerHTML = productsData.map(product => `
     <div class="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-5 shadow-sm hover:shadow-md border border-gray-100 flex flex-col relative group cursor-pointer transition-all duration-200" onclick="openModal('${product.id}')">
 
-      <div class="aspect-square bg-gray-50 rounded-lg p-2 mb-2 relative overflow-hidden flex items-center justify-center border border-gray-100/60">
+      <div class="aspect-square bg-gray-50 rounded-lg p-2 mb-2 relative overflow-hidden flex items-center justify-center border border-gray-100/60 group/cardimg">
         <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy">
 
         <span class="absolute top-1.5 left-1.5 bg-navy-900/85 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[75%]">
@@ -58,9 +229,9 @@ if (catalogContainer && modalOverlay && modalContent) {
         </button>
 
         <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button -->
-        <button onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}')"
+        <button onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
                 class="absolute bottom-1.5 right-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec"
-                title="Deep-Dive Technical Specifications"
+                title="Full Technical Dossier (Specs & Architecture)"
                 aria-label="View detailed specifications">
           <!-- Question Mark / Info Silhouette SVG -->
           <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover/spec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -119,15 +290,39 @@ if (catalogContainer && modalOverlay && modalContent) {
         </button>
 
         <div class="flex flex-col md:flex-row gap-6 md:gap-8">
-          <div class="w-full md:w-1/2 aspect-[3/4] max-h-[380px] md:max-h-none bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-100 relative">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">
+<div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-[3/4] max-h-[380px] md:max-h-none bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-100 relative group/modalphoto">
+            <img id="modal-product-img" src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-300">
             ${!p.inStock ? `
-              <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <div class="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
                 <span class="bg-crimson-600 text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-lg shadow-xl">PRODUCT SOLD OUT</span>
               </div>
             ` : ''}
+
+            <!-- BOTTOM-LEFT: SIM Rates Overlay Button Inside Modal -->
+            <button onclick="window.openSimPricingModal('${p.id}')"
+                    class="absolute bottom-3 left-3 z-20 px-2.5 py-1.5 rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 group/msim"
+                    title="Cellular SIM Pricing & Roaming Rates">
+              <svg class="w-4 h-4 text-emerald-400 group-hover/msim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+                <rect x="8" y="10" width="8" height="8" rx="1"/>
+                <path d="M12 10v8M8 14h8"/>
+              </svg>
+              <span class="text-[11px] font-bold tracking-wider uppercase text-emerald-300">SIM Plans</span>
+            </button>
+
+            <!-- BOTTOM-RIGHT: Deep Specs Button Inside Modal (Triggers Kinetic Transition) -->
+            <button onclick="window.transitionToDeepDive('${p.id}')"
+                    class="absolute bottom-3 right-3 z-20 px-2.5 py-1.5 rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 group/mspec"
+                    title="Deep Technical Dossier & Extended Specifications">
+              <svg class="w-4 h-4 text-amber-300 group-hover/mspec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span class="text-[11px] font-bold tracking-wider uppercase text-amber-200">Full Specs</span>
+            </button>
           </div>
-          <div class="w-full md:w-1/2 flex flex-col justify-between">
+          <div id="modal-product-summary" class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
               <div class="pr-8 mb-2 flex items-center gap-3 flex-wrap">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-navy-800 leading-tight">${p.name}</h2>
@@ -302,9 +497,36 @@ if (catalogContainer && modalOverlay && modalContent) {
     document.body.style.overflow = 'hidden';
   };
 
-  (window as any).openDeepDiveModal = (productId: string) => {
-    if ((window as any).openModal) {
-      (window as any).openModal(productId);
+  (window as any).openDeepDiveModal = (productId: string, source: 'from_catalog' | 'from_modal' = 'from_catalog') => {
+    const p = productsData.find(x => x.id === productId);
+    if (!p) return;
+
+    modalContent.innerHTML = buildDeepSpecsHTML(p as Product, source === 'from_modal');
+    modalOverlay.classList.remove('hidden');
+    modalOverlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  };
+
+  (window as any).transitionToDeepDive = (productId: string) => {
+    const p = productsData.find(x => x.id === productId);
+    if (!p) return;
+
+    const imgWrapper = document.getElementById('modal-product-img-wrapper');
+    const summaryCol = document.getElementById('modal-product-summary');
+
+    if (imgWrapper && summaryCol) {
+      // Stage 1: Fade out summary column and animate photo moving up
+      summaryCol.style.transition = 'all 220ms ease-out';
+      summaryCol.style.opacity = '0';
+      summaryCol.style.transform = 'translateY(16px)';
+      imgWrapper.classList.add('animate-photo-morph');
+
+      setTimeout(() => {
+        // Stage 2: Render deep specs layout with image at top
+        modalContent.innerHTML = buildDeepSpecsHTML(p as Product, true);
+      }, 220);
+    } else {
+      modalContent.innerHTML = buildDeepSpecsHTML(p as Product, true);
     }
   };
 
