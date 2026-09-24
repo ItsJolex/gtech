@@ -47,9 +47,10 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
         <!-- SIM Quick Action Button in Deep Hero -->
         <button onclick="window.openSimPricingModal('${p.id}')"
-                class="absolute bottom-2.5 right-2.5 px-3 py-1.5 rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-md flex items-center gap-1.5 transition-all hover:scale-105 text-xs font-bold text-emerald-300">
+                class="absolute bottom-2 right-2 sm:bottom-2.5 sm:right-2.5 w-8 h-8 sm:w-auto sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-md flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 text-xs font-bold text-emerald-300"
+                title="SIM Coverage Rates" aria-label="SIM Coverage Rates">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
-          SIM Coverage Rates
+          <span class="hidden sm:inline">SIM Coverage Rates</span>
         </button>
       </div>
 
@@ -324,26 +325,26 @@ if (catalogContainer && modalOverlay && modalContent) {
 
             <!-- BOTTOM-LEFT: SIM Rates Overlay Button Inside Modal -->
             <button onclick="window.openSimPricingModal('${p.id}')"
-                    class="absolute bottom-3 left-3 z-20 px-2.5 py-1.5 rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 group/msim"
-                    title="Cellular SIM Pricing & Roaming Rates">
+                    class="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-20 w-8 h-8 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 active:scale-95 group/msim"
+                    title="Cellular SIM Pricing & Roaming Rates" aria-label="SIM Plans">
               <svg class="w-4 h-4 text-emerald-400 group-hover/msim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
                 <rect x="8" y="10" width="8" height="8" rx="1"/>
                 <path d="M12 10v8M8 14h8"/>
               </svg>
-              <span class="text-[11px] font-bold tracking-wider uppercase text-emerald-300">SIM Plans</span>
+              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-emerald-300">SIM Plans</span>
             </button>
 
             <!-- BOTTOM-RIGHT: Deep Specs Button Inside Modal (Triggers Kinetic Transition) -->
             <button onclick="window.transitionToDeepDive('${p.id}')"
-                    class="absolute bottom-3 right-3 z-20 px-2.5 py-1.5 rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 group/mspec"
-                    title="Deep Technical Dossier & Extended Specifications">
+                    class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 w-8 h-8 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 active:scale-95 group/mspec"
+                    title="Deep Technical Dossier & Extended Specifications" aria-label="Full Technical Specs">
               <svg class="w-4 h-4 text-amber-300 group-hover/mspec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/>
                 <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
-              <span class="text-[11px] font-bold tracking-wider uppercase text-amber-200">Full Specs</span>
+              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-amber-200">Full Specs</span>
             </button>
           </div>
           <div id="modal-product-summary" class="w-full md:w-1/2 flex flex-col justify-between">
@@ -370,19 +371,24 @@ if (catalogContainer && modalOverlay && modalContent) {
               </div>
             </div>
             
-            <div class="pt-4 border-t border-gray-100 space-y-2.5">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}" class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson" title="${!p.inStock ? 'View Available Alternative' : 'Add to Quotation'}">
+            <div class="pt-4 border-t border-gray-100 space-y-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
+                        class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg tactical-glow-crimson active:scale-95"
+                        title="${!p.inStock ? 'View Available Alternative' : 'Add to Quotation'}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                  <span class="truncate">${!p.inStock ? 'View Alternative' : 'Add to Quotation'}</span>
+                  <span>${!p.inStock ? 'Alternative' : 'Add to Quotation'}</span>
                 </button>
-                <a href="https://wa.me/584149428999?text=I'm%20interested%20in%20the%20${encodeURIComponent(p.name)}" target="_blank" class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap" title="WhatsApp Direct">
+                <a href="https://wa.me/584149428999?text=I'm%20interested%20in%20the%20${encodeURIComponent(p.name)}"
+                   target="_blank"
+                   class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg active:scale-95"
+                   title="WhatsApp Direct">
                   <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  <span class="truncate">WhatsApp Direct</span>
+                  <span>WhatsApp Direct</span>
                 </a>
               </div>
               <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
-                Close Overview
+                Close
               </button>
             </div>
           </div>
