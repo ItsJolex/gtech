@@ -316,6 +316,7 @@ function renderCartDrawer(): void {
 }
 
 export function openCartDrawer(): void {
+  (window as any).closeModal?.();
   const drawerContainer = document.getElementById('cart-drawer-container');
   if (drawerContainer) {
     renderCartDrawer();

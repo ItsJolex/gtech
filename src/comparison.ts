@@ -164,7 +164,7 @@ export function initComparison(): void {
   ).join('');
 
   container.innerHTML = `
-    <section id="comparison" class="py-10 sm:py-16 bg-gray-50">
+    <section id="comparison" class="py-10 sm:py-16 bg-gray-50 scroll-mt-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8 sm:mb-10">
           <span class="text-crimson-800 font-bold tracking-widest uppercase text-sm mb-2 block">Tactical Comparison Engine</span>
@@ -176,7 +176,7 @@ export function initComparison(): void {
           <!-- 2-Column Model Selectors Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label id="label-select-1" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
+              <label id="label-select-1" for="compare-select-1" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
                 Primary Device
               </label>
               <select id="compare-select-1" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium transition-all">
@@ -186,7 +186,7 @@ export function initComparison(): void {
             </div>
 
             <div>
-              <label id="label-select-2" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
+              <label id="label-select-2" for="compare-select-2" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
                 Comparison Device
               </label>
               <select id="compare-select-2" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium transition-all">

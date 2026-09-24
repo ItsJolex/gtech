@@ -144,9 +144,9 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
           <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900 mb-3">Field Specifications Breakdown</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             ${p.specs.map(s => `
-              <div class="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-lg border border-gray-100 text-xs">
-                <span class="text-gray-500 font-medium">${s.label}</span>
-                <span class="font-bold text-navy-800 text-right">${s.value}</span>
+              <div class="flex items-center justify-between gap-3 bg-white px-3.5 py-2.5 rounded-lg border border-gray-100 text-xs">
+                <span class="text-gray-500 font-medium flex-shrink-0">${s.label}</span>
+                <span class="font-bold text-navy-800 text-right break-words">${s.value}</span>
               </div>
             `).join('')}
           </div>
@@ -154,21 +154,25 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
       </div>
 
       <!-- Sticky Action Footer -->
-      <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
-        <button onclick="closeModal()" class="w-full sm:w-auto px-5 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+      <div class="pt-4 border-t border-gray-100 space-y-2.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
+                  class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson"
+                  title="${!p.inStock ? 'Alternative Available' : 'Add to Quotation'}">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span class="truncate">${!p.inStock ? 'Alternative Available' : 'Add to Quotation'}</span>
+          </button>
+          <a href="https://wa.me/584149428999?text=Hello%20G-TECH,%20I'm%20inquiring%20about%20technical%20specs%20for%20the%20${encodeURIComponent(p.name)}"
+             target="_blank"
+             class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap"
+             title="WhatsApp Inquiry">
+            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="truncate">WhatsApp Inquiry</span>
+          </a>
+        </div>
+        <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
           Close Dossier
         </button>
-        <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
-                class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson">
-          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-          <span>${!p.inStock ? 'Alternative Available' : 'Add to Quotation'}</span>
-        </button>
-        <a href="https://wa.me/584149428999?text=Hello%20G-TECH,%20I'm%20inquiring%20about%20technical%20specs%20for%20the%20${encodeURIComponent(p.name)}"
-           target="_blank"
-           class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap">
-          <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <span>WhatsApp Inquiry</span>
-        </a>
       </div>
     </div>
   `;
@@ -176,16 +180,32 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
 const menuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
+const menuIconBars = document.getElementById('menu-icon-bars');
+const menuIconClose = document.getElementById('menu-icon-close');
+
+function setMobileMenu(open: boolean) {
+  if (!mobileMenu) return;
+  if (open) {
+    mobileMenu.classList.remove('hidden');
+    menuIconBars?.classList.add('hidden');
+    menuIconClose?.classList.remove('hidden');
+  } else {
+    mobileMenu.classList.add('hidden');
+    menuIconBars?.classList.remove('hidden');
+    menuIconClose?.classList.add('hidden');
+  }
+}
 
 if (menuBtn && mobileMenu) {
   menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
+    const isClosed = mobileMenu.classList.contains('hidden');
+    setMobileMenu(isClosed);
   });
 
   const mobileLinks = mobileMenu.querySelectorAll('a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
+      setMobileMenu(false);
     });
   });
 }
@@ -203,16 +223,20 @@ if (catalogContainer && modalOverlay && modalContent) {
       <div class="aspect-square bg-gray-50 rounded-lg p-2 mb-2 relative overflow-hidden flex items-center justify-center border border-gray-100/60 group/cardimg">
         <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy">
 
-        <span class="absolute top-1.5 left-1.5 bg-navy-900/85 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[75%]">
-          ${product.badge}
-        </span>
+        <!-- Top Badges Header: flex justify-between preventing badge collision -->
+        <div class="absolute top-1.5 inset-x-1.5 flex items-center justify-between gap-1 z-10 pointer-events-none">
+          <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[62%] sm:max-w-[70%]">
+            ${product.badge}
+          </span>
+          ${product.stockStatus === 'low_stock' && product.inStock ? `
+            <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider shadow flex-shrink-0">Low Stock</span>
+          ` : ''}
+        </div>
 
         ${!product.inStock ? `
           <div class="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center z-10">
             <span class="bg-crimson-800 text-white px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider shadow">Out of Stock</span>
           </div>
-        ` : product.stockStatus === 'low_stock' ? `
-          <span class="absolute top-1.5 right-1.5 bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider shadow">Low Stock</span>
         ` : ''}
 
         <!-- BOTTOM-LEFT: Cellular SIM Pricing Button -->
@@ -242,7 +266,7 @@ if (catalogContainer && modalOverlay && modalContent) {
         </button>
       </div>
 
-      <h3 class="text-xs sm:text-base font-bold text-navy-800 line-clamp-2 leading-tight mb-1 min-h-[2rem] sm:min-h-[2.5rem]" title="${product.name}">
+      <h3 class="text-xs sm:text-base font-bold text-navy-800 line-clamp-2 leading-snug mb-1 min-h-[2.4rem] sm:min-h-[2.5rem]" title="${product.name}">
         ${product.name}
       </h3>
 
@@ -346,23 +370,26 @@ if (catalogContainer && modalOverlay && modalContent) {
               </div>
             </div>
             
-            <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
-              <button onclick="closeModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-sm text-center">
-                Close
+            <div class="pt-4 border-t border-gray-100 space-y-2.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}" class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson" title="${!p.inStock ? 'View Available Alternative' : 'Add to Quotation'}">
+                  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                  <span class="truncate">${!p.inStock ? 'View Alternative' : 'Add to Quotation'}</span>
+                </button>
+                <a href="https://wa.me/584149428999?text=I'm%20interested%20in%20the%20${encodeURIComponent(p.name)}" target="_blank" class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap" title="WhatsApp Direct">
+                  <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  <span class="truncate">WhatsApp Direct</span>
+                </a>
+              </div>
+              <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+                Close Overview
               </button>
-              <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}" class="w-full sm:flex-1 px-6 sm:px-8 py-3.5 rounded-full font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2.5 text-sm shadow-md hover:shadow-lg whitespace-nowrap overflow-hidden tactical-glow-crimson">
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                <span>${!p.inStock ? 'View Available Alternative' : 'Add to Quotation'}</span>
-              </button>
-              <a href="https://wa.me/584149428999?text=I'm%20interested%20in%20the%20${encodeURIComponent(p.name)}" target="_blank" class="w-full sm:flex-1 px-6 sm:px-8 py-3.5 rounded-full font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2.5 text-sm shadow-md hover:shadow-lg whitespace-nowrap overflow-hidden">
-                <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                <span>WhatsApp Direct</span>
-              </a>
             </div>
           </div>
         </div>
       </div>
     `;
+    closeCartDrawer();
     modalOverlay.classList.remove('hidden');
     modalOverlay.classList.add('flex');
     document.body.style.overflow = 'hidden';
@@ -492,6 +519,7 @@ if (catalogContainer && modalOverlay && modalContent) {
         </div>
       </div>
     `;
+    closeCartDrawer();
     modalOverlay.classList.remove('hidden');
     modalOverlay.classList.add('flex');
     document.body.style.overflow = 'hidden';
@@ -501,6 +529,7 @@ if (catalogContainer && modalOverlay && modalContent) {
     const p = productsData.find(x => x.id === productId);
     if (!p) return;
 
+    closeCartDrawer();
     modalContent.innerHTML = buildDeepSpecsHTML(p as Product, source === 'from_modal');
     modalOverlay.classList.remove('hidden');
     modalOverlay.classList.add('flex');

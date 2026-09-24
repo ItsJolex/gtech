@@ -205,7 +205,7 @@ export function initFinder(): void {
   if (!container) return;
 
   container.innerHTML = `
-    <section id="finder" class="py-10 sm:py-16 bg-navy-800 relative overflow-hidden">
+    <section id="finder" class="py-10 sm:py-16 bg-navy-800 relative overflow-hidden scroll-mt-20">
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(172,34,32,0.08)_0%,_transparent_70%)]"></div>
       <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-6 sm:mb-10 relative z-10">
