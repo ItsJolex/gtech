@@ -1,0 +1,183 @@
+[
+  {
+    "id": "acc-bqs5-mic",
+    "name": "G-TECH BQ-S5 Tactical Shoulder PTT Mic",
+    "nameEs": "Micrófono Táctico de Hombro G-TECH BQ-S5 PTT",
+    "category": "microphones",
+    "badge": "IP56 Heavy-Duty",
+    "badgeEs": "Uso Rudo IP56",
+    "image": "/images/accessories/mic-gtech-bqs5-kplug.webp",
+    "secondaryImage": "/images/accessories/mic-bqs-specs-infographic.webp",
+    "description": "Professional tactical speaker microphone equipped with integrated emergency LED flashlight, strobe beacon, ultra-long 480-hour standby battery (2000mAh), and heavy-duty 2-Pin Type-K coiled cable.",
+    "descriptionEs": "Micrófono de hombro táctico profesional equipado con linterna LED integrada, luz de advertencia estroboscópica, batería de 2000mAh para 480h de espera y cable espiralado reforzado Type-K de 2 pines.",
+    "connector": "Type-K (2-Pin Kenwood)",
+    "connectorEs": "Type-K (2 pines Kenwood)",
+    "compatibility": [
+      "G-5288 Plus",
+      "G-889 POC-UHF",
+      "G-280 POC-UHF",
+      "G-8 Plus POC-UHF",
+      "G-M2",
+      "G-510",
+      "G-H28",
+      "Alervites AT1"
+    ],
+    "specs": [
+      { "label": "Waterproof Rating", "labelEs": "Resistencia al Agua", "value": "IP56 Certified" },
+      { "label": "Battery Capacity", "labelEs": "Batería Interna", "value": "2000 mAh Li-ion" },
+      { "label": "Standby Time", "labelEs": "Tiempo en Espera", "value": "480 Horas" },
+      { "label": "Lighting Modes", "labelEs": "Modos de Luz", "value": "Flashlight / Warning Strobe / Alarm" },
+      { "label": "Connector Type", "labelEs": "Tipo de Conector", "value": "Type-K 2-Pin (3.5mm + 2.5mm)" }
+    ],
+    "inStock": true,
+    "priceEstimate": "$35.00"
+  },
+  {
+    "id": "acc-bqs4-typec-mic",
+    "name": "G-TECH BQ-S4 Digital USB Type-C Speaker Mic",
+    "nameEs": "Micrófono Digital Type-C G-TECH BQ-S4",
+    "category": "microphones",
+    "badge": "USB Type-C Digital",
+    "badgeEs": "Digital USB Type-C",
+    "image": "/images/accessories/mic-heavyduty-typec.webp",
+    "secondaryImage": "/images/accessories/mic-bqs-specs-infographic.webp",
+    "description": "High-fidelity digital shoulder microphone with direct USB Type-C connection. Delivers crystal-clear PTT audio, active noise isolation, and IP56 rugged sealing for modern G-Series PoC terminals.",
+    "descriptionEs": "Micrófono de hombro digital de alta fidelidad con conexión directa USB Type-C. Audio PTT nítido, cancelación de ruido ambiental y sellado IP56 para terminales PoC modernas G-Series.",
+    "connector": "USB Type-C",
+    "connectorEs": "USB Type-C",
+    "compatibility": [
+      "G0 Plus",
+      "G9 Plus",
+      "G6 Plus Black",
+      "G6 Plus Green",
+      "P0 IP6 Black",
+      "P0 IP6 Blue",
+      "G5 Plus",
+      "G8 Plus",
+      "V1 Plus"
+    ],
+    "specs": [
+      { "label": "Protection", "labelEs": "Protección", "value": "IP56 Ruggedized" },
+      { "label": "Audio Processing", "labelEs": "Procesamiento de Audio", "value": "Digital Noise Suppression" },
+      { "label": "Connector", "labelEs": "Conector", "value": "Right-Angle USB Type-C" },
+      { "label": "Cable", "labelEs": "Cable", "value": "Reinforced PU Coiled 1.2m" }
+    ],
+    "inStock": true,
+    "priceEstimate": "$35.00"
+  },
+  {
+    "id": "acc-mobile-palm-mic",
+    "name": "Tactical Vehicle Palm Mic (G-8900 / V1 Plus)",
+    "nameEs": "Micrófono de Palma Táctico para Radio Vehicular",
+    "category": "microphones",
+    "badge": "Vehicular Mobile",
+    "badgeEs": "Móvil Vehicular",
+    "image": "/images/accessories/mic-mobile-palm-v1.webp",
+    "description": "Heavy-duty ergonomic hand microphone designed specifically for mobile vehicle transceivers. Features high-tensile coiled cord, positive-action PTT button, and dashboard mounting bracket.",
+    "descriptionEs": "Micrófono de palma ergonómico de alta durabilidad diseñado para radios móviles vehiculares. Cable espiralado de alta resistencia mecánica, pulsador PTT táctil y clip para tablero.",
+    "connector": "Modular RJ Multi-Pin",
+    "connectorEs": "Modular RJ Multi-Pin",
+    "compatibility": [
+      "G-8900 Pro",
+      "V1 PLUS POC GPS SOS 4G"
+    ],
+    "specs": [
+      { "label": "Mounting", "labelEs": "Montaje", "value": "Dashboard Hang-Up Clip Included" },
+      { "label": "Cord Type", "labelEs": "Tipo de Cable", "value": "Heavy-Duty Coiled Polyurethane" },
+      { "label": "Microphone Element", "labelEs": "Elemento Micrófono", "value": "Omnidirectional Noise Canceling" }
+    ],
+    "inStock": true,
+    "priceEstimate": "$30.00"
+  },
+  {
+    "id": "acc-shoulder-mic-pack",
+    "name": "Heavy-Duty Shoulder Speaker Mic (2-Pack)",
+    "nameEs": "Pack Doble Micrófonos de Solapa Heavy Duty",
+    "category": "microphones",
+    "badge": "Pack x2 Unidades",
+    "badgeEs": "Pack x2 Unidades",
+    "image": "/images/accessories/mic-pack-multipin.webp",
+    "secondaryImage": "/images/accessories/mic-heavyduty-kplug.webp",
+    "description": "Value dual-pack of tactical shoulder speaker microphones with 360-degree swivel clip, loud front-facing speaker, and 3.5mm auxiliary listen-only earphone jack.",
+    "descriptionEs": "Paquete doble de micrófonos de solapa tácticos con pinza giratoria de 360°, altavoz frontal de alta potencia y salida auxiliar de 3.5mm para auricular encubierto.",
+    "connector": "3.5mm Single Pin / K-Plug Options",
+    "connectorEs": "Opciones 3.5mm Single Pin / K-Plug",
+    "compatibility": [
+      "G0 Plus",
+      "G5 Plus",
+      "G6 Plus",
+      "G8 Plus",
+      "G-5288 Plus",
+      "Universal PoC"
+    ],
+    "specs": [
+      { "label": "Quantity", "labelEs": "Cantidad", "value": "2 Complete Units" },
+      { "label": "Auxiliary Port", "labelEs": "Puerto Auxiliar", "value": "3.5mm Earpiece Jack" },
+      { "label": "Clip", "labelEs": "Clip", "value": "360° Stainless Steel Swivel" }
+    ],
+    "inStock": true,
+    "priceEstimate": "$28.00"
+  },
+  {
+    "id": "acc-acoustic-earpiece-typec",
+    "name": "Covert Acoustic Tube Earpiece (USB Type-C)",
+    "nameEs": "Auricular Encubierto de Tubo Acústico (Type-C)",
+    "category": "earphones",
+    "badge": "Máxima Privacidad",
+    "badgeEs": "Máxima Privacidad",
+    "image": "/images/accessories/earpiece-acoustic-tube-set.webp",
+    "secondaryImage": "/images/accessories/earpiece-compatibility-sheet.webp",
+    "description": "Medical-grade transparent acoustic tube surveillance earpiece with discreet inline lapel PTT microphone. Direct USB Type-C plug prevents overheard radio traffic in sensitive security and patrol operations.",
+    "descriptionEs": "Auricular de tubo acústico transparente de grado médico para operaciones encubiertas con micrófono PTT de solapa. Conector USB-C directo que evita que terceros escuchen las transmisiones en patrullajes y seguridad.",
+    "connector": "USB Type-C",
+    "connectorEs": "USB Type-C",
+    "compatibility": [
+      "G9 Plus",
+      "G6 Plus",
+      "G6 Plus Green",
+      "G8 Plus",
+      "G0 Plus",
+      "P0 IP6",
+      "5288 Plus Type-C"
+    ],
+    "specs": [
+      { "label": "Acoustic Tube", "labelEs": "Tubo Acústico", "value": "Surgical-Grade Clear Silicone" },
+      { "label": "PTT Type", "labelEs": "Tipo de PTT", "value": "Inline Lapel PTT with Steel Clip" },
+      { "label": "Privacy Rating", "labelEs": "Nivel de Privacidad", "value": "100% Zero Ambient Bleed" },
+      { "label": "Connector", "labelEs": "Conector", "value": "Molded Right-Angle USB-C" }
+    ],
+    "inStock": true,
+    "priceEstimate": "$19.00"
+  },
+  {
+    "id": "acc-acoustic-earpiece-kplug",
+    "name": "Tactical Acoustic Tube Earpiece (2-Pin K-Plug)",
+    "nameEs": "Auricular Táctico Tubo Acústico (2-Pines Type-K)",
+    "category": "earphones",
+    "badge": "Seguridad Encubierta",
+    "badgeEs": "Seguridad Encubierta",
+    "image": "/images/accessories/earpiece-compatibility-sheet.webp",
+    "secondaryImage": "/images/accessories/earpiece-acoustic-tube-set.webp",
+    "description": "Dual covert surveillance earpiece set featuring transparent coiled sound tube, low-profile lapel microphone, ergonomic silicone earbud, and standard Kenwood 2-Pin connector.",
+    "descriptionEs": "Juego de auriculares encubiertos de vigilancia con tubo acústico transparente, micrófono de solapa de bajo perfil, almohadilla ergonómica de silicona y conector Kenwood estándar de 2 pines.",
+    "connector": "Type-K (2-Pin Kenwood)",
+    "connectorEs": "Type-K (2 pines Kenwood)",
+    "compatibility": [
+      "G-5288 Plus",
+      "G-889 POC-UHF",
+      "G-280 POC-UHF",
+      "G-8 Plus POC-UHF",
+      "G-M2",
+      "G-510",
+      "Alervites AT1"
+    ],
+    "specs": [
+      { "label": "Configuration", "labelEs": "Configuración", "value": "Dual Earpiece Pack (2 Units)" },
+      { "label": "Cable Core", "labelEs": "Núcleo de Cable", "value": "Kevlar-Reinforced Wiring" },
+      { "label": "Ear Tip", "labelEs": "Almohadilla", "value": "Hypoallergenic Mushroom Bud" },
+      { "label": "Connector", "labelEs": "Conector", "value": "Standard 2-Pin Type-K (3.5mm + 2.5mm)" }
+    ],
+    "inStock": true,
+    "priceEstimate": "$22.00"
+  }
+]

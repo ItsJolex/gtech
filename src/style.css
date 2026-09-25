@@ -464,3 +464,11 @@
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
+/* Accessories Catalog Filters */
+.accessory-filter-btn {
+  @apply inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-bold text-navy-800 bg-white border border-gray-200 hover:border-navy-300 hover:bg-gray-50 transition-all duration-200 active:scale-95;
+}
+
+.accessory-filter-btn.active {
+  @apply bg-navy-800 text-white border-navy-800 hover:bg-navy-700 hover:border-navy-700 shadow-md;
+}

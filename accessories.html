@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>G-TECH.US | Tactical Accessories Catalog</title>
+    <meta name="description" content="Official G-TECH tactical accessories: covert acoustic tube earpieces, IP56 shoulder PTT microphones and vehicle palm mics with Type-C and 2-Pin Type-K connectivity." />
+    <link rel="icon" type="image/webp" href="/images/logo-patch.webp" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-navy-800/95 backdrop-blur-md border-b border-navy-700/60 shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20 gap-4 lg:gap-8">
+          <a href="/index.html" class="flex-shrink-0 flex items-center gap-3 group" aria-label="G-TECH.US Home">
+            <img src="/images/logo-patch.webp" alt="G-TECH Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-200">
+            <span class="text-white font-extrabold text-xl sm:text-2xl tracking-wide group-hover:text-gray-100 transition-colors whitespace-nowrap">G-TECH.US</span>
+          </a>
+
+          <a href="/index.html#systems" class="hidden lg:inline-flex items-center gap-2 text-sm font-bold text-crimson-300 hover:text-crimson-200 border border-crimson-700/60 hover:border-crimson-500/80 bg-navy-900/60 hover:bg-navy-800 px-4 py-2 rounded-xl transition-all whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            <span data-i18n="accessories_page.back_to_fleet">← Volver a Radios PoC</span>
+          </a>
+
+          <div class="flex items-center gap-4 lg:gap-5 flex-shrink-0">
+            <!-- Tactical Bilingual Switcher -->
+            <div class="lang-toggle-container" id="lang-toggle-desktop" data-lang="en">
+              <button type="button" class="lang-toggle-btn shadow-sm" aria-label="Cambiar idioma / Switch language" title="Cambiar idioma / Switch language">
+                <span class="lang-toggle-slider"></span>
+                <span class="lang-flag-option lang-en">
+                  <svg class="w-4 h-3 rounded-[2px]" viewBox="0 0 640 480"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h640v480H0z"/><path stroke="#fff" stroke-width="37" d="M0 55.4h640M0 129.2h640M0 203.1h640M0 277h640M0 350.8h640M0 424.6h640"/><path fill="#192f5d" d="M0 0h280v221.5H0z"/></g></g></svg>
+                  <span>EN</span>
+                </span>
+                <span class="lang-flag-option lang-es">
+                  <svg class="w-4 h-3 rounded-[2px]" viewBox="0 0 640 480"><path fill="#c60b1e" d="M0 0h640v480H0z"/><path fill="#ffc400" d="M0 120h640v240H0z"/></svg>
+                  <span>ES</span>
+                </span>
+              </button>
+            </div>
+
+            <div class="h-6 w-px bg-navy-700/80 hidden lg:block"></div>
+
+            <!-- Quotation Cart -->
+            <button id="cart-btn" class="relative p-2.5 text-gray-200 hover:text-white bg-navy-900/60 hover:bg-navy-700/80 border border-navy-700/80 rounded-xl transition-all hover:scale-105 shadow-sm" aria-label="Open Quotation Cart" title="Quotation Station">
+              <svg class="w-5 h-5 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              <span id="cart-badge" class="absolute -top-1.5 -right-1.5 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-extrabold rounded-full flex items-center justify-center border-2 border-navy-800 animate-bounce-subtle">0</span>
+            </button>
+
+            <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I%20would%20like%20to%20request%20an%20official%20quotation." target="_blank" class="hidden sm:inline-flex bg-crimson-700 hover:bg-crimson-800 active:bg-crimson-900 text-white px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-xs transition-all shadow-md hover:shadow-crimson-900/30 hover:scale-105 whitespace-nowrap">
+              <span data-i18n="nav.get_quote">Get a Quote</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Compact Back Link for Mobile -->
+        <div class="lg:hidden px-4 pb-3">
+          <a href="/index.html#systems" class="inline-flex items-center gap-2 text-xs font-bold text-crimson-300 border border-crimson-700/60 bg-navy-900/60 px-3 py-1.5 rounded-lg transition-all">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            <span data-i18n="accessories_page.back_to_fleet">← Volver a Radios PoC</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-white pt-10 pb-14 sm:pt-16 sm:pb-20 clip-diagonal overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(#E5E7EB_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center gap-5">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-crimson-50 text-crimson-800 text-xs sm:text-sm font-extrabold uppercase tracking-widest border border-crimson-200/80 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-crimson-600 animate-pulse"></span>
+          <span data-i18n="accessories_page.hero_eyebrow">División de Accesorios Tácticos</span>
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-navy-800 leading-tight tracking-tight max-w-4xl" data-i18n="accessories_page.hero_title">
+          ¿Deseas elevar tu experiencia operativa al siguiente nivel?
+        </h1>
+
+        <p class="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed max-w-3xl" data-i18n="accessories_page.hero_subtitle">
+          Equipa a tu equipo con micrófonos de hombro de uso rudo y auriculares encubiertos de tubo acústico diseñados para garantizar máxima privacidad, aislamiento de ruido en entornos hostiles y ergonomía profesional.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-1 text-[11px] sm:text-xs text-gray-500 font-semibold uppercase tracking-wider">
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="accessories_teaser.pill_earphones">Auriculares Encubiertos de Tubo Acústico</span></span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-crimson-600"></span> <span data-i18n="accessories_teaser.pill_mics">Micrófonos de Hombro PTT IP56</span></span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-navy-600"></span> <span data-i18n="accessories_teaser.pill_connectors">Conectores Type-C y Type-K (2 Pines)</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filters + Grid -->
+    <section class="pb-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Filter Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <div id="accessory-filters" class="flex flex-wrap gap-2.5">
+            <button type="button" data-accessory-filter="all" class="accessory-filter-btn active">
+              <span data-i18n="accessories_page.filter_all">Todos los Accesorios</span>
+            </button>
+            <button type="button" data-accessory-filter="microphones" class="accessory-filter-btn">
+              <span class="mr-1" aria-hidden="true">🎙️</span><span data-i18n="accessories_page.filter_mics">Micrófonos de Solapa / Hombro</span>
+            </button>
+            <button type="button" data-accessory-filter="earphones" class="accessory-filter-btn">
+              <span class="mr-1" aria-hidden="true">🎧</span><span data-i18n="accessories_page.filter_earphones">Auriculares Encubiertos de Tubo Acústico</span>
+            </button>
+          </div>
+          <span id="accessory-result-count" class="text-xs font-semibold text-gray-500 uppercase tracking-wider"></span>
+        </div>
+
+        <!-- Dynamic Product Grid -->
+        <div id="accessories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
+
+        <!-- Connector Compatibility Callout -->
+        <div class="mt-16 bg-navy-900 rounded-3xl border border-navy-700/80 p-6 sm:p-10 relative overflow-hidden">
+          <div class="absolute -right-16 -bottom-16 w-72 h-72 bg-crimson-600/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="relative z-10">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight" data-i18n="accessories_page.compatibility_title">Guía de Conectores Compatibles</h2>
+            <p class="text-sm text-navy-200 mt-2 max-w-3xl" data-i18n="accessories_page.compatibility_subtitle">
+              Identifica el conector físico que utiliza tu radio antes de ordenar. Los terminales G-TECH incluyen tres estándares de conexión distintos.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-7">
+              <div class="bg-navy-950/70 border border-navy-700 rounded-2xl p-5">
+                <div class="flex items-center gap-2.5 mb-2">
+                  <span class="w-9 h-9 rounded-lg bg-navy-900 border border-navy-700 flex items-center justify-center text-cyan-300 text-xs font-extrabold">C</span>
+                  <h3 class="font-bold text-white text-sm" data-i18n="accessories_page.conn_typec_name">USB Type-C</h3>
+                </div>
+                <p class="text-xs text-navy-300 leading-relaxed" data-i18n="accessories_page.conn_typec_desc">
+                  Conector digital directo presente en la Serie G (G0/G6/G8/G9, P0 IP6). No requiere adaptador.
+                </p>
+              </div>
+              <div class="bg-navy-950/70 border border-navy-700 rounded-2xl p-5">
+                <div class="flex items-center gap-2.5 mb-2">
+                  <span class="w-9 h-9 rounded-lg bg-navy-900 border border-navy-700 flex items-center justify-center text-crimson-300 text-xs font-extrabold">2P</span>
+                  <h3 class="font-bold text-white text-sm" data-i18n="accessories_page.conn_kplug_name">Type-K (2 pines Kenwood)</h3>
+                </div>
+                <p class="text-xs text-navy-300 leading-relaxed" data-i18n="accessories_page.conn_kplug_desc">
+                  Conector estándar de 2 pines (3.5mm + 2.5mm) presente en el G-5288 Plus, G-889, G-280 y ALERVITES AT1.
+                </p>
+              </div>
+              <div class="bg-navy-950/70 border border-navy-700 rounded-2xl p-5">
+                <div class="flex items-center gap-2.5 mb-2">
+                  <span class="w-9 h-9 rounded-lg bg-navy-900 border border-navy-700 flex items-center justify-center text-emerald-300 text-xs font-extrabold">RJ</span>
+                  <h3 class="font-bold text-white text-sm" data-i18n="accessories_page.conn_rj_name">Modular RJ Multi-Pin</h3>
+                </div>
+                <p class="text-xs text-navy-300 leading-relaxed" data-i18n="accessories_page.conn_rj_desc">
+                  Interfaz multipin de grado vehicular utilizada por transceptores móviles como el V1 PLUS y el G-8900 Pro.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-gray-400 pt-16 pb-12 border-t border-gray-800 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-gray-800">
+          
+          <!-- Col 1: Brand & Identity -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <img src="/images/logo-patch.webp" alt="G-TECH Logo" class="w-12 h-12 object-contain drop-shadow-md">
+              <div>
+                <span class="text-white font-extrabold text-xl tracking-wider block">G-TECH.US</span>
+                <span class="text-cyan-400 text-[10px] font-bold uppercase tracking-widest block" data-i18n="footer.brand_sub">🐺 Tactical Communications</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-400 leading-relaxed" data-i18n="footer.about">
+              Nationwide cellular Push-To-Talk systems, tactical PoC hardware, and mission-critical voice telemetry across North America.
+            </p>
+            <div class="pt-2 flex flex-col gap-1.5">
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-800/80 border border-navy-700 text-emerald-400 text-xs font-semibold w-fit">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span data-i18n="footer.distributor_badge">Official US Distributor • Active Dispatch</span>
+              </span>
+              <span class="text-xs text-cyan-300/90 font-medium pl-1">
+                Management / Titular: <strong class="text-white">Geramel</strong> (Orlando, Florida, USA)
+              </span>
+            </div>
+          </div>
+
+          <!-- Col 2: Direct Contact Channels -->
+          <div class="space-y-3">
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs border-b border-gray-800 pb-2" data-i18n="footer.direct_channels">Direct Communications</h4>
+            <ul class="space-y-2.5 text-sm">
+              <li>
+                <a href="tel:+14074273356" class="hover:text-cyan-300 transition-colors flex items-center gap-2.5 text-gray-300">
+                  <span class="w-8 h-8 rounded-lg bg-navy-800 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  </span>
+                  <div>
+                    <span class="block text-[11px] text-gray-500 uppercase font-semibold" data-i18n="footer.voice_label">Voice & Direct Phone</span>
+                    <span class="font-bold text-white">+1 (407) 427-3356</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:gtech.usfl@gmail.com" class="hover:text-cyan-300 transition-colors flex items-center gap-2.5 text-gray-300">
+                  <span class="w-8 h-8 rounded-lg bg-navy-800 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  </span>
+                  <div>
+                    <span class="block text-[11px] text-gray-500 uppercase font-semibold" data-i18n="footer.email_label">Official Email / Owner</span>
+                    <span class="font-bold text-white break-all">gtech.usfl@gmail.com</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/14074273356" target="_blank" class="hover:text-emerald-400 transition-colors flex items-center gap-2.5 text-gray-300">
+                  <span class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-800/60 flex items-center justify-center text-emerald-400 flex-shrink-0">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  </span>
+                  <div>
+                    <span class="block text-[11px] text-emerald-400 uppercase font-semibold" data-i18n="footer.whatsapp_label">24/7 WhatsApp Hotline</span>
+                    <span class="font-bold text-white">+1 (407) 427-3356</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Social & Communities -->
+          <div class="space-y-3">
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs border-b border-gray-800 pb-2" data-i18n="footer.social_title">Connect & Social Media</h4>
+            <p class="text-xs text-gray-400" data-i18n="footer.social_desc">
+              Follow our official tactical deployments, radio tests, field showcases, and firmware releases.
+            </p>
+            <div class="flex flex-wrap items-center gap-2.5 pt-1">
+              <a href="https://www.instagram.com/geramel1?stkn=MTQ2dXk3ZnI5NXo1bg==" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-900/40 via-pink-900/40 to-red-900/40 border border-pink-500/30 text-white text-xs font-bold hover:scale-105 transition-all shadow-md group">
+                <svg class="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.13-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span data-i18n="footer.instagram_btn">Instagram @geramel1</span>
+              </a>
+
+              <a href="https://www.facebook.com/share/1Dgoi7fWzz/" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-900/40 border border-blue-500/30 text-white text-xs font-bold hover:scale-105 transition-all shadow-md group">
+                <svg class="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                <span data-i18n="footer.facebook_btn">Facebook Official</span>
+              </a>
+            </div>
+            <div class="pt-2">
+              <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I'm%20requesting%20an%20official%20fleet%20quotation." target="_blank"
+                 class="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors">
+                <span data-i18n="footer.whatsapp_fleet_btn">Request Fleet Quotation via WhatsApp &rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Col 4: Quick Nav & Compliance -->
+          <div class="space-y-3">
+            <h4 class="text-white font-bold uppercase tracking-wider text-xs border-b border-gray-800 pb-2" data-i18n="footer.nav_title">Systems & Navigation</h4>
+            <ul class="space-y-1.5 text-xs">
+              <li><a href="#systems" data-i18n="nav.systems" class="hover:text-white transition-colors">PoC Tactical Catalog</a></li>
+              <li><a href="#finder" data-i18n="nav.finder" class="hover:text-white transition-colors">Interactive Mission Finder</a></li>
+              <li><a href="#comparison" data-i18n="nav.compare" class="hover:text-white transition-colors">10-Point Technical Matrix</a></li>
+              <li><a href="#specs" data-i18n="nav.specs" class="hover:text-white transition-colors">Industrial Specifications</a></li>
+              <li><a href="#contact" data-i18n="nav.contact" class="hover:text-white transition-colors">Direct Support & Contact</a></li>
+            </ul>
+            <div class="pt-3 text-[11px] text-gray-500">
+              <span class="block font-semibold text-gray-400" data-i18n="footer.compliance_title">Compliance & Security:</span>
+              <span data-i18n="footer.compliance_text">CE, FCC Approved • AES-256 Voice Protocol</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+          <div data-i18n="footer.rights">
+            &copy; 2026 G-TECH.US (🐺 G tech). All rights reserved. Directed by Geramel. Orlando, Florida, USA.
+          </div>
+          <div class="flex items-center gap-4 sm:gap-6 flex-wrap justify-center text-xs">
+            <button type="button" onclick="window.openLegalModal('privacy')" class="hover:text-cyan-400 transition-colors" data-i18n="footer.link_privacy">Privacy Policy</button>
+            <button type="button" onclick="window.openLegalModal('terms')" class="hover:text-cyan-400 transition-colors" data-i18n="footer.link_terms">Terms of Service</button>
+            <button type="button" onclick="window.openLegalModal('ai')" class="text-cyan-400 hover:text-cyan-300 font-bold transition-colors" data-i18n="footer.link_ai">AI Transparency</button>
+            <button type="button" onclick="window.openLegalModal('fcc')" class="text-amber-400 hover:text-amber-300 font-bold transition-colors" data-i18n="footer.link_fcc">FCC & 911 Disclaimer</button>
+            <button type="button" onclick="window.renderCookieBanner()" class="hover:text-gray-300 transition-colors" data-i18n="footer.link_cookies">Cookie Preferences</button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Accessory Technical Spec Modal -->
+    <div id="accessory-modal" class="fixed inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4">
+      <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden relative max-h-[90vh] overflow-y-auto">
+        <div id="accessory-modal-content" class="p-6 md:p-8"></div>
+      </div>
+    </div>
+
+    <!-- Cart Drawer Container (Off-Canvas) -->
+    <div id="cart-drawer-container" class="hidden"></div>
+
+    <!-- Floating WhatsApp CTA -->
+    <a href="https://wa.me/14074273356" target="_blank" class="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 bg-green-500 hover:bg-green-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50" aria-label="Contact on WhatsApp">
+      <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 5.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script type="module" src="/src/accessories.ts"></script>
+  </body>
+</html>

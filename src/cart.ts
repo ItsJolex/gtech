@@ -92,6 +92,23 @@ export function addToCart(productId: string, selectedColor?: string, customImage
   return { success: true, message: `${product.name}${colorSuffix} added to cart` };
 }
 
+export function addCartItem(item: CartItem): { success: boolean; message: string } {
+  const existingItem = cart.find(c => c.id === item.id && (c.selectedColor || '') === (item.selectedColor || ''));
+
+  if (existingItem) {
+    existingItem.quantity += item.quantity;
+  } else {
+    cart.push({ ...item });
+  }
+
+  saveCart();
+  renderCartDrawer();
+  updateCartBadge();
+  animateCartBadge();
+
+  return { success: true, message: `${item.name} added to cart` };
+}
+
 export function removeFromCart(productId: string, selectedColor?: string): void {
   cart = cart.filter(item => !(item.id === productId && (item.selectedColor || '') === (selectedColor || '')));
   saveCart();

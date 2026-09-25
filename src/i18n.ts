@@ -26,6 +26,8 @@ export const translations: Translations = {
   'nav.specs': { en: 'Specs', es: 'Especificaciones' },
   'nav.contact': { en: 'Contact', es: 'Contacto' },
   'nav.get_quote': { en: 'Get a Quote', es: 'Cotizar' },
+  'nav.accessories': { en: 'Accessories', es: 'Accesorios' },
+  'nav.accessories_full': { en: 'Tactical Accessories', es: 'Accesorios Tácticos' },
 
   // Hero
   'hero.slogan': {
@@ -133,6 +135,89 @@ export const translations: Translations = {
   'footer.link_ai': { en: 'AI Transparency', es: 'Transparencia de IA' },
   'footer.link_fcc': { en: 'FCC & 911 Disclaimer', es: 'Aviso FCC y 911' },
   'footer.link_cookies': { en: 'Cookie Preferences', es: 'Preferencias de Cookies' },
+
+  // Privacy Teaser Banner (index.html)
+  'accessories_teaser.eyebrow': {
+    en: 'Tactical Privacy & Discretion',
+    es: 'Discreción y Privacidad Operativa'
+  },
+  'accessories_teaser.title': {
+    en: 'Tired of everyone overhearing your radio communications?',
+    es: '¿No te gusta que todos escuchen lo que hablas por tu radio?'
+  },
+  'accessories_teaser.subtitle': {
+    en: 'Require mission-critical discretion? Upgrade your tactical setup with covert acoustic tube earpieces and shoulder PTT microphones engineered to isolate your voice and block ambient noise, so third parties never overhear your operations.',
+    es: '¿Necesitas mayor privacidad en tus comunicaciones tácticas? Protege la confidencialidad de tus operaciones con nuestra línea oficial de accesorios: auriculares encubiertos de tubo acústico transparente y micrófonos de solapa PTT diseñados para aislar el sonido y operar sin interrupciones.'
+  },
+  'accessories_teaser.pill_earphones': {
+    en: 'Covert Acoustic Tube Earpieces',
+    es: 'Auriculares Encubiertos de Tubo Acústico'
+  },
+  'accessories_teaser.pill_mics': {
+    en: 'IP56 Shoulder PTT Mics',
+    es: 'Micrófonos de Hombro PTT IP56'
+  },
+  'accessories_teaser.pill_connectors': {
+    en: 'Type-C & Type-K (2-Pin) Connectors',
+    es: 'Conectores Type-C y Type-K (2 Pines)'
+  },
+  'accessories_teaser.cta_btn': {
+    en: 'Explore Accessories Catalog',
+    es: 'Explorar Catálogo de Accesorios'
+  },
+  'accessories_teaser.compatibility_hint': {
+    en: '100% Compatible with the entire G-TECH fleet',
+    es: 'Compatibles al 100% con toda la flota G-TECH'
+  },
+
+  // Accessories Subpage
+  'accessories_page.hero_eyebrow': {
+    en: 'Tactical Accessory Division',
+    es: 'División de Accesorios Tácticos'
+  },
+  'accessories_page.hero_title': {
+    en: 'Ready to elevate your operational communications to the next level?',
+    es: '¿Deseas elevar tu experiencia operativa al siguiente nivel?'
+  },
+  'accessories_page.hero_subtitle': {
+    en: 'Equip your operators with heavy-duty shoulder microphones and covert acoustic tube earpieces engineered for uncompromising privacy, noise isolation, and seamless mission readiness.',
+    es: 'Equipa a tu equipo con micrófonos de hombro de uso rudo y auriculares encubiertos de tubo acústico diseñados para garantizar máxima privacidad, aislamiento de ruido en entornos hostiles y ergonomía profesional.'
+  },
+  'accessories_page.filter_all': { en: 'All Accessories', es: 'Todos los Accesorios' },
+  'accessories_page.filter_mics': { en: 'Shoulder & Palm Microphones', es: 'Micrófonos de Solapa / Hombro' },
+  'accessories_page.filter_earphones': { en: 'Covert Acoustic Earpieces', es: 'Auriculares Encubiertos de Tubo Acústico' },
+  'accessories_page.btn_add_quote': { en: 'Add to Quote', es: 'Agregar a Cotización' },
+  'accessories_page.btn_specs': { en: 'Technical Specs', es: 'Ver Ficha Técnica' },
+  'accessories_page.btn_wa': { en: 'Inquire via WhatsApp', es: 'Consultar WhatsApp' },
+  'accessories_page.back_to_fleet': { en: '← Back to PoC Radios', es: '← Volver a Radios PoC' },
+  'accessories_page.badge_added': { en: 'Added to Quote', es: 'Agregado a Cotización' },
+  'accessories_page.compatibility_title': { en: 'Connector Compatibility Guide', es: 'Guía de Conectores Compatibles' },
+  'accessories_page.compatibility_subtitle': {
+    en: 'Identify the physical plug your radio uses before ordering. G-TECH terminals ship with three distinct connector standards.',
+    es: 'Identifica el conector físico que utiliza tu radio antes de ordenar. Los terminales G-TECH incluyen tres estándares de conexión distintos.'
+  },
+  'accessories_page.conn_typec_name': { en: 'USB Type-C', es: 'USB Type-C' },
+  'accessories_page.conn_typec_desc': {
+    en: 'Direct digital plug found on the G-Series (G0/G6/G8/G9, P0 IP6). No adapter required.',
+    es: 'Conector digital directo presente en la Serie G (G0/G6/G8/G9, P0 IP6). No requiere adaptador.'
+  },
+  'accessories_page.conn_kplug_name': { en: 'Type-K (2-Pin Kenwood)', es: 'Type-K (2 pines Kenwood)' },
+  'accessories_page.conn_kplug_desc': {
+    en: 'Standard 3.5mm + 2.5mm two-pin plug found on the G-5288 Plus, G-889, G-280 and ALERVITES AT1.',
+    es: 'Conector estándar de 2 pines (3.5mm + 2.5mm) presente en el G-5288 Plus, G-889, G-280 y ALERVITES AT1.'
+  },
+  'accessories_page.conn_rj_name': { en: 'Modular RJ Multi-Pin', es: 'Modular RJ Multi-Pin' },
+  'accessories_page.conn_rj_desc': {
+    en: 'Vehicle-grade multi-pin interface used by mobile transceivers such as the V1 PLUS and G-8900 Pro.',
+    es: 'Interfaz multipin de grado vehicular utilizada por transceptores móviles como el V1 PLUS y el G-8900 Pro.'
+  },
+  'accessories_page.specs_title': { en: 'Technical Specification Sheet', es: 'Ficha Técnica' },
+  'accessories_page.specs_compatible': { en: 'Compatible Radios', es: 'Radios Compatibles' },
+  'accessories_page.specs_connector': { en: 'Connector', es: 'Conector' },
+  'accessories_page.specs_price': { en: 'Estimated Unit Price', es: 'Precio Unitario Estimado' },
+  'accessories_page.specs_secondary': { en: 'Official Datasheet / Reference', es: 'Ficha Oficial / Referencia' },
+  'accessories_page.close': { en: 'Close', es: 'Cerrar' },
+  'accessories_page.results': { en: 'items', es: 'artículos' },
 
   // AI Avatar Video Briefings
   'briefings.badge': {
