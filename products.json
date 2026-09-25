@@ -1,22 +1,40 @@
 [
   {
     "id": "G-889",
-    "name": "Model G-889 PoC Dual-Antenna Radio",
-    "badge": "Dual-Antenna PoC",
+    "name": "Model G-889 PoC Dual-Antenna Radio (POC-UHF)",
+    "badge": "Hybrid POC-UHF",
     "image": "/images/G-889.webp",
     "description": "High-performance hybrid PoC radio equipped with dual antennas (extended UHF/VHF whip and LTE stubby) for maximum sensitivity and nationwide cellular coverage. Features a full 12-key alphanumeric keypad, vibrant color display, and high-output audio speaker.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 45,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "Looking for maximum dual reception with a DTMF keypad? Tri-Mode adds direct VHF/UHF analog frequencies.",
+    "fallbackReason": "Looking for maximum dual reception with a DTMF keypad? Model G-8 plus adds direct VHF/UHF analog frequencies.",
     "specs": [
-      { "label": "Network", "value": "4G LTE Nationwide PoC" },
-      { "label": "Antenna System", "value": "Dual (UV Whip + LTE Stub)" },
-      { "label": "Keypad", "value": "Full DTMF Alphanumeric" },
-      { "label": "Display", "value": "1.77\" High-Contrast Color LCD" },
-      { "label": "Audio", "value": "2W High-Output Speaker" },
-      { "label": "Certifications", "value": "CE / FCC Approved" }
+      {
+        "label": "Network",
+        "value": "4G LTE Nationwide PoC"
+      },
+      {
+        "label": "Antenna System",
+        "value": "Dual (UV Whip + LTE Stub)"
+      },
+      {
+        "label": "Keypad",
+        "value": "Full DTMF Alphanumeric"
+      },
+      {
+        "label": "Display",
+        "value": "1.77\" High-Contrast Color LCD"
+      },
+      {
+        "label": "Audio",
+        "value": "2W High-Output Speaker"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Approved"
+      }
     ],
     "comparison": {
       "connectivity": "Dual-Antenna 4G LTE PoC",
@@ -30,11 +48,17 @@
       "videoVision": "Not available (Audio Telemetry)",
       "certifications": "CE / FCC Approved"
     },
-    "tags": ["dual-antenna", "keypad", "tactical", "security", "long-shift"]
+    "tags": [
+      "dual-antenna",
+      "keypad",
+      "tactical",
+      "security",
+      "long-shift"
+    ]
   },
   {
     "id": "G-F1",
-    "name": "Model G-F1 Smart PoC Radio",
+    "name": "Model G-F1 SMART PoC Radio",
     "badge": "Smart PoC Terminal",
     "image": "/images/G-F1.webp",
     "description": "Streamlined smart-form PoC handheld radio featuring a high-definition vertical color display and minimalist 3-key navigation. Engineered for rapid dispatch, intuitive group switching, and crystal-clear digital push-to-talk audio.",
@@ -42,14 +66,32 @@
     "stockStatus": "in_stock",
     "stockCount": 32,
     "fallbackSimilarId": "WA0055-GlobalLTE",
-    "fallbackReason": "Global LTE offers a similar HD display with integrated antenna and 3-key navigation for rapid dispatch.",
+    "fallbackReason": "Model G0 plus offers a similar HD display with integrated antenna and 3-key navigation for rapid dispatch.",
     "specs": [
-      { "label": "Network", "value": "4G LTE / Wi-Fi PoC" },
-      { "label": "Navigation", "value": "Simplified 3-Key Dispatch" },
-      { "label": "Display", "value": "Large Vertical Color Screen" },
-      { "label": "Form Factor", "value": "Protected Stubby Antenna Fin" },
-      { "label": "Battery", "value": "High-Capacity Li-ion" },
-      { "label": "Certifications", "value": "CE / FCC Approved" }
+      {
+        "label": "Network",
+        "value": "4G LTE / Wi-Fi PoC"
+      },
+      {
+        "label": "Navigation",
+        "value": "Simplified 3-Key Dispatch"
+      },
+      {
+        "label": "Display",
+        "value": "Large Vertical Color Screen"
+      },
+      {
+        "label": "Form Factor",
+        "value": "Protected Stubby Antenna Fin"
+      },
+      {
+        "label": "Battery",
+        "value": "High-Capacity Li-ion"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Approved"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE / Wi-Fi PoC",
@@ -63,26 +105,50 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Approved"
     },
-    "tags": ["smart-terminal", "3-key", "compact", "dispatch", "global-lte"]
+    "tags": [
+      "smart-terminal",
+      "3-key",
+      "compact",
+      "dispatch",
+      "global-lte"
+    ]
   },
   {
     "id": "G-280-2",
-    "name": "Model G-280-2 Dual-Mode Radio",
-    "badge": "3W UHF + 4G PoC",
+    "name": "Model G-280 Hybrid Dual-Mode Radio (POC-UHF)",
+    "badge": "Hybrid POC-UHF",
     "image": "/images/G-280-2.webp",
     "description": "Versatile hybrid communication terminal operating across UHF 400-470MHz at 3W RF power combined with cellular push-to-talk. Features dedicated Call, OK, and End keys, dual top selector dials, and ruggedized housing.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 28,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "Tri-Mode offers UHF 3W + VHF + 4G PoC with a full DTMF keypad and dual A/B monitoring.",
+    "fallbackReason": "Model G-8 plus offers UHF 3W + VHF + 4G PoC with a full DTMF keypad and dual A/B monitoring.",
     "specs": [
-      { "label": "RF Output Power", "value": "3 Watts" },
-      { "label": "Frequency Band", "value": "UHF 400 - 470 MHz" },
-      { "label": "Network", "value": "4G LTE Cellular PoC" },
-      { "label": "Controls", "value": "Dual Top Rotary Knobs" },
-      { "label": "Interface", "value": "Tactile Call / OK / End" },
-      { "label": "Certifications", "value": "CE / FCC Certified" }
+      {
+        "label": "RF Output Power",
+        "value": "3 Watts"
+      },
+      {
+        "label": "Frequency Band",
+        "value": "UHF 400 - 470 MHz"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Cellular PoC"
+      },
+      {
+        "label": "Controls",
+        "value": "Dual Top Rotary Knobs"
+      },
+      {
+        "label": "Interface",
+        "value": "Tactile Call / OK / End"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Certified"
+      }
     ],
     "comparison": {
       "connectivity": "Hybrid UHF 3W Analog + 4G PoC",
@@ -96,7 +162,13 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Certified"
     },
-    "tags": ["hybrid-rf", "dual-knob", "uhf", "tactical", "vehicle"]
+    "tags": [
+      "hybrid-rf",
+      "dual-knob",
+      "uhf",
+      "tactical",
+      "vehicle"
+    ]
   },
   {
     "id": "Model-G-M2",
@@ -108,14 +180,32 @@
     "stockStatus": "in_stock",
     "stockCount": 67,
     "fallbackSimilarId": "G-510",
-    "fallbackReason": "G-510 Pocket PoC offers a protected stubby antenna and programmable P1 key in a pocket-sized form factor.",
+    "fallbackReason": "Model G-510 Pocket PoC offers a protected stubby antenna and programmable P1 key in a pocket-sized form factor.",
     "specs": [
-      { "label": "Form Factor", "value": "Wearable Clip-On Transceiver" },
-      { "label": "PTT Interface", "value": "Oversized Central Tactile Key" },
-      { "label": "Display", "value": "Digital LCD Status Display" },
-      { "label": "Audio", "value": "Integrated Speaker & Headset Port" },
-      { "label": "Network", "value": "4G LTE Nationwide PoC" },
-      { "label": "Certifications", "value": "CE / FCC Approved" }
+      {
+        "label": "Form Factor",
+        "value": "Wearable Clip-On Transceiver"
+      },
+      {
+        "label": "PTT Interface",
+        "value": "Oversized Central Tactile Key"
+      },
+      {
+        "label": "Display",
+        "value": "Digital LCD Status Display"
+      },
+      {
+        "label": "Audio",
+        "value": "Integrated Speaker & Headset Port"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Nationwide PoC"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Approved"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE Nationwide PoC",
@@ -129,7 +219,14 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Approved"
     },
-    "tags": ["wearable", "clip-on", "lightweight", "security", "hospitality", "voice-only"]
+    "tags": [
+      "wearable",
+      "clip-on",
+      "lightweight",
+      "security",
+      "hospitality",
+      "voice-only"
+    ]
   },
   {
     "id": "G-510",
@@ -141,14 +238,32 @@
     "stockStatus": "low_stock",
     "stockCount": 8,
     "fallbackSimilarId": "Model-G-M2",
-    "fallbackReason": "G-M2 Wearable offers an oversized central PTT and clip for hands-free carry.",
+    "fallbackReason": "Model G-M2 Wearable offers an oversized central PTT and clip for hands-free carry.",
     "specs": [
-      { "label": "Network", "value": "4G LTE Worldwide Cellular" },
-      { "label": "Keypad", "value": "Menu, Up/Down, Back, Power, P1" },
-      { "label": "Antenna", "value": "Protected Fixed Stubby" },
-      { "label": "Speaker", "value": "High-Clarity Acoustic Grille" },
-      { "label": "Battery", "value": "Extended Shift Li-ion" },
-      { "label": "Certifications", "value": "CE / FCC Approved" }
+      {
+        "label": "Network",
+        "value": "4G LTE Worldwide Cellular"
+      },
+      {
+        "label": "Keypad",
+        "value": "Menu, Up/Down, Back, Power, P1"
+      },
+      {
+        "label": "Antenna",
+        "value": "Protected Fixed Stubby"
+      },
+      {
+        "label": "Speaker",
+        "value": "High-Clarity Acoustic Grille"
+      },
+      {
+        "label": "Battery",
+        "value": "Extended Shift Li-ion"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Approved"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE Worldwide PoC",
@@ -162,7 +277,13 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Approved"
     },
-    "tags": ["pocket", "compact", "stubby", "voice-only", "long-shift"]
+    "tags": [
+      "pocket",
+      "compact",
+      "stubby",
+      "voice-only",
+      "long-shift"
+    ]
   },
   {
     "id": "G-H28",
@@ -174,14 +295,32 @@
     "stockStatus": "in_stock",
     "stockCount": 21,
     "fallbackSimilarId": "G-889",
-    "fallbackReason": "G-889 Dual-Antenna offers dual antennas and a full DTMF keypad with greater RF sensitivity.",
+    "fallbackReason": "Model G-889 Dual-Antenna offers dual antennas and a full DTMF keypad with greater RF sensitivity.",
     "specs": [
-      { "label": "Flashlight", "value": "Integrated Tactical LED" },
-      { "label": "PTT", "value": "High-Vis Lime Green Side Key" },
-      { "label": "Keypad", "value": "Full DTMF Alphanumeric" },
-      { "label": "Network", "value": "4G LTE Push-To-Talk" },
-      { "label": "Display", "value": "Sunlight-Readable Color LCD" },
-      { "label": "Certifications", "value": "CE / FCC Certified" }
+      {
+        "label": "Flashlight",
+        "value": "Integrated Tactical LED"
+      },
+      {
+        "label": "PTT",
+        "value": "High-Vis Lime Green Side Key"
+      },
+      {
+        "label": "Keypad",
+        "value": "Full DTMF Alphanumeric"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Push-To-Talk"
+      },
+      {
+        "label": "Display",
+        "value": "Sunlight-Readable Color LCD"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Certified"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE PoC Push-To-Talk",
@@ -195,26 +334,50 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Certified"
     },
-    "tags": ["tactical", "keypad", "flashlight", "security", "long-shift"]
+    "tags": [
+      "tactical",
+      "keypad",
+      "flashlight",
+      "security",
+      "long-shift"
+    ]
   },
   {
     "id": "G-P0-Black",
-    "name": "Model P0 Floating Marine Radio (Tactical Black)",
-    "badge": "IP68 Floating Marine",
+    "name": "Model G-F1 Floating Water Radio (Tactical Black)",
+    "badge": "IP68 Floating Water",
     "image": "/images/G-P0.webp",
     "description": "Specialized maritime and water-rescue PoC radio engineered with positive buoyancy that floats on water. Features a large 2.4-inch display, sealed acoustic chamber, and IP68 waterproof submersible construction in Tactical Black.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 15,
     "fallbackSimilarId": "P0-Ex-Blue",
-    "fallbackReason": "The ATEX Blue edition keeps IP68 buoyancy and adds explosion-proof certification for hazardous environments.",
+    "fallbackReason": "The G-F1 Floating Water ATEX Blue edition keeps IP68 buoyancy and adds explosion-proof certification for hazardous environments.",
     "specs": [
-      { "label": "Buoyancy", "value": "Floats on Water (Positive)" },
-      { "label": "Waterproof", "value": "IP68 Submersible Sealed" },
-      { "label": "Display", "value": "2.4-inch High-Definition Screen" },
-      { "label": "Colorway", "value": "Tactical Black Edition" },
-      { "label": "Network", "value": "4G LTE Cellular PoC" },
-      { "label": "Audio", "value": "Water-Dispersing Acoustic Chamber" }
+      {
+        "label": "Buoyancy",
+        "value": "Floats on Water (Positive)"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Submersible Sealed"
+      },
+      {
+        "label": "Display",
+        "value": "2.4-inch High-Definition Screen"
+      },
+      {
+        "label": "Colorway",
+        "value": "Tactical Black Edition"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Cellular PoC"
+      },
+      {
+        "label": "Audio",
+        "value": "Water-Dispersing Acoustic Chamber"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE Cellular PoC",
@@ -228,26 +391,50 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC / IP68 / MIL-STD-810H"
     },
-    "tags": ["marine", "floating", "ip68", "water-rescue", "global-lte"]
+    "tags": [
+      "marine",
+      "floating",
+      "ip68",
+      "water-rescue",
+      "global-lte"
+    ]
   },
   {
     "id": "P0-Ex-Blue",
-    "name": "Model P0-Ex Floating Marine Radio (ATEX Blue Edition)",
-    "badge": "ATEX / Ex Explosion-Proof",
+    "name": "Model G-F1 Floating Water Radio (ATEX Blue Edition)",
+    "badge": "ATEX Floating Water",
     "image": "/images/P0 floating.webp",
-    "description": "Certified explosion-proof (Ex) intrinsically safe edition of the P0 floating radio. Finished in high-visibility safety marine blue, designed for oil & gas refineries, chemical handling, offshore rigs, and maritime fleets.",
+    "description": "Certified explosion-proof (Ex) intrinsically safe edition of the G-F1 Floating Water radio. Finished in high-visibility safety marine blue, designed for oil & gas refineries, chemical handling, offshore rigs, and maritime fleets.",
     "inStock": false,
     "stockStatus": "out_of_stock",
     "stockCount": 0,
     "fallbackSimilarId": "G-P0-Black",
-    "fallbackReason": "P0 Tactical Black keeps identical IP68 buoyancy and acoustic chamber without ATEX certification.",
+    "fallbackReason": "G-F1 Floating Water Tactical Black keeps identical IP68 buoyancy and acoustic chamber without ATEX certification.",
     "specs": [
-      { "label": "Safety Standard", "value": "Ex Explosion-Proof Certified" },
-      { "label": "Buoyancy", "value": "Floats on Water (Positive)" },
-      { "label": "Waterproof", "value": "IP68 Submersible Sealed" },
-      { "label": "Display", "value": "2.4-inch Armored Glass Panel" },
-      { "label": "Colorway", "value": "Safety Marine Blue" },
-      { "label": "Network", "value": "4G LTE Cellular PoC" }
+      {
+        "label": "Safety Standard",
+        "value": "Ex Explosion-Proof Certified"
+      },
+      {
+        "label": "Buoyancy",
+        "value": "Floats on Water (Positive)"
+      },
+      {
+        "label": "Waterproof",
+        "value": "IP68 Submersible Sealed"
+      },
+      {
+        "label": "Display",
+        "value": "2.4-inch Armored Glass Panel"
+      },
+      {
+        "label": "Colorway",
+        "value": "Safety Marine Blue"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Cellular PoC"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE Cellular PoC",
@@ -261,26 +448,51 @@
       "videoVision": "Not available",
       "certifications": "ATEX Ex / IECEx / IP68 / CE / FCC / MIL-STD-810H"
     },
-    "tags": ["marine", "atex", "floating", "explosion-proof", "oil-gas", "global-lte"]
+    "tags": [
+      "marine",
+      "atex",
+      "floating",
+      "explosion-proof",
+      "oil-gas",
+      "global-lte"
+    ]
   },
   {
     "id": "WA0058-Vehicle",
-    "name": "G-TECH Vehicle-PoC Mobile Transceiver",
-    "badge": "Fleet Mobile Radio",
+    "name": "Model G-8900 Vehicle Mobile PoC Transceiver",
+    "badge": "Vehicle Mobile PoC",
     "image": "/images/IMG-20260922-WA0058.webp",
     "description": "Heavy-duty mobile PoC vehicle transceiver for fleet trucks, emergency apparatus, security patrols, and commercial transport. Features a heavy-duty palm microphone, backlit SOS & dispatch keys, external vehicle antenna port, and dashboard mounting bracket.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 19,
     "fallbackSimilarId": "WA0064-LongRange",
-    "fallbackReason": "Long-Range Command can be configured as a vehicle base station with a high-gain antenna and triple dial.",
+    "fallbackReason": "Model G-5288 plus Command can be configured as a vehicle base station with a high-gain antenna and triple dial.",
     "specs": [
-      { "label": "Application", "value": "In-Vehicle Fleet / Base Station" },
-      { "label": "Microphone", "value": "Heavy-Duty Branded Palm Mic" },
-      { "label": "Controls", "value": "SOS, INFO, Group Keys & Volume Dial" },
-      { "label": "Display", "value": "Full Color Vehicle Status Screen" },
-      { "label": "Power Input", "value": "12V / 24V DC Vehicle System" },
-      { "label": "Coverage", "value": "Nationwide Unlimited PoC" }
+      {
+        "label": "Application",
+        "value": "In-Vehicle Fleet / Base Station"
+      },
+      {
+        "label": "Microphone",
+        "value": "Heavy-Duty Branded Palm Mic"
+      },
+      {
+        "label": "Controls",
+        "value": "SOS, INFO, Group Keys & Volume Dial"
+      },
+      {
+        "label": "Display",
+        "value": "Full Color Vehicle Status Screen"
+      },
+      {
+        "label": "Power Input",
+        "value": "12V / 24V DC Vehicle System"
+      },
+      {
+        "label": "Coverage",
+        "value": "Nationwide Unlimited PoC"
+      }
     ],
     "comparison": {
       "connectivity": "Unlimited 4G LTE Vehicular PoC",
@@ -294,11 +506,18 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC / Vehicular E-Mark"
     },
-    "tags": ["vehicle", "fleet", "mobile", "base-station", "12v-24v", "global-lte"]
+    "tags": [
+      "vehicle",
+      "fleet",
+      "mobile",
+      "base-station",
+      "12v-24v",
+      "global-lte"
+    ]
   },
   {
     "id": "WA0060-Armor",
-    "name": "G-TECH Digital Armor Dual-Knob Radio",
+    "name": "Model G-6 plus Digital Armor Dual-Knob Radio",
     "badge": "Mil-Spec Dual-Knob",
     "image": "/images/IMG-20260922-WA0060.webp",
     "description": "Ruggedized dual-knob digital radio available in Tactical Black and Military Olive Green armor. Engineered with dedicated top rotary channel and volume dials, an instant front SOS alarm button, and reinforced shock-absorbing exoskeleton.",
@@ -306,14 +525,32 @@
     "stockStatus": "in_stock",
     "stockCount": 34,
     "fallbackSimilarId": "G-280-2",
-    "fallbackReason": "G-280-2 Dual-Mode offers similar dual knobs with analog UHF 3W + 4G PoC.",
+    "fallbackReason": "Model G-280 Dual-Mode offers similar dual knobs with analog UHF 3W + 4G PoC.",
     "specs": [
-      { "label": "Housing", "value": "Reinforced Exoskeleton (Black / OD Green)" },
-      { "label": "Controls", "value": "Dual Top Knobs (Channel & Volume)" },
-      { "label": "Emergency", "value": "Instant Front SOS Alarm Key" },
-      { "label": "Display", "value": "High-Contrast Protected LCD" },
-      { "label": "Audio", "value": "Slotted High-Acoustic Grille" },
-      { "label": "Network", "value": "4G LTE PoC Push-To-Talk" }
+      {
+        "label": "Housing",
+        "value": "Reinforced Exoskeleton (Black / OD Green)"
+      },
+      {
+        "label": "Controls",
+        "value": "Dual Top Knobs (Channel & Volume)"
+      },
+      {
+        "label": "Emergency",
+        "value": "Instant Front SOS Alarm Key"
+      },
+      {
+        "label": "Display",
+        "value": "High-Contrast Protected LCD"
+      },
+      {
+        "label": "Audio",
+        "value": "Slotted High-Acoustic Grille"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE PoC Push-To-Talk"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE PoC Push-To-Talk",
@@ -327,26 +564,51 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC / MIL-STD-810H"
     },
-    "tags": ["dual-knob", "mil-spec", "armor", "sos", "tactical", "voice-only"]
+    "tags": [
+      "dual-knob",
+      "mil-spec",
+      "armor",
+      "sos",
+      "tactical",
+      "voice-only"
+    ]
   },
   {
     "id": "WA0062-TriMode",
-    "name": "G-TECH Tri-Mode Hybrid PoC + DMR Radio",
-    "badge": "Tri-Mode VHF/UHF + PoC",
+    "name": "Model G-8 plus Tri-Mode Hybrid Radio (POC-UHF)",
+    "badge": "Tri-Mode POC-UHF",
     "image": "/images/IMG-20260922-WA0062.webp",
     "description": "True multi-mission hybrid transceiver combining conventional VHF/UHF direct RF frequency communication with unlimited nationwide 4G LTE PoC. Features dual dedicated antennas (UV whip + LTE stub), A/B dual-channel monitoring, and a full tactical DTMF keypad.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 12,
     "fallbackSimilarId": "G-889",
-    "fallbackReason": "G-889 Dual-Antenna offers dual-antenna PoC with a DTMF keypad without direct analog frequencies.",
+    "fallbackReason": "Model G-889 Dual-Antenna offers dual-antenna PoC with a DTMF keypad without direct analog frequencies.",
     "specs": [
-      { "label": "Operating Modes", "value": "VHF + UHF Direct RF + 4G PoC" },
-      { "label": "Antenna System", "value": "Dual Port (UV Whip + LTE Stubby)" },
-      { "label": "Dual Watch", "value": "Simultaneous A/B Channel Monitoring" },
-      { "label": "Keypad", "value": "Full DTMF Keypad with V/M & Menu" },
-      { "label": "Display", "value": "Full Color Telemetry Display" },
-      { "label": "Coverage", "value": "Direct Line-of-Sight + Global LTE" }
+      {
+        "label": "Operating Modes",
+        "value": "VHF + UHF Direct RF + 4G PoC"
+      },
+      {
+        "label": "Antenna System",
+        "value": "Dual Port (UV Whip + LTE Stubby)"
+      },
+      {
+        "label": "Dual Watch",
+        "value": "Simultaneous A/B Channel Monitoring"
+      },
+      {
+        "label": "Keypad",
+        "value": "Full DTMF Keypad with V/M & Menu"
+      },
+      {
+        "label": "Display",
+        "value": "Full Color Telemetry Display"
+      },
+      {
+        "label": "Coverage",
+        "value": "Direct Line-of-Sight + Global LTE"
+      }
     ],
     "comparison": {
       "connectivity": "Tri-Mode: VHF + UHF Direct RF + 4G PoC",
@@ -360,26 +622,52 @@
       "videoVision": "Not available (Advanced Telemetry)",
       "certifications": "CE / FCC / MIL-STD-810H / DMR Tier II"
     },
-    "tags": ["hybrid-rf", "tri-mode", "vhf", "uhf", "dtmf", "tactical", "dual-antenna"]
+    "tags": [
+      "hybrid-rf",
+      "tri-mode",
+      "vhf",
+      "uhf",
+      "dtmf",
+      "tactical",
+      "dual-antenna"
+    ]
   },
   {
     "id": "WA0064-LongRange",
-    "name": "G-TECH Long-Range Command PoC + VHF/UHF Radio",
-    "badge": "Command Hybrid Radio",
+    "name": "Model G-5288 plus Long-Range Command Radio (POC-UHF-VHF)",
+    "badge": "Command Hybrid POC-UHF-VHF",
     "image": "/images/IMG-20260922-WA0064.webp",
     "description": "Enterprise command transceiver featuring an ultra-extended high-gain antenna, triple top rotary dials, ergonomic orange rubberized tactical side grips, full navigation D-pad, and high-impact reinforced housing for extreme range and harsh field conditions.",
     "inStock": false,
     "stockStatus": "out_of_stock",
     "stockCount": 0,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "Tri-Mode offers VHF/UHF/4G PoC with dual antennas and DTMF keypad in a handheld form factor.",
+    "fallbackReason": "Model G-8 plus offers VHF/UHF/4G PoC with dual antennas and DTMF keypad in a handheld form factor.",
     "specs": [
-      { "label": "RF Bands", "value": "UHF + VHF Direct RF + 4G LTE PoC" },
-      { "label": "Antenna", "value": "Extended High-Gain Tactical Whip" },
-      { "label": "Controls", "value": "Triple Top Rotary Dials + D-Pad" },
-      { "label": "Ergonomics", "value": "High-Traction Orange Side Grips" },
-      { "label": "Keypad", "value": "Full Numeric DTMF Matrix" },
-      { "label": "Housing", "value": "Impact-Shielded Heavy-Duty Body" }
+      {
+        "label": "RF Bands",
+        "value": "UHF + VHF Direct RF + 4G LTE PoC"
+      },
+      {
+        "label": "Antenna",
+        "value": "Extended High-Gain Tactical Whip"
+      },
+      {
+        "label": "Controls",
+        "value": "Triple Top Rotary Dials + D-Pad"
+      },
+      {
+        "label": "Ergonomics",
+        "value": "High-Traction Orange Side Grips"
+      },
+      {
+        "label": "Keypad",
+        "value": "Full Numeric DTMF Matrix"
+      },
+      {
+        "label": "Housing",
+        "value": "Impact-Shielded Heavy-Duty Body"
+      }
     ],
     "comparison": {
       "connectivity": "Tri-Modo: VHF + UHF Direct RF + 4G PoC",
@@ -393,26 +681,52 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC / MIL-STD-810H"
     },
-    "tags": ["tri-mode", "vhf", "uhf", "long-range", "command", "dual-knob", "tactical"]
+    "tags": [
+      "tri-mode",
+      "vhf",
+      "uhf",
+      "long-range",
+      "command",
+      "dual-knob",
+      "tactical"
+    ]
   },
   {
     "id": "WA0055-GlobalLTE",
-    "name": "G-TECH Global LTE Tactical Radio",
-    "badge": "Global LTE PoC",
+    "name": "Model G0 plus Global Lite Tactical Radio",
+    "badge": "Global Lite PoC",
     "image": "/images/IMG-20260922-WA0055.webp",
     "description": "Flagship global cellular push-to-talk transceiver featuring an integrated rectangular LTE antenna module, vibrant high-definition screen, tactile navigation matrix, and acoustic noise-cancelling front audio speaker.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 41,
     "fallbackSimilarId": "G-F1",
-    "fallbackReason": "G-F1 Smart PoC offers a vertical HD display and similar 3-key navigation in a more compact format.",
+    "fallbackReason": "Model G-F1 SMART offers a vertical HD display and similar 3-key navigation in a more compact format.",
     "specs": [
-      { "label": "Network", "value": "Global Multi-Band 4G LTE PoC" },
-      { "label": "Antenna", "value": "Integrated Shielded LTE Antenna Block" },
-      { "label": "Display", "value": "Sunlight-Readable Color LCD" },
-      { "label": "Controls", "value": "Rapid 3-Key Dispatch Navigation" },
-      { "label": "Audio", "value": "DSP Acoustic Noise-Reduction Grille" },
-      { "label": "Branding", "value": "Official G-TECH.US Hardware" }
+      {
+        "label": "Network",
+        "value": "Global Multi-Band 4G LTE PoC"
+      },
+      {
+        "label": "Antenna",
+        "value": "Integrated Shielded LTE Antenna Block"
+      },
+      {
+        "label": "Display",
+        "value": "Sunlight-Readable Color LCD"
+      },
+      {
+        "label": "Controls",
+        "value": "Rapid 3-Key Dispatch Navigation"
+      },
+      {
+        "label": "Audio",
+        "value": "DSP Acoustic Noise-Reduction Grille"
+      },
+      {
+        "label": "Branding",
+        "value": "Official G-TECH.US Hardware"
+      }
     ],
     "comparison": {
       "connectivity": "Global Multi-Band 4G LTE PoC",
@@ -426,11 +740,17 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC / MIL-STD-810G"
     },
-    "tags": ["global-lte", "3-key", "dispatch", "tactical", "noise-cancelling"]
+    "tags": [
+      "global-lte",
+      "3-key",
+      "dispatch",
+      "tactical",
+      "noise-cancelling"
+    ]
   },
   {
     "id": "WA0057-TacticalField",
-    "name": "G-TECH Tactical Field PoC Radio",
+    "name": "Model G-9 plus Tactical Field PoC Radio",
     "badge": "Tactical Field PoC",
     "image": "/images/IMG-20260922-WA0057.webp",
     "description": "Heavy-duty field communications radio featuring a high-gain stubby antenna with blue color-code ring, top rotary knob, high-output front speaker, and a 6-button tactical dispatch keypad with dedicated individual and group call buttons.",
@@ -438,14 +758,32 @@
     "stockStatus": "in_stock",
     "stockCount": 26,
     "fallbackSimilarId": "WA0060-Armor",
-    "fallbackReason": "Digital Armor offers dual-knob, front SOS, and a Mil-Spec exoskeleton in tactical colors.",
+    "fallbackReason": "Model G-6 plus offers dual-knob, front SOS, and a Mil-Spec exoskeleton in tactical colors.",
     "specs": [
-      { "label": "Network", "value": "4G LTE Nationwide Push-to-Talk" },
-      { "label": "Dispatch Keys", "value": "Individual Call, Group Call, Menu, Back" },
-      { "label": "Antenna", "value": "High-Bandwidth Stubby with Blue ID Ring" },
-      { "label": "Audio", "value": "High-Decibel Industrial Speaker" },
-      { "label": "Rotary Control", "value": "Top Stepped Volume / Power Knob" },
-      { "label": "Certifications", "value": "CE / FCC Compliance" }
+      {
+        "label": "Network",
+        "value": "4G LTE Nationwide Push-to-Talk"
+      },
+      {
+        "label": "Dispatch Keys",
+        "value": "Individual Call, Group Call, Menu, Back"
+      },
+      {
+        "label": "Antenna",
+        "value": "High-Bandwidth Stubby with Blue ID Ring"
+      },
+      {
+        "label": "Audio",
+        "value": "High-Decibel Industrial Speaker"
+      },
+      {
+        "label": "Rotary Control",
+        "value": "Top Stepped Volume / Power Knob"
+      },
+      {
+        "label": "Certifications",
+        "value": "CE / FCC Compliance"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE Nationwide PoC",
@@ -459,11 +797,17 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Compliance"
     },
-    "tags": ["tactical", "field", "dispatch", "rotary-knob", "voice-only"]
+    "tags": [
+      "tactical",
+      "field",
+      "dispatch",
+      "rotary-knob",
+      "voice-only"
+    ]
   },
   {
     "id": "WA0066-Alervites",
-    "name": "Alervites G-34181 / G-34173 Commercial PoC Radio",
+    "name": "Model G-34181 Commercial PoC Radio",
     "badge": "Ultra-Slim Commercial",
     "image": "/images/IMG-20260922-WA0066.webp",
     "description": "Sleek, contemporary commercial PoC radio available in three professional finishes: Gunmetal Gray, Obsidian Black, and Desert Tan. Designed for corporate security, luxury hospitality, event management, and retail logistics.",
@@ -471,14 +815,32 @@
     "stockStatus": "in_stock",
     "stockCount": 53,
     "fallbackSimilarId": "G-F1",
-    "fallbackReason": "G-F1 Smart PoC offers a smart terminal with a vertical HD display for corporate dispatch.",
+    "fallbackReason": "Model G-F1 SMART offers a smart terminal with a vertical HD display for corporate dispatch.",
     "specs": [
-      { "label": "Finishes", "value": "Gunmetal Gray, Obsidian Black, Desert Tan" },
-      { "label": "Screen Telemetry", "value": "Live 4G, Battery, Group Name & Clock" },
-      { "label": "Design", "value": "Ultra-Slim Ergonomic Commercial Body" },
-      { "label": "Controls", "value": "Minimalist Center Jog Dial & Shortcuts" },
-      { "label": "Network", "value": "4G LTE Nationwide Push-To-Talk" },
-      { "label": "Speaker", "value": "Precision Perforated Acoustic Matrix" }
+      {
+        "label": "Finishes",
+        "value": "Gunmetal Gray, Obsidian Black, Desert Tan"
+      },
+      {
+        "label": "Screen Telemetry",
+        "value": "Live 4G, Battery, Group Name & Clock"
+      },
+      {
+        "label": "Design",
+        "value": "Ultra-Slim Ergonomic Commercial Body"
+      },
+      {
+        "label": "Controls",
+        "value": "Minimalist Center Jog Dial & Shortcuts"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Nationwide Push-To-Talk"
+      },
+      {
+        "label": "Speaker",
+        "value": "Precision Perforated Acoustic Matrix"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE Nationwide PoC",
@@ -492,11 +854,18 @@
       "videoVision": "Not available",
       "certifications": "CE / FCC Commercial Grade"
     },
-    "tags": ["commercial", "slim", "corporate", "hospitality", "events", "global-lte"]
+    "tags": [
+      "commercial",
+      "slim",
+      "corporate",
+      "hospitality",
+      "events",
+      "global-lte"
+    ]
   },
   {
     "id": "WA0069-Bodycam",
-    "name": "BQ-K8 Bodycam + 4G PoC Terminal",
+    "name": "Model G-K8 Bodycam + 4G PoC Terminal",
     "badge": "1080p Video + 4G PoC",
     "image": "/images/IMG-20260922-WA0069.webp",
     "description": "Integrated law enforcement and private security wearable combining 1080p full HD video recording, 8-LED infrared night vision, live GPS tracking, and real-time 4G PoC two-way voice communication with one-touch recording and SOS alarms.",
@@ -504,14 +873,32 @@
     "stockStatus": "low_stock",
     "stockCount": 6,
     "fallbackSimilarId": "G-H28",
-    "fallbackReason": "G-H28 Tactical offers a strobe LED flashlight, tactical green PTT, and full DTMF keypad without video.",
+    "fallbackReason": "Model G-H28 Tactical offers a strobe LED flashlight, tactical green PTT, and full DTMF keypad without video.",
     "specs": [
-      { "label": "Video Resolution", "value": "1080p Full HD Video Recording" },
-      { "label": "Night Vision", "value": "8 High-Intensity Infrared LEDs" },
-      { "label": "Voice PTT", "value": "Real-Time 4G PoC Two-Way Voice" },
-      { "label": "Emergency", "value": "Instant Flash Alarm & SOS Beacon" },
-      { "label": "Storage", "value": "MicroSD Loop / Segmented Recording" },
-      { "label": "Deployment", "value": "Police, Fire, Security & Tactical Units" }
+      {
+        "label": "Video Resolution",
+        "value": "1080p Full HD Video Recording"
+      },
+      {
+        "label": "Night Vision",
+        "value": "8 High-Intensity Infrared LEDs"
+      },
+      {
+        "label": "Voice PTT",
+        "value": "Real-Time 4G PoC Two-Way Voice"
+      },
+      {
+        "label": "Emergency",
+        "value": "Instant Flash Alarm & SOS Beacon"
+      },
+      {
+        "label": "Storage",
+        "value": "MicroSD Loop / Segmented Recording"
+      },
+      {
+        "label": "Deployment",
+        "value": "Police, Fire, Security & Tactical Units"
+      }
     ],
     "comparison": {
       "connectivity": "4G LTE PoC + GPS Live Tracking",
@@ -525,6 +912,14 @@
       "videoVision": "1080p Full HD + 8 IR Night-Vision LEDs",
       "certifications": "CE / FCC / MIL-STD-810H / IP67"
     },
-    "tags": ["bodycam", "video", "night-vision", "gps", "security", "law-enforcement", "global-lte"]
+    "tags": [
+      "bodycam",
+      "video",
+      "night-vision",
+      "gps",
+      "security",
+      "law-enforcement",
+      "global-lte"
+    ]
   }
 ]

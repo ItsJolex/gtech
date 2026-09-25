@@ -43,22 +43,22 @@ const DIMENSION_KEYS: (keyof ComparisonDimensionData)[] = [
 
 export function getShortModelName(p: Product): string {
   const map: Record<string, string> = {
-    'G-889': 'G-889 (Dual-Antenna)',
-    'G-F1': 'G-F1 (Smart PoC)',
-    'G-280-2': 'G-280-2 (Dual-Mode)',
+    'G-889': 'G-889 (POC-UHF)',
+    'G-F1': 'G-F1 SMART',
+    'G-280-2': 'G-280 (POC-UHF)',
     'Model-G-M2': 'G-M2 (Wearable Clip)',
     'G-510': 'G-510 (Pocket PoC)',
     'G-H28': 'G-H28 (Tactical Keypad)',
-    'G-P0-Black': 'P0 (Marine Floating)',
-    'P0-Ex-Blue': 'P0-Ex (ATEX Marine)',
-    'WA0058-Vehicle': 'WA0058 (Vehicle Base)',
-    'WA0060-Armor': 'WA0060 (Mil-Spec Armor)',
-    'WA0062-TriMode': 'WA0062 (Tri-Mode DMR)',
-    'WA0064-LongRange': 'WA0064 (Long-Range)',
-    'WA0055-GlobalLTE': 'WA0055 (Global LTE)',
-    'WA0057-TacticalField': 'WA0057 (Tactical Field)',
-    'WA0066-Alervites': 'Alervites (Ultra-Slim)',
-    'WA0069-Bodycam': 'BQ-K8 (Bodycam 4G)'
+    'G-P0-Black': 'G-F1 Floating (Black)',
+    'P0-Ex-Blue': 'G-F1 Floating (Blue ATEX)',
+    'WA0058-Vehicle': 'G-8900 (Vehicle)',
+    'WA0060-Armor': 'G-6 plus (Armor)',
+    'WA0062-TriMode': 'G-8 plus (Tri-Mode POC-UHF)',
+    'WA0064-LongRange': 'G-5288 plus (POC-UHF-VHF)',
+    'WA0055-GlobalLTE': 'G0 plus (Global Lite)',
+    'WA0057-TacticalField': 'G-9 plus (Tactical Field)',
+    'WA0066-Alervites': 'G-34181 (Commercial)',
+    'WA0069-Bodycam': 'G-K8 (Bodycam 4G)'
   };
   return map[p.id] || p.shortName || p.name;
 }

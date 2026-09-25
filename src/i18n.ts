@@ -224,8 +224,8 @@ export const translations: Translations = {
   'comparison.advantage': { en: 'Advantage', es: 'Ventaja' },
   'comparison.tie': { en: 'Equivalent', es: 'Equivalente' },
   'comparison.toast_top': {
-    en: 'Comparing top sellers: G-889 vs Tri-Mode vs Global LTE',
-    es: 'Comparando más vendidos: G-889 vs Tri-Mode vs Global LTE'
+    en: 'Comparing top sellers: G-889 vs G-8 plus vs G0 plus',
+    es: 'Comparando más vendidos: G-889 vs G-8 plus vs G0 plus'
   },
 
   // Extra Catalog & Modals
@@ -417,18 +417,18 @@ export function tSpecLabel(label: string): string {
 
 export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = {
   'G-889': {
-    name: 'Radio PoC G-889 de Doble Antena',
-    badge: 'PoC Doble Antena',
+    name: 'Radio Híbrida PoC + UHF Modelo G-889 de Doble Antena',
+    badge: 'Híbrido POC-UHF',
     description: 'Radio híbrida PoC de alto rendimiento con doble antena (látigo UHF/VHF extendido y antena stubby LTE) para máxima sensibilidad y cobertura celular nacional. Cuenta con teclado alfanumérico completo DTMF de 12 teclas, pantalla a color de alto contraste y altavoz de alta potencia acústica.'
   },
   'G-F1': {
-    name: 'Terminal Inteligente PoC Modelo G-F1',
-    badge: 'Terminal Smart PoC',
+    name: 'Terminal Inteligente PoC Modelo G-F1 SMART',
+    badge: 'Terminal SMART PoC',
     description: 'Radio portátil PoC con formato ultra-ergonómico, pantalla vertical HD a color y navegación simplificada de 3 teclas. Diseñada para despacho rápido, cambio intuitivo de grupos de llamada y audio digital push-to-talk ultra nítido.'
   },
   'G-280-2': {
-    name: 'Radio Híbrida Dual-Mode Modelo G-280-2',
-    badge: '3W UHF + 4G PoC',
+    name: 'Radio Híbrida Modelo G-280 Dual-Mode (POC-UHF)',
+    badge: 'Híbrido POC-UHF',
     description: 'Dispositivo táctico híbrido de comunicación dual que integra radiofrecuencia analógica directa UHF de 3W con conectividad celular 4G LTE nacional. Garantiza comunicación continua incluso fuera del rango de cobertura celular.'
   },
   'Model-G-M2': {
@@ -447,52 +447,52 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     description: 'Estación móvil PoC con teclado numérico frontal completo y pantalla LCD nítida. Permite marcación directa individual, gestión de canales grupales y despacho rápido para coordinadores de seguridad y operaciones.'
   },
   'G-P0-Black': {
-    name: 'Radio Marina Flotante Modelo P0 (Edición Negra)',
-    badge: 'Marina Flotante IP68',
+    name: 'Radio Flotante Modelo G-F1 Floating Water (Edición Negra)',
+    badge: 'Flotante IP68',
     description: 'Radio marina con flotabilidad positiva automática y certificación de estanqueidad IP68. Continúa flotando en el agua con activación de luz estroboscópica de emergencia. Ideal para operaciones portuarias y rescate acuático.'
   },
   'P0-Ex-Blue': {
-    name: 'Radio Marina Flotante Modelo P0-Ex (Edición ATEX Azul)',
-    badge: 'ATEX / Ex Anti-Explosión',
+    name: 'Radio Flotante Modelo G-F1 Floating Water (Edición ATEX Azul)',
+    badge: 'ATEX Flotante IP68',
     description: 'Versión certificada intrínsecamente segura (ATEX / Ex) para zonas con riesgo de gases inflamables, petroquímica, minería y puertos de carga de combustible. Chasis sellado con flotación marina.'
   },
   'WA0058-Vehicle': {
-    name: 'Transmisor Móvil Vehicular PoC G-TECH',
-    badge: 'Radio Móvil de Flota',
+    name: 'Transmisor Móvil Vehicular PoC Modelo G-8900',
+    badge: 'Radio Móvil Vehicular',
     description: 'Estación de radio móvil para vehículos comerciales, patrullas, ambulancias y camiones de transporte pesado. Se conecta a 12V/24V con micrófono de mano ergonómico y altavoz frontal de alta presión acústica.'
   },
   'WA0060-Armor': {
-    name: 'Radio Blindada G-TECH Digital Armor Doble Perilla',
-    badge: 'Mil-Spec Doble Perilla',
+    name: 'Radio Blindada Modelo G-6 plus Digital Armor Doble Perilla',
+    badge: 'Blindada Doble Perilla',
     description: 'Radio robusta de alta resistencia con doble dial giratorio independiente (volumen y selector de grupo). Chasis blindado Mil-Spec diseñado para operar con guantes tácticos en condiciones extremas de lluvia y polvo.'
   },
   'WA0062-TriMode': {
-    name: 'Radio Híbrida Tri-Mode PoC + DMR G-TECH',
-    badge: 'Tri-Mode VHF/UHF + PoC',
+    name: 'Radio Híbrida Tri-Mode Modelo G-8 plus (POC-UHF)',
+    badge: 'Tri-Mode POC-UHF',
     description: 'La solución definitiva de interoperabilidad táctica: compatibilidad triple en frecuencias analógicas VHF, frecuencias digitales DMR Tier II y Push-to-Talk celular 4G LTE con cambio automático de portadora.'
   },
   'WA0064-LongRange': {
-    name: 'Radio de Comando de Largo Alcance PoC + VHF/UHF G-TECH',
-    badge: 'Comando Híbrido Largo Alcance',
+    name: 'Radio de Comando de Largo Alcance Modelo G-5288 plus (POC-UHF-VHF)',
+    badge: 'Comando POC-UHF-VHF',
     description: 'Terminal de mando para líderes de escuadrón y supervisores de área. Equipada con antena de látigo de alta ganancia, pantalla amplia y protocolos avanzados de llamada prioritaria y emergencia SOS.'
   },
   'WA0055-GlobalLTE': {
-    name: 'Radio Táctica PoC G-TECH Global LTE',
-    badge: 'PoC Global LTE',
+    name: 'Radio Táctica PoC Modelo G0 plus (Global Lite)',
+    badge: 'PoC Global Lite',
     description: 'Radio digital celular con antena optimizada de aleta protegida y conexión multi-operador para roaming ininterrumpido en todo Estados Unidos y cobertura internacional sin cargos de activación.'
   },
   'WA0057-TacticalField': {
-    name: 'Radio Táctica de Campo PoC G-TECH',
+    name: 'Radio Táctica de Campo PoC Modelo G-9 plus',
     badge: 'PoC Táctico de Campo',
     description: 'Diseño reforzado para operaciones tácticas y patrullaje perimetral. Incorpora cancelación de ruido digital con procesador DSP para transmisión de voz cristalina en entornos de alto ruido ambiental.'
   },
   'WA0066-Alervites': {
-    name: 'Radio Comercial Ultra-Slim Alervites G-34181',
+    name: 'Radio Comercial Ultra-Slim Modelo G-34181',
     badge: 'Comercial Ultra-Delgada',
     description: 'Radio comercial ligera y estilizada pensada para comercios minoristas, centros comerciales, producción de eventos y seguridad corporativa con interfaz intuitiva y discreta.'
   },
   'WA0069-Bodycam': {
-    name: 'Terminal Bodycam 1080p + Radio PoC BQ-K8',
+    name: 'Terminal Bodycam 1080p + Radio PoC Modelo G-K8',
     badge: 'Video 1080p + 4G PoC',
     description: 'Dispositivo integrado de videovigilancia corporal con cámara Full HD 1080p, visión nocturna infrarroja con 8 LEDs IR, telemetría GPS en tiempo real y transmisión Push-To-Talk sobre red 4G celular.'
   }
