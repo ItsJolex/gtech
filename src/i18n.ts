@@ -55,8 +55,8 @@ export const translations: Translations = {
   'hero.trust_4g': { en: 'Nationwide 4G', es: '4G LTE Nacional' },
   'hero.trust_milspec': { en: 'Mil-Spec Tested', es: 'Probado Mil-Spec' },
   'hero.trust_dispatch': { en: 'Instant Dispatch', es: 'Despacho Inmediato' },
-  'hero.badge_network': { en: '4G LTE Active', es: '4G LTE Activo' },
-  'hero.badge_network_sub': { en: 'Network', es: 'Red' },
+  'hero.badge_network': { en: '4G, 3G, 2G Active', es: '4G, 3G, 2G Activo' },
+  'hero.badge_network_sub': { en: 'Multiband Network', es: 'Red Multibanda' },
   'hero.badge_security': { en: 'AES-256 Encrypted', es: 'Cifrado AES-256' },
   'hero.badge_security_sub': { en: 'Security', es: 'Seguridad' },
 
@@ -113,6 +113,7 @@ export const translations: Translations = {
     es: 'Sigue despliegues oficiales, pruebas tácticas en campo y lanzamientos de equipos por Geramel.'
   },
   'footer.instagram_btn': { en: 'Instagram @geramel1', es: 'Instagram @geramel1' },
+  'footer.facebook_btn': { en: 'Facebook Official', es: 'Facebook Oficial' },
   'footer.whatsapp_fleet_btn': {
     en: 'Request Fleet Quotation via WhatsApp →',
     es: 'Cotizar Flota por WhatsApp →'
@@ -132,6 +133,61 @@ export const translations: Translations = {
   'footer.link_ai': { en: 'AI Transparency', es: 'Transparencia de IA' },
   'footer.link_fcc': { en: 'FCC & 911 Disclaimer', es: 'Aviso FCC y 911' },
   'footer.link_cookies': { en: 'Cookie Preferences', es: 'Preferencias de Cookies' },
+
+  // AI Avatar Video Briefings
+  'briefings.badge': {
+    en: 'Official Broadcast // AI Avatar of Geramel',
+    es: 'Transmisión Oficial // Avatar IA de Geramel'
+  },
+  'briefings.title': {
+    en: 'Tactical Briefings & Video Demonstrations',
+    es: 'Informes Tácticos y Demostraciones en Video'
+  },
+  'briefings.subtitle': {
+    en: 'Exclusive technical capsules presented by the digital avatar of the G-TECH founder.',
+    es: 'Cápsulas técnicas exclusivas presentadas por el avatar digital del fundador de G-TECH.'
+  },
+  'briefings.hd_label': { en: 'Optimized HD Audio & Video', es: 'Audio y Video HD Optimizado' },
+  'briefings.expand': { en: 'Expand', es: 'Expandir' },
+  'briefings.close': { en: 'Close video', es: 'Cerrar video' },
+  'briefings.v1_status': { en: 'PoC Ecosystem', es: 'Ecosistema PoC' },
+  'briefings.v1_eyebrow': { en: 'G-TECH Tactical Broadcast', es: 'G-TECH Tactical Broadcast' },
+  'briefings.v1_title': {
+    en: 'Introduction to the PoC Ecosystem & Cellular Communication',
+    es: 'Introducción al Ecosistema PoC y Comunicación Celular'
+  },
+  'briefings.v1_desc': {
+    en: 'Unlimited range demonstration and repeater-free push-to-talk architecture.',
+    es: 'Demostración de alcance ilimitado y arquitectura push-to-talk sin repetidoras.'
+  },
+  'briefings.v2_status': { en: 'Global Coverage', es: 'Cobertura Global' },
+  'briefings.v2_eyebrow': { en: 'Multi-Carrier Connectivity', es: 'Conectividad Multired' },
+  'briefings.v2_title': {
+    en: 'Automatic Switching & International Roaming',
+    es: 'Conmutación Automática y Roaming Internacional'
+  },
+  'briefings.v2_desc': {
+    en: 'Continuous field operation in more than 160 countries with tactical SIM cards.',
+    es: 'Operatividad continua en campo en más de 160 países con tarjetas SIM tácticas.'
+  },
+  'briefings.v3_eyebrow': { en: 'End-to-End Encryption', es: 'Cifrado de Extremo a Extremo' },
+  'briefings.v3_title': { en: 'AES-256 Security on Voice Channels', es: 'Seguridad AES-256 en Canales de Voz' },
+  'briefings.v3_desc': {
+    en: 'Protection against interception and unauthorized eavesdropping.',
+    es: 'Protección contra intercepciones y escuchas no autorizadas.'
+  },
+  'briefings.v4_eyebrow': { en: 'Military Standard', es: 'Estándar Militar' },
+  'briefings.v4_title': { en: 'Mil-Spec Drop and Immersion Resistance', es: 'Resistencia Mil-Spec a Caídas e Inmersión' },
+  'briefings.v4_desc': {
+    en: 'Reinforced chassis ready for high-impact operations.',
+    es: 'Chasis reforzados listos para operaciones de alto impacto.'
+  },
+  'briefings.v5_eyebrow': { en: 'Rapid Dispatch', es: 'Despacho Rápido' },
+  'briefings.v5_title': { en: 'Dispatch Console & Fleet Management', es: 'Consola de Despacho y Gestión de Flotas' },
+  'briefings.v5_desc': {
+    en: 'Real-time crew supervision and call recording.',
+    es: 'Supervisión en tiempo real de cuadrillas y grabación de llamadas.'
+  },
 
   // Cart / Quotation Station Drawer
   'cart.title': { en: 'Quotation Station', es: 'Estación de Cotización' },
@@ -280,11 +336,27 @@ export const translations: Translations = {
     es: 'Tarifas planas anuales oficiales sin contratos mensuales. Cobertura ininterrumpida con conmutación automática de red para todos tus radios tácticos G-TECH.'
   },
   'sim_section.rate_usa': { en: 'United States, Canada & Mexico', es: 'Estados Unidos, Canadá y México' },
+  'sim_section.rate_usa_carriers': {
+    en: 'Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel',
+    es: 'Multicarrier Tier-1: AT&T, T-Mobile, Verizon, Rogers, Telcel'
+  },
   'sim_section.rate_brazil': { en: 'Brazil', es: 'Brasil' },
   'sim_section.badge_brazil': { en: 'Brazil', es: 'Brasil' },
   'sim_section.rate_latam': { en: 'Latin America (Pan-Regional)', es: 'Latinoamérica (Pan-Regional)' },
+  'sim_section.rate_latam_carriers': {
+    en: 'Claro, Movistar, Tigo, Entel, Personal & Digitel',
+    es: 'Claro, Movistar, Tigo, Entel, Personal y Digitel'
+  },
   'sim_section.rate_europe': { en: 'Europe (Pan-European)', es: 'Europa (Pan-Europeo)' },
+  'sim_section.rate_europe_carriers': {
+    en: 'Full EU & UK Roaming: Vodafone, Orange, Telefónica, O2',
+    es: 'Roaming completo UE y Reino Unido: Vodafone, Orange, Telefónica, O2'
+  },
   'sim_section.rate_global': { en: 'Global Multi-Carrier (Worldwide)', es: 'Global Multi-Operador (Mundial)' },
+  'sim_section.rate_global_carriers': {
+    en: 'Autonomous Multi-IMSI across 160+ Countries',
+    es: 'Multi-IMSI autónomo en más de 160 países'
+  },
   'sim_section.per_year': { en: '/year', es: '/año' },
   'sim_section.badge_activation': { en: 'Zero Activation Fees', es: 'Cero Costos de Activación' },
   'sim_section.badge_aes': { en: 'AES-256 Voice Encryption', es: 'Cifrado de Voz AES-256' },
@@ -422,9 +494,19 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     description: 'Radio híbrida POC de alto rendimiento con doble antena (látigo UHF/VHF extendido y antena stubby LTE) para máxima sensibilidad y cobertura celular nacional. Cuenta con teclado alfanumérico completo DTMF de 12 teclas, pantalla a color de alto contraste y altavoz de alta potencia acústica.'
   },
   'G-F1': {
-    name: 'G-F1 FLOATING WATER POC',
-    badge: 'IP68 FLOATING WATER POC',
-    description: 'Radio marina con flotabilidad positiva automática y certificación de estanqueidad IP68. Continúa flotando en el agua con activación de luz estroboscópica de emergencia. Disponible en Negro Táctico y Azul ATEX Marino.'
+    name: 'G-F1 SMART POC RADIO',
+    badge: 'SMART POC TERMINAL',
+    description: 'Radio PoC inteligente de formato esbelto con pantalla vertical a color de alta definición y navegación minimalista de 3 teclas para despacho rápido.'
+  },
+  'G-P0-Black': {
+    name: 'P0 IP6 BLACK FLOATING POC',
+    badge: 'IP68 FLOATING MARINE POC',
+    description: 'Radio PoC marina especializada con flotabilidad positiva que permanece a flote en el agua. Construcción sellada IP68 sumergible en Negro Táctico.'
+  },
+  'P0-Ex-Blue': {
+    name: 'P0 IP6 BLUE ATEX FLOATING POC',
+    badge: 'ATEX / EX FLOATING MARINE POC',
+    description: 'Radio PoC marina certificada antiexplosiva (Ex) de seguridad intrínseca en Azul Marino ATEX. Sumergible IP68 y con flotabilidad positiva.'
   },
   'G-280-2': {
     name: 'G-280 POC-UHF',

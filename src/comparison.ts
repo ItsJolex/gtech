@@ -44,18 +44,20 @@ const DIMENSION_KEYS: (keyof ComparisonDimensionData)[] = [
 export function getShortModelName(p: Product): string {
   const map: Record<string, string> = {
     'G-889': 'G-889 POC-UHF',
-    'G-F1': 'G-F1 FLOATING WATER POC',
+    'G-F1': 'G-F1 SMART POC',
     'G-280-2': 'G-280 POC-UHF',
     'Model-G-M2': 'G-M2 WEARABLE CLIP POC',
     'G-510': 'G-510 POCKET POC',
     'G-H28': 'G-H28 TACTICAL KEYPAD POC',
     'WA0058-Vehicle': 'V1 PLUS POC GPS SOS 4G',
     'WA0060-Armor': 'G-6 PLUS POC',
+    'G-P0-Black': 'P0 IP6 BLACK',
+    'P0-Ex-Blue': 'P0 IP6 BLUE ATEX',
     'WA0062-TriMode': 'G-8 PLUS TRI-MODE POC-UHF',
     'WA0064-LongRange': 'G-5288 PLUS LONG-RANGE POC-UHF-VHF',
     'WA0055-GlobalLTE': 'G0 PLUS GLOBAL LITE POC',
     'WA0057-TacticalField': 'G-9 PLUS TACTICAL FIELD POC',
-    'WA0066-Alervites': 'ALERVITES AT1 BY BAOFENG',
+    'WA0066-Alervites': 'ALERVITES AT1',
     'WA0069-Bodycam': 'G-K8 4K BODYCAM POC'
   };
   return map[p.id] || p.shortName || p.name;

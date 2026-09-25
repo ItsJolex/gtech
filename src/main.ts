@@ -418,6 +418,13 @@ function updateStaticTranslations(): void {
     }
   });
 
+  document.querySelectorAll('[data-i18n-aria]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-aria');
+    if (key) {
+      el.setAttribute('aria-label', t(key));
+    }
+  });
+
   const desktopToggle = document.getElementById('lang-toggle-desktop');
   const mobileToggle = document.getElementById('lang-toggle-mobile');
 
@@ -872,6 +879,108 @@ onLanguageChange(() => {
   renderCartDrawer();
 });
 
+// AI Avatar Video Briefings: single-stream playback + expand modal
+const briefingSection = document.getElementById('founder-briefings');
+const briefingModal = document.getElementById('briefing-video-modal');
+const briefingModalVideo = document.getElementById('briefing-modal-video') as HTMLVideoElement | null;
+const briefingModalTitle = document.getElementById('briefing-modal-title');
+const briefingModalEyebrow = document.getElementById('briefing-modal-eyebrow');
+
+function formatDuration(seconds: number): string {
+  if (!isFinite(seconds) || seconds < 0) return '--:--';
+  const total = Math.round(seconds);
+  const mins = Math.floor(total / 60);
+  const secs = total % 60;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function pauseAllBriefingVideos(except?: HTMLVideoElement | null): void {
+  briefingSection?.querySelectorAll<HTMLVideoElement>('video[data-briefing-video]').forEach((v) => {
+    if (v !== except && !v.paused) v.pause();
+  });
+}
+
+function closeBriefingModal(): void {
+  if (!briefingModal) return;
+  briefingModalVideo?.pause();
+  if (briefingModalVideo) {
+    briefingModalVideo.removeAttribute('src');
+    briefingModalVideo.load();
+  }
+  briefingModal.classList.add('hidden');
+  briefingModal.classList.remove('flex');
+  pauseAllBriefingVideos();
+}
+
+function openBriefingModal(btn: HTMLElement): void {
+  if (!briefingModal || !briefingModalVideo) return;
+
+  const card = btn.closest('div.rounded-2xl') as HTMLElement | null;
+  const sourceVideo = card?.querySelector<HTMLVideoElement>('video[data-briefing-video]');
+  const src = sourceVideo?.getAttribute('src') || btn.getAttribute('data-briefing-src');
+  if (!src) return;
+
+  const titleEl = card?.querySelector<HTMLElement>('h3, h4');
+  const eyebrowEl = titleEl?.previousElementSibling as HTMLElement | null;
+
+  briefingModalVideo.setAttribute('src', src);
+  briefingModalVideo.poster = sourceVideo?.getAttribute('poster') || '';
+  briefingModalVideo.load();
+
+  if (briefingModalTitle) {
+    const key = titleEl?.getAttribute('data-i18n');
+    briefingModalTitle.textContent = key ? t(key) : titleEl?.textContent?.trim() || '';
+  }
+  if (briefingModalEyebrow) {
+    const key = eyebrowEl?.getAttribute('data-i18n');
+    briefingModalEyebrow.textContent = key ? t(key) : eyebrowEl?.textContent?.trim() || '';
+  }
+
+  briefingModal.classList.remove('hidden');
+  briefingModal.classList.add('flex');
+  briefingModalVideo.play().catch(() => undefined);
+}
+
+function initBriefings(): void {
+  if (!briefingSection) return;
+
+  briefingSection.querySelectorAll<HTMLVideoElement>('video[data-briefing-video]').forEach((video) => {
+    const wrapper = video.parentElement;
+    const durationBadge = wrapper?.querySelector<HTMLElement>('[data-briefing-duration]');
+
+    video.addEventListener('loadedmetadata', () => {
+      if (durationBadge) durationBadge.textContent = formatDuration(video.duration);
+    });
+
+    video.addEventListener('play', () => pauseAllBriefingVideos(video));
+
+    video.addEventListener('error', () => {
+      if (durationBadge) durationBadge.textContent = '--:--';
+    });
+  });
+
+  briefingSection.querySelectorAll<HTMLElement>('[data-briefing-expand]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openBriefingModal(btn);
+    });
+  });
+
+  briefingModal?.querySelectorAll<HTMLElement>('[data-briefing-modal-close]').forEach((btn) => {
+    btn.addEventListener('click', closeBriefingModal);
+  });
+
+  briefingModal?.addEventListener('click', (e) => {
+    if (e.target === briefingModal) closeBriefingModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && briefingModal && !briefingModal.classList.contains('hidden')) {
+      closeBriefingModal();
+    }
+  });
+}
+
 // Initialize Systems
 initI18n();
 updateStaticTranslations();
@@ -880,6 +989,7 @@ initCart();
 initComparison();
 initFinder();
 initLegalModule();
+initBriefings();
 
 // Global Window Bindings
 (window as any).addToCart = (id: string, color?: string, img?: string) => addToCart(id, color, img);

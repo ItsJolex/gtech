@@ -183,8 +183,8 @@
             <div class="absolute top-6 -left-2 sm:left-0 bg-white/95 backdrop-blur-sm border border-gray-200/80 px-3 py-1.5 rounded-xl shadow-lg z-20 flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <div class="text-left">
-                <span class="block text-[9px] font-bold text-gray-400 uppercase leading-none" data-i18n="hero.badge_network_sub">Network</span>
-                <span class="text-[11px] font-extrabold text-navy-800" data-i18n="hero.badge_network">4G LTE Active</span>
+                <span class="block text-[9px] font-bold text-gray-400 uppercase leading-none" data-i18n="hero.badge_network_sub">Multiband Network</span>
+                <span class="text-[11px] font-extrabold text-navy-800" data-i18n="hero.badge_network">4G, 3G, 2G Active</span>
               </div>
             </div>
 
@@ -329,6 +329,135 @@
       </div>
     </section>
 
+    <!-- AI Avatar Founder Video Briefings Section (Stitch Design) -->
+    <section class="py-16 sm:py-24 bg-white border-t border-gray-200/80 relative overflow-hidden" id="founder-briefings">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 text-xs font-bold uppercase tracking-wider border border-crimson-200/70">
+              <span class="w-2 h-2 rounded-full bg-crimson-600 animate-pulse"></span>
+              <span data-i18n="briefings.badge">Transmisión Oficial // Avatar IA de Geramel</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-navy-800 tracking-tight" data-i18n="briefings.title">
+              Informes Tácticos y Demostraciones en Video
+            </h2>
+            <p class="text-sm sm:text-base text-gray-600 max-w-2xl leading-relaxed" data-i18n="briefings.subtitle">
+              Cápsulas técnicas exclusivas presentadas por el avatar digital del fundador de G-TECH.
+            </p>
+          </div>
+          <div class="mt-4 md:mt-0 flex items-center gap-2 text-xs text-gray-500 font-semibold">
+            <svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span class="uppercase tracking-wider" data-i18n="briefings.hd_label">Audio &amp; Video HD Optimizado</span>
+          </div>
+        </div>
+
+        <!-- Video Grid: 2 Top Featured + 3 Bottom Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mb-8">
+
+          <!-- Video 1 (Hero Card) -->
+          <div class="lg:col-span-7 rounded-2xl border border-gray-200/80 bg-navy-950/5 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+              <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="/videos/briefing-1.webp" src="/videos/briefing-1.mp4"></video>
+              <button type="button" data-briefing-expand="briefing-1" data-i18n-aria="briefings.expand" aria-label="Expand video" class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold hover:bg-black/75 transition-colors">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+                <span data-i18n="briefings.expand">Expandir</span>
+              </button>
+              <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold pointer-events-none">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span data-i18n="briefings.v1_status">Ecosistema PoC</span>
+              </div>
+              <div class="absolute bottom-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+            </div>
+            <div class="p-5 sm:p-6 bg-white space-y-2">
+              <span class="text-[11px] font-bold text-crimson-700 uppercase tracking-wider block" data-i18n="briefings.v1_eyebrow">G-TECH Tactical Broadcast</span>
+              <h3 class="text-base sm:text-lg font-bold text-navy-800" data-i18n="briefings.v1_title">Introducción al Ecosistema PoC y Comunicación Celular</h3>
+              <p class="text-xs text-gray-500" data-i18n="briefings.v1_desc">Demostración de alcance ilimitado y arquitectura push-to-talk sin repetidoras.</p>
+            </div>
+          </div>
+
+          <!-- Video 2 -->
+          <div class="lg:col-span-5 rounded-2xl border border-gray-200/80 bg-navy-950/5 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+              <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="/videos/briefing-2.webp" src="/videos/briefing-2.mp4"></video>
+              <button type="button" data-briefing-expand="briefing-2" data-i18n-aria="briefings.expand" aria-label="Expand video" class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold hover:bg-black/75 transition-colors">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+                <span data-i18n="briefings.expand">Expandir</span>
+              </button>
+              <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold pointer-events-none">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span data-i18n="briefings.v2_status">Cobertura Global</span>
+              </div>
+              <div class="absolute bottom-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+            </div>
+            <div class="p-5 sm:p-6 bg-white space-y-2">
+              <span class="text-[11px] font-bold text-crimson-700 uppercase tracking-wider block" data-i18n="briefings.v2_eyebrow">Conectividad Multired</span>
+              <h3 class="text-base sm:text-lg font-bold text-navy-800" data-i18n="briefings.v2_title">Conmutación Automática y Roaming Internacional</h3>
+              <p class="text-xs text-gray-500" data-i18n="briefings.v2_desc">Operatividad continua en campo en más de 160 países con tarjetas SIM tácticas.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Bottom Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+
+          <!-- Video 3 -->
+          <div class="rounded-2xl border border-gray-200/80 bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+              <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="/videos/briefing-3.webp" src="/videos/briefing-3.mp4"></video>
+              <button type="button" data-briefing-expand="briefing-3" data-i18n-aria="briefings.expand" aria-label="Expand video" class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold hover:bg-black/75 transition-colors">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+                <span data-i18n="briefings.expand">Expandir</span>
+              </button>
+              <div class="absolute bottom-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+            </div>
+            <div class="p-4 sm:p-5 space-y-1.5">
+              <span class="text-[10px] font-bold text-crimson-700 uppercase tracking-wider block" data-i18n="briefings.v3_eyebrow">Cifrado de Extremo a Extremo</span>
+              <h4 class="text-sm font-bold text-navy-800" data-i18n="briefings.v3_title">Seguridad AES-256 en Canales de Voz</h4>
+              <p class="text-[11px] text-gray-500" data-i18n="briefings.v3_desc">Protección contra intercepciones y escuchas no autorizadas.</p>
+            </div>
+          </div>
+
+          <!-- Video 4 -->
+          <div class="rounded-2xl border border-gray-200/80 bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+              <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="/videos/briefing-4.webp" src="/videos/briefing-4.mp4"></video>
+              <button type="button" data-briefing-expand="briefing-4" data-i18n-aria="briefings.expand" aria-label="Expand video" class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold hover:bg-black/75 transition-colors">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+                <span data-i18n="briefings.expand">Expandir</span>
+              </button>
+              <div class="absolute bottom-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+            </div>
+            <div class="p-4 sm:p-5 space-y-1.5">
+              <span class="text-[10px] font-bold text-crimson-700 uppercase tracking-wider block" data-i18n="briefings.v4_eyebrow">Estándar Militar</span>
+              <h4 class="text-sm font-bold text-navy-800" data-i18n="briefings.v4_title">Resistencia Mil-Spec a Caídas e Inmersión</h4>
+              <p class="text-[11px] text-gray-500" data-i18n="briefings.v4_desc">Chasis reforzados listos para operaciones de alto impacto.</p>
+            </div>
+          </div>
+
+          <!-- Video 5 -->
+          <div class="rounded-2xl border border-gray-200/80 bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+              <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="/videos/briefing-5.webp" src="/videos/briefing-5.mp4"></video>
+              <button type="button" data-briefing-expand="briefing-5" data-i18n-aria="briefings.expand" aria-label="Expand video" class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold hover:bg-black/75 transition-colors">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+                <span data-i18n="briefings.expand">Expandir</span>
+              </button>
+              <div class="absolute bottom-3 left-3 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+            </div>
+            <div class="p-4 sm:p-5 space-y-1.5">
+              <span class="text-[10px] font-bold text-crimson-700 uppercase tracking-wider block" data-i18n="briefings.v5_eyebrow">Despacho Rápido</span>
+              <h4 class="text-sm font-bold text-navy-800" data-i18n="briefings.v5_title">Consola de Despacho y Gestión de Flotas</h4>
+              <p class="text-[11px] text-gray-500" data-i18n="briefings.v5_desc">Supervisión en tiempo real de cuadrillas y grabación de llamadas.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
     <!-- Tactical Mission Finder Section -->
     <div id="finder-section"></div>
 
@@ -450,11 +579,17 @@
             <p class="text-xs text-gray-400" data-i18n="footer.social_desc">
               Follow our official tactical deployments, radio tests, field showcases, and firmware releases.
             </p>
-            <div class="pt-1">
+            <div class="flex flex-wrap items-center gap-2.5 pt-1">
               <a href="https://www.instagram.com/geramel1?stkn=MTQ2dXk3ZnI5NXo1bg==" target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-900/40 via-pink-900/40 to-red-900/40 border border-pink-500/30 text-white text-xs font-bold hover:scale-105 transition-all shadow-md group">
-                <svg class="w-5 h-5 text-pink-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.13-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                <span>Instagram @geramel1</span>
+                 class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-900/40 via-pink-900/40 to-red-900/40 border border-pink-500/30 text-white text-xs font-bold hover:scale-105 transition-all shadow-md group">
+                <svg class="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.13-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span data-i18n="footer.instagram_btn">Instagram @geramel1</span>
+              </a>
+
+              <a href="https://www.facebook.com/share/1Dgoi7fWzz/" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-900/40 border border-blue-500/30 text-white text-xs font-bold hover:scale-105 transition-all shadow-md group">
+                <svg class="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                <span data-i18n="footer.facebook_btn">Facebook Official</span>
               </a>
             </div>
             <div class="pt-2">
@@ -506,6 +641,22 @@
     </a>
 
     
+    <!-- AI Avatar Video Modal Overlay -->
+    <div id="briefing-video-modal" class="fixed inset-0 z-[100] bg-navy-900/85 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true">
+      <div class="bg-navy-950 w-full max-w-5xl rounded-3xl shadow-2xl overflow-hidden relative">
+        <button type="button" data-briefing-modal-close class="absolute top-3 right-3 z-10 w-9 h-9 inline-flex items-center justify-center rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white hover:bg-black/80 transition-colors" data-i18n-aria="briefings.close" aria-label="Close video">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div class="relative aspect-video bg-black">
+          <video id="briefing-modal-video" class="w-full h-full object-contain" controls playsinline preload="metadata"></video>
+        </div>
+        <div class="p-4 sm:p-5 bg-navy-950 space-y-1">
+          <span class="text-[10px] font-bold text-crimson-400 uppercase tracking-wider block" id="briefing-modal-eyebrow">G-TECH Tactical Broadcast</span>
+          <h3 class="text-sm sm:text-base font-bold text-white" id="briefing-modal-title"></h3>
+        </div>
+      </div>
+    </div>
+
     <!-- Product Modal Overlay -->
     <div id="product-modal" class="fixed inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4">
       <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden relative max-h-[90vh] overflow-y-auto">
