@@ -43,22 +43,20 @@ const DIMENSION_KEYS: (keyof ComparisonDimensionData)[] = [
 
 export function getShortModelName(p: Product): string {
   const map: Record<string, string> = {
-    'G-889': 'G-889 (POC-UHF)',
-    'G-F1': 'G-F1 SMART',
-    'G-280-2': 'G-280 (POC-UHF)',
-    'Model-G-M2': 'G-M2 (Wearable Clip)',
-    'G-510': 'G-510 (Pocket PoC)',
-    'G-H28': 'G-H28 (Tactical Keypad)',
-    'G-P0-Black': 'G-F1 Floating (Black)',
-    'P0-Ex-Blue': 'G-F1 Floating (Blue ATEX)',
-    'WA0058-Vehicle': 'G-8900 (Vehicle)',
-    'WA0060-Armor': 'G-6 plus (Armor)',
-    'WA0062-TriMode': 'G-8 plus (Tri-Mode POC-UHF)',
-    'WA0064-LongRange': 'G-5288 plus (POC-UHF-VHF)',
-    'WA0055-GlobalLTE': 'G0 plus (Global Lite)',
-    'WA0057-TacticalField': 'G-9 plus (Tactical Field)',
-    'WA0066-Alervites': 'G-34181 (Commercial)',
-    'WA0069-Bodycam': 'G-K8 (Bodycam 4G)'
+    'G-889': 'G-889 POC-UHF',
+    'G-F1': 'G-F1 FLOATING WATER POC',
+    'G-280-2': 'G-280 POC-UHF',
+    'Model-G-M2': 'G-M2 WEARABLE CLIP POC',
+    'G-510': 'G-510 POCKET POC',
+    'G-H28': 'G-H28 TACTICAL KEYPAD POC',
+    'WA0058-Vehicle': 'V1 PLUS POC GPS SOS 4G',
+    'WA0060-Armor': 'G-6 PLUS POC',
+    'WA0062-TriMode': 'G-8 PLUS TRI-MODE POC-UHF',
+    'WA0064-LongRange': 'G-5288 PLUS LONG-RANGE POC-UHF-VHF',
+    'WA0055-GlobalLTE': 'G0 PLUS GLOBAL LITE POC',
+    'WA0057-TacticalField': 'G-9 PLUS TACTICAL FIELD POC',
+    'WA0066-Alervites': 'G-34181 POC',
+    'WA0069-Bodycam': 'G-K8 4K BODYCAM POC'
   };
   return map[p.id] || p.shortName || p.name;
 }

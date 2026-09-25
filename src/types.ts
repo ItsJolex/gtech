@@ -13,6 +13,14 @@ export interface ComparisonDimensionData {
   certifications: string;
 }
 
+export interface ProductColor {
+  id: string;
+  name: string;
+  nameEs?: string;
+  hex: string;
+  image: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -29,6 +37,7 @@ export interface Product {
   specs: { label: string; value: string }[];
   comparison: ComparisonDimensionData;
   tags: string[];
+  colors?: ProductColor[];
 }
 
 export interface CartItem {
@@ -38,6 +47,7 @@ export interface CartItem {
   image: string;
   quantity: number;
   inStock: boolean;
+  selectedColor?: string;
 }
 
 export interface QuizQuestion {

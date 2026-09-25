@@ -226,6 +226,65 @@ const modalContent = document.getElementById('modal-content');
 const cartBtn = document.getElementById('cart-btn');
 const mobileCartBtn = document.getElementById('mobile-cart-btn');
 
+let cardSlideshowInterval: number | null = null;
+const cardColorIndices: Record<string, number> = {};
+
+function initCardSlideshow(): void {
+  if (cardSlideshowInterval) {
+    clearInterval(cardSlideshowInterval);
+    cardSlideshowInterval = null;
+  }
+
+  const multiColorProducts = productsData.filter(p => p.colors && p.colors.length > 1);
+  if (multiColorProducts.length === 0) return;
+
+  multiColorProducts.forEach(p => {
+    if (cardColorIndices[p.id] === undefined) {
+      cardColorIndices[p.id] = 0;
+    }
+  });
+
+  cardSlideshowInterval = window.setInterval(() => {
+    multiColorProducts.forEach(p => {
+      if (!p.colors || p.colors.length <= 1) return;
+      const cardEl = document.getElementById(`catalog-card-${p.id}`);
+      if (cardEl && cardEl.matches(':hover')) return;
+
+      const nextIdx = ((cardColorIndices[p.id] || 0) + 1) % p.colors.length;
+      cardColorIndices[p.id] = nextIdx;
+      const nextColor = p.colors[nextIdx];
+      (window as any).setCardColor(p.id, nextColor.id);
+    });
+  }, 3500);
+}
+
+(window as any).setCardColor = (productId: string, colorId: string) => {
+  const product = productsData.find(p => p.id === productId);
+  if (!product || !product.colors) return;
+  const color = product.colors.find(c => c.id === colorId);
+  if (!color) return;
+
+  const idx = product.colors.findIndex(c => c.id === colorId);
+  if (idx !== -1) {
+    cardColorIndices[productId] = idx;
+  }
+
+  const img = document.getElementById(`card-img-${productId}`) as HTMLImageElement;
+  if (img) {
+    img.src = color.image;
+  }
+
+  document.querySelectorAll(`.card-color-dot-${productId}`).forEach(dot => {
+    dot.classList.remove('ring-2', 'ring-white', 'scale-110');
+    dot.classList.add('opacity-70');
+  });
+  const activeDot = document.getElementById(`dot-${productId}-${colorId}`);
+  if (activeDot) {
+    activeDot.classList.add('ring-2', 'ring-white', 'scale-110');
+    activeDot.classList.remove('opacity-70');
+  }
+};
+
 function renderCatalog(): void {
   if (!catalogContainer) return;
   const lang = getLanguage();
@@ -236,11 +295,16 @@ function renderCatalog(): void {
       ? `Hola G-TECH, me interesa cotizar el equipo táctico ${encodeURIComponent(localized.name)}`
       : `Hello G-TECH, I'm interested in the ${encodeURIComponent(localized.name)}`;
 
+    const currentColorIdx = cardColorIndices[product.id] || 0;
+    const initialCardImg = (product.colors && product.colors[currentColorIdx])
+      ? product.colors[currentColorIdx].image
+      : product.image;
+
     return `
-      <div class="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-5 shadow-sm hover:shadow-md border border-gray-100 flex flex-col relative group cursor-pointer transition-all duration-200 card-hardware-accel" onclick="openModal('${product.id}')">
+      <div id="catalog-card-${product.id}" class="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-5 shadow-sm hover:shadow-md border border-gray-100 flex flex-col relative group cursor-pointer transition-all duration-200 card-hardware-accel" onclick="openModal('${product.id}')">
 
         <div class="aspect-square bg-navy-950/10 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-gray-200/70 group/cardimg shadow-xs">
-          <img src="${product.image}" alt="${localized.name}" class="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-transform duration-300" loading="lazy">
+          <img id="card-img-${product.id}" src="${initialCardImg}" alt="${localized.name}" class="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-transform duration-300" loading="lazy">
 
           <!-- Top Badges Header -->
           <div class="absolute top-2 inset-x-2 flex items-center justify-between gap-1 z-10 pointer-events-none">
@@ -255,6 +319,22 @@ function renderCatalog(): void {
           ${!product.inStock ? `
             <div class="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center z-10">
               <span class="bg-crimson-800 text-white px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider shadow">${t('catalog.sold_out')}</span>
+            </div>
+          ` : ''}
+
+          <!-- Color dots for multi-color models -->
+          ${product.colors && product.colors.length > 1 ? `
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-1 rounded-full border border-white/20 pointer-events-auto shadow-md" onclick="event.stopPropagation()">
+              ${product.colors.map((c, idx) => `
+                <button type="button"
+                        onclick="event.stopPropagation(); window.setCardColor('${product.id}', '${c.id}')"
+                        id="dot-${product.id}-${c.id}"
+                        class="card-color-dot-${product.id} w-3 h-3 rounded-full border border-white/80 transition-all ${idx === currentColorIdx ? 'ring-2 ring-white scale-110' : 'opacity-70 hover:opacity-100'}"
+                        style="background-color: ${c.hex};"
+                        title="${lang === 'es' ? (c.nameEs || c.name) : c.name}"
+                        aria-label="Color ${c.name}">
+                </button>
+              `).join('')}
             </div>
           ` : ''}
 
@@ -287,6 +367,15 @@ function renderCatalog(): void {
           ${localized.name}
         </h3>
 
+        ${product.colors && product.colors.length > 1 ? `
+          <div class="flex items-center gap-1.5 mb-1.5">
+            <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              ${product.colors.length} ${lang === 'es' ? 'colores disponibles' : 'colors available'}
+            </span>
+          </div>
+        ` : ''}
+
         <p class="hidden sm:block text-gray-500 text-xs sm:text-sm mb-4 line-clamp-2 leading-relaxed flex-grow">
           ${localized.description}
         </p>
@@ -314,6 +403,8 @@ function renderCatalog(): void {
       </div>
     `;
   }).join('');
+
+  initCardSlideshow();
 }
 
 function updateStaticTranslations(): void {
@@ -350,15 +441,23 @@ if (modalOverlay && modalContent) {
     const lang = getLanguage();
     const localized = getLocalizedProduct(p);
 
+    const activeColorIndex = (p.colors && p.colors.length > 0 && cardColorIndices[p.id] !== undefined)
+      ? cardColorIndices[p.id]
+      : 0;
+    const activeColor = (p.colors && p.colors.length > 0) ? p.colors[activeColorIndex] : null;
+    const initialImg = activeColor ? activeColor.image : p.image;
+    const initialColorLabel = activeColor ? (lang === 'es' ? (activeColor.nameEs || activeColor.name) : activeColor.name) : '';
+
     const stockBadge = !p.inStock
       ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${t('catalog.sold_out')}</span>`
       : p.stockStatus === 'low_stock'
         ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${t('catalog.low_stock')}</span>`
         : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${t('catalog.in_stock')}</span>`;
 
+    const colorMsgSuffix = initialColorLabel ? ` (Color: ${initialColorLabel})` : '';
     const waModalMsg = lang === 'es'
-      ? `Hola G-TECH, deseo cotizar formalmente el equipo ${encodeURIComponent(localized.name)}`
-      : `Hello G-TECH, I'm interested in requesting a quote for ${encodeURIComponent(localized.name)}`;
+      ? `Hola G-TECH, deseo cotizar formalmente el equipo ${encodeURIComponent(localized.name + colorMsgSuffix)}`
+      : `Hello G-TECH, I'm interested in requesting a quote for ${encodeURIComponent(localized.name + colorMsgSuffix)}`;
 
     modalContent.innerHTML = `
       <div class="relative">
@@ -367,37 +466,13 @@ if (modalOverlay && modalContent) {
         </button>
 
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
-          <div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-square max-w-sm md:max-w-none mx-auto bg-navy-950/10 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-200/80 relative group/modalphoto shadow-sm flex-shrink-0">
-            <img id="modal-product-img" src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover rounded-2xl transition-transform duration-300">
+          <div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-square max-w-sm md:max-w-none mx-auto bg-navy-950/10 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-200/80 relative shadow-sm flex-shrink-0">
+            <img id="modal-product-img" src="${initialImg}" alt="${localized.name}" class="w-full h-full object-cover rounded-2xl transition-all duration-300">
             ${!p.inStock ? `
               <div class="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
                 <span class="bg-crimson-600 text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-lg shadow-xl">${t('catalog.sold_out')}</span>
               </div>
             ` : ''}
-
-            <!-- BOTTOM-LEFT: SIM Rates Overlay Button Inside Modal -->
-            <button onclick="window.openSimPricingModal('${p.id}')"
-                    class="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-20 w-8 h-8 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 active:scale-95 group/msim"
-                    title="${t('catalog.sim_rates')}" aria-label="SIM Plans">
-              <svg class="w-4 h-4 text-emerald-400 group-hover/msim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
-                <rect x="8" y="10" width="8" height="8" rx="1"/>
-                <path d="M12 10v8M8 14h8"/>
-              </svg>
-              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-emerald-300">${t('catalog.sim_plans')}</span>
-            </button>
-
-            <!-- BOTTOM-RIGHT: Deep Specs Button Inside Modal -->
-            <button onclick="window.transitionToDeepDive('${p.id}')"
-                    class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 w-8 h-8 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 active:scale-95 group/mspec"
-                    title="${t('catalog.full_specs')}" aria-label="Full Technical Specs">
-              <svg class="w-4 h-4 text-amber-300 group-hover/mspec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
-              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-amber-200">${t('catalog.full_specs')}</span>
-            </button>
           </div>
 
           <div id="modal-product-summary" class="w-full md:w-1/2 flex flex-col justify-between">
@@ -406,9 +481,31 @@ if (modalOverlay && modalContent) {
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-navy-800 leading-tight">${localized.name}</h2>
                 ${stockBadge}
               </div>
-              <div class="mb-4">
+              <div class="mb-3">
                 <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-100">${localized.badge}</span>
               </div>
+
+              <!-- Color Selection Swatches inside Modal -->
+              ${p.colors && p.colors.length > 1 ? `
+                <div class="mb-4 p-3 bg-gray-50 rounded-xl border border-gray-200">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-navy-800">${lang === 'es' ? 'Seleccionar Color:' : 'Select Color:'}</span>
+                    <span id="modal-selected-color-label" class="text-xs font-extrabold text-crimson-700">${initialColorLabel}</span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    ${p.colors.map((c, i) => `
+                      <button type="button"
+                              onclick="window.selectModalColor('${p.id}', '${c.id}')"
+                              id="modal-color-btn-${c.id}"
+                              class="modal-color-swatch flex items-center gap-2 px-3 py-2 rounded-xl border-2 transition-all ${i === activeColorIndex ? 'border-crimson-600 bg-white shadow-sm ring-2 ring-crimson-600/20 font-bold' : 'border-gray-200 hover:border-gray-300 bg-white/80 font-medium'}">
+                        <span class="w-4 h-4 rounded-full border border-black/20 shadow-xs flex-shrink-0" style="background-color: ${c.hex};"></span>
+                        <span class="text-xs text-navy-900">${lang === 'es' ? (c.nameEs || c.name) : c.name}</span>
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
+
               <p class="text-gray-600 text-sm md:text-base mb-6 leading-relaxed">${localized.description}</p>
               
               <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
@@ -438,13 +535,15 @@ if (modalOverlay && modalContent) {
             
             <div class="pt-4 border-t border-gray-100 space-y-2">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
-                <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
+                <button id="modal-add-to-cart-btn"
+                        onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}', '${activeColor ? activeColor.name : ''}', '${initialImg}'); closeModal(); openCartDrawer()`}"
                         class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg tactical-glow-crimson active:scale-95"
                         title="${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                   <span>${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}</span>
                 </button>
-                <a href="https://wa.me/14074273356?text=${waModalMsg}"
+                <a id="modal-whatsapp-btn"
+                   href="https://wa.me/14074273356?text=${waModalMsg}"
                    target="_blank"
                    class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg active:scale-95"
                    title="${t('catalog.whatsapp_direct')}">
@@ -464,6 +563,48 @@ if (modalOverlay && modalContent) {
     modalOverlay.classList.remove('hidden');
     modalOverlay.classList.add('flex');
     document.body.style.overflow = 'hidden';
+  };
+
+  (window as any).selectModalColor = (productId: string, colorId: string) => {
+    const p = productsData.find(x => x.id === productId);
+    if (!p || !p.colors) return;
+    const chosen = p.colors.find(c => c.id === colorId);
+    if (!chosen) return;
+
+    const lang = getLanguage();
+    const imgEl = document.getElementById('modal-product-img') as HTMLImageElement;
+    if (imgEl) {
+      imgEl.src = chosen.image;
+    }
+    const labelEl = document.getElementById('modal-selected-color-label');
+    const colorLabel = lang === 'es' ? (chosen.nameEs || chosen.name) : chosen.name;
+    if (labelEl) {
+      labelEl.textContent = colorLabel;
+    }
+
+    document.querySelectorAll('.modal-color-swatch').forEach(el => {
+      el.classList.remove('border-crimson-600', 'ring-2', 'ring-crimson-600/20', 'font-bold');
+      el.classList.add('border-gray-200', 'font-medium');
+    });
+    const activeBtn = document.getElementById(`modal-color-btn-${chosen.id}`);
+    if (activeBtn) {
+      activeBtn.classList.add('border-crimson-600', 'ring-2', 'ring-crimson-600/20', 'font-bold');
+      activeBtn.classList.remove('border-gray-200', 'font-medium');
+    }
+
+    const addBtn = document.getElementById('modal-add-to-cart-btn');
+    if (addBtn && p.inStock) {
+      addBtn.setAttribute('onclick', `addToCart('${p.id}', '${chosen.name}', '${chosen.image}'); closeModal(); openCartDrawer()`);
+    }
+
+    const waBtn = document.getElementById('modal-whatsapp-btn') as HTMLAnchorElement;
+    if (waBtn) {
+      const localized = getLocalizedProduct(p);
+      const waText = lang === 'es'
+        ? `Hola G-TECH, deseo cotizar formalmente el equipo ${localized.name} (Color: ${colorLabel})`
+        : `Hello G-TECH, I'm interested in requesting a quote for ${localized.name} (Color: ${colorLabel})`;
+      waBtn.href = `https://wa.me/14074273356?text=${encodeURIComponent(waText)}`;
+    }
   };
 
   (window as any).closeModal = () => {
@@ -737,7 +878,7 @@ initFinder();
 initLegalModule();
 
 // Global Window Bindings
-(window as any).addToCart = (id: string) => addToCart(id);
+(window as any).addToCart = (id: string, color?: string, img?: string) => addToCart(id, color, img);
 (window as any).openCartDrawer = () => openCartDrawer();
 (window as any).closeCartDrawer = () => closeCartDrawer();
 (window as any).resetFinder = () => resetFinder();

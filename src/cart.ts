@@ -50,7 +50,7 @@ export function getCartCount(): number {
   return cart.reduce((sum, item) => sum + item.quantity, 0);
 }
 
-export function addToCart(productId: string): { success: boolean; message: string; fallbackProduct?: Product } {
+export function addToCart(productId: string, selectedColor?: string, customImage?: string): { success: boolean; message: string; fallbackProduct?: Product } {
   const product = getProductById(productId);
   
   if (!product) {
@@ -67,7 +67,7 @@ export function addToCart(productId: string): { success: boolean; message: strin
     };
   }
   
-  const existingItem = cart.find(item => item.id === productId);
+  const existingItem = cart.find(item => item.id === productId && (item.selectedColor || '') === (selectedColor || ''));
   
   if (existingItem) {
     existingItem.quantity += 1;
@@ -76,9 +76,10 @@ export function addToCart(productId: string): { success: boolean; message: strin
       id: product.id,
       name: product.name,
       badge: product.badge,
-      image: product.image,
+      image: customImage || product.image,
       quantity: 1,
-      inStock: product.inStock
+      inStock: product.inStock,
+      selectedColor: selectedColor || undefined
     });
   }
   
@@ -87,23 +88,24 @@ export function addToCart(productId: string): { success: boolean; message: strin
   updateCartBadge();
   animateCartBadge();
   
-  return { success: true, message: `${product.name} added to cart` };
+  const colorSuffix = selectedColor ? ` (${selectedColor})` : '';
+  return { success: true, message: `${product.name}${colorSuffix} added to cart` };
 }
 
-export function removeFromCart(productId: string): void {
-  cart = cart.filter(item => item.id !== productId);
+export function removeFromCart(productId: string, selectedColor?: string): void {
+  cart = cart.filter(item => !(item.id === productId && (item.selectedColor || '') === (selectedColor || '')));
   saveCart();
   renderCartDrawer();
   updateCartBadge();
 }
 
-export function updateQuantity(productId: string, delta: number): void {
-  const item = cart.find(i => i.id === productId);
+export function updateQuantity(productId: string, delta: number, selectedColor?: string): void {
+  const item = cart.find(i => i.id === productId && (i.selectedColor || '') === (selectedColor || ''));
   if (!item) return;
   
   item.quantity += delta;
   if (item.quantity <= 0) {
-    removeFromCart(productId);
+    removeFromCart(productId, selectedColor);
   } else {
     saveCart();
     renderCartDrawer();
@@ -283,15 +285,20 @@ export function renderCartDrawer(): void {
               <div class="flex-1 min-w-0 flex flex-col justify-between">
                 <div>
                   <h4 class="text-white font-semibold text-sm truncate">${item.name}</h4>
-                  <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-crimson-900/50 text-crimson-300 border border-crimson-800 inline-block mt-1">${item.badge}</span>
+                  <div class="flex items-center gap-1.5 flex-wrap mt-1">
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-crimson-900/50 text-crimson-300 border border-crimson-800 inline-block">${item.badge}</span>
+                    ${item.selectedColor ? `
+                      <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-navy-950 text-amber-300 border border-amber-500/40 inline-block">Color: ${item.selectedColor}</span>
+                    ` : ''}
+                  </div>
                 </div>
                 <div class="flex items-center justify-between mt-2">
                   <div class="flex items-center gap-2 bg-navy-900 rounded-lg border border-navy-700 px-2 py-1">
-                    <button onclick="updateCartQuantity('${item.id}', -1)" class="text-white hover:text-crimson-400 text-lg font-bold w-8 h-8 flex items-center justify-center rounded transition-colors" aria-label="Decrease quantity">−</button>
+                    <button onclick="updateCartQuantity('${item.id}', -1, '${item.selectedColor || ''}')" class="text-white hover:text-crimson-400 text-lg font-bold w-8 h-8 flex items-center justify-center rounded transition-colors" aria-label="Decrease quantity">−</button>
                     <span class="text-white font-bold text-sm w-8 text-center">${item.quantity}</span>
-                    <button onclick="updateCartQuantity('${item.id}', 1)" class="text-white hover:text-crimson-400 text-lg font-bold w-8 h-8 flex items-center justify-center rounded transition-colors" aria-label="Increase quantity">+</button>
+                    <button onclick="updateCartQuantity('${item.id}', 1, '${item.selectedColor || ''}')" class="text-white hover:text-crimson-400 text-lg font-bold w-8 h-8 flex items-center justify-center rounded transition-colors" aria-label="Increase quantity">+</button>
                   </div>
-                  <button onclick="removeFromCart('${item.id}')" class="text-navy-400 hover:text-crimson-400 p-1.5 transition-colors" aria-label="Remove from cart">
+                  <button onclick="removeFromCart('${item.id}', '${item.selectedColor || ''}')" class="text-navy-400 hover:text-crimson-400 p-1.5 transition-colors" aria-label="Remove from cart">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                   </button>
                 </div>
@@ -355,8 +362,8 @@ export function closeCartDrawer(): void {
   }
 }
 
-export function updateCartQuantity(productId: string, delta: number): void {
-  updateQuantity(productId, delta);
+export function updateCartQuantity(productId: string, delta: number, selectedColor?: string): void {
+  updateQuantity(productId, delta, selectedColor || undefined);
 }
 
 export function generateWhatsAppMessage(): void {
@@ -381,7 +388,8 @@ export function generateWhatsAppMessage(): void {
   ];
 
   cart.forEach(item => {
-    lines.push(`• *${item.quantity}x* ${item.name} [${item.badge}]`);
+    const colorSuffix = item.selectedColor ? ` (Color: ${item.selectedColor})` : '';
+    lines.push(`• *${item.quantity}x* ${item.name}${colorSuffix} [${item.badge}]`);
   });
 
   if (selectedCartSimPlan !== 'none') {
@@ -415,9 +423,9 @@ export function setCartSimPlan(planId: string): void {
 }
 
 (window as any).setCartSimPlan = (planId: string) => setCartSimPlan(planId);
-(window as any).addToCart = (id: string) => addToCart(id);
-(window as any).removeFromCart = (id: string) => removeFromCart(id);
-(window as any).updateCartQuantity = (id: string, delta: number) => updateQuantity(id, delta);
+(window as any).addToCart = (id: string, color?: string, img?: string) => addToCart(id, color, img);
+(window as any).removeFromCart = (id: string, color?: string) => removeFromCart(id, color);
+(window as any).updateCartQuantity = (id: string, delta: number, color?: string) => updateQuantity(id, delta, color);
 (window as any).clearCart = () => clearCart();
 (window as any).openCartDrawer = () => openCartDrawer();
 (window as any).closeCartDrawer = () => closeCartDrawer();

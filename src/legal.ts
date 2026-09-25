@@ -239,21 +239,21 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
             The "Quotation Station" on G-TECH.US facilitates rapid generation of price estimates, inventory inquiries, and fleet specifications. <strong>Submission of a quotation request via WhatsApp or email does NOT constitute a final binding contract of sale.</strong> A binding commercial transaction occurs only upon issuance and client approval of a formal Pro-Forma Invoice and payment confirmation.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">2. Hardware Warranty & RMA Policy</h4>
+          <h4 class="font-bold text-navy-900 text-base">2. Limited Factory Warranty Policy (1 Week)</h4>
           <p>
-            All professional PoC radio bodies are warranted against manufacturer defects for a period of twelve (12) months from delivery date. Battery packs and tactical antenna accessories carry a six (6) month warranty. Returns require an authorized Return Merchandise Authorization (RMA) issued by G-TECH technical support.
+            Products and equipment do not include warranty except strictly and exclusively for verified manufacturer factory defects upon delivery. In such cases, a strict limited warranty of one (1) week (7 calendar days) applies, beginning from the date of receipt, to report and process any factory defect. Outside of this 1-week window, or for any issue resulting from misuse, drops, unauthorized moisture exposure, improper electrical input, or physical tampering, no warranty is provided.
           </p>
-
+ 
           <h4 class="font-bold text-navy-900 text-base">3. Cellular SIM Subscriptions & Carrier Service</h4>
           <p>
             SIM data packages and cellular connectivity services provided through G-TECH are provisioned via partner multi-carrier IoT networks. Active service requires continuous account standing. Airtime plans carry no activation fees and can be managed per mission requirements.
           </p>
-
+ 
           <h4 class="font-bold text-navy-900 text-base">4. Governing Law & Arbitration</h4>
           <p>
             These Terms of Service are governed by and construed in accordance with the laws of the State of Florida, USA. Any unresolved commercial dispute shall be submitted to binding arbitration in Orange County, Florida.
           </p>
-
+ 
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
             🐺 G tech (G-TECH.US) • Registered Commercial Entity • Orlando, Florida, USA.
           </div>
@@ -265,10 +265,10 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
           <p>
             La "Estación de Cotización" de G-TECH.US permite generar estimaciones de costos, consultas de inventario y pedidos de flotas. <strong>El envío de una cotización por WhatsApp o correo NO constituye una compraventa vinculante inmediata.</strong> El contrato comercial se formaliza una vez aprobada la Factura Pro-Forma oficial y confirmado el pago correspondiente.
           </p>
-
-          <h4 class="font-bold text-navy-900 text-base">2. Garantía de Hardware y Política RMA</h4>
+ 
+          <h4 class="font-bold text-navy-900 text-base">2. Política de Garantía Limitada de Fábrica (1 Semana)</h4>
           <p>
-            Los cuerpos de radio PoC cuentan con una garantía de doce (12) meses contra defectos de fabricación desde la fecha de entrega. Baterías y accesorios cuentan con seis (6) meses de cobertura. Toda devolución debe tramitarse mediante un número de Autorización de Retorno (RMA) emitido por G-TECH.
+            Los equipos no cuentan con garantía a menos que se trate estrictamente de un defecto de fábrica comprobado de origen. En dicho caso, el cliente cuenta con un plazo estricto de garantía de una (1) semana (7 días continuos) a partir de la recepción del producto para reportar la falla. Fuera de ese período de una semana, o ante daños ocasionados por golpes, mal uso, humedad no permitida, sobrecarga eléctrica o manipulación indebida, los equipos no tienen garantía bajo ninguna circunstancia.
           </p>
 
           <h4 class="font-bold text-navy-900 text-base">3. Planes de Datos SIM y Conectividad</h4>
