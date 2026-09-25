@@ -28,7 +28,6 @@ interface Accessory {
   compatibility: string[];
   specs: AccessorySpec[];
   inStock: boolean;
-  priceEstimate?: string;
 }
 
 const accessories: Accessory[] = accessoriesData as Accessory[];
@@ -154,7 +153,7 @@ function openSpecsModal(a: Accessory): void {
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
               ${escapeHtml(t('accessories_page.specs_connector'))}: ${escapeHtml(localizedConnector(a))}
             </span>
-            ${a.priceEstimate ? `<span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800">${escapeHtml(t('accessories_page.specs_price'))}: ${escapeHtml(a.priceEstimate)}</span>` : ''}
+            ${a.inStock ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-100 border border-emerald-300 text-[11px] font-bold text-emerald-900">${escapeHtml(t('accessories_page.stock_quote'))}</span>` : `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-[11px] font-bold text-amber-900">${escapeHtml(t('accessories_page.stock_on_request'))}</span>`}
           </div>
         </div>
       </div>
@@ -206,7 +205,6 @@ function renderCard(a: Accessory): string {
              class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500"
              onerror="this.src='/images/G-510.webp'">
         <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(localizedBadge(a))}</span>
-        <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-white/90 backdrop-blur border border-gray-200 text-navy-800 text-[10px] font-extrabold tabular-nums">${escapeHtml(a.priceEstimate || '')}</span>
       </div>
 
       <div class="p-5 flex flex-col flex-1 space-y-3">
@@ -220,6 +218,11 @@ function renderCard(a: Accessory): string {
         <div class="flex items-center gap-1.5 pt-1 text-[10px] font-bold uppercase tracking-wider text-navy-600">
           <svg class="w-3.5 h-3.5 text-navy-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           ${escapeHtml(localizedConnector(a))}
+        </div>
+
+        <div class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full ${a.inStock ? 'bg-emerald-500' : 'bg-amber-500'}"></span>
+          <span class="text-[10px] font-bold uppercase tracking-wider ${a.inStock ? 'text-emerald-700' : 'text-amber-700'}">${escapeHtml(a.inStock ? t('accessories_page.stock_quote') : t('accessories_page.stock_on_request'))}</span>
         </div>
 
         <div class="mt-auto pt-3 space-y-2">

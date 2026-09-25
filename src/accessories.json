@@ -29,8 +29,7 @@
       { "label": "Lighting Modes", "labelEs": "Modos de Luz", "value": "Flashlight / Warning Strobe / Alarm" },
       { "label": "Connector Type", "labelEs": "Tipo de Conector", "value": "Type-K 2-Pin (3.5mm + 2.5mm)" }
     ],
-    "inStock": true,
-    "priceEstimate": "$35.00"
+    "inStock": true
   },
   {
     "id": "acc-bqs4-typec-mic",
@@ -62,8 +61,7 @@
       { "label": "Connector", "labelEs": "Conector", "value": "Right-Angle USB Type-C" },
       { "label": "Cable", "labelEs": "Cable", "value": "Reinforced PU Coiled 1.2m" }
     ],
-    "inStock": true,
-    "priceEstimate": "$35.00"
+    "inStock": true
   },
   {
     "id": "acc-mobile-palm-mic",
@@ -86,8 +84,7 @@
       { "label": "Cord Type", "labelEs": "Tipo de Cable", "value": "Heavy-Duty Coiled Polyurethane" },
       { "label": "Microphone Element", "labelEs": "Elemento Micrófono", "value": "Omnidirectional Noise Canceling" }
     ],
-    "inStock": true,
-    "priceEstimate": "$30.00"
+    "inStock": true
   },
   {
     "id": "acc-shoulder-mic-pack",
@@ -115,8 +112,7 @@
       { "label": "Auxiliary Port", "labelEs": "Puerto Auxiliar", "value": "3.5mm Earpiece Jack" },
       { "label": "Clip", "labelEs": "Clip", "value": "360° Stainless Steel Swivel" }
     ],
-    "inStock": true,
-    "priceEstimate": "$28.00"
+    "inStock": true
   },
   {
     "id": "acc-acoustic-earpiece-typec",
@@ -146,8 +142,7 @@
       { "label": "Privacy Rating", "labelEs": "Nivel de Privacidad", "value": "100% Zero Ambient Bleed" },
       { "label": "Connector", "labelEs": "Conector", "value": "Molded Right-Angle USB-C" }
     ],
-    "inStock": true,
-    "priceEstimate": "$19.00"
+    "inStock": true
   },
   {
     "id": "acc-acoustic-earpiece-kplug",
@@ -177,7 +172,6 @@
       { "label": "Ear Tip", "labelEs": "Almohadilla", "value": "Hypoallergenic Mushroom Bud" },
       { "label": "Connector", "labelEs": "Conector", "value": "Standard 2-Pin Type-K (3.5mm + 2.5mm)" }
     ],
-    "inStock": true,
-    "priceEstimate": "$22.00"
+    "inStock": true
   }
 ]

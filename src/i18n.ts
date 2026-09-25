@@ -139,7 +139,7 @@ export const translations: Translations = {
   // Privacy Teaser Banner (index.html)
   'accessories_teaser.eyebrow': {
     en: 'Tactical Privacy & Discretion',
-    es: 'Discreción y Privacidad Operativa'
+    es: 'Privacidad y Discreción Operativa'
   },
   'accessories_teaser.title': {
     en: 'Tired of everyone overhearing your radio communications?',
@@ -147,7 +147,7 @@ export const translations: Translations = {
   },
   'accessories_teaser.subtitle': {
     en: 'Require mission-critical discretion? Upgrade your tactical setup with covert acoustic tube earpieces and shoulder PTT microphones engineered to isolate your voice and block ambient noise, so third parties never overhear your operations.',
-    es: '¿Necesitas mayor privacidad en tus comunicaciones tácticas? Protege la confidencialidad de tus operaciones con nuestra línea oficial de accesorios: auriculares encubiertos de tubo acústico transparente y micrófonos de solapa PTT diseñados para aislar el sonido y operar sin interrupciones.'
+    es: '¿Necesitas mayor privacidad en tus operaciones? Protege la confidencialidad de tus transmisiones con nuestra línea oficial de accesorios: auriculares encubiertos de tubo acústico transparente y micrófonos de solapa PTT diseñados para aislar el sonido exterior y operar con máxima discreción.'
   },
   'accessories_teaser.pill_earphones': {
     en: 'Covert Acoustic Tube Earpieces',
@@ -186,9 +186,9 @@ export const translations: Translations = {
   'accessories_page.filter_all': { en: 'All Accessories', es: 'Todos los Accesorios' },
   'accessories_page.filter_mics': { en: 'Shoulder & Palm Microphones', es: 'Micrófonos de Solapa / Hombro' },
   'accessories_page.filter_earphones': { en: 'Covert Acoustic Earpieces', es: 'Auriculares Encubiertos de Tubo Acústico' },
-  'accessories_page.btn_add_quote': { en: 'Add to Quote', es: 'Agregar a Cotización' },
+  'accessories_page.btn_add_quote': { en: 'Quote Accessory', es: 'Cotizar Accesorio' },
   'accessories_page.btn_specs': { en: 'Technical Specs', es: 'Ver Ficha Técnica' },
-  'accessories_page.btn_wa': { en: 'Inquire via WhatsApp', es: 'Consultar WhatsApp' },
+  'accessories_page.btn_wa': { en: 'Inquire via WhatsApp', es: 'Consultar por WhatsApp' },
   'accessories_page.back_to_fleet': { en: '← Back to PoC Radios', es: '← Volver a Radios PoC' },
   'accessories_page.badge_added': { en: 'Added to Quote', es: 'Agregado a Cotización' },
   'accessories_page.compatibility_title': { en: 'Connector Compatibility Guide', es: 'Guía de Conectores Compatibles' },
@@ -214,7 +214,8 @@ export const translations: Translations = {
   'accessories_page.specs_title': { en: 'Technical Specification Sheet', es: 'Ficha Técnica' },
   'accessories_page.specs_compatible': { en: 'Compatible Radios', es: 'Radios Compatibles' },
   'accessories_page.specs_connector': { en: 'Connector', es: 'Conector' },
-  'accessories_page.specs_price': { en: 'Estimated Unit Price', es: 'Precio Unitario Estimado' },
+  'accessories_page.stock_quote': { en: 'Available for Quotation', es: 'Disponible para Cotización' },
+  'accessories_page.stock_on_request': { en: 'Available on Request', es: 'Sujeto a Confirmación' },
   'accessories_page.specs_secondary': { en: 'Official Datasheet / Reference', es: 'Ficha Oficial / Referencia' },
   'accessories_page.close': { en: 'Close', es: 'Cerrar' },
   'accessories_page.results': { en: 'items', es: 'artículos' },
@@ -234,45 +235,8 @@ export const translations: Translations = {
   },
   'briefings.hd_label': { en: 'Optimized HD Audio & Video', es: 'Audio y Video HD Optimizado' },
   'briefings.expand': { en: 'Expand', es: 'Expandir' },
+  'briefings.fullscreen': { en: 'Full Screen', es: 'Pantalla Completa' },
   'briefings.close': { en: 'Close video', es: 'Cerrar video' },
-  'briefings.v1_status': { en: 'PoC Ecosystem', es: 'Ecosistema PoC' },
-  'briefings.v1_eyebrow': { en: 'G-TECH Tactical Broadcast', es: 'G-TECH Tactical Broadcast' },
-  'briefings.v1_title': {
-    en: 'Introduction to the PoC Ecosystem & Cellular Communication',
-    es: 'Introducción al Ecosistema PoC y Comunicación Celular'
-  },
-  'briefings.v1_desc': {
-    en: 'Unlimited range demonstration and repeater-free push-to-talk architecture.',
-    es: 'Demostración de alcance ilimitado y arquitectura push-to-talk sin repetidoras.'
-  },
-  'briefings.v2_status': { en: 'Global Coverage', es: 'Cobertura Global' },
-  'briefings.v2_eyebrow': { en: 'Multi-Carrier Connectivity', es: 'Conectividad Multired' },
-  'briefings.v2_title': {
-    en: 'Automatic Switching & International Roaming',
-    es: 'Conmutación Automática y Roaming Internacional'
-  },
-  'briefings.v2_desc': {
-    en: 'Continuous field operation in more than 160 countries with tactical SIM cards.',
-    es: 'Operatividad continua en campo en más de 160 países con tarjetas SIM tácticas.'
-  },
-  'briefings.v3_eyebrow': { en: 'End-to-End Encryption', es: 'Cifrado de Extremo a Extremo' },
-  'briefings.v3_title': { en: 'AES-256 Security on Voice Channels', es: 'Seguridad AES-256 en Canales de Voz' },
-  'briefings.v3_desc': {
-    en: 'Protection against interception and unauthorized eavesdropping.',
-    es: 'Protección contra intercepciones y escuchas no autorizadas.'
-  },
-  'briefings.v4_eyebrow': { en: 'Military Standard', es: 'Estándar Militar' },
-  'briefings.v4_title': { en: 'Mil-Spec Drop and Immersion Resistance', es: 'Resistencia Mil-Spec a Caídas e Inmersión' },
-  'briefings.v4_desc': {
-    en: 'Reinforced chassis ready for high-impact operations.',
-    es: 'Chasis reforzados listos para operaciones de alto impacto.'
-  },
-  'briefings.v5_eyebrow': { en: 'Rapid Dispatch', es: 'Despacho Rápido' },
-  'briefings.v5_title': { en: 'Dispatch Console & Fleet Management', es: 'Consola de Despacho y Gestión de Flotas' },
-  'briefings.v5_desc': {
-    en: 'Real-time crew supervision and call recording.',
-    es: 'Supervisión en tiempo real de cuadrillas y grabación de llamadas.'
-  },
 
   // Cart / Quotation Station Drawer
   'cart.title': { en: 'Quotation Station', es: 'Estación de Cotización' },
@@ -391,13 +355,9 @@ export const translations: Translations = {
     es: 'Todos los equipos PoC de G-TECH operan a través de redes celulares cifradas nacionales e internacionales sin límites de distancia. Puedes incluir en tu pedido tarjetas SIM multi-operador preconfiguradas con roaming Tier-1 sin interrupciones bajo tarifas planas anuales.'
   },
   'catalog.us_canada_mex': { en: 'United States, Canada & Mexico', es: 'Estados Unidos, Canadá y México' },
-  'catalog.us_canada_mex_carriers': { en: 'Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel', es: 'Multi-Operador Tier-1: AT&T, T-Mobile, Verizon, Rogers, Telcel' },
   'catalog.latam': { en: 'Latin America (Pan-Regional)', es: 'Latinoamérica (Pan-Regional)' },
-  'catalog.latam_carriers': { en: 'Multi-Network: Claro, Movistar, Tigo, Entel, Personal & Digitel', es: 'Multi-Red: Claro, Movistar, Tigo, Entel, Personal y Digitel' },
   'catalog.europe': { en: 'Europe (Pan-European)', es: 'Europa (Pan-Europeo)' },
-  'catalog.europe_carriers': { en: 'Full EU & UK Roaming: Vodafone, Orange, Telefónica, O2', es: 'Roaming Completo UE y UK: Vodafone, Orange, Telefónica, O2' },
   'catalog.global_multi': { en: 'Global Multi-Carrier (Worldwide)', es: 'Global Multi-Operador (Mundial)' },
-  'catalog.global_multi_carriers': { en: 'Multi-IMSI Autonomous Roaming in 160+ Countries', es: 'Roaming Multi-IMSI Autónomo en más de 160 Países' },
   'catalog.per_year': { en: '/year', es: '/año' },
   'catalog.annual_official': { en: 'Official Annual Rate', es: 'Tarifa Anual Oficial' },
   'catalog.annual_flat': { en: 'Flat Annual Fee • No Contracts', es: 'Tarifa Plana Anual • Sin Contratos' },
@@ -421,27 +381,11 @@ export const translations: Translations = {
     es: 'Tarifas planas anuales oficiales sin contratos mensuales. Cobertura ininterrumpida con conmutación automática de red para todos tus radios tácticos G-TECH.'
   },
   'sim_section.rate_usa': { en: 'United States, Canada & Mexico', es: 'Estados Unidos, Canadá y México' },
-  'sim_section.rate_usa_carriers': {
-    en: 'Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel',
-    es: 'Multicarrier Tier-1: AT&T, T-Mobile, Verizon, Rogers, Telcel'
-  },
   'sim_section.rate_brazil': { en: 'Brazil', es: 'Brasil' },
   'sim_section.badge_brazil': { en: 'Brazil', es: 'Brasil' },
   'sim_section.rate_latam': { en: 'Latin America (Pan-Regional)', es: 'Latinoamérica (Pan-Regional)' },
-  'sim_section.rate_latam_carriers': {
-    en: 'Claro, Movistar, Tigo, Entel, Personal & Digitel',
-    es: 'Claro, Movistar, Tigo, Entel, Personal y Digitel'
-  },
   'sim_section.rate_europe': { en: 'Europe (Pan-European)', es: 'Europa (Pan-Europeo)' },
-  'sim_section.rate_europe_carriers': {
-    en: 'Full EU & UK Roaming: Vodafone, Orange, Telefónica, O2',
-    es: 'Roaming completo UE y Reino Unido: Vodafone, Orange, Telefónica, O2'
-  },
   'sim_section.rate_global': { en: 'Global Multi-Carrier (Worldwide)', es: 'Global Multi-Operador (Mundial)' },
-  'sim_section.rate_global_carriers': {
-    en: 'Autonomous Multi-IMSI across 160+ Countries',
-    es: 'Multi-IMSI autónomo en más de 160 países'
-  },
   'sim_section.per_year': { en: '/year', es: '/año' },
   'sim_section.badge_activation': { en: 'Zero Activation Fees', es: 'Cero Costos de Activación' },
   'sim_section.badge_aes': { en: 'AES-256 Voice Encryption', es: 'Cifrado de Voz AES-256' },

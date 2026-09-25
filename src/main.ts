@@ -894,6 +894,139 @@ function formatDuration(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+interface BriefingItem {
+  id: string;
+  badge: string;
+  eyebrow: string;
+  title: string;
+  desc: string;
+  src: string;
+  poster: string;
+}
+
+const briefingsEs: BriefingItem[] = [
+  {
+    id: 'briefing-es-1',
+    badge: 'Alianza Estratégica',
+    eyebrow: 'FTI Security & G-TECH',
+    title: 'Solución Integral de Seguridad Táctica y Comunicaciones',
+    desc: 'Protección operativa, ciberseguridad y enlace push-to-talk unificados.',
+    src: '/videos/briefing-es-alliance.mp4',
+    poster: '/videos/briefing-es-alliance.webp'
+  },
+  {
+    id: 'briefing-es-2',
+    badge: 'Radio Híbrido Tri-Band',
+    eyebrow: 'G-5288 PLUS POC-UHF-VHF',
+    title: 'Largo Alcance, Privacidad y Conectividad Híbrida',
+    desc: 'Transmisión PoC ilimitada combinada con bandas análogas locales UHF y VHF.',
+    src: '/videos/briefing-es-5288plus.mp4',
+    poster: '/videos/briefing-es-5288plus.webp'
+  },
+  {
+    id: 'briefing-es-3',
+    badge: 'Pack x2 Especial',
+    eyebrow: 'ALERVITES AT1 BY BAOFENG',
+    title: 'Radios PoC 4G en Acabado Blanco y Gris por $150',
+    desc: 'Comodidad, alcance nacional y diseño ultraligero para flotas y empresas.',
+    src: '/videos/briefing-es-alervites.mp4',
+    poster: '/videos/briefing-es-alervites.webp'
+  },
+  {
+    id: 'briefing-es-4',
+    badge: 'Terminal Dual-Mode',
+    eyebrow: 'G-8 PLUS POC-UHF',
+    title: 'Comunicación Inmediata 4G PoC y Banda UHF Táctica',
+    desc: 'Resistencia probada en campo con cobertura celular y analógica simultánea.',
+    src: '/videos/briefing-es-g8plus.mp4',
+    poster: '/videos/briefing-es-g8plus.webp'
+  },
+  {
+    id: 'briefing-es-5',
+    badge: 'Grabación 4K + PoC',
+    eyebrow: 'BODYCAM G-K8',
+    title: 'Cámara Corporal 4K con Terminal de Radio PoC 4G',
+    desc: 'Evidencia en tiempo real y transmisión de voz en un solo equipo táctico.',
+    src: '/videos/briefing-es-bodycam.mp4',
+    poster: '/videos/briefing-es-bodycam.webp'
+  },
+  {
+    id: 'briefing-es-6',
+    badge: 'Lanzamiento Exclusivo',
+    eyebrow: 'CUENTA REGRESIVA G-TECH',
+    title: 'Próxima Innovación en Comunicaciones Críticas',
+    desc: 'Prepárate para la nueva generación de equipamiento táctico profesional.',
+    src: '/videos/briefing-es-countdown.mp4',
+    poster: '/videos/briefing-es-countdown.webp'
+  }
+];
+
+const briefingsEn: BriefingItem[] = [
+  {
+    id: 'briefing-en-1',
+    badge: 'Strategic Alliance',
+    eyebrow: 'FTI SECURITY & G-TECH',
+    title: 'Integrated Tactical Security & Mission Communications',
+    desc: 'Unifying physical protection, cyber-defense, and push-to-talk operations.',
+    src: '/videos/briefing-en-alliance.mp4',
+    poster: '/videos/briefing-en-alliance.webp'
+  },
+  {
+    id: 'briefing-en-2',
+    badge: 'Hybrid Tri-Band Radio',
+    eyebrow: 'G-5288 PLUS POC-UHF-VHF',
+    title: 'Extended Range, Privacy, and Trust on Every Channel',
+    desc: 'Nationwide PoC paired with local direct UHF & VHF analog frequencies.',
+    src: '/videos/briefing-en-5288plus.mp4',
+    poster: '/videos/briefing-en-5288plus.webp'
+  },
+  {
+    id: 'briefing-en-3',
+    badge: 'Dual-Pack Showcase',
+    eyebrow: 'ALERVITES AT1 BY BAOFENG',
+    title: '4G PoC Radios in White & Gray Finishes for $150',
+    desc: 'Dependable nationwide coverage, compact ergonomics, and instant setup.',
+    src: '/videos/briefing-en-alervites.mp4',
+    poster: '/videos/briefing-en-alervites.webp'
+  },
+  {
+    id: 'briefing-en-4',
+    badge: 'Dual-Mode Terminal',
+    eyebrow: 'G-8 PLUS POC-UHF',
+    title: 'Mission-Ready 4G PoC and Tactical UHF Interoperability',
+    desc: 'Field-tested durability providing seamless tactical and cellular voice links.',
+    src: '/videos/briefing-en-g8plus.mp4',
+    poster: '/videos/briefing-en-g8plus.webp'
+  },
+  {
+    id: 'briefing-en-5',
+    badge: '4K Evidence + PoC',
+    eyebrow: 'BODYCAM G-K8',
+    title: '4K Bodycam Integrated with 4G PoC Radio Dispatch',
+    desc: 'All-in-one wearable tactical security with high-definition video recording.',
+    src: '/videos/briefing-en-bodycam.mp4',
+    poster: '/videos/briefing-en-bodycam.webp'
+  },
+  {
+    id: 'briefing-en-6',
+    badge: 'Exclusive Countdown',
+    eyebrow: 'G-TECH COUNTDOWN',
+    title: 'Groundbreaking Release in Professional Radios',
+    desc: 'Stay tuned as we unveil next-generation mission-critical communications.',
+    src: '/videos/briefing-en-countdown.mp4',
+    poster: '/videos/briefing-en-countdown.webp'
+  }
+];
+
 function pauseAllBriefingVideos(except?: HTMLVideoElement | null): void {
   briefingSection?.querySelectorAll<HTMLVideoElement>('video[data-briefing-video]').forEach((v) => {
     if (v !== except && !v.paused) v.pause();
@@ -929,11 +1062,13 @@ function openBriefingModal(btn: HTMLElement): void {
 
   if (briefingModalTitle) {
     const key = titleEl?.getAttribute('data-i18n');
-    briefingModalTitle.textContent = key ? t(key) : titleEl?.textContent?.trim() || '';
+    const attr = btn.getAttribute('data-briefing-title');
+    briefingModalTitle.textContent = key ? t(key) : attr || titleEl?.textContent?.trim() || '';
   }
   if (briefingModalEyebrow) {
     const key = eyebrowEl?.getAttribute('data-i18n');
-    briefingModalEyebrow.textContent = key ? t(key) : eyebrowEl?.textContent?.trim() || '';
+    const attr = btn.getAttribute('data-briefing-eyebrow');
+    briefingModalEyebrow.textContent = key ? t(key) : attr || eyebrowEl?.textContent?.trim() || '';
   }
 
   briefingModal.classList.remove('hidden');
@@ -941,10 +1076,12 @@ function openBriefingModal(btn: HTMLElement): void {
   briefingModalVideo.play().catch(() => undefined);
 }
 
-function initBriefings(): void {
-  if (!briefingSection) return;
+const briefingsContainer = document.getElementById('briefings-cards-container');
 
-  briefingSection.querySelectorAll<HTMLVideoElement>('video[data-briefing-video]').forEach((video) => {
+function attachBriefingEvents(): void {
+  if (!briefingsContainer) return;
+
+  briefingsContainer.querySelectorAll<HTMLVideoElement>('video[data-briefing-video]').forEach((video) => {
     const wrapper = video.parentElement;
     const durationBadge = wrapper?.querySelector<HTMLElement>('[data-briefing-duration]');
 
@@ -959,13 +1096,74 @@ function initBriefings(): void {
     });
   });
 
-  briefingSection.querySelectorAll<HTMLElement>('[data-briefing-expand]').forEach((btn) => {
+  briefingsContainer.querySelectorAll<HTMLElement>('[data-briefing-expand]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       openBriefingModal(btn);
     });
   });
+}
 
+function renderBriefings(): void {
+  if (!briefingsContainer) return;
+
+  const isEs = getLanguage() === 'es';
+  const items = isEs ? briefingsEs : briefingsEn;
+  const fullscreenLabel = t('briefings.fullscreen');
+  const expandLabel = t('briefings.expand');
+
+  const expandButton = (item: BriefingItem, compact: boolean) => `
+    <button type="button" data-briefing-expand="${item.id}" data-briefing-title="${escapeHtml(item.title)}" data-briefing-eyebrow="${escapeHtml(item.eyebrow)}" aria-label="${escapeHtml(fullscreenLabel)}"
+      class="absolute ${compact ? 'bottom-2.5 right-2.5' : 'bottom-3 right-3'} inline-flex items-center gap-1.5 ${compact ? 'px-2.5 py-1' : 'px-2.5 py-1.5'} rounded-lg bg-black/70 backdrop-blur-md border border-white/20 text-white ${compact ? 'text-[11px]' : 'text-[10px]'} font-bold hover:bg-black transition-colors">
+      <svg class="${compact ? 'w-3 h-3' : 'w-3.5 h-3.5'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/></svg>
+      <span>${escapeHtml(compact ? expandLabel : fullscreenLabel)}</span>
+    </button>`;
+
+  const statusPill = (item: BriefingItem, compact: boolean) => `
+    <div class="absolute ${compact ? 'top-2.5 left-2.5' : 'top-3 left-3'} inline-flex items-center gap-1.5 ${compact ? 'px-2 py-0.5' : 'px-2.5 py-1'} rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white ${compact ? 'text-[10px]' : 'text-[11px]'} font-bold pointer-events-none">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>${escapeHtml(item.badge)}</span>
+    </div>`;
+
+  const featured = items.slice(0, 2).map((item, idx) => `
+    <div class="${idx === 0 ? 'lg:col-span-7' : 'lg:col-span-5'} rounded-2xl border border-gray-200/80 bg-navy-950/5 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+      <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+        <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="${item.poster}" src="${item.src}"></video>
+        ${expandButton(item, false)}
+        ${statusPill(item, false)}
+        <div class="absolute bottom-3 left-3 inline-flex items-center px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+      </div>
+      <div class="p-5 sm:p-6 bg-white space-y-2">
+        <span class="text-[11px] font-bold text-crimson-700 uppercase tracking-wider block">${escapeHtml(item.eyebrow)}</span>
+        <h3 class="text-base sm:text-lg font-bold text-navy-800">${escapeHtml(item.title)}</h3>
+        <p class="text-xs text-gray-500">${escapeHtml(item.desc)}</p>
+      </div>
+    </div>`).join('');
+
+  const rest = items.slice(2, 6).map((item) => `
+    <div class="rounded-2xl border border-gray-200/80 bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+      <div class="relative aspect-video overflow-hidden bg-navy-900 rounded-t-2xl">
+        <video data-briefing-video preload="metadata" playsinline class="w-full h-full object-cover rounded-t-2xl" poster="${item.poster}" src="${item.src}"></video>
+        ${expandButton(item, true)}
+        ${statusPill(item, true)}
+        <div class="absolute bottom-2.5 left-2.5 inline-flex items-center px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tabular-nums" data-briefing-duration>0:10</div>
+      </div>
+      <div class="p-4 sm:p-5 space-y-1.5">
+        <span class="text-[10px] font-bold text-crimson-700 uppercase tracking-wider block">${escapeHtml(item.eyebrow)}</span>
+        <h4 class="text-sm font-bold text-navy-800 leading-snug">${escapeHtml(item.title)}</h4>
+        <p class="text-[11px] text-gray-500 line-clamp-2">${escapeHtml(item.desc)}</p>
+      </div>
+    </div>`).join('');
+
+  briefingsContainer.innerHTML = `
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mb-8">${featured}</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">${rest}</div>
+  `;
+
+  attachBriefingEvents();
+}
+
+function initBriefings(): void {
   briefingModal?.querySelectorAll<HTMLElement>('[data-briefing-modal-close]').forEach((btn) => {
     btn.addEventListener('click', closeBriefingModal);
   });
@@ -979,6 +1177,8 @@ function initBriefings(): void {
       closeBriefingModal();
     }
   });
+
+  renderBriefings();
 }
 
 // Initialize Systems
@@ -990,6 +1190,12 @@ initComparison();
 initFinder();
 initLegalModule();
 initBriefings();
+
+// Keep the avatar briefing grid in sync with the active site language
+onLanguageChange(() => {
+  closeBriefingModal();
+  renderBriefings();
+});
 
 // Global Window Bindings
 (window as any).addToCart = (id: string, color?: string, img?: string) => addToCart(id, color, img);
