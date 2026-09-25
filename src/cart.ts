@@ -320,6 +320,7 @@ export function renderCartDrawer(): void {
             <select onchange="window.setCartSimPlan(this.value)" class="w-full bg-navy-950 border border-navy-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
               <option value="none" ${selectedCartSimPlan === 'none' ? 'selected' : ''}>${isEs ? 'Ninguna (Solo Equipos)' : 'None (Hardware Only)'}</option>
               <option value="us_can_mex" ${selectedCartSimPlan === 'us_can_mex' ? 'selected' : ''}>🇺🇸 🇨🇦 🇲🇽 USA, Canadá, México (+$30/año por radio)</option>
+              <option value="brazil" ${selectedCartSimPlan === 'brazil' ? 'selected' : ''}>🇧🇷 Brasil (+$45/año por radio)</option>
               <option value="latam" ${selectedCartSimPlan === 'latam' ? 'selected' : ''}>🌎 Latín América (+$45/año por radio)</option>
               <option value="europe" ${selectedCartSimPlan === 'europe' ? 'selected' : ''}>🇪🇺 Europa (+$50/año por radio)</option>
               <option value="global" ${selectedCartSimPlan === 'global' ? 'selected' : ''}>🌐 Global Multi (+$50/año por radio)</option>
@@ -395,6 +396,7 @@ export function generateWhatsAppMessage(): void {
   if (selectedCartSimPlan !== 'none') {
     const planNames: Record<string, { es: string; en: string }> = {
       us_can_mex: { es: 'United States, Canadá, México ($30/año por radio)', en: 'United States, Canada, Mexico ($30/yr per radio)' },
+      brazil: { es: 'Brasil ($45/año por radio)', en: 'Brazil ($45/yr per radio)' },
       latam: { es: 'Latín América ($45/año por radio)', en: 'Latin America ($45/yr per radio)' },
       europe: { es: 'Europa ($50/año por radio)', en: 'Europe ($50/yr per radio)' },
       global: { es: 'Global Multi ($50/año por radio)', en: 'Global Multi ($50/yr per radio)' }

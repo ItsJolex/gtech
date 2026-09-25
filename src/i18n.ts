@@ -276,17 +276,15 @@ export const translations: Translations = {
   'sim_section.badge': { en: 'Cellular IoT Connectivity & Multi-Carrier SIMs', es: 'Conectividad Celular IoT & SIMs Multi-Operador' },
   'sim_section.title': { en: 'Annual PoC SIM Card Data Plans', es: 'Planes Anuales de Tarjetas SIM PoC' },
   'sim_section.subtitle': {
-    en: 'Official flat annual rates with zero monthly lock-ins. Uninterrupted Tier-1 multi-carrier coverage with automatic antenna hopping for all your G-TECH tactical radios.',
-    es: 'Tarifas planas anuales oficiales sin contratos mensuales. Cobertura ininterrumpida Tier-1 con conmutación automática de red para todos tus radios tácticos G-TECH.'
+    en: 'Official flat annual rates with zero monthly lock-ins. Uninterrupted coverage with automatic network switching for all your G-TECH tactical radios.',
+    es: 'Tarifas planas anuales oficiales sin contratos mensuales. Cobertura ininterrumpida con conmutación automática de red para todos tus radios tácticos G-TECH.'
   },
   'sim_section.rate_usa': { en: 'United States, Canada & Mexico', es: 'Estados Unidos, Canadá y México' },
-  'sim_section.rate_usa_carriers': { en: 'Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel', es: 'Multi-Operador Tier-1: AT&T, T-Mobile, Verizon, Rogers, Telcel' },
+  'sim_section.rate_brazil': { en: 'Brazil', es: 'Brasil' },
+  'sim_section.badge_brazil': { en: 'Brazil', es: 'Brasil' },
   'sim_section.rate_latam': { en: 'Latin America (Pan-Regional)', es: 'Latinoamérica (Pan-Regional)' },
-  'sim_section.rate_latam_carriers': { en: 'Claro, Movistar, Tigo, Entel, Personal & Digitel', es: 'Claro, Movistar, Tigo, Entel, Personal y Digitel' },
   'sim_section.rate_europe': { en: 'Europe (Pan-European)', es: 'Europa (Pan-Europeo)' },
-  'sim_section.rate_europe_carriers': { en: 'Full EU & UK Roaming: Vodafone, Orange, Telefónica, O2', es: 'Roaming Completo UE y UK: Vodafone, Orange, Telefónica, O2' },
   'sim_section.rate_global': { en: 'Global Multi-Carrier (Worldwide)', es: 'Global Multi-Operador (Mundial)' },
-  'sim_section.rate_global_carriers': { en: 'Autonomous Multi-IMSI across 160+ Countries', es: 'Multi-IMSI Autónomo en más de 160 Países' },
   'sim_section.per_year': { en: '/year', es: '/año' },
   'sim_section.badge_activation': { en: 'Zero Activation Fees', es: 'Cero Costos de Activación' },
   'sim_section.badge_aes': { en: 'AES-256 Voice Encryption', es: 'Cifrado de Voz AES-256' },
@@ -479,9 +477,9 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     description: 'Diseño reforzado para operaciones tácticas y patrullaje perimetral. Incorpora cancelación de ruido digital con procesador DSP para transmisión de voz cristalina en entornos de alto ruido ambiental.'
   },
   'WA0066-Alervites': {
-    name: 'G-34181 POC',
-    badge: 'ULTRA-SLIM COMMERCIAL POC',
-    description: 'Radio comercial ligera y estilizada disponible en Negro Obsidiana, Gris Titanio y Blanco Ártico. Pensada para comercios minoristas, centros comerciales, producción de eventos y seguridad corporativa con interfaz intuitiva y discreta.'
+    name: 'ALERVITES AT1 BY BAOFENG',
+    badge: 'ALERVITES AT1 POC',
+    description: 'Radio PoC comercial estilizada disponible en Negro Obsidiana, Gris Titanio y Blanco Ártico. Diseñada para seguridad corporativa, hotelería de lujo, gestión de eventos y logística comercial.'
   },
   'WA0069-Bodycam': {
     name: 'G-K8 4K BODYCAM POC',

@@ -526,7 +526,7 @@ if (modalOverlay && modalContent) {
                   <span class="text-xl flex-shrink-0">📡</span>
                   <div class="min-w-0">
                     <span class="block text-xs font-bold text-emerald-900 truncate">${lang === 'es' ? 'Planes SIM PoC Anuales Disponibles' : 'Annual PoC SIM Plans Available'}</span>
-                    <span class="block text-[11px] text-emerald-700 truncate font-medium">USA/CAN/MEX $30 • LatAm $45 • Europa $50 • Global $50 al año</span>
+                    <span class="block text-[11px] text-emerald-700 truncate font-medium">USA/CAN/MEX $30 • Brasil $45 • LatAm $45 • Europa $50 • Global $50 al año</span>
                   </div>
                 </div>
                 <span class="text-xs font-bold text-emerald-800 underline flex-shrink-0 whitespace-nowrap">${lang === 'es' ? 'Ver Tarifas →' : 'View Rates →'}</span>
@@ -637,27 +637,33 @@ if (modalOverlay && modalContent) {
         id: 'us_can_mex',
         flag: '🇺🇸 🇨🇦 🇲🇽',
         name: isEs ? 'United States, Canadá, México' : 'United States, Canada, Mexico',
-        carriers: isEs ? 'Tier-1 Multi-Red: AT&T, T-Mobile, Verizon, Rogers, Telcel' : 'Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel',
         price: '$30',
         period: isEs ? 'al año' : '/year',
         equiv: isEs ? 'Tarifa plana oficial (~$2.50/mes)' : 'Official flat rate (~$2.50/mo)',
         badge: isEs ? 'Norteamérica Oficial' : 'Official North America'
       },
       {
-        id: 'latam',
-        flag: '🌎',
-        name: isEs ? 'Latín América' : 'Latin America',
-        carriers: isEs ? 'Multi-Operador: Claro, Movistar, Tigo, Entel, Personal & Digitel' : 'Multi-Carrier: Claro, Movistar, Tigo, Entel, Personal & Digitel',
+        id: 'brazil',
+        flag: '🇧🇷',
+        name: isEs ? 'Brasil' : 'Brazil',
         price: '$45',
         period: isEs ? 'al año' : '/year',
         equiv: isEs ? 'Tarifa plana oficial (~$3.75/mes)' : 'Official flat rate (~$3.75/mo)',
-        badge: isEs ? 'Pan-Regional' : 'Pan-Regional'
+        badge: isEs ? 'Nacional Brasil' : 'Brazil National'
+      },
+      {
+        id: 'latam',
+        flag: '🌎',
+        name: isEs ? 'Latín América' : 'Latin America',
+        price: '$45',
+        period: isEs ? 'al año' : '/year',
+        equiv: isEs ? 'Tarifa plana oficial (~$3.75/mes)' : 'Official flat rate (~$3.75/mo)',
+        badge: 'Pan-Regional'
       },
       {
         id: 'europe',
         flag: '🇪🇺 🇬🇧',
         name: isEs ? 'Europa' : 'Europe',
-        carriers: isEs ? 'Roaming Completo UE/UK: Vodafone, Orange, Telefónica, O2' : 'Full EU/UK Roaming: Vodafone, Orange, Telefónica, O2',
         price: '$50',
         period: isEs ? 'al año' : '/year',
         equiv: isEs ? 'Tarifa plana oficial (~$4.16/mes)' : 'Official flat rate (~$4.16/mo)',
@@ -667,7 +673,6 @@ if (modalOverlay && modalContent) {
         id: 'global',
         flag: '🌐',
         name: isEs ? 'Global Multi' : 'Global Multi-Carrier',
-        carriers: isEs ? 'Multi-IMSI Autónomo en más de 160 países' : 'Autonomous Multi-IMSI across 160+ countries',
         price: '$50',
         period: isEs ? 'al año' : '/year',
         equiv: isEs ? 'Tarifa plana oficial (~$4.16/mes)' : 'Official flat rate (~$4.16/mo)',
@@ -730,7 +735,6 @@ if (modalOverlay && modalContent) {
                           isSelected ? 'bg-emerald-200/60 text-emerald-900 font-bold' : 'bg-gray-100 text-gray-600'
                         }">${plan.badge}</span>
                       </div>
-                      <p class="text-[11px] text-gray-500 truncate">${plan.carriers}</p>
                     </div>
                   </div>
                   <div class="text-right flex-shrink-0 pl-3">

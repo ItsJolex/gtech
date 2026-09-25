@@ -55,7 +55,7 @@ export function getShortModelName(p: Product): string {
     'WA0064-LongRange': 'G-5288 PLUS LONG-RANGE POC-UHF-VHF',
     'WA0055-GlobalLTE': 'G0 PLUS GLOBAL LITE POC',
     'WA0057-TacticalField': 'G-9 PLUS TACTICAL FIELD POC',
-    'WA0066-Alervites': 'G-34181 POC',
+    'WA0066-Alervites': 'ALERVITES AT1 BY BAOFENG',
     'WA0069-Bodycam': 'G-K8 4K BODYCAM POC'
   };
   return map[p.id] || p.shortName || p.name;
