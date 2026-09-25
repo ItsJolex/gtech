@@ -21,11 +21,11 @@ export const translations: Translations = {
 
   // Navigation
   'nav.systems': { en: 'Systems', es: 'Sistemas' },
-  'nav.finder': { en: 'Mission Finder', es: 'Buscador de Misiones' },
+  'nav.finder': { en: 'Mission Finder', es: 'Buscador' },
   'nav.compare': { en: 'Compare', es: 'Comparar' },
   'nav.specs': { en: 'Specs', es: 'Especificaciones' },
   'nav.contact': { en: 'Contact', es: 'Contacto' },
-  'nav.get_quote': { en: 'Get a Quote', es: 'Cotizar Ahora' },
+  'nav.get_quote': { en: 'Get a Quote', es: 'Cotizar' },
 
   // Hero
   'hero.slogan': {

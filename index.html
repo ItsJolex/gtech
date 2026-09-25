@@ -11,29 +11,29 @@
   <body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden">
     
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-navy-800 shadow-md">
+    <header class="sticky top-0 z-50 bg-navy-800/95 backdrop-blur-md border-b border-navy-700/60 shadow-lg">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
+        <div class="flex justify-between items-center h-20 gap-4 lg:gap-8">
           <a href="#" class="flex-shrink-0 flex items-center gap-3 group" aria-label="G-TECH.US Home">
             <!-- Brand -->
-            <img src="/images/logo-patch.webp" alt="G-TECH Logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-200">
-            <span class="text-white font-bold text-xl sm:text-2xl tracking-wide group-hover:text-gray-100 transition-colors">G-TECH.US</span>
+            <img src="/images/logo-patch.webp" alt="G-TECH Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-200">
+            <span class="text-white font-extrabold text-xl sm:text-2xl tracking-wide group-hover:text-gray-100 transition-colors whitespace-nowrap">G-TECH.US</span>
           </a>
           
           <!-- Desktop Menu -->
-          <nav class="hidden md:flex space-x-6 lg:space-x-8">
-            <a href="#systems" data-i18n="nav.systems" class="text-gray-200 hover:text-white font-semibold transition-colors">Systems</a>
-            <a href="#finder" data-i18n="nav.finder" class="text-gray-200 hover:text-white font-semibold transition-colors">Mission Finder</a>
-            <a href="#comparison" data-i18n="nav.compare" class="text-gray-200 hover:text-white font-semibold transition-colors">Compare</a>
-            <a href="#specs" data-i18n="nav.specs" class="text-gray-200 hover:text-white font-semibold transition-colors">Specs</a>
-            <a href="#contact" data-i18n="nav.contact" class="text-gray-200 hover:text-white font-semibold transition-colors">Contact</a>
+          <nav class="hidden md:flex items-center space-x-5 lg:space-x-8 whitespace-nowrap">
+            <a href="#systems" data-i18n="nav.systems" class="text-gray-200 hover:text-white font-semibold text-sm lg:text-[15px] transition-colors py-1">Systems</a>
+            <a href="#finder" data-i18n="nav.finder" class="text-gray-200 hover:text-white font-semibold text-sm lg:text-[15px] transition-colors py-1">Mission Finder</a>
+            <a href="#comparison" data-i18n="nav.compare" class="text-gray-200 hover:text-white font-semibold text-sm lg:text-[15px] transition-colors py-1">Compare</a>
+            <a href="#specs" data-i18n="nav.specs" class="text-gray-200 hover:text-white font-semibold text-sm lg:text-[15px] transition-colors py-1">Specs</a>
+            <a href="#contact" data-i18n="nav.contact" class="text-gray-200 hover:text-white font-semibold text-sm lg:text-[15px] transition-colors py-1">Contact</a>
           </nav>
 
-          <!-- Desktop CTA, Language Toggle & Cart -->
-          <div class="hidden md:flex items-center gap-3 lg:gap-4">
+          <!-- Desktop CTA, Language Toggle & Cart (Generously Spaced) -->
+          <div class="hidden md:flex items-center gap-4 lg:gap-6 flex-shrink-0">
             <!-- Tactical Bilingual Switcher (USA left / Spain right) -->
             <div class="lang-toggle-container" id="lang-toggle-desktop" data-lang="en">
-              <button type="button" class="lang-toggle-btn" aria-label="Cambiar idioma / Switch language" title="Cambiar idioma / Switch language">
+              <button type="button" class="lang-toggle-btn shadow-sm" aria-label="Cambiar idioma / Switch language" title="Cambiar idioma / Switch language">
                 <span class="lang-toggle-slider"></span>
                 <span class="lang-flag-option lang-en">
                   <svg class="w-4 h-3 rounded-[2px]" viewBox="0 0 640 480"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h640v480H0z"/><path stroke="#fff" stroke-width="37" d="M0 55.4h640M0 129.2h640M0 203.1h640M0 277h640M0 350.8h640M0 424.6h640"/><path fill="#192f5d" d="M0 0h280v221.5H0z"/></g></g></svg>
@@ -44,20 +44,25 @@
                   <span>ES</span>
                 </span>
               </button>
-              <span class="lang-toggle-label text-[11px] font-bold text-gray-300 tracking-wide hidden xl:inline cursor-pointer hover:text-white transition-colors" data-i18n="topbar.switch_lang">Cambiar a Español</span>
             </div>
 
-            <button id="cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Open Quotation Cart" title="Quotation Station">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-              <span id="cart-badge" class="absolute -top-1 -right-1 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-bounce-subtle">0</span>
+            <!-- Subtle Vertical Separator -->
+            <div class="h-6 w-px bg-navy-700/80 hidden lg:block"></div>
+
+            <!-- Tactile Quotation Cart Button -->
+            <button id="cart-btn" class="relative p-2.5 text-gray-200 hover:text-white bg-navy-900/60 hover:bg-navy-700/80 border border-navy-700/80 rounded-xl transition-all hover:scale-105 shadow-sm" aria-label="Open Quotation Cart" title="Quotation Station">
+              <svg class="w-5 h-5 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              <span id="cart-badge" class="absolute -top-1.5 -right-1.5 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-extrabold rounded-full flex items-center justify-center border-2 border-navy-800 animate-bounce-subtle">0</span>
             </button>
-            <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I%20would%20like%20to%20request%20an%20official%20quotation." target="_blank" class="bg-crimson-800 hover:bg-crimson-900 text-white px-5 py-2 rounded-full font-bold uppercase tracking-wider text-xs transition-all shadow-lg hover:scale-105">
+
+            <!-- WhatsApp Quotation CTA Button -->
+            <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I%20would%20like%20to%20request%20an%20official%20quotation." target="_blank" class="bg-crimson-700 hover:bg-crimson-800 active:bg-crimson-900 text-white px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-xs transition-all shadow-md hover:shadow-crimson-900/30 hover:scale-105 whitespace-nowrap">
               <span data-i18n="nav.get_quote">Get a Quote</span>
             </a>
           </div>
 
           <!-- Mobile Hamburger & Cart -->
-          <div class="md:hidden flex items-center gap-2">
+          <div class="md:hidden flex items-center gap-3">
             <button id="mobile-cart-btn" class="relative p-2 text-white hover:text-crimson-400 transition-colors rounded-full hover:bg-navy-700" aria-label="Open Quotation Cart">
               <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
               <span id="mobile-cart-badge" class="absolute -top-1 -right-1 hidden w-5 h-5 bg-crimson-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-bounce-subtle">0</span>
@@ -78,7 +83,7 @@
       <div id="mobile-menu" class="hidden md:hidden bg-navy-900 border-t border-navy-700">
         <!-- Mobile Language Selector Row -->
         <div class="px-5 py-3 flex items-center justify-between border-b border-navy-800 bg-navy-950/60">
-          <span class="text-xs font-bold text-gray-300 uppercase tracking-wider" data-i18n="topbar.switch_lang">Cambiar a Español</span>
+          <span class="text-xs font-bold text-gray-300 uppercase tracking-wider lang-toggle-label" data-i18n="topbar.switch_lang">Cambiar a Español</span>
           <div class="lang-toggle-container" id="lang-toggle-mobile" data-lang="en">
             <button type="button" class="lang-toggle-btn" aria-label="Cambiar idioma / Switch language">
               <span class="lang-toggle-slider"></span>
