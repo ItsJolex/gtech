@@ -308,13 +308,13 @@ export function initComparison(): void {
     mobileBody.innerHTML = `
       <div class="sticky top-[80px] z-20 bg-white/95 backdrop-blur-sm shadow-md rounded-xl border border-gray-100 p-2 flex items-center gap-2">
         <div class="flex-1 flex items-center gap-1.5 min-w-0">
-          <img src="${p1.image}" alt="${p1Localized.name}" class="w-8 h-8 rounded-lg object-contain bg-gray-50 border border-gray-100 flex-shrink-0">
+          <img src="${p1.image}" alt="${p1Localized.name}" class="w-8 h-8 rounded-lg object-cover border border-gray-200 flex-shrink-0">
           <span class="text-[10px] leading-tight font-bold text-navy-800 truncate">${p1Localized.name}</span>
         </div>
         <span class="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider flex-shrink-0">vs</span>
         <div class="flex-1 flex items-center gap-1.5 min-w-0 justify-end">
           <span class="text-[10px] leading-tight font-bold text-navy-800 truncate text-right">${p2Localized.name}</span>
-          <img src="${p2.image}" alt="${p2Localized.name}" class="w-8 h-8 rounded-lg object-contain bg-gray-50 border border-gray-100 flex-shrink-0">
+          <img src="${p2.image}" alt="${p2Localized.name}" class="w-8 h-8 rounded-lg object-cover border border-gray-200 flex-shrink-0">
         </div>
       </div>
       ${DIMENSION_KEYS.map(key => {

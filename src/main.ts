@@ -44,8 +44,8 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
       </div>
 
       <!-- IMAGE AT THE TOP -->
-      <div id="deep-specs-top-hero" class="w-full max-w-md mx-auto aspect-[16/10] sm:h-64 bg-gradient-to-b from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center p-4 border border-gray-200/80 relative mb-6 shadow-sm overflow-hidden group">
-        <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-contain max-h-56 filter drop-shadow-md group-hover:scale-105 transition-transform duration-300">
+      <div id="deep-specs-top-hero" class="w-full max-w-sm mx-auto aspect-square bg-navy-950/10 rounded-2xl flex items-center justify-center border border-gray-200/80 relative mb-6 shadow-sm overflow-hidden group">
+        <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
 
         <div class="absolute top-2 left-2 flex items-center gap-1.5">
           <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
@@ -239,16 +239,16 @@ function renderCatalog(): void {
     return `
       <div class="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-5 shadow-sm hover:shadow-md border border-gray-100 flex flex-col relative group cursor-pointer transition-all duration-200 card-hardware-accel" onclick="openModal('${product.id}')">
 
-        <div class="aspect-square bg-gray-50 rounded-lg p-2 mb-2 relative overflow-hidden flex items-center justify-center border border-gray-100/60 group/cardimg">
-          <img src="${product.image}" alt="${localized.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy">
+        <div class="aspect-square bg-navy-950/10 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-gray-200/70 group/cardimg shadow-xs">
+          <img src="${product.image}" alt="${localized.name}" class="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-transform duration-300" loading="lazy">
 
           <!-- Top Badges Header -->
-          <div class="absolute top-1.5 inset-x-1.5 flex items-center justify-between gap-1 z-10 pointer-events-none">
-            <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[62%] sm:max-w-[70%]">
+          <div class="absolute top-2 inset-x-2 flex items-center justify-between gap-1 z-10 pointer-events-none">
+            <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[65%] sm:max-w-[70%]">
               ${localized.badge}
             </span>
             ${product.stockStatus === 'low_stock' && product.inStock ? `
-              <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider shadow flex-shrink-0">${t('catalog.low_stock')}</span>
+              <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold uppercase tracking-wider shadow flex-shrink-0">${t('catalog.low_stock')}</span>
             ` : ''}
           </div>
 
@@ -260,7 +260,7 @@ function renderCatalog(): void {
 
           <!-- BOTTOM-LEFT: Cellular SIM Pricing Button -->
           <button onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
-                  class="absolute bottom-1.5 left-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim"
+                  class="absolute bottom-2 left-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim"
                   title="${t('catalog.sim_rates')}"
                   aria-label="View SIM pricing">
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover/sim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -272,7 +272,7 @@ function renderCatalog(): void {
 
           <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button -->
           <button onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
-                  class="absolute bottom-1.5 right-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec"
+                  class="absolute bottom-2 right-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec"
                   title="${t('catalog.full_specs')}"
                   aria-label="View detailed specifications">
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover/spec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -366,9 +366,9 @@ if (modalOverlay && modalContent) {
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
-        <div class="flex flex-col md:flex-row gap-6 md:gap-8">
-          <div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-[3/4] max-h-[380px] md:max-h-none bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-100 relative group/modalphoto">
-            <img id="modal-product-img" src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover transition-transform duration-300">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
+          <div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-square max-w-sm md:max-w-none mx-auto bg-navy-950/10 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-200/80 relative group/modalphoto shadow-sm flex-shrink-0">
+            <img id="modal-product-img" src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover rounded-2xl transition-transform duration-300">
             ${!p.inStock ? `
               <div class="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
                 <span class="bg-crimson-600 text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-lg shadow-xl">${t('catalog.sold_out')}</span>

@@ -255,11 +255,11 @@
   }
   
   .product-image {
-    @apply aspect-[3/4] bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center border border-gray-100/80;
+    @apply aspect-square bg-gray-50 rounded-xl mb-4 overflow-hidden flex items-center justify-center border border-gray-100/80;
   }
   
   .product-image img {
-    @apply w-full h-full object-cover group-hover:scale-105 transition-transform duration-300;
+    @apply w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300;
   }
   
   .badge-tactical {

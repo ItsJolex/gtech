@@ -456,7 +456,9 @@ function renderResult(): string {
       </div>
 
       <div class="flex items-center gap-3 mb-3">
-        <img src="${product.image}" alt="${localizedProduct.name}" class="w-20 h-20 sm:w-28 sm:h-28 rounded-xl bg-navy-900 border border-navy-700 object-contain p-1 flex-shrink-0">
+        <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-xl overflow-hidden bg-navy-900 border border-navy-700 flex-shrink-0">
+          <img src="${product.image}" alt="${localizedProduct.name}" class="w-full h-full object-cover">
+        </div>
         <div class="min-w-0">
           <h3 class="text-white font-bold text-sm sm:text-base mb-1">${localizedProduct.name}</h3>
           <span class="text-crimson-400 font-bold uppercase tracking-wider text-[10px] sm:text-xs">${localizedProduct.badge}</span>
@@ -480,7 +482,7 @@ function renderResult(): string {
           <p class="text-navy-400 text-[10px] sm:text-xs mb-1.5 font-medium uppercase tracking-wider">${t('finder.solid_alternative')}</p>
           <div class="flex items-center gap-2">
             <div class="w-12 h-12 sm:w-14 sm:h-14 bg-navy-900 rounded-lg overflow-hidden border border-navy-700 flex-shrink-0">
-              <img src="${localizedAlt.image}" alt="${localizedAlt.name}" class="w-full h-full object-contain p-0.5">
+              <img src="${localizedAlt.image}" alt="${localizedAlt.name}" class="w-full h-full object-cover">
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-white font-semibold text-xs sm:text-sm truncate">${localizedAlt.name}</p>
