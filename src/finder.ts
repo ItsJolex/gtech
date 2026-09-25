@@ -424,7 +424,7 @@ export function generateWhatsAppForProduct(productId: string): void {
 
   const message = lines.join('\n');
   const encodedMessage = encodeURIComponent(message);
-  const url = `https://wa.me/584149428999?text=${encodedMessage}`;
+  const url = `https://wa.me/14074273356?text=${encodedMessage}`;
 
   window.open(url, '_blank');
 }

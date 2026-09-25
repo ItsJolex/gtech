@@ -2,7 +2,7 @@ import type { Product, CartItem } from './types';
 import { getProductById } from './products';
 
 const CART_STORAGE_KEY = 'gtech_cart_v2';
-const WHATSAPP_NUMBER = '+584149428999';
+const WHATSAPP_NUMBER = '+14074273356';
 
 let cart: CartItem[] = [];
 let listeners: Array<() => void> = [];
