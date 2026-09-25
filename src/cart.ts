@@ -7,6 +7,7 @@ const WHATSAPP_NUMBER = '+14074273356';
 
 let cart: CartItem[] = [];
 let listeners: Array<() => void> = [];
+let selectedCartSimPlan: string = 'none';
 
 function loadCart(): void {
   try {
@@ -300,6 +301,24 @@ export function renderCartDrawer(): void {
         </div>
         
         <div class="p-6 border-t border-navy-700 bg-navy-800/50 space-y-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <!-- Optional SIM Plan Selection in Cart -->
+          <div class="bg-navy-900/90 border border-navy-700/80 rounded-xl p-3">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
+                ${isEs ? 'Tarjeta SIM de Cobertura Anual' : 'Annual SIM Coverage Card'}
+              </span>
+              <span class="text-[10px] text-gray-400 font-medium">${isEs ? 'Opcional' : 'Optional'}</span>
+            </div>
+            <select onchange="window.setCartSimPlan(this.value)" class="w-full bg-navy-950 border border-navy-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="none" ${selectedCartSimPlan === 'none' ? 'selected' : ''}>${isEs ? 'Ninguna (Solo Equipos)' : 'None (Hardware Only)'}</option>
+              <option value="us_can_mex" ${selectedCartSimPlan === 'us_can_mex' ? 'selected' : ''}>🇺🇸 🇨🇦 🇲🇽 USA, Canadá, México (+$30/año por radio)</option>
+              <option value="latam" ${selectedCartSimPlan === 'latam' ? 'selected' : ''}>🌎 Latín América (+$45/año por radio)</option>
+              <option value="europe" ${selectedCartSimPlan === 'europe' ? 'selected' : ''}>🇪🇺 Europa (+$50/año por radio)</option>
+              <option value="global" ${selectedCartSimPlan === 'global' ? 'selected' : ''}>🌐 Global Multi (+$50/año por radio)</option>
+            </select>
+          </div>
+
           <div class="flex items-center justify-between text-white">
             <span class="text-sm font-medium">${t('cart.total_units')}</span>
             <span class="text-lg font-bold text-crimson-400">${totalUnits}</span>
@@ -365,6 +384,19 @@ export function generateWhatsAppMessage(): void {
     lines.push(`• *${item.quantity}x* ${item.name} [${item.badge}]`);
   });
 
+  if (selectedCartSimPlan !== 'none') {
+    const planNames: Record<string, { es: string; en: string }> = {
+      us_can_mex: { es: 'United States, Canadá, México ($30/año por radio)', en: 'United States, Canada, Mexico ($30/yr per radio)' },
+      latam: { es: 'Latín América ($45/año por radio)', en: 'Latin America ($45/yr per radio)' },
+      europe: { es: 'Europa ($50/año por radio)', en: 'Europe ($50/yr per radio)' },
+      global: { es: 'Global Multi ($50/año por radio)', en: 'Global Multi ($50/yr per radio)' }
+    };
+    const chosen = planNames[selectedCartSimPlan];
+    if (chosen) {
+      lines.push(isEs ? `• *Tarjetas SIM Anuales Solicitadas:* ${totalUnits}x [${chosen.es}]` : `• *Annual SIM Cards Requested:* ${totalUnits}x [${chosen.en}]`);
+    }
+  }
+
   lines.push('');
   lines.push(isEs ? `*Total de Equipos:* ${totalUnits} unidad(es)` : `*Total Units:* ${totalUnits} device(s)`);
   lines.push(isEs ? '*Destino de Entrega:* [Por favor indique Ciudad / Estado / País]' : '*Delivery Destination:* [Please specify City / State]');
@@ -378,6 +410,11 @@ export function generateWhatsAppMessage(): void {
   window.open(url, '_blank');
 }
 
+export function setCartSimPlan(planId: string): void {
+  selectedCartSimPlan = planId;
+}
+
+(window as any).setCartSimPlan = (planId: string) => setCartSimPlan(planId);
 (window as any).addToCart = (id: string) => addToCart(id);
 (window as any).removeFromCart = (id: string) => removeFromCart(id);
 (window as any).updateCartQuantity = (id: string, delta: number) => updateQuantity(id, delta);

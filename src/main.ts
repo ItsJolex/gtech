@@ -422,6 +422,18 @@ if (modalOverlay && modalContent) {
                   `).join('')}
                 </div>
               </div>
+
+              <!-- Annual SIM Plan Indicator Banner -->
+              <div class="mb-4 p-3 bg-emerald-50/80 hover:bg-emerald-50 border border-emerald-200/80 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors" onclick="window.openSimPricingModal('${p.id}')">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="text-xl flex-shrink-0">📡</span>
+                  <div class="min-w-0">
+                    <span class="block text-xs font-bold text-emerald-900 truncate">${lang === 'es' ? 'Planes SIM PoC Anuales Disponibles' : 'Annual PoC SIM Plans Available'}</span>
+                    <span class="block text-[11px] text-emerald-700 truncate font-medium">USA/CAN/MEX $30 • LatAm $45 • Europa $50 • Global $50 al año</span>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-emerald-800 underline flex-shrink-0 whitespace-nowrap">${lang === 'es' ? 'Ver Tarifas →' : 'View Rates →'}</span>
+              </div>
             </div>
             
             <div class="pt-4 border-t border-gray-100 space-y-2">
@@ -471,119 +483,157 @@ if (modalOverlay && modalContent) {
     }
   };
 
-  (window as any).openSimPricingModal = (productId: string) => {
-    const product = productsData.find(p => p.id === productId);
-    if (!product) return;
+  (window as any).openSimPricingModal = (productId?: string) => {
+    const product = productId ? productsData.find(p => p.id === productId) : null;
     const lang = getLanguage();
-    const localized = getLocalizedProduct(product);
+    const isEs = lang === 'es';
+    const localized = product ? getLocalizedProduct(product) : null;
 
-    const waSimMsg = lang === 'es'
-      ? `Hola G-TECH, deseo ordenar el equipo táctico ${encodeURIComponent(localized.name)} con SIM card de cobertura global.`
-      : `Hello G-TECH, I would like to order the ${encodeURIComponent(localized.name)} bundled with a Global SIM card.`;
+    let selectedPlanId = 'us_can_mex';
 
-    modalContent.innerHTML = `
-      <div class="relative">
-        <button onclick="closeModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all focus:outline-none" aria-label="Close modal">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
+    const plans = [
+      {
+        id: 'us_can_mex',
+        flag: '🇺🇸 🇨🇦 🇲🇽',
+        name: isEs ? 'United States, Canadá, México' : 'United States, Canada, Mexico',
+        carriers: isEs ? 'Tier-1 Multi-Red: AT&T, T-Mobile, Verizon, Rogers, Telcel' : 'Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel',
+        price: '$30',
+        period: isEs ? 'al año' : '/year',
+        equiv: isEs ? 'Tarifa plana oficial (~$2.50/mes)' : 'Official flat rate (~$2.50/mo)',
+        badge: isEs ? 'Norteamérica Oficial' : 'Official North America'
+      },
+      {
+        id: 'latam',
+        flag: '🌎',
+        name: isEs ? 'Latín América' : 'Latin America',
+        carriers: isEs ? 'Multi-Operador: Claro, Movistar, Tigo, Entel, Personal & Digitel' : 'Multi-Carrier: Claro, Movistar, Tigo, Entel, Personal & Digitel',
+        price: '$45',
+        period: isEs ? 'al año' : '/year',
+        equiv: isEs ? 'Tarifa plana oficial (~$3.75/mes)' : 'Official flat rate (~$3.75/mo)',
+        badge: isEs ? 'Pan-Regional' : 'Pan-Regional'
+      },
+      {
+        id: 'europe',
+        flag: '🇪🇺 🇬🇧',
+        name: isEs ? 'Europa' : 'Europe',
+        carriers: isEs ? 'Roaming Completo UE/UK: Vodafone, Orange, Telefónica, O2' : 'Full EU/UK Roaming: Vodafone, Orange, Telefónica, O2',
+        price: '$50',
+        period: isEs ? 'al año' : '/year',
+        equiv: isEs ? 'Tarifa plana oficial (~$4.16/mes)' : 'Official flat rate (~$4.16/mo)',
+        badge: isEs ? 'Pan-Europeo' : 'Pan-European'
+      },
+      {
+        id: 'global',
+        flag: '🌐',
+        name: isEs ? 'Global Multi' : 'Global Multi-Carrier',
+        carriers: isEs ? 'Multi-IMSI Autónomo en más de 160 países' : 'Autonomous Multi-IMSI across 160+ countries',
+        price: '$50',
+        period: isEs ? 'al año' : '/year',
+        equiv: isEs ? 'Tarifa plana oficial (~$4.16/mes)' : 'Official flat rate (~$4.16/mo)',
+        badge: isEs ? 'Mundial 160+ Países' : 'Worldwide 160+ Countries'
+      }
+    ];
 
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 shadow-sm">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
-          </div>
-          <div>
-            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block">${t('catalog.sim_iot_telemetry')}</span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-navy-800">${t('catalog.sim_headline')}</h2>
-          </div>
-        </div>
+    const renderModalBody = () => {
+      const activePlan = plans.find(p => p.id === selectedPlanId) || plans[0];
+      const hardwareText = localized
+        ? (isEs ? `el equipo táctico ${localized.name}` : `the tactical radio ${localized.name}`)
+        : (isEs ? `equipos tácticos PoC` : `tactical PoC radios`);
 
-        <p class="text-gray-600 text-xs sm:text-sm mb-6 leading-relaxed">
-          ${t('catalog.sim_lead')}
-        </p>
+      const waMsg = isEs
+        ? `Hola G-TECH, deseo cotizar ${hardwareText} con el Plan SIM Anual de ${activePlan.name} (${activePlan.price} al año).`
+        : `Hello G-TECH, I would like to inquire about ${hardwareText} with the ${activePlan.name} Annual SIM Plan (${activePlan.price}/year).`;
 
-        <!-- Multi-Country Rates Table -->
-        <div class="space-y-3 mb-6">
-          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🇺🇸</span>
-              <div>
-                <h4 class="text-sm font-bold text-navy-800">${t('catalog.us_canada')}</h4>
-                <p class="text-[11px] text-gray-500">${t('catalog.us_canada_carriers')}</p>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">$15<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">$150${t('catalog.per_year_save')}</span>
-            </div>
-          </div>
-
-          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🌎</span>
-              <div>
-                <h4 class="text-sm font-bold text-navy-800">${t('catalog.latam')}</h4>
-                <p class="text-[11px] text-gray-500">${t('catalog.latam_carriers')}</p>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">$12<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">$120${t('catalog.per_year_save')}</span>
-            </div>
-          </div>
-
-          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🇪🇺</span>
-              <div>
-                <h4 class="text-sm font-bold text-navy-800">${t('catalog.europe')}</h4>
-                <p class="text-[11px] text-gray-500">${t('catalog.europe_carriers')}</p>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">€14<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">€140${t('catalog.per_year_save')}</span>
-            </div>
-          </div>
-
-          <div class="bg-gray-50 border border-gray-200/80 rounded-xl p-3 sm:p-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🌐</span>
-              <div>
-                <h4 class="text-sm font-bold text-navy-800">${t('catalog.global_imsi')}</h4>
-                <p class="text-[11px] text-gray-500">${t('catalog.global_carriers')}</p>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">$22<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">$220${t('catalog.per_year_save')}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- SIM Features Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] mb-6 text-gray-600">
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_activation')}</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_aes')}</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_apn')}</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_carrier')}</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_airtime')}</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_cancel')}</span>
-        </div>
-
-        <!-- Action Footer -->
-        <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
-          <button onclick="closeModal()" class="w-full sm:w-auto px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
-            ${t('catalog.close')}
+      modalContent.innerHTML = `
+        <div class="relative">
+          <button onclick="closeModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all focus:outline-none" aria-label="Close modal">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
-          <a href="https://wa.me/14074273356?text=${waSimMsg}"
-             target="_blank"
-             class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-crimson-800 hover:bg-crimson-900 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            ${t('catalog.inquire_sim_whatsapp')}
-          </a>
+
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 shadow-sm">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
+            </div>
+            <div>
+              <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block">${t('catalog.sim_iot_telemetry')}</span>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-navy-800">${t('catalog.sim_headline')}</h2>
+            </div>
+          </div>
+
+          <p class="text-gray-600 text-xs sm:text-sm mb-4 leading-relaxed">
+            ${t('catalog.sim_lead')}
+          </p>
+
+          <div class="mb-3 flex items-center justify-between">
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">${t('catalog.sim_select_prompt')}</span>
+            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">${activePlan.name} • ${activePlan.price} ${activePlan.period}</span>
+          </div>
+
+          <!-- Multi-Country Rates Table (Interactive Selection) -->
+          <div class="space-y-2.5 mb-6">
+            ${plans.map(plan => {
+              const isSelected = plan.id === selectedPlanId;
+              return `
+                <div onclick="window.selectSimPlan('${plan.id}')"
+                     class="cursor-pointer border rounded-2xl p-3.5 sm:p-4 flex items-center justify-between transition-all ${
+                       isSelected
+                         ? 'bg-emerald-50/60 border-emerald-500 shadow-sm ring-1 ring-emerald-500/30'
+                         : 'bg-white hover:bg-gray-50/80 border-gray-200/80'
+                     }">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-2xl flex-shrink-0">${plan.flag}</span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-sm font-bold text-navy-800">${plan.name}</h4>
+                        <span class="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded ${
+                          isSelected ? 'bg-emerald-200/60 text-emerald-900 font-bold' : 'bg-gray-100 text-gray-600'
+                        }">${plan.badge}</span>
+                      </div>
+                      <p class="text-[11px] text-gray-500 truncate">${plan.carriers}</p>
+                    </div>
+                  </div>
+                  <div class="text-right flex-shrink-0 pl-3">
+                    <span class="text-lg sm:text-xl font-extrabold text-navy-900">${plan.price}</span>
+                    <span class="text-xs font-bold text-gray-500 block leading-tight">${plan.period}</span>
+                    <span class="block text-[10px] text-emerald-600 font-semibold mt-0.5">${plan.equiv}</span>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- SIM Features Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] mb-6 text-gray-600 bg-gray-50/80 p-3 rounded-xl border border-gray-100">
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_activation')}</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_aes')}</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_apn')}</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_carrier')}</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_airtime')}</span>
+            <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_cancel')}</span>
+          </div>
+
+          <!-- Action Footer -->
+          <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
+            <button onclick="closeModal()" class="w-full sm:w-auto px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+              ${t('catalog.close')}
+            </button>
+            <a href="https://wa.me/14074273356?text=${encodeURIComponent(waMsg)}"
+               target="_blank"
+               class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-crimson-800 hover:bg-crimson-900 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap active:scale-95">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              ${t('catalog.inquire_sim_whatsapp')}
+            </a>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    };
+
+    (window as any).selectSimPlan = (planId: string) => {
+      selectedPlanId = planId;
+      renderModalBody();
+    };
+
+    renderModalBody();
     closeCartDrawer();
     modalOverlay.classList.remove('hidden');
     modalOverlay.classList.add('flex');

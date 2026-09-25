@@ -218,6 +218,114 @@
         <div id="catalog-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-6 px-2 sm:px-6">
           <!-- Populated dynamically via JS -->
         </div>
+
+        <!-- Global PoC SIM Connectivity & Official Annual Plans -->
+        <div id="sim-plans" class="mt-16 sm:mt-20 bg-white rounded-3xl p-6 sm:p-10 border border-gray-200/80 shadow-md scroll-mt-24">
+          <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-12">
+            <span class="text-emerald-600 font-bold tracking-widest uppercase text-xs sm:text-sm mb-2 flex items-center justify-center gap-1.5" data-i18n="sim_section.badge">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Conectividad Celular IoT & Tarjetas SIM
+            </span>
+            <h3 class="text-2xl sm:text-4xl font-extrabold text-navy-800" data-i18n="sim_section.title">
+              Planes Anuales de Tarjetas SIM PoC
+            </h3>
+            <p class="text-gray-600 text-xs sm:text-base mt-2.5 leading-relaxed max-w-2xl mx-auto" data-i18n="sim_section.subtitle">
+              Tarifas planas anuales oficiales sin contratos mensuales. Cobertura ininterrumpida Tier-1 con conmutación automática de red para todas tus radios tácticas G-TECH.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+            <!-- 1. USA, Canada, Mexico -->
+            <div onclick="window.openSimPricingModal(undefined, 'us_can_mex')" class="bg-gray-50/70 border border-gray-200/80 rounded-2xl p-5 flex flex-col justify-between hover:border-emerald-500/80 hover:bg-emerald-50/20 transition-all hover:shadow-md group cursor-pointer">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl">🇺🇸 🇨🇦 🇲🇽</span>
+                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Norteamérica</span>
+                </div>
+                <h4 class="font-extrabold text-navy-800 text-base mb-1" data-i18n="sim_section.rate_usa">United States, Canada & Mexico</h4>
+                <p class="text-xs text-gray-500 mb-4" data-i18n="sim_section.rate_usa_carriers">Tier-1 Multi-Carrier: AT&T, T-Mobile, Verizon, Rogers, Telcel</p>
+              </div>
+              <div class="pt-3 border-t border-gray-200/60 flex items-baseline justify-between">
+                <div>
+                  <span class="text-2xl sm:text-3xl font-extrabold text-navy-900">$30</span>
+                  <span class="text-xs font-semibold text-gray-500" data-i18n="sim_section.per_year">al año</span>
+                </div>
+                <span class="text-[11px] font-semibold text-emerald-600">~$2.50/mes</span>
+              </div>
+            </div>
+
+            <!-- 2. Latin America -->
+            <div onclick="window.openSimPricingModal(undefined, 'latam')" class="bg-gray-50/70 border border-gray-200/80 rounded-2xl p-5 flex flex-col justify-between hover:border-emerald-500/80 hover:bg-emerald-50/20 transition-all hover:shadow-md group cursor-pointer">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl">🌎</span>
+                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Pan-Regional</span>
+                </div>
+                <h4 class="font-extrabold text-navy-800 text-base mb-1" data-i18n="sim_section.rate_latam">Latin America</h4>
+                <p class="text-xs text-gray-500 mb-4" data-i18n="sim_section.rate_latam_carriers">Claro, Movistar, Tigo, Entel, Personal & Digitel</p>
+              </div>
+              <div class="pt-3 border-t border-gray-200/60 flex items-baseline justify-between">
+                <div>
+                  <span class="text-2xl sm:text-3xl font-extrabold text-navy-900">$45</span>
+                  <span class="text-xs font-semibold text-gray-500" data-i18n="sim_section.per_year">al año</span>
+                </div>
+                <span class="text-[11px] font-semibold text-emerald-600">~$3.75/mes</span>
+              </div>
+            </div>
+
+            <!-- 3. Europe -->
+            <div onclick="window.openSimPricingModal(undefined, 'europe')" class="bg-gray-50/70 border border-gray-200/80 rounded-2xl p-5 flex flex-col justify-between hover:border-emerald-500/80 hover:bg-emerald-50/20 transition-all hover:shadow-md group cursor-pointer">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl">🇪🇺 🇬🇧</span>
+                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Pan-Europeo</span>
+                </div>
+                <h4 class="font-extrabold text-navy-800 text-base mb-1" data-i18n="sim_section.rate_europe">Europe</h4>
+                <p class="text-xs text-gray-500 mb-4" data-i18n="sim_section.rate_europe_carriers">Full EU & UK Roaming: Vodafone, Orange, Telefónica, O2</p>
+              </div>
+              <div class="pt-3 border-t border-gray-200/60 flex items-baseline justify-between">
+                <div>
+                  <span class="text-2xl sm:text-3xl font-extrabold text-navy-900">$50</span>
+                  <span class="text-xs font-semibold text-gray-500" data-i18n="sim_section.per_year">al año</span>
+                </div>
+                <span class="text-[11px] font-semibold text-emerald-600">~$4.16/mes</span>
+              </div>
+            </div>
+
+            <!-- 4. Global Multi -->
+            <div onclick="window.openSimPricingModal(undefined, 'global')" class="bg-gray-50/70 border border-gray-200/80 rounded-2xl p-5 flex flex-col justify-between hover:border-emerald-500/80 hover:bg-emerald-50/20 transition-all hover:shadow-md group cursor-pointer">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-3xl">🌐</span>
+                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Global Multi</span>
+                </div>
+                <h4 class="font-extrabold text-navy-800 text-base mb-1" data-i18n="sim_section.rate_global">Global Multi-Carrier</h4>
+                <p class="text-xs text-gray-500 mb-4" data-i18n="sim_section.rate_global_carriers">Autonomous Multi-IMSI across 160+ Countries</p>
+              </div>
+              <div class="pt-3 border-t border-gray-200/60 flex items-baseline justify-between">
+                <div>
+                  <span class="text-2xl sm:text-3xl font-extrabold text-navy-900">$50</span>
+                  <span class="text-xs font-semibold text-gray-500" data-i18n="sim_section.per_year">al año</span>
+                </div>
+                <span class="text-[11px] font-semibold text-emerald-600">~$4.16/mes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust Badges & CTA -->
+          <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center flex-wrap justify-center sm:justify-start gap-4 text-xs text-gray-500 font-semibold">
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="sim_section.badge_activation">Cero Costos de Activación</span></span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="sim_section.badge_aes">Cifrado AES-256</span></span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="sim_section.badge_apn">APN Preconfigurado</span></span>
+              <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="sim_section.badge_unlimited">Voz PTT Ilimitada</span></span>
+            </div>
+            <button onclick="window.openSimPricingModal()" class="px-6 py-2.5 rounded-full font-bold uppercase tracking-wider text-white bg-crimson-800 hover:bg-crimson-900 transition-all text-xs flex items-center gap-2 shadow-sm hover:shadow active:scale-95 flex-shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
+              <span data-i18n="sim_section.btn_consult">Cotizar Tarjetas SIM</span>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
