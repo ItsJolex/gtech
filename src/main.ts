@@ -1,15 +1,24 @@
 import productsData from '../products.json';
 import type { Product } from './types';
-import { initCart, openCartDrawer, closeCartDrawer, addToCart, subscribe as subscribeCart } from './cart';
+import { initCart, openCartDrawer, closeCartDrawer, addToCart, subscribe as subscribeCart, renderCartDrawer } from './cart';
 import { initComparison } from './comparison';
 import { initFinder, resetFinder } from './finder';
+import { initI18n, getLanguage, toggleLanguage, t, tSpecLabel, onLanguageChange, getLocalizedProduct } from './i18n';
+import { initLegalModule, openLegalModal } from './legal';
 
 function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
+  const lang = getLanguage();
+  const localized = getLocalizedProduct(p);
+
   const stockBadge = !p.inStock
-    ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-800 text-xs font-bold uppercase tracking-wider">SOLD OUT</span>'
+    ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-800 text-xs font-bold uppercase tracking-wider">${t('catalog.sold_out')}</span>`
     : p.stockStatus === 'low_stock'
-      ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider">LOW STOCK</span>'
-      : '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">IN STOCK</span>';
+      ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider">${t('catalog.low_stock')}</span>`
+      : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">${t('catalog.in_stock')}</span>`;
+
+  const waInquiryMsg = lang === 'es'
+    ? `Hola G-TECH, solicito la ficha técnica oficial y disponibilidad del equipo ${encodeURIComponent(localized.name)}`
+    : `Hello G-TECH, I'm inquiring about technical specs for the ${encodeURIComponent(localized.name)}`;
 
   return `
     <div class="relative ${fromModal ? 'animate-deep-specs-in' : 'animate-fade-in'}">
@@ -19,14 +28,14 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
           ${fromModal ? `
             <button onclick="window.openModal('${p.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-              Back to Overview
+              ${t('catalog.back_to_overview')}
             </button>
           ` : `
             <span class="text-xs font-extrabold uppercase tracking-widest text-crimson-700 bg-crimson-50 px-2.5 py-1 rounded-md border border-crimson-100">
-              Technical Dossier
+              ${t('catalog.view_dossier')}
             </span>
           `}
-          <span class="text-xs text-gray-500 font-medium">Model ID: ${p.id}</span>
+          <span class="text-xs text-gray-500 font-medium">${t('catalog.model_id')}: ${p.id}</span>
         </div>
 
         <button onclick="closeModal()" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
@@ -36,11 +45,11 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
       <!-- IMAGE AT THE TOP -->
       <div id="deep-specs-top-hero" class="w-full max-w-md mx-auto aspect-[16/10] sm:h-64 bg-gradient-to-b from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center p-4 border border-gray-200/80 relative mb-6 shadow-sm overflow-hidden group">
-        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain max-h-56 filter drop-shadow-md group-hover:scale-105 transition-transform duration-300">
+        <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-contain max-h-56 filter drop-shadow-md group-hover:scale-105 transition-transform duration-300">
 
         <div class="absolute top-2 left-2 flex items-center gap-1.5">
           <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
-            ${p.badge}
+            ${localized.badge}
           </span>
           ${stockBadge}
         </div>
@@ -48,37 +57,37 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
         <!-- SIM Quick Action Button in Deep Hero -->
         <button onclick="window.openSimPricingModal('${p.id}')"
                 class="absolute bottom-2 right-2 sm:bottom-2.5 sm:right-2.5 w-8 h-8 sm:w-auto sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-md flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 text-xs font-bold text-emerald-300"
-                title="SIM Coverage Rates" aria-label="SIM Coverage Rates">
+                title="${t('catalog.sim_rates')}" aria-label="SIM Coverage Rates">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
-          <span class="hidden sm:inline">SIM Coverage Rates</span>
+          <span class="hidden sm:inline">${t('catalog.sim_rates')}</span>
         </button>
       </div>
 
       <!-- PRODUCT TITLE & BRIEF -->
       <div class="text-center max-w-2xl mx-auto mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-navy-900 tracking-tight mb-2">${p.name}</h2>
-        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${p.description}</p>
+        <h2 class="text-xl sm:text-2xl font-black text-navy-900 tracking-tight mb-2">${localized.name}</h2>
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${localized.description}</p>
       </div>
 
-      <!-- EXTENSIVE SPECIFICATIONS DOSSIER (SCROLLABLE BELOW) -->
+      <!-- EXTENSIVE SPECIFICATIONS DOSSIER -->
       <div class="space-y-4 mb-6">
         <!-- Section 1: Radio Frequency & Network Connectivity -->
         <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-crimson-600"></span>
-            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">RF, Cellular & Telemetry Architecture</h3>
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">${t('modal.rf_title')}</h3>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Network Telemetry</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Telemetría de Red' : 'Network Telemetry'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.connectivity}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Antenna Port System</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Sistema de Antenas' : 'Antenna Port System'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.antenna}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">SIM & Encryption</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'SIM y Cifrado' : 'SIM & Encryption'}</span>
               <span class="text-xs sm:text-sm font-bold text-emerald-700">Multi-IMSI 4G / AES-256 Voice</span>
             </div>
           </div>
@@ -88,19 +97,19 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
         <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">Acoustics & Operational Controls</h3>
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">${t('modal.audio_title')}</h3>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Speaker Output Pressure</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Potencia Acústica' : 'Speaker Output Pressure'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.audioOutput}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Interface & Keypad</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Interfaz y Teclado' : 'Interface & Keypad'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.controls}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Emergency Protocol</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Protocolo de Emergencia' : 'Emergency Protocol'}</span>
               <span class="text-xs sm:text-sm font-bold text-crimson-700">${p.comparison.emergency}</span>
             </div>
           </div>
@@ -110,31 +119,31 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
         <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
           <div class="flex items-center gap-2 mb-3">
             <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">Endurance, Ingress & Field Standards</h3>
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900">${t('modal.durability_title')}</h3>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Shift Battery Endurance</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Autonomía de Batería' : 'Shift Battery Endurance'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.batteryRuntime}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Ingress & Durability Rating</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Protección y Grado IP' : 'Ingress & Durability Rating'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.protection}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Chassis Form Factor</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Factor de Forma' : 'Chassis Form Factor'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.formFactor}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Optics & Video Sensor</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Óptica y Sensor de Video' : 'Optics & Video Sensor'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.videoVision}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Regulatory Approvals</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${lang === 'es' ? 'Homologaciones' : 'Regulatory Approvals'}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">${p.comparison.certifications}</span>
             </div>
             <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
-              <span class="block text-[11px] font-semibold text-gray-400 uppercase">Operating Temperature</span>
+              <span class="block text-[11px] font-semibold text-gray-400 uppercase">${t('catalog.operating_temp')}</span>
               <span class="text-xs sm:text-sm font-bold text-navy-900">-20°C to +60°C (-4°F to 140°F)</span>
             </div>
           </div>
@@ -142,11 +151,11 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
         <!-- Section 4: Granular Hardware Specs Matrix -->
         <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 sm:p-5">
-          <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900 mb-3">Field Specifications Breakdown</h3>
+          <h3 class="text-xs font-extrabold uppercase tracking-wider text-navy-900 mb-3">${t('modal.specs_title')}</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             ${p.specs.map(s => `
               <div class="flex items-center justify-between gap-3 bg-white px-3.5 py-2.5 rounded-lg border border-gray-100 text-xs">
-                <span class="text-gray-500 font-medium flex-shrink-0">${s.label}</span>
+                <span class="text-gray-500 font-medium flex-shrink-0">${tSpecLabel(s.label)}</span>
                 <span class="font-bold text-navy-800 text-right break-words">${s.value}</span>
               </div>
             `).join('')}
@@ -159,20 +168,20 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
                   class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson"
-                  title="${!p.inStock ? 'Alternative Available' : 'Add to Quotation'}">
+                  title="${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            <span class="truncate">${!p.inStock ? 'Alternative Available' : 'Add to Quotation'}</span>
+            <span class="truncate">${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}</span>
           </button>
-          <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I'm%20inquiring%20about%20technical%20specs%20for%20the%20${encodeURIComponent(p.name)}"
+          <a href="https://wa.me/14074273356?text=${waInquiryMsg}"
              target="_blank"
              class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap"
-             title="WhatsApp Inquiry">
+             title="${t('catalog.whatsapp_inquiry')}">
             <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            <span class="truncate">WhatsApp Inquiry</span>
+            <span class="truncate">${t('catalog.whatsapp_inquiry')}</span>
           </a>
         </div>
         <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
-          Close Dossier
+          ${t('catalog.close_dossier')}
         </button>
       </div>
     </div>
@@ -217,96 +226,139 @@ const modalContent = document.getElementById('modal-content');
 const cartBtn = document.getElementById('cart-btn');
 const mobileCartBtn = document.getElementById('mobile-cart-btn');
 
-if (catalogContainer && modalOverlay && modalContent) {
-  catalogContainer.innerHTML = productsData.map(product => `
-    <div class="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-5 shadow-sm hover:shadow-md border border-gray-100 flex flex-col relative group cursor-pointer transition-all duration-200" onclick="openModal('${product.id}')">
+function renderCatalog(): void {
+  if (!catalogContainer) return;
+  const lang = getLanguage();
 
-      <div class="aspect-square bg-gray-50 rounded-lg p-2 mb-2 relative overflow-hidden flex items-center justify-center border border-gray-100/60 group/cardimg">
-        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy">
+  catalogContainer.innerHTML = productsData.map(product => {
+    const localized = getLocalizedProduct(product);
+    const waQuoteText = lang === 'es'
+      ? `Hola G-TECH, me interesa cotizar el equipo táctico ${encodeURIComponent(localized.name)}`
+      : `Hello G-TECH, I'm interested in the ${encodeURIComponent(localized.name)}`;
 
-        <!-- Top Badges Header: flex justify-between preventing badge collision -->
-        <div class="absolute top-1.5 inset-x-1.5 flex items-center justify-between gap-1 z-10 pointer-events-none">
-          <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[62%] sm:max-w-[70%]">
-            ${product.badge}
-          </span>
-          ${product.stockStatus === 'low_stock' && product.inStock ? `
-            <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider shadow flex-shrink-0">Low Stock</span>
+    return `
+      <div class="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-5 shadow-sm hover:shadow-md border border-gray-100 flex flex-col relative group cursor-pointer transition-all duration-200 card-hardware-accel" onclick="openModal('${product.id}')">
+
+        <div class="aspect-square bg-gray-50 rounded-lg p-2 mb-2 relative overflow-hidden flex items-center justify-center border border-gray-100/60 group/cardimg">
+          <img src="${product.image}" alt="${localized.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy">
+
+          <!-- Top Badges Header -->
+          <div class="absolute top-1.5 inset-x-1.5 flex items-center justify-between gap-1 z-10 pointer-events-none">
+            <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[62%] sm:max-w-[70%]">
+              ${localized.badge}
+            </span>
+            ${product.stockStatus === 'low_stock' && product.inStock ? `
+              <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider shadow flex-shrink-0">${t('catalog.low_stock')}</span>
+            ` : ''}
+          </div>
+
+          ${!product.inStock ? `
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center z-10">
+              <span class="bg-crimson-800 text-white px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider shadow">${t('catalog.sold_out')}</span>
+            </div>
           ` : ''}
+
+          <!-- BOTTOM-LEFT: Cellular SIM Pricing Button -->
+          <button onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
+                  class="absolute bottom-1.5 left-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim"
+                  title="${t('catalog.sim_rates')}"
+                  aria-label="View SIM pricing">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover/sim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+              <rect x="8" y="10" width="8" height="8" rx="1"/>
+              <path d="M12 10v8M8 14h8"/>
+            </svg>
+          </button>
+
+          <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button -->
+          <button onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
+                  class="absolute bottom-1.5 right-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec"
+                  title="${t('catalog.full_specs')}"
+                  aria-label="View detailed specifications">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover/spec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </button>
         </div>
 
-        ${!product.inStock ? `
-          <div class="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center z-10">
-            <span class="bg-crimson-800 text-white px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-bold uppercase tracking-wider shadow">Out of Stock</span>
-          </div>
-        ` : ''}
+        <h3 class="text-xs sm:text-base font-bold text-navy-800 line-clamp-2 leading-snug mb-1 min-h-[2.4rem] sm:min-h-[2.5rem]" title="${localized.name}">
+          ${localized.name}
+        </h3>
 
-        <!-- BOTTOM-LEFT: Cellular SIM Pricing Button -->
-        <button onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
-                class="absolute bottom-1.5 left-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim"
-                title="View Cellular SIM Pricing & International Data Plans"
-                aria-label="View SIM pricing">
-          <!-- SIM Card Silhouette SVG -->
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 group-hover/sim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
-            <rect x="8" y="10" width="8" height="8" rx="1"/>
-            <path d="M12 10v8M8 14h8"/>
-          </svg>
-        </button>
+        <p class="hidden sm:block text-gray-500 text-xs sm:text-sm mb-4 line-clamp-2 leading-relaxed flex-grow">
+          ${localized.description}
+        </p>
 
-        <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button -->
-        <button onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
-                class="absolute bottom-1.5 right-1.5 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/20 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec"
-                title="Full Technical Dossier (Specs & Architecture)"
-                aria-label="View detailed specifications">
-          <!-- Question Mark / Info Silhouette SVG -->
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover/spec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-        </button>
+        <div class="sm:hidden mb-2 text-[10px] text-gray-500 truncate">
+          <span class="text-navy-700 font-semibold">${product.specs?.[0]?.value || '4G LTE PoC'}</span>
+        </div>
+
+        <div class="flex items-center gap-1.5 mt-auto pt-2 border-t border-gray-100">
+          <button onclick="event.stopPropagation(); addToCart('${product.id}')"
+                  class="flex-1 py-1.5 px-2 bg-crimson-800 hover:bg-crimson-900 text-white rounded-lg font-bold text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all"
+                  title="${t('catalog.quote_btn')}" aria-label="Add to quotation">
+            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <span class="truncate">${t('catalog.quote_btn')}</span>
+          </button>
+
+          <a href="https://wa.me/14074273356?text=${waQuoteText}"
+             target="_blank" onclick="event.stopPropagation()"
+             class="w-7 h-7 sm:w-8 sm:h-8 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-transform active:scale-95"
+             title="${t('catalog.whatsapp_direct')}" aria-label="Inquire via WhatsApp">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+
       </div>
+    `;
+  }).join('');
+}
 
-      <h3 class="text-xs sm:text-base font-bold text-navy-800 line-clamp-2 leading-snug mb-1 min-h-[2.4rem] sm:min-h-[2.5rem]" title="${product.name}">
-        ${product.name}
-      </h3>
+function updateStaticTranslations(): void {
+  const lang = getLanguage();
+  document.documentElement.lang = lang;
 
-      <p class="hidden sm:block text-gray-500 text-xs sm:text-sm mb-4 line-clamp-2 leading-relaxed flex-grow">
-        ${product.description}
-      </p>
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.getAttribute('data-i18n');
+    if (key) {
+      el.textContent = t(key);
+    }
+  });
 
-      <div class="sm:hidden mb-2 text-[10px] text-gray-500 truncate">
-        <span class="text-navy-700 font-semibold">${product.specs?.[0]?.value || '4G LTE PoC'}</span>
-      </div>
+  const desktopToggle = document.getElementById('lang-toggle-desktop');
+  const mobileToggle = document.getElementById('lang-toggle-mobile');
 
-      <div class="flex items-center gap-1.5 mt-auto pt-2 border-t border-gray-100">
-        <button onclick="event.stopPropagation(); addToCart('${product.id}')"
-                class="flex-1 py-1.5 px-2 bg-crimson-800 hover:bg-crimson-900 text-white rounded-lg font-bold text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-1 shadow-sm active:scale-95 transition-all"
-                title="Add to Quotation" aria-label="Add to quotation">
-          <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-          <span class="truncate">Quote</span>
-        </button>
+  if (desktopToggle) {
+    desktopToggle.setAttribute('data-lang', lang);
+  }
+  if (mobileToggle) {
+    mobileToggle.setAttribute('data-lang', lang);
+  }
 
-        <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I'm%20interested%20in%20the%20${encodeURIComponent(product.name)}"
-           target="_blank" onclick="event.stopPropagation()"
-           class="w-7 h-7 sm:w-8 sm:h-8 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-transform active:scale-95"
-           title="Direct WhatsApp Inquiry" aria-label="Inquire via WhatsApp">
-          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        </a>
-      </div>
+  const switchLabel = lang === 'en' ? 'Cambiar a Español' : 'Switch to English';
+  document.querySelectorAll('.lang-toggle-label').forEach((el) => {
+    el.textContent = switchLabel;
+  });
+}
 
-    </div>
-  `).join('');
-
+if (modalOverlay && modalContent) {
   (window as any).openModal = (id: string) => {
     const p = productsData.find(x => x.id === id);
     if (!p) return;
-    
-    const stockBadge = !p.inStock 
-      ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> SOLD OUT</span>'
+    const lang = getLanguage();
+    const localized = getLocalizedProduct(p);
+
+    const stockBadge = !p.inStock
+      ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-100 text-crimson-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${t('catalog.sold_out')}</span>`
       : p.stockStatus === 'low_stock'
-        ? '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> LOW STOCK</span>'
-        : '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> IN STOCK</span>';
+        ? `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg> ${t('catalog.low_stock')}</span>`
+        : `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${t('catalog.in_stock')}</span>`;
+
+    const waModalMsg = lang === 'es'
+      ? `Hola G-TECH, deseo cotizar formalmente el equipo ${encodeURIComponent(localized.name)}`
+      : `Hello G-TECH, I'm interested in requesting a quote for ${encodeURIComponent(localized.name)}`;
 
     modalContent.innerHTML = `
       <div class="relative">
@@ -315,55 +367,56 @@ if (catalogContainer && modalOverlay && modalContent) {
         </button>
 
         <div class="flex flex-col md:flex-row gap-6 md:gap-8">
-<div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-[3/4] max-h-[380px] md:max-h-none bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-100 relative group/modalphoto">
-            <img id="modal-product-img" src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-300">
+          <div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-[3/4] max-h-[380px] md:max-h-none bg-gray-50 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-100 relative group/modalphoto">
+            <img id="modal-product-img" src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover transition-transform duration-300">
             ${!p.inStock ? `
               <div class="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
-                <span class="bg-crimson-600 text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-lg shadow-xl">PRODUCT SOLD OUT</span>
+                <span class="bg-crimson-600 text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-lg shadow-xl">${t('catalog.sold_out')}</span>
               </div>
             ` : ''}
 
             <!-- BOTTOM-LEFT: SIM Rates Overlay Button Inside Modal -->
             <button onclick="window.openSimPricingModal('${p.id}')"
                     class="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-20 w-8 h-8 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 active:scale-95 group/msim"
-                    title="Cellular SIM Pricing & Roaming Rates" aria-label="SIM Plans">
+                    title="${t('catalog.sim_rates')}" aria-label="SIM Plans">
               <svg class="w-4 h-4 text-emerald-400 group-hover/msim:text-emerald-300 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
                 <rect x="8" y="10" width="8" height="8" rx="1"/>
                 <path d="M12 10v8M8 14h8"/>
               </svg>
-              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-emerald-300">SIM Plans</span>
+              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-emerald-300">${t('catalog.sim_plans')}</span>
             </button>
 
-            <!-- BOTTOM-RIGHT: Deep Specs Button Inside Modal (Triggers Kinetic Transition) -->
+            <!-- BOTTOM-RIGHT: Deep Specs Button Inside Modal -->
             <button onclick="window.transitionToDeepDive('${p.id}')"
                     class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 w-8 h-8 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 active:scale-95 group/mspec"
-                    title="Deep Technical Dossier & Extended Specifications" aria-label="Full Technical Specs">
+                    title="${t('catalog.full_specs')}" aria-label="Full Technical Specs">
               <svg class="w-4 h-4 text-amber-300 group-hover/mspec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/>
                 <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
                 <line x1="12" y1="17" x2="12.01" y2="17"/>
               </svg>
-              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-amber-200">Full Specs</span>
+              <span class="hidden sm:inline text-[11px] font-bold tracking-wider uppercase text-amber-200">${t('catalog.full_specs')}</span>
             </button>
           </div>
+
           <div id="modal-product-summary" class="w-full md:w-1/2 flex flex-col justify-between">
             <div>
               <div class="pr-8 mb-2 flex items-center gap-3 flex-wrap">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-navy-800 leading-tight">${p.name}</h2>
+                <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-navy-800 leading-tight">${localized.name}</h2>
                 ${stockBadge}
               </div>
               <div class="mb-4">
-                <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-100">${p.badge}</span>
+                <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-100">${localized.badge}</span>
               </div>
-              <p class="text-gray-600 text-sm md:text-base mb-6 leading-relaxed">${p.description}</p>
+              <p class="text-gray-600 text-sm md:text-base mb-6 leading-relaxed">${localized.description}</p>
               
               <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
-                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Technical Specifications</h4>
+                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">${t('catalog.view_dossier')}</h4>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   ${p.specs.map(s => `
                     <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                      <span class="block text-xs text-gray-500 mb-0.5">${s.label}</span>
+                      <span class="block text-xs text-gray-500 mb-0.5">${tSpecLabel(s.label)}</span>
                       <span class="block text-sm font-bold text-navy-800 break-words">${s.value}</span>
                     </div>
                   `).join('')}
@@ -375,20 +428,20 @@ if (catalogContainer && modalOverlay && modalContent) {
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                 <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
                         class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg tactical-glow-crimson active:scale-95"
-                        title="${!p.inStock ? 'View Available Alternative' : 'Add to Quotation'}">
+                        title="${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                  <span>${!p.inStock ? 'Alternative' : 'Add to Quotation'}</span>
+                  <span>${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}</span>
                 </button>
-                <a href="https://wa.me/14074273356?text=I'm%20interested%20in%20the%20${encodeURIComponent(p.name)}"
+                <a href="https://wa.me/14074273356?text=${waModalMsg}"
                    target="_blank"
                    class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg active:scale-95"
-                   title="WhatsApp Direct">
+                   title="${t('catalog.whatsapp_direct')}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  <span>WhatsApp Direct</span>
+                  <span>${t('catalog.whatsapp_direct')}</span>
                 </a>
               </div>
               <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
-                Close
+                ${t('catalog.close')}
               </button>
             </div>
           </div>
@@ -421,6 +474,12 @@ if (catalogContainer && modalOverlay && modalContent) {
   (window as any).openSimPricingModal = (productId: string) => {
     const product = productsData.find(p => p.id === productId);
     if (!product) return;
+    const lang = getLanguage();
+    const localized = getLocalizedProduct(product);
+
+    const waSimMsg = lang === 'es'
+      ? `Hola G-TECH, deseo ordenar el equipo táctico ${encodeURIComponent(localized.name)} con SIM card de cobertura global.`
+      : `Hello G-TECH, I would like to order the ${encodeURIComponent(localized.name)} bundled with a Global SIM card.`;
 
     modalContent.innerHTML = `
       <div class="relative">
@@ -433,13 +492,13 @@ if (catalogContainer && modalOverlay && modalContent) {
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
           </div>
           <div>
-            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block">Cellular IoT Telemetry</span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-navy-800">Global PoC SIM Cards & Coverage Rates</h2>
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest block">${t('catalog.sim_iot_telemetry')}</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-navy-800">${t('catalog.sim_headline')}</h2>
           </div>
         </div>
 
         <p class="text-gray-600 text-xs sm:text-sm mb-6 leading-relaxed">
-          All G-TECH PoC devices operate via encrypted cellular networks with zero distance limits. You can bundle your hardware order with pre-configured, multi-carrier SIM cards providing uninterrupted Tier-1 roaming.
+          ${t('catalog.sim_lead')}
         </p>
 
         <!-- Multi-Country Rates Table -->
@@ -448,13 +507,13 @@ if (catalogContainer && modalOverlay && modalContent) {
             <div class="flex items-center gap-3">
               <span class="text-2xl">🇺🇸</span>
               <div>
-                <h4 class="text-sm font-bold text-navy-800">United States & Canada</h4>
-                <p class="text-[11px] text-gray-500">Tier-1 Multi-Carrier: AT&T, Verizon & T-Mobile</p>
+                <h4 class="text-sm font-bold text-navy-800">${t('catalog.us_canada')}</h4>
+                <p class="text-[11px] text-gray-500">${t('catalog.us_canada_carriers')}</p>
               </div>
             </div>
             <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">$15<span class="text-xs font-normal text-gray-500">/mo</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">$150/year (Save 17%)</span>
+              <span class="text-base font-extrabold text-navy-800">$15<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">$150${t('catalog.per_year_save')}</span>
             </div>
           </div>
 
@@ -462,13 +521,13 @@ if (catalogContainer && modalOverlay && modalContent) {
             <div class="flex items-center gap-3">
               <span class="text-2xl">🌎</span>
               <div>
-                <h4 class="text-sm font-bold text-navy-800">Latin America (Pan-Regional)</h4>
-                <p class="text-[11px] text-gray-500">Auto-Hopping: Movistar, Claro, Digitel & Entel</p>
+                <h4 class="text-sm font-bold text-navy-800">${t('catalog.latam')}</h4>
+                <p class="text-[11px] text-gray-500">${t('catalog.latam_carriers')}</p>
               </div>
             </div>
             <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">$12<span class="text-xs font-normal text-gray-500">/mo</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">$120/year (Save 17%)</span>
+              <span class="text-base font-extrabold text-navy-800">$12<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">$120${t('catalog.per_year_save')}</span>
             </div>
           </div>
 
@@ -476,13 +535,13 @@ if (catalogContainer && modalOverlay && modalContent) {
             <div class="flex items-center gap-3">
               <span class="text-2xl">🇪🇺</span>
               <div>
-                <h4 class="text-sm font-bold text-navy-800">Europe & United Kingdom</h4>
-                <p class="text-[11px] text-gray-500">Full EU Roaming: Vodafone, Telefónica & EE</p>
+                <h4 class="text-sm font-bold text-navy-800">${t('catalog.europe')}</h4>
+                <p class="text-[11px] text-gray-500">${t('catalog.europe_carriers')}</p>
               </div>
             </div>
             <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">€14<span class="text-xs font-normal text-gray-500">/mo</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">€140/year (Save 17%)</span>
+              <span class="text-base font-extrabold text-navy-800">€14<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">€140${t('catalog.per_year_save')}</span>
             </div>
           </div>
 
@@ -490,37 +549,37 @@ if (catalogContainer && modalOverlay && modalContent) {
             <div class="flex items-center gap-3">
               <span class="text-2xl">🌐</span>
               <div>
-                <h4 class="text-sm font-bold text-navy-800">Global Multi-IMSI (140+ Countries)</h4>
-                <p class="text-[11px] text-gray-500">Defense & Maritime Global Data Roaming</p>
+                <h4 class="text-sm font-bold text-navy-800">${t('catalog.global_imsi')}</h4>
+                <p class="text-[11px] text-gray-500">${t('catalog.global_carriers')}</p>
               </div>
             </div>
             <div class="text-right">
-              <span class="text-base font-extrabold text-navy-800">$22<span class="text-xs font-normal text-gray-500">/mo</span></span>
-              <span class="block text-[10px] text-emerald-600 font-semibold">$220/year (Save 17%)</span>
+              <span class="text-base font-extrabold text-navy-800">$22<span class="text-xs font-normal text-gray-500">${t('catalog.per_month')}</span></span>
+              <span class="block text-[10px] text-emerald-600 font-semibold">$220${t('catalog.per_year_save')}</span>
             </div>
           </div>
         </div>
 
         <!-- SIM Features Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px] mb-6 text-gray-600">
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Zero Activation Fees</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> AES-256 Voice Tunnel</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Pre-Configured APN</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Automatic Carrier Hopping</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unlimited PTT Airtime</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Cancel Anytime</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_activation')}</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_aes')}</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_apn')}</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_carrier')}</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_airtime')}</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ${t('catalog.feat_cancel')}</span>
         </div>
 
         <!-- Action Footer -->
         <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
           <button onclick="closeModal()" class="w-full sm:w-auto px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
-            Close
+            ${t('catalog.close')}
           </button>
-          <a href="https://wa.me/14074273356?text=Hello%20G-TECH,%20I%20would%20like%20to%20order%20the%20${encodeURIComponent(product.name)}%20bundled%20with%20a%20Global%20SIM%20card."
+          <a href="https://wa.me/14074273356?text=${waSimMsg}"
              target="_blank"
              class="w-full sm:flex-1 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-crimson-800 hover:bg-crimson-900 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Inquire Hardware + SIM via WhatsApp
+            ${t('catalog.inquire_sim_whatsapp')}
           </a>
         </div>
       </div>
@@ -550,14 +609,12 @@ if (catalogContainer && modalOverlay && modalContent) {
     const summaryCol = document.getElementById('modal-product-summary');
 
     if (imgWrapper && summaryCol) {
-      // Stage 1: Fade out summary column and animate photo moving up
       summaryCol.style.transition = 'all 220ms ease-out';
       summaryCol.style.opacity = '0';
       summaryCol.style.transform = 'translateY(16px)';
       imgWrapper.classList.add('animate-photo-morph');
 
       setTimeout(() => {
-        // Stage 2: Render deep specs layout with image at top
         modalContent.innerHTML = buildDeepSpecsHTML(p as Product, true);
       }, 220);
     } else {
@@ -599,11 +656,39 @@ subscribeCart(() => {
   }
 });
 
+// Wire Language Toggle Buttons
+const desktopToggle = document.getElementById('lang-toggle-desktop');
+const mobileToggle = document.getElementById('lang-toggle-mobile');
+
+desktopToggle?.addEventListener('click', (e) => {
+  e.preventDefault();
+  toggleLanguage();
+});
+
+mobileToggle?.addEventListener('click', (e) => {
+  e.preventDefault();
+  toggleLanguage();
+});
+
+// Subscribe to Language Changes
+onLanguageChange(() => {
+  updateStaticTranslations();
+  renderCatalog();
+  renderCartDrawer();
+});
+
+// Initialize Systems
+initI18n();
+updateStaticTranslations();
+renderCatalog();
 initCart();
 initComparison();
 initFinder();
+initLegalModule();
 
+// Global Window Bindings
 (window as any).addToCart = (id: string) => addToCart(id);
 (window as any).openCartDrawer = () => openCartDrawer();
 (window as any).closeCartDrawer = () => closeCartDrawer();
 (window as any).resetFinder = () => resetFinder();
+(window as any).openLegalModal = (type: any) => openLegalModal(type);

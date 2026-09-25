@@ -1,5 +1,6 @@
 import type { Product, ComparisonDimensionData } from './types';
 import { products, getAvailableProducts } from './products';
+import { getLanguage, t, onLanguageChange, getLocalizedProduct } from './i18n';
 
 const DIMENSION_LABELS: Record<keyof ComparisonDimensionData, { label: string; icon: string }> = {
   connectivity: { label: 'Coverage & RF Modes', icon: 'M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.343 9.343c5.858-5.857 15.355-5.857 21.213 0' },
@@ -12,6 +13,19 @@ const DIMENSION_LABELS: Record<keyof ComparisonDimensionData, { label: string; i
   emergency: { label: 'Tactical Safety & SOS', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
   videoVision: { label: 'Video & Night Vision', icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z' },
   certifications: { label: 'Certifications', icon: 'M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z' },
+};
+
+const DIMENSION_LABELS_ES: Record<keyof ComparisonDimensionData, string> = {
+  connectivity: 'Cobertura y Modos RF',
+  protection: 'Protección y Grado IP',
+  batteryRuntime: 'Autonomía de Batería',
+  audioOutput: 'Acústica y Audio',
+  controls: 'Teclado y Despacho',
+  formFactor: 'Factor de Forma y Peso',
+  antenna: 'Sistema de Antena',
+  emergency: 'Seguridad Táctica y SOS',
+  videoVision: 'Video y Visión Nocturna',
+  certifications: 'Certificaciones'
 };
 
 const DIMENSION_KEYS: (keyof ComparisonDimensionData)[] = [
@@ -148,10 +162,11 @@ function calculateAdvantageScore(value: string, dimKey: keyof ComparisonDimensio
 function getAdvantageBadge(winner: 'p1' | 'p2' | 'tie', currentProduct: 'p1' | 'p2', compact = false): string {
   if (winner === 'tie') return '';
   if (winner !== currentProduct) return '';
+  const isEs = getLanguage() === 'es';
   const cls = compact
     ? 'tactical-advantage-badge tactical-advantage-badge--compact'
     : 'tactical-advantage-badge';
-  return `<span class="${cls}">Advantage</span>`;
+  return `<span class="${cls}">${isEs ? 'Ventaja' : 'Advantage'}</span>`;
 }
 
 export function initComparison(): void {
@@ -167,9 +182,9 @@ export function initComparison(): void {
     <section id="comparison" class="py-10 sm:py-16 bg-gray-50 scroll-mt-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8 sm:mb-10">
-          <span class="text-crimson-800 font-bold tracking-widest uppercase text-sm mb-2 block">Tactical Comparison Engine</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-navy-800">NOT SURE WHICH ONE TO CHOOSE?</h2>
-          <p class="text-gray-600 mt-2 max-w-2xl mx-auto text-sm sm:text-base">Compare tactical-grade technical specifications head to head. 10 dimensions analyzed objectively.</p>
+          <span id="compare-badge-title" class="text-crimson-800 font-bold tracking-widest uppercase text-sm mb-2 block">${t('comparison.engine_badge')}</span>
+          <h2 id="compare-heading" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-navy-800">${t('comparison.engine_title')}</h2>
+          <p id="compare-desc" class="text-gray-600 mt-2 max-w-2xl mx-auto text-sm sm:text-base">${t('comparison.engine_desc')}</p>
         </div>
 
         <div class="bg-white rounded-3xl p-4 sm:p-8 shadow-lg border border-gray-100 mb-8">
@@ -177,20 +192,20 @@ export function initComparison(): void {
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
               <label id="label-select-1" for="compare-select-1" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
-                Primary Device
+                ${t('comparison.primary_device')}
               </label>
               <select id="compare-select-1" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium transition-all">
-                <option value="">Select a model...</option>
+                <option value="">${getLanguage() === 'es' ? 'Selecciona un modelo...' : 'Select a model...'}</option>
                 ${productOptions}
               </select>
             </div>
 
             <div>
               <label id="label-select-2" for="compare-select-2" class="block text-xs sm:text-sm font-bold text-navy-800 mb-2 truncate">
-                Comparison Device
+                ${t('comparison.compare_device')}
               </label>
               <select id="compare-select-2" class="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 text-navy-800 text-sm font-medium transition-all">
-                <option value="">Select a model...</option>
+                <option value="">${getLanguage() === 'es' ? 'Selecciona un modelo...' : 'Select a model...'}</option>
                 ${productOptions}
               </select>
             </div>
@@ -200,7 +215,7 @@ export function initComparison(): void {
           <div class="flex justify-center items-center my-3 mb-6">
             <button id="compare-btn-preset" class="px-6 py-2.5 rounded-full font-bold uppercase tracking-wider text-white bg-navy-800 hover:bg-navy-900 transition-all shadow-md flex items-center justify-center gap-2 text-xs active:scale-95">
               <svg class="w-4 h-4 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-              Compare Top Sellers
+              <span id="compare-preset-text">${t('comparison.compare_top_sellers')}</span>
             </button>
           </div>
 
@@ -209,7 +224,7 @@ export function initComparison(): void {
               <table class="w-full table-fixed comparison-table">
                 <thead>
                   <tr class="bg-navy-800 text-white">
-                    <th class="px-4 py-4 text-left font-bold uppercase tracking-wider text-xs w-[30%]">Technical Dimension</th>
+                    <th id="compare-th-dim" class="px-4 py-4 text-left font-bold uppercase tracking-wider text-xs w-[30%]">${t('comparison.technical_dimension')}</th>
                     <th id="compare-th-1" class="px-4 py-4 text-center font-bold uppercase tracking-wider text-xs w-[35%] border-l border-navy-700">Model 1</th>
                     <th id="compare-th-2" class="px-4 py-4 text-center font-bold uppercase tracking-wider text-xs w-[35%] border-l border-navy-700">Model 2</th>
                   </tr>
@@ -225,8 +240,8 @@ export function initComparison(): void {
 
           <div id="comparison-empty" class="text-center py-12 text-gray-500">
             <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-            <p class="text-lg font-medium text-navy-700">Select two models to compare</p>
-            <p class="text-sm mt-1">Pick devices from the selectors above</p>
+            <p id="compare-empty-title" class="text-lg font-medium text-navy-700">${t('comparison.select_two')}</p>
+            <p id="compare-empty-desc" class="text-sm mt-1">${t('comparison.pick_devices')}</p>
           </div>
         </div>
       </div>
@@ -252,13 +267,18 @@ export function initComparison(): void {
     tableContainer.classList.remove('hidden');
     mobileContainer.classList.remove('hidden');
 
+    const lang = getLanguage();
+    const p1Localized = getLocalizedProduct(p1);
+    const p2Localized = getLocalizedProduct(p2);
+
     const header1 = document.getElementById('compare-th-1');
     const header2 = document.getElementById('compare-th-2');
-    if (header1) header1.textContent = p1.name;
-    if (header2) header2.textContent = p2.name;
+    if (header1) header1.textContent = p1Localized.name;
+    if (header2) header2.textContent = p2Localized.name;
 
     tbody.innerHTML = DIMENSION_KEYS.map(key => {
       const dim = DIMENSION_LABELS[key];
+      const dimLabel = lang === 'es' ? DIMENSION_LABELS_ES[key] : dim.label;
       const winner = getAdvantage(key, p1, p2);
       const p1Advantage = getAdvantageBadge(winner, 'p1');
       const p2Advantage = getAdvantageBadge(winner, 'p2');
@@ -270,7 +290,7 @@ export function initComparison(): void {
               <div class="w-8 h-8 bg-navy-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg class="w-4 h-4 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${dim.icon}"></path></svg>
               </div>
-              <span class="font-semibold text-navy-800 text-sm">${dim.label}</span>
+              <span class="font-semibold text-navy-800 text-sm">${dimLabel}</span>
             </div>
           </td>
           <td class="px-4 py-4 text-center relative border-l border-gray-100 ${winner === 'p1' ? 'tactical-advantage-cell' : ''}">
@@ -288,17 +308,18 @@ export function initComparison(): void {
     mobileBody.innerHTML = `
       <div class="sticky top-[80px] z-20 bg-white/95 backdrop-blur-sm shadow-md rounded-xl border border-gray-100 p-2 flex items-center gap-2">
         <div class="flex-1 flex items-center gap-1.5 min-w-0">
-          <img src="${p1.image}" alt="${p1.name}" class="w-8 h-8 rounded-lg object-contain bg-gray-50 border border-gray-100 flex-shrink-0">
-          <span class="text-[10px] leading-tight font-bold text-navy-800 truncate">${p1.name}</span>
+          <img src="${p1.image}" alt="${p1Localized.name}" class="w-8 h-8 rounded-lg object-contain bg-gray-50 border border-gray-100 flex-shrink-0">
+          <span class="text-[10px] leading-tight font-bold text-navy-800 truncate">${p1Localized.name}</span>
         </div>
         <span class="text-[9px] font-extrabold text-gray-400 uppercase tracking-wider flex-shrink-0">vs</span>
         <div class="flex-1 flex items-center gap-1.5 min-w-0 justify-end">
-          <span class="text-[10px] leading-tight font-bold text-navy-800 truncate text-right">${p2.name}</span>
-          <img src="${p2.image}" alt="${p2.name}" class="w-8 h-8 rounded-lg object-contain bg-gray-50 border border-gray-100 flex-shrink-0">
+          <span class="text-[10px] leading-tight font-bold text-navy-800 truncate text-right">${p2Localized.name}</span>
+          <img src="${p2.image}" alt="${p2Localized.name}" class="w-8 h-8 rounded-lg object-contain bg-gray-50 border border-gray-100 flex-shrink-0">
         </div>
       </div>
       ${DIMENSION_KEYS.map(key => {
         const dim = DIMENSION_LABELS[key];
+        const dimLabel = lang === 'es' ? DIMENSION_LABELS_ES[key] : dim.label;
         const winner = getAdvantage(key, p1, p2);
         const p1Advantage = getAdvantageBadge(winner, 'p1', true);
         const p2Advantage = getAdvantageBadge(winner, 'p2', true);
@@ -309,7 +330,7 @@ export function initComparison(): void {
               <div class="w-6 h-6 bg-navy-100 rounded flex items-center justify-center flex-shrink-0">
                 <svg class="w-3.5 h-3.5 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${dim.icon}"></path></svg>
               </div>
-              <span class="font-bold text-navy-800 text-[11px] uppercase tracking-wider truncate">${dim.label}</span>
+              <span class="font-bold text-navy-800 text-[11px] uppercase tracking-wider truncate">${dimLabel}</span>
             </div>
             <div class="grid grid-cols-2 gap-1.5">
               <div class="relative rounded-lg bg-gray-50 p-1.5 ${winner === 'p1' ? 'tactical-advantage-cell' : ''}">
@@ -332,9 +353,33 @@ export function initComparison(): void {
     const label2 = document.getElementById('label-select-2');
     const p1 = products.find(p => p.id === select1.value);
     const p2 = products.find(p => p.id === select2.value);
-    if (label1) label1.textContent = p1 ? `Model: ${getShortModelName(p1)}` : 'Select Model 1';
-    if (label2) label2.textContent = p2 ? `Model: ${getShortModelName(p2)}` : 'Select Model 2';
+    const isEs = getLanguage() === 'es';
+    if (label1) label1.textContent = p1 ? `${isEs ? 'Modelo' : 'Model'}: ${getShortModelName(p1)}` : t('comparison.primary_device');
+    if (label2) label2.textContent = p2 ? `${isEs ? 'Modelo' : 'Model'}: ${getShortModelName(p2)}` : t('comparison.compare_device');
   }
+
+  onLanguageChange(() => {
+    updateSelectorLabels();
+    const compareBadge = document.getElementById('compare-badge-title');
+    const compareHeading = document.getElementById('compare-heading');
+    const compareDesc = document.getElementById('compare-desc');
+    const presetBtnText = document.getElementById('compare-preset-text');
+    const thDim = document.getElementById('compare-th-dim');
+    const emptyTitle = document.getElementById('compare-empty-title');
+    const emptyDesc = document.getElementById('compare-empty-desc');
+
+    if (compareBadge) compareBadge.textContent = t('comparison.engine_badge');
+    if (compareHeading) compareHeading.textContent = t('comparison.engine_title');
+    if (compareDesc) compareDesc.textContent = t('comparison.engine_desc');
+    if (presetBtnText) presetBtnText.textContent = t('comparison.compare_top_sellers');
+    if (thDim) thDim.textContent = t('comparison.technical_dimension');
+    if (emptyTitle) emptyTitle.textContent = t('comparison.select_two');
+    if (emptyDesc) emptyDesc.textContent = t('comparison.pick_devices');
+
+    if (select1.value && select2.value && select1.value !== select2.value) {
+      renderComparison(select1.value, select2.value);
+    }
+  });
 
   function handleSelectChange(): void {
     const id1 = select1.value;
@@ -361,7 +406,7 @@ export function initComparison(): void {
     select2.value = top3[1];
     handleSelectChange();
 
-    showToast('Comparing top sellers: G-889 vs Tri-Mode vs Global LTE');
+    showToast(t('comparison.toast_top'));
   });
 
   // Listen for compare-products event from product modal

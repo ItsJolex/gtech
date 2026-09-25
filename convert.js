@@ -18,7 +18,7 @@ async function processDir(dir) {
             const baseName = path.basename(file, ext);
             const webpPath = path.join(dir, `${baseName}.webp`);
             try {
-                await sharp(fullPath).webp({ quality: 80 }).toFile(webpPath);
+                await sharp(fullPath).webp({ quality: 82 }).toFile(webpPath);
                 fs.unlinkSync(fullPath);
                 console.log(`Converted ${file} to ${baseName}.webp`);
             } catch (err) {

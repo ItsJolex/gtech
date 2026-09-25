@@ -1,5 +1,6 @@
 import type { Product, CartItem } from './types';
 import { getProductById } from './products';
+import { t, getLanguage } from './i18n';
 
 const CART_STORAGE_KEY = 'gtech_cart_v2';
 const WHATSAPP_NUMBER = '+14074273356';
@@ -160,15 +161,15 @@ function showOutOfStockModal(product: Product, fallbackProduct?: Product): void 
             </svg>
           </div>
           <div class="flex-1">
-            <p class="text-sm font-semibold text-emerald-800">Recommended Available Equivalent</p>
+            <p class="text-sm font-semibold text-emerald-800">${t('cart.oos_fallback_title')}</p>
             <p class="text-sm text-emerald-700 mt-1">${fallbackProduct.name} <span class="font-bold">[${fallbackProduct.badge}]</span></p>
-            <p class="text-xs text-emerald-600 mt-2">${product.fallbackReason || 'Tactical alternative with comparable specifications.'}</p>
+            <p class="text-xs text-emerald-600 mt-2">${product.fallbackReason || t('cart.oos_fallback_default')}</p>
             <div class="mt-3 flex gap-2">
               <button onclick="compareProducts('${product.id}', '${fallbackProduct.id}')" class="flex-1 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white bg-emerald-700 hover:bg-emerald-800 rounded-lg transition-colors">
-                View Comparison
+                ${t('cart.oos_view_comparison')}
               </button>
               <button onclick="addToCart('${fallbackProduct.id}'); closeModal()" class="flex-1 px-3 py-2 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 hover:bg-emerald-200 rounded-lg transition-colors border border-emerald-300">
-                Add This One
+                ${t('cart.oos_add_this')}
               </button>
             </div>
           </div>
@@ -189,12 +190,12 @@ function showOutOfStockModal(product: Product, fallbackProduct?: Product): void 
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-navy-800 mb-2">Product Temporarily Out of Stock</h3>
-        <p class="text-gray-600 mb-4">${product.name} <span class="font-semibold">[${product.badge}]</span> is currently out of stock.</p>
+        <h3 class="text-xl font-bold text-navy-800 mb-2">${t('cart.oos_title')}</h3>
+        <p class="text-gray-600 mb-4">${product.name} <span class="font-semibold">[${product.badge}]</span> ${t('cart.oos_status')}</p>
         ${fallbackHtml}
         <div class="mt-6 pt-4 border-t border-gray-100">
           <button onclick="closeModal()" class="px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-sm">
-            Continue Exploring
+            ${t('cart.oos_continue')}
           </button>
         </div>
       </div>
@@ -206,10 +207,12 @@ function showOutOfStockModal(product: Product, fallbackProduct?: Product): void 
   document.body.style.overflow = 'hidden';
 }
 
-function renderCartDrawer(): void {
+export function renderCartDrawer(): void {
   const drawerContainer = document.getElementById('cart-drawer-container');
   if (!drawerContainer) return;
   
+  const isEs = getLanguage() === 'es';
+
   if (cart.length === 0) {
     drawerContainer.innerHTML = `
       <div id="cart-drawer" class="fixed inset-y-0 right-0 z-[200] w-full sm:max-w-md bg-navy-900 border-l border-navy-700 shadow-2xl animate-slide-in-right flex flex-col">
@@ -222,9 +225,9 @@ function renderCartDrawer(): void {
           <div class="p-6 border-b border-navy-700">
             <h2 class="text-xl font-bold text-white flex items-center gap-3">
               <svg class="w-6 h-6 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-              Quotation Station
+              ${t('cart.title')}
             </h2>
-            <p class="text-navy-400 text-sm mt-1">${cart.length} device(s) selected</p>
+            <p class="text-navy-400 text-sm mt-1">0 ${isEs ? 'equipos seleccionados' : 'device(s) selected'}</p>
           </div>
           
           <div class="flex-1 flex items-center justify-center p-6">
@@ -232,16 +235,16 @@ function renderCartDrawer(): void {
               <div class="w-24 h-24 mx-auto mb-4 bg-navy-800 rounded-2xl flex items-center justify-center border border-navy-700">
                 <svg class="w-10 h-10 text-navy-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
               </div>
-              <h3 class="text-white font-semibold text-lg mb-2">Your quotation station is empty</h3>
-              <p class="text-navy-400 text-sm max-w-xs mx-auto">Explore the tactical hardware & PoC catalog to add equipment to your request.</p>
+              <h3 class="text-white font-semibold text-lg mb-2">${t('cart.empty_title')}</h3>
+              <p class="text-navy-400 text-sm max-w-xs mx-auto">${t('cart.empty_desc')}</p>
               <button onclick="closeCartDrawer()" class="mt-6 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-white bg-crimson-700 hover:bg-crimson-800 transition-colors text-sm shadow-lg">
-                Explore Catalog
+                ${t('cart.explore_btn')}
               </button>
             </div>
           </div>
           
           <div class="p-6 border-t border-navy-700 bg-navy-800/50 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-            <div class="text-center text-navy-500 text-xs uppercase tracking-wider">Total: 0 units</div>
+            <div class="text-center text-navy-500 text-xs uppercase tracking-wider">${t('cart.total_units')}: 0</div>
           </div>
         </div>
       </div>
@@ -264,9 +267,9 @@ function renderCartDrawer(): void {
           <div>
             <h2 class="text-xl font-bold text-white flex items-center gap-3">
               <svg class="w-6 h-6 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-              Quotation Station
+              ${t('cart.title')}
             </h2>
-            <p class="text-navy-400 text-sm mt-1">${cart.length} model(s) • ${totalUnits} unit(s)</p>
+            <p class="text-navy-400 text-sm mt-1">${cart.length} ${isEs ? 'modelo(s)' : 'model(s)'} • ${totalUnits} ${isEs ? 'unidad(es)' : 'unit(s)'}</p>
           </div>
         </div>
         
@@ -298,15 +301,15 @@ function renderCartDrawer(): void {
         
         <div class="p-6 border-t border-navy-700 bg-navy-800/50 space-y-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
           <div class="flex items-center justify-between text-white">
-            <span class="text-sm font-medium">Total Units</span>
+            <span class="text-sm font-medium">${t('cart.total_units')}</span>
             <span class="text-lg font-bold text-crimson-400">${totalUnits}</span>
           </div>
           <button onclick="generateWhatsAppMessage()" class="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-white bg-green-600 hover:bg-green-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Request Quote via WhatsApp
+            ${t('cart.request_btn')}
           </button>
           <button onclick="clearCart()" class="w-full py-3 rounded-xl font-medium uppercase tracking-wider text-navy-300 bg-navy-700 hover:bg-navy-600 transition-colors">
-            Clear Station
+            ${t('cart.clear_btn')}
           </button>
         </div>
       </div>
@@ -341,9 +344,16 @@ export function generateWhatsAppMessage(): void {
   if (cart.length === 0) return;
 
   const totalUnits = getCartCount();
-  const dateStr = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const isEs = getLanguage() === 'es';
+  const dateStr = new Date().toLocaleDateString(isEs ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-  const lines = [
+  const lines = isEs ? [
+    `*G-TECH.US | SOLICITUD FORMAL DE COTIZACIÓN*`,
+    '-----------------------------------------',
+    `Fecha: ${dateStr}`,
+    'Hola Geramel / Ventas Técnicas G-TECH, solicito cotización formal y disponibilidad para los siguientes equipos:',
+    ''
+  ] : [
     `*G-TECH.US | FORMAL QUOTATION REQUEST*`,
     '-----------------------------------------',
     `Date: ${dateStr}`,
@@ -356,10 +366,10 @@ export function generateWhatsAppMessage(): void {
   });
 
   lines.push('');
-  lines.push(`*Total Units:* ${totalUnits} device(s)`);
-  lines.push('*Delivery Destination:* [Please specify City / State]');
+  lines.push(isEs ? `*Total de Equipos:* ${totalUnits} unidad(es)` : `*Total Units:* ${totalUnits} device(s)`);
+  lines.push(isEs ? '*Destino de Entrega:* [Por favor indique Ciudad / Estado / País]' : '*Delivery Destination:* [Please specify City / State]');
   lines.push('-----------------------------------------');
-  lines.push('Sent via G-TECH.US Tactical Portal');
+  lines.push(isEs ? 'Enviado desde el Portal Táctico G-TECH.US (🐺 G tech)' : 'Sent via G-TECH.US Tactical Portal (🐺 G tech)');
 
   const message = lines.join('\n');
   const encodedMessage = encodeURIComponent(message);
