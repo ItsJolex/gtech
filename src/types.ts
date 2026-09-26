@@ -34,6 +34,10 @@ export interface Product {
   fallbackSimilarId?: string;
   fallbackReason?: string;
   priceEstimate?: string;
+  discountPrice?: string;
+  isVisible?: boolean;
+  category?: string;
+  sortOrder?: number;
   specs: { label: string; value: string }[];
   comparison: ComparisonDimensionData;
   tags: string[];

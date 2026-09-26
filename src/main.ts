@@ -1,4 +1,4 @@
-import productsData from '../products.json';
+import { products, fetchLiveProducts, onProductsUpdated } from './products';
 import type { Product } from './types';
 import { initCart, openCartDrawer, closeCartDrawer, addToCart, subscribe as subscribeCart, renderCartDrawer } from './cart';
 import { initComparison } from './comparison';
@@ -47,11 +47,20 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
       <div id="deep-specs-top-hero" class="w-full max-w-sm mx-auto aspect-square bg-navy-950/10 rounded-2xl flex items-center justify-center border border-gray-200/80 relative mb-6 shadow-sm overflow-hidden group">
         <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
 
-        <div class="absolute top-2 left-2 flex items-center gap-1.5">
+        <div class="absolute top-2 left-2 flex items-center gap-1.5 flex-wrap">
           <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
             ${localized.badge}
           </span>
           ${stockBadge}
+          ${p.discountPrice ? `
+            <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+              ${p.discountPrice}
+            </span>
+          ` : p.priceEstimate ? `
+            <span class="bg-navy-800 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
+              ${p.priceEstimate}
+            </span>
+          ` : ''}
         </div>
 
         <!-- SIM Quick Action Button in Deep Hero -->
@@ -235,7 +244,7 @@ function initCardSlideshow(): void {
     cardSlideshowInterval = null;
   }
 
-  const multiColorProducts = productsData.filter(p => p.colors && p.colors.length > 1);
+  const multiColorProducts = products.filter(p => p.colors && p.colors.length > 1);
   if (multiColorProducts.length === 0) return;
 
   multiColorProducts.forEach(p => {
@@ -259,7 +268,7 @@ function initCardSlideshow(): void {
 }
 
 (window as any).setCardColor = (productId: string, colorId: string) => {
-  const product = productsData.find(p => p.id === productId);
+  const product = products.find(p => p.id === productId);
   if (!product || !product.colors) return;
   const color = product.colors.find(c => c.id === colorId);
   if (!color) return;
@@ -289,7 +298,9 @@ function renderCatalog(): void {
   if (!catalogContainer) return;
   const lang = getLanguage();
 
-  catalogContainer.innerHTML = productsData.map(product => {
+  const visibleProducts = products.filter(p => p.isVisible !== false);
+
+  catalogContainer.innerHTML = visibleProducts.map(product => {
     const localized = getLocalizedProduct(product);
     const waQuoteText = lang === 'es'
       ? `Hola G-TECH, me interesa cotizar el equipo táctico ${encodeURIComponent(localized.name)}`
@@ -312,7 +323,9 @@ function renderCatalog(): void {
               ${localized.badge}
             </span>
             ${product.stockStatus === 'low_stock' && product.inStock ? `
-              <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold uppercase tracking-wider shadow flex-shrink-0">${t('catalog.low_stock')}</span>
+              <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold uppercase tracking-wider shadow flex-shrink-0">${t('catalog.low_stock')}${product.stockCount ? ` (${product.stockCount})` : ''}</span>
+            ` : product.stockStatus === 'in_stock' && product.stockCount !== undefined && product.stockCount > 0 ? `
+              <span class="bg-emerald-700/90 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold tracking-wider shadow flex-shrink-0">${product.stockCount} ${lang === 'es' ? 'disp.' : 'avail.'}</span>
             ` : ''}
           </div>
 
@@ -367,6 +380,18 @@ function renderCatalog(): void {
           ${localized.name}
         </h3>
 
+        ${product.discountPrice ? `
+          <div class="flex items-baseline gap-2 mb-1.5 flex-wrap">
+            <span class="text-sm sm:text-base font-extrabold text-emerald-600">${product.discountPrice}</span>
+            ${product.priceEstimate ? `<span class="text-xs text-gray-400 line-through font-semibold">${product.priceEstimate}</span>` : ''}
+            <span class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 tracking-wide">${lang === 'es' ? 'OFERTA' : 'SALE'}</span>
+          </div>
+        ` : product.priceEstimate ? `
+          <div class="flex items-baseline gap-2 mb-1.5 flex-wrap">
+            <span class="text-xs sm:text-sm font-bold text-navy-900">${product.priceEstimate}</span>
+          </div>
+        ` : ''}
+
         ${product.colors && product.colors.length > 1 ? `
           <div class="flex items-center gap-1.5 mb-1.5">
             <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
@@ -407,6 +432,7 @@ function renderCatalog(): void {
   initCardSlideshow();
 }
 
+
 function updateStaticTranslations(): void {
   const lang = getLanguage();
   document.documentElement.lang = lang;
@@ -443,7 +469,7 @@ function updateStaticTranslations(): void {
 
 if (modalOverlay && modalContent) {
   (window as any).openModal = (id: string) => {
-    const p = productsData.find(x => x.id === id);
+    const p = products.find(x => x.id === id);
     if (!p) return;
     const lang = getLanguage();
     const localized = getLocalizedProduct(p);
@@ -488,8 +514,22 @@ if (modalOverlay && modalContent) {
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-navy-800 leading-tight">${localized.name}</h2>
                 ${stockBadge}
               </div>
-              <div class="mb-3">
+              <div class="mb-3 flex items-center gap-2 flex-wrap">
                 <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-100">${localized.badge}</span>
+                ${p.discountPrice ? `
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <span class="text-sm md:text-base font-extrabold text-emerald-700">${p.discountPrice}</span>
+                    ${p.priceEstimate ? `<span class="text-xs text-gray-400 line-through">${p.priceEstimate}</span>` : ''}
+                    <span class="text-[10px] font-black uppercase text-emerald-800 bg-emerald-200/80 px-1.5 py-0.5 rounded">${lang === 'es' ? 'OFERTA' : 'SALE'}</span>
+                  </div>
+                ` : p.priceEstimate ? `
+                  <span class="inline-flex items-center text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200">${p.priceEstimate}</span>
+                ` : ''}
+                ${p.stockCount !== undefined && p.stockCount > 0 ? `
+                  <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600">
+                    ${p.stockCount} ${lang === 'es' ? 'unidades en stock' : 'units in stock'}
+                  </span>
+                ` : ''}
               </div>
 
               <!-- Color Selection Swatches inside Modal -->
@@ -573,7 +613,7 @@ if (modalOverlay && modalContent) {
   };
 
   (window as any).selectModalColor = (productId: string, colorId: string) => {
-    const p = productsData.find(x => x.id === productId);
+    const p = products.find(x => x.id === productId);
     if (!p || !p.colors) return;
     const chosen = p.colors.find(c => c.id === colorId);
     if (!chosen) return;
@@ -621,10 +661,10 @@ if (modalOverlay && modalContent) {
   };
   
   (window as any).showOutOfStockFallback = (id: string) => {
-    const p = productsData.find(x => x.id === id);
+    const p = products.find(x => x.id === id);
     if (!p || !p.fallbackSimilarId) return;
     (window as any).closeModal();
-    const fallback = productsData.find(x => x.id === p.fallbackSimilarId);
+    const fallback = products.find(x => x.id === p.fallbackSimilarId);
     if (fallback) {
       const event = new CustomEvent('compare-products', { detail: { id1: p.id, id2: fallback.id } });
       window.dispatchEvent(event);
@@ -632,7 +672,7 @@ if (modalOverlay && modalContent) {
   };
 
   (window as any).openSimPricingModal = (productId?: string) => {
-    const product = productId ? productsData.find(p => p.id === productId) : null;
+    const product = productId ? products.find(p => p.id === productId) : null;
     const lang = getLanguage();
     const isEs = lang === 'es';
     const localized = product ? getLocalizedProduct(product) : null;
@@ -793,7 +833,7 @@ if (modalOverlay && modalContent) {
   };
 
   (window as any).openDeepDiveModal = (productId: string, source: 'from_catalog' | 'from_modal' = 'from_catalog') => {
-    const p = productsData.find(x => x.id === productId);
+    const p = products.find(x => x.id === productId);
     if (!p) return;
 
     closeCartDrawer();
@@ -804,7 +844,7 @@ if (modalOverlay && modalContent) {
   };
 
   (window as any).transitionToDeepDive = (productId: string) => {
-    const p = productsData.find(x => x.id === productId);
+    const p = products.find(x => x.id === productId);
     if (!p) return;
 
     const imgWrapper = document.getElementById('modal-product-img-wrapper');
@@ -845,7 +885,7 @@ if (mobileCartBtn) {
 subscribeCart(() => {
   const badge = document.getElementById('cart-badge');
   const mobileBadge = document.getElementById('mobile-cart-badge');
-  const count = productsData.length > 0 ? 
+  const count = products.length > 0 ? 
     JSON.parse(localStorage.getItem('gtech_cart_v2') || '[]').reduce((sum: number, item: any) => sum + item.quantity, 0) : 0;
   
   if (badge) {
@@ -1190,6 +1230,19 @@ initComparison();
 initFinder();
 initLegalModule();
 initBriefings();
+
+// Fetch live products from Turso DB and refresh catalog
+fetchLiveProducts().then(() => {
+  renderCatalog();
+  initComparison();
+  initFinder();
+});
+
+onProductsUpdated(() => {
+  renderCatalog();
+  initComparison();
+  initFinder();
+});
 
 // Keep the avatar briefing grid in sync with the active site language
 onLanguageChange(() => {

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G-TECH Admin | Tactical Hardware & Catalog Command</title>
+  <meta name="description" content="Centro de Comando y Administración del Catálogo de Radios Tácticos G-TECH" />
+  <link rel="icon" type="image/webp" href="/images/logo-patch.webp" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="min-h-full flex flex-col bg-slate-950 font-sans antialiased text-slate-100 selection:bg-crimson-600 selection:text-white">
+
+  <!-- ================= AUTH OVERLAY (LOGIN) ================= -->
+  <div id="auth-overlay" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+      <!-- Glow accent -->
+      <div class="absolute -top-12 -right-12 w-36 h-36 bg-crimson-700/20 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="flex items-center gap-3">
+        <img src="/images/logo-patch.webp" alt="G-TECH Logo" class="w-12 h-12 object-contain drop-shadow" />
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-crimson-500 block">Acceso Restringido</span>
+          <h1 class="text-xl font-extrabold text-white tracking-wide">Panel de Administración</h1>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-400 leading-relaxed">
+        Ingresa la clave maestra administrativa para gestionar el catálogo táctico de radios, inventario, precios y especificaciones.
+      </p>
+
+      <form id="auth-form" class="space-y-4">
+        <div>
+          <label for="admin-pass" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Clave Maestra</label>
+          <div class="relative">
+            <input 
+              type="password" 
+              id="admin-pass" 
+              required 
+              placeholder="••••••••••••••••" 
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600 focus:ring-1 focus:ring-crimson-600 transition-colors"
+            />
+            <button type="button" id="toggle-pass-visibility" class="absolute right-3 top-3 text-slate-500 hover:text-slate-300 text-xs font-semibold py-0.5 px-1.5 rounded">
+              Ver
+            </button>
+          </div>
+        </div>
+
+        <div id="auth-error" class="hidden text-xs font-semibold text-rose-400 bg-rose-950/50 border border-rose-900/60 p-3 rounded-xl"></div>
+
+        <button 
+          type="submit" 
+          id="auth-submit-btn"
+          class="w-full bg-crimson-700 hover:bg-crimson-600 active:scale-[0.99] text-white py-3 px-4 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-crimson-950/50 transition-all flex items-center justify-center gap-2">
+          <span>Ingresar al Comando</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </form>
+
+      <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">
+        <span>G-TECH.US Tactical Portal</span>
+        <a href="/" class="hover:text-slate-300 transition-colors flex items-center gap-1">
+          &larr; Volver a la Tienda
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ADMIN APP ================= -->
+  <div id="admin-app" class="flex-1 flex flex-col hidden">
+
+    <!-- Top Navigation Command Bar -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20 gap-4">
+          
+          <!-- Brand + Live DB Status -->
+          <div class="flex items-center gap-3 sm:gap-4">
+            <a href="/" target="_blank" class="flex items-center gap-2.5 group" title="Ver sitio en vivo">
+              <img src="/images/logo-patch.webp" alt="G-TECH Logo" class="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
+              <div class="hidden sm:block">
+                <span class="text-white font-black text-lg tracking-wider block leading-none">G-TECH.US</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Panel de Control</span>
+              </div>
+            </a>
+
+            <!-- Database Status Indicator -->
+            <div id="db-status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/60 text-emerald-400 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="db-status-text">Turso DB Conectado</span>
+            </div>
+          </div>
+
+          <!-- Catalog Navigation Tabs -->
+          <nav class="flex items-center gap-1 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
+            <button 
+              id="tab-radios" 
+              class="px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all bg-crimson-700 text-white shadow-sm flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
+              <span>Radios Principales</span>
+              <span id="radios-count-badge" class="bg-black/30 px-1.5 py-0.5 rounded text-[10px] font-mono">16</span>
+            </button>
+            <button 
+              id="tab-accessories" 
+              class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span>Accesorios</span>
+              <span class="text-[9px] uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-semibold">Fase 2</span>
+            </button>
+          </nav>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-2 sm:gap-3">
+            <!-- View Live Site Link -->
+            <a 
+              href="/" 
+              target="_blank" 
+              class="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 border border-slate-700 transition-colors flex items-center gap-1.5"
+              title="Abrir landing page pública en nueva pestaña">
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <span class="hidden md:inline">Ver Tienda</span>
+            </a>
+
+            <!-- Backup JSON button -->
+            <button 
+              id="download-backup-btn" 
+              class="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700 border border-slate-700 transition-colors flex items-center gap-1.5"
+              title="Descargar respaldo de products.json">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span class="hidden md:inline">Respaldo JSON</span>
+            </button>
+
+            <!-- Logout button -->
+            <button 
+              id="logout-btn" 
+              class="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-bold text-rose-300 hover:text-white bg-rose-950/40 hover:bg-rose-900 border border-rose-900/60 transition-colors flex items-center gap-1.5"
+              title="Cerrar Sesión">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+              <span class="hidden md:inline">Salir</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+      <!-- Catalog Action Header (Search, Filters & New Product Button) -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 sm:p-5 rounded-3xl shadow-sm">
+        
+        <!-- Search and Quick Filter Badges -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+          <!-- Search box -->
+          <div class="relative flex-1 max-w-md">
+            <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Buscar por modelo, ID, categoría o especificación..." 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-crimson-600 transition-colors"
+            />
+          </div>
+
+          <!-- Status Filter Dropdown / Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs">
+            <button class="filter-pill px-3 py-1.5 rounded-lg font-bold bg-slate-800 text-white transition-colors" data-filter="all">Todos (<span id="count-all">0</span>)</button>
+            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="visible">Visibles (<span id="count-visible">0</span>)</button>
+            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="hidden">Ocultos (<span id="count-hidden">0</span>)</button>
+            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="low_stock">Bajo Stock (<span id="count-low">0</span>)</button>
+          </div>
+        </div>
+
+        <!-- Add New Radio CTA -->
+        <button 
+          id="btn-new-product" 
+          class="bg-crimson-700 hover:bg-crimson-600 active:scale-[0.98] text-white px-5 py-3 rounded-2xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-crimson-950/60 transition-all flex items-center justify-center gap-2 flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span>Nuevo Radio Táctico</span>
+        </button>
+
+      </div>
+
+      <!-- Live Catalog Grid / Table -->
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl overflow-hidden shadow-xl">
+        <div class="p-4 sm:p-6 border-b border-slate-800/80 flex items-center justify-between">
+          <div>
+            <h2 class="text-base sm:text-lg font-black text-white tracking-wide">Inventario Activo de Radios PoC</h2>
+            <p class="text-xs text-slate-400">Modifica precios, inventario, ficha técnica o alterna visibilidad. Cualquier cambio se sincroniza en vivo con Turso.</p>
+          </div>
+          <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
+            Sincronización Inmediata
+          </span>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 sm:p-6">
+          <!-- Populated dynamically via src/admin.ts -->
+          <div class="col-span-full py-16 text-center text-slate-500">
+            <div class="inline-block animate-spin w-8 h-8 border-4 border-crimson-600 border-t-transparent rounded-full mb-3"></div>
+            <p class="text-sm font-semibold">Cargando flota de radios desde Turso DB...</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ================= PRODUCT EDIT/CREATE MODAL DRAWER ================= -->
+  <div id="product-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+      
+      <!-- Modal Header -->
+      <div class="p-5 sm:p-6 bg-slate-950 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-crimson-950/80 border border-crimson-800/60 flex items-center justify-center text-crimson-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          </div>
+          <div>
+            <h3 id="modal-title" class="text-lg font-black text-white">Editar Radio Táctico</h3>
+            <p id="modal-subtitle" class="text-xs text-slate-400">Configuración completa de ficha, precios, stock y dossier técnico.</p>
+          </div>
+        </div>
+
+        <button 
+          type="button" 
+          id="btn-close-modal" 
+          class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors"
+          aria-label="Cerrar modal">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Tabs inside Editor -->
+      <div class="flex items-center gap-2 px-6 pt-3 border-b border-slate-800 bg-slate-950/60 flex-shrink-0 overflow-x-auto text-xs font-bold uppercase tracking-wider">
+        <button type="button" class="editor-tab px-4 py-2.5 border-b-2 border-crimson-600 text-white transition-colors" data-tab="general">1. General & Precios</button>
+        <button type="button" class="editor-tab px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors" data-tab="dossier">2. Technical Dossier (10D)</button>
+        <button type="button" class="editor-tab px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors" data-tab="specs">3. Especificaciones</button>
+        <button type="button" class="editor-tab px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors" data-tab="colors">4. Variantes de Color</button>
+        <button type="button" class="editor-tab px-4 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition-colors" data-tab="tags">5. Tags & Respaldo</button>
+      </div>
+
+      <!-- Modal Body (Tabs Content) -->
+      <form id="product-form" class="flex-1 overflow-y-auto p-6 space-y-6">
+
+        <!-- ================= TAB 1: GENERAL & PRECIOS ================= -->
+        <div id="tab-content-general" class="space-y-6">
+
+          <!-- Core ID & Names -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <label for="p-id" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">ID Único de Modelo *</label>
+              <input 
+                type="text" 
+                id="p-id" 
+                required 
+                placeholder="ej. Model-G-M2 o G-510" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600 font-mono"
+              />
+              <span class="text-[10px] text-slate-500 mt-1 block">Identificador permanente de URL y cotización.</span>
+            </div>
+
+            <div>
+              <label for="p-name" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Nombre Oficial Completo *</label>
+              <input 
+                type="text" 
+                id="p-name" 
+                required 
+                placeholder="ej. G-M2 WEARABLE CLIP POC" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+
+            <div>
+              <label for="p-shortName" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Nombre Corto</label>
+              <input 
+                type="text" 
+                id="p-shortName" 
+                placeholder="ej. G-M2" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+
+            <div>
+              <label for="p-badge" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Badge Táctico / Categoría *</label>
+              <input 
+                type="text" 
+                id="p-badge" 
+                required 
+                placeholder="ej. WEARABLE CLIP POC" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+
+            <div>
+              <label for="p-stockStatus" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Estado de Inventario *</label>
+              <select 
+                id="p-stockStatus" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-crimson-600">
+                <option value="in_stock">🟢 Disponible (In Stock)</option>
+                <option value="low_stock">🟡 Bajo Stock (Low Stock)</option>
+                <option value="out_of_stock">🔴 Agotado (Out of Stock)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="p-stockCount" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Unidades en Stock</label>
+              <input 
+                type="number" 
+                id="p-stockCount" 
+                min="0" 
+                placeholder="ej. 64" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+          </div>
+
+          <!-- Pricing & Discounts -->
+          <div class="bg-slate-950/70 border border-slate-800 p-4 sm:p-5 rounded-2xl space-y-4">
+            <h4 class="text-xs font-black text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Precios, Descuentos y Ofertas</span>
+            </h4>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div>
+                <label for="p-priceEstimate" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Precio Regular / Estimado</label>
+                <input 
+                  type="text" 
+                  id="p-priceEstimate" 
+                  placeholder="ej. $280" 
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+
+              <div>
+                <label for="p-discountPrice" class="block text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">Precio con Descuento (Oferta)</label>
+                <input 
+                  type="text" 
+                  id="p-discountPrice" 
+                  placeholder="ej. $249 (opcional)" 
+                  class="w-full bg-slate-900 border border-emerald-800/80 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+
+              <div class="flex items-center pt-5">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" id="p-isVisible" checked class="w-4 h-4 rounded text-crimson-600 bg-slate-900 border-slate-700 focus:ring-0" />
+                  <span class="text-xs font-bold text-slate-200">Visible en el catálogo público</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="p-description" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Descripción Táctica de Misión *</label>
+            <textarea 
+              id="p-description" 
+              rows="3" 
+              required 
+              placeholder="Describe el propósito táctico, ergonomía, botón PTT, pantalla y casos de uso recomendados..." 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"></textarea>
+          </div>
+
+          <!-- IMAGE UPLOADER & AUTO-WEBP PIPELINE SCRIPT -->
+          <div class="bg-slate-950/70 border border-slate-800 p-5 rounded-2xl space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  <span>Imagen Principal & Pipeline Auto-WebP</span>
+                </h4>
+                <p class="text-[11px] text-slate-400">Si subes un archivo JPG o PNG, el script del panel lo convierte automáticamente a WebP optimizado para máxima velocidad y ahorro de espacio.</p>
+              </div>
+            </div>
+
+            <!-- Upload Area & Live Preview -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+              
+              <!-- Dropzone -->
+              <div 
+                id="dropzone-area" 
+                class="sm:col-span-2 border-2 border-dashed border-slate-700 hover:border-crimson-600 rounded-2xl p-6 text-center cursor-pointer transition-colors bg-slate-900/50">
+                <input type="file" id="image-file-input" accept="image/jpeg,image/png,image/webp" class="hidden" />
+                <svg class="w-8 h-8 text-slate-500 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <p class="text-xs font-bold text-white mb-1">Arrastra o haz clic para subir imagen</p>
+                <p class="text-[10px] text-slate-400">Soporta JPG, JPEG, PNG (se convertirá en .webp al instante)</p>
+              </div>
+
+              <!-- Preview & Stats -->
+              <div class="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-900 border border-slate-800 min-h-[140px]">
+                <div class="w-24 h-24 rounded-xl bg-slate-950 flex items-center justify-center overflow-hidden border border-slate-800 relative mb-2">
+                  <img id="image-preview" src="/images/logo-patch.webp" alt="Preview" class="w-full h-full object-cover" />
+                  <span id="format-badge" class="absolute bottom-1 right-1 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-600 text-white">WEBP</span>
+                </div>
+                <span id="optimization-stats" class="text-[10px] font-mono text-emerald-400 text-center">Optimizado</span>
+              </div>
+
+            </div>
+
+            <!-- Image URL fallback input -->
+            <div>
+              <label for="p-image" class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Ruta o URL de Imagen</label>
+              <input 
+                type="text" 
+                id="p-image" 
+                required 
+                placeholder="/images/Model G-M2.webp" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white font-mono focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= TAB 2: TECHNICAL DOSSIER (10 DIMENSIONES) ================= -->
+        <div id="tab-content-dossier" class="space-y-4 hidden">
+          <div class="border-b border-slate-800 pb-3">
+            <h4 class="text-xs font-black text-cyan-400 uppercase tracking-wider">Matriz Técnica de Comparación (10 Dimensiones Tácticas)</h4>
+            <p class="text-[11px] text-slate-400">Estos campos alimentan la Ficha Técnica oficial y el motor de comparación frente a frente.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="dos-connectivity" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">1. Conectividad y Red</label>
+              <input type="text" id="dos-connectivity" placeholder="ej. 4G LTE Nationwide POC" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-protection" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">2. Protección y Grado IP</label>
+              <input type="text" id="dos-protection" placeholder="ej. IP54 Splash & Dust Resistant o IP68" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-batteryRuntime" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">3. Autonomía de Batería</label>
+              <input type="text" id="dos-batteryRuntime" placeholder="ej. 20 Hours (All-Day Shift)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-audioOutput" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">4. Potencia Acústica / Altavoz</label>
+              <input type="text" id="dos-audioOutput" placeholder="ej. 1.5W Crisp Voice Grille" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-controls" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">5. Interfaz y Teclado</label>
+              <input type="text" id="dos-controls" placeholder="ej. Oversized Central Tactile PTT" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-formFactor" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">6. Factor de Forma y Peso</label>
+              <input type="text" id="dos-formFactor" placeholder="ej. Wearable Lapel Clip (85g)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-antenna" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">7. Sistema de Antenas</label>
+              <input type="text" id="dos-antenna" placeholder="ej. Internal High-Efficiency Stub" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-emergency" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">8. Protocolo de Emergencia</label>
+              <input type="text" id="dos-emergency" placeholder="ej. Side Emergency Alert Trigger" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-videoVision" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">9. Sensor de Video / Óptica</label>
+              <input type="text" id="dos-videoVision" placeholder="ej. Not available o 4K Ultra HD 140°" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+
+            <div>
+              <label for="dos-certifications" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">10. Homologaciones y Normas</label>
+              <input type="text" id="dos-certifications" placeholder="ej. CE / FCC Certified" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB 3: SPECS GRANULARES ================= -->
+        <div id="tab-content-specs" class="space-y-4 hidden">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h4 class="text-xs font-black text-cyan-400 uppercase tracking-wider">Desglose de Especificaciones Técnicas (`specs`)</h4>
+              <p class="text-[11px] text-slate-400">Pares de Etiqueta y Valor que aparecen en la ficha rápida y tarjeta.</p>
+            </div>
+            <button type="button" id="btn-add-spec" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1">
+              + Agregar Par
+            </button>
+          </div>
+
+          <div id="specs-list" class="space-y-2">
+            <!-- Dynamic rows populated via JS -->
+          </div>
+        </div>
+
+        <!-- ================= TAB 4: VARIANTES DE COLOR ================= -->
+        <div id="tab-content-colors" class="space-y-4 hidden">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h4 class="text-xs font-black text-cyan-400 uppercase tracking-wider">Variantes de Color</h4>
+              <p class="text-[11px] text-slate-400">Para radios con múltiples colores seleccionables (ej. G-6 PLUS o ALERVITES AT1).</p>
+            </div>
+            <button type="button" id="btn-add-color" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1">
+              + Agregar Color
+            </button>
+          </div>
+
+          <div id="colors-list" class="space-y-3">
+            <!-- Dynamic color rows populated via JS -->
+          </div>
+        </div>
+
+        <!-- ================= TAB 5: TAGS & RESPALDO ================= -->
+        <div id="tab-content-tags" class="space-y-4 hidden">
+          <div class="border-b border-slate-800 pb-3">
+            <h4 class="text-xs font-black text-cyan-400 uppercase tracking-wider">Tags Operacionales y Recomendación de Respaldo</h4>
+            <p class="text-[11px] text-slate-400">Usado por el Asistente de Misión y el buscador inteligente.</p>
+          </div>
+
+          <div>
+            <label for="p-tags" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Tags Operacionales (separados por coma)</label>
+            <input 
+              type="text" 
+              id="p-tags" 
+              placeholder="ej. wearable, clip-on, hospitality, security, events, global-lte" 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div>
+              <label for="p-fallbackId" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">ID de Radio Alternativo (Fallback)</label>
+              <input 
+                type="text" 
+                id="p-fallbackId" 
+                placeholder="ej. G-510" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+
+            <div>
+              <label for="p-fallbackReason" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Motivo de Recomendación Alternativa</label>
+              <input 
+                type="text" 
+                id="p-fallbackReason" 
+                placeholder="ej. G-510 ofrece mayor autonomía y teclado programable..." 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-crimson-600"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div id="modal-error" class="hidden text-xs font-semibold text-rose-400 bg-rose-950/50 border border-rose-900/60 p-3 rounded-xl"></div>
+
+      </form>
+
+      <!-- Modal Footer Action Bar -->
+      <div class="p-5 bg-slate-950 border-t border-slate-800 flex items-center justify-between flex-shrink-0">
+        <button 
+          type="button" 
+          id="btn-delete-product" 
+          class="hidden px-4 py-2 rounded-xl text-xs font-bold text-rose-400 hover:text-white hover:bg-rose-900/60 transition-colors border border-rose-900/60">
+          Eliminar Radio
+        </button>
+        <div></div>
+
+        <div class="flex items-center gap-3">
+          <button 
+            type="button" 
+            id="btn-cancel-modal" 
+            class="px-5 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border border-slate-700">
+            Cancelar
+          </button>
+
+          <button 
+            type="button" 
+            id="btn-save-product" 
+            class="bg-crimson-700 hover:bg-crimson-600 text-white px-6 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-crimson-950/50 transition-all flex items-center gap-2">
+            <span>Guardar en Turso</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 border border-slate-700 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 max-w-md pointer-events-none">
+    <span id="toast-icon">✓</span>
+    <span id="toast-message" class="text-xs font-bold">Operación completada</span>
+  </div>
+
+  <!-- Companion JavaScript -->
+  <script type="module" src="/src/admin.ts"></script>
+</body>
+</html>
