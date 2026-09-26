@@ -1,6 +1,6 @@
-import { createClient } from '@libsql/client';
+import { createClient } from '@libsql/client/web';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import defaultProducts from '../products.json';
+import { fallbackProducts as defaultProducts } from './fallbackProducts';
 
 function getTursoClient() {
   const url = process.env.TURSO_DATABASE_URL;

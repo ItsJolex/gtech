@@ -1,4 +1,4 @@
-import { createClient } from '@libsql/client';
+import { createClient } from '@libsql/client/web';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 function getTursoClient() {
