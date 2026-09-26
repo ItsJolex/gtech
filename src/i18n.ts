@@ -590,7 +590,7 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
   'WA0066-Alervites': {
     name: 'ALERVITES AT1 BY BAOFENG',
     badge: 'ALERVITES AT1 POC',
-    description: 'Radio PoC comercial estilizada disponible en Negro Obsidiana, Gris Titanio y Blanco Ártico. Diseñada para seguridad corporativa, hotelería de lujo, gestión de eventos y logística comercial.'
+    description: 'Radio PoC comercial estilizada disponible en Negro Obsidiana, Gris Titanio, Blanco Ártico y presentación Combo Tricolor. Diseñada para seguridad corporativa, hotelería de lujo, gestión de eventos y logística comercial.'
   },
   'WA0069-Bodycam': {
     name: 'G-K8 4K BODYCAM POC',
