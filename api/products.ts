@@ -28,16 +28,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const result = await client.execute(`
-      SELECT 
-        id, name, short_name, badge, image, description,
-        in_stock, stock_status, stock_count, price_estimate, discount_price,
-        is_visible, fallback_similar_id, fallback_reason,
-        specs, comparison, tags, colors, category, sort_order
-      FROM products 
-      WHERE is_visible = 1 AND category = 'radio'
-      ORDER BY sort_order ASC, updated_at DESC;
-    `);
+    const result = await client.execute({
+      sql: `
+        SELECT 
+          id, name, short_name, badge, image, description,
+          in_stock, stock_status, stock_count, price_estimate, discount_price,
+          is_visible, fallback_similar_id, fallback_reason,
+          specs, comparison, tags, colors, category, sort_order
+        FROM products 
+        WHERE is_visible = 1 AND category = ?
+        ORDER BY sort_order ASC, updated_at DESC;
+      `,
+      args: ['radio'],
+    });
 
     if (result.rows.length === 0) {
       return res.status(200).json(defaultProducts);
