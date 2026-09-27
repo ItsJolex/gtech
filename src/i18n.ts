@@ -95,6 +95,22 @@ export const translations: Translations = {
     es: 'Consultoría técnica directa y soporte oficial ante defectos de fábrica.'
   },
 
+  // Campaigns & Posters Section
+  'campaigns.badge': { en: 'Official Field Posters & Campaigns', es: 'Material Oficial & Publicidades' },
+  'campaigns.title': { en: 'Tactical Campaigns & Field Posters', es: 'Campañas Tácticas & Despliegues' },
+  'campaigns.desc': {
+    en: 'Download or review official tactical briefings, emergency response materials, and telecommunications posters.',
+    es: 'Descarga o consulta el material gráfico oficial utilizado en briefings de seguridad, preparación para emergencias y ferias de telecomunicaciones.'
+  },
+  'campaigns.poster1_tag': { en: 'Critical Emergencies', es: 'Emergencias Críticas' },
+  'campaigns.poster1_title': { en: 'Hurricane Season Readiness', es: 'Temporada de Huracanes' },
+  'campaigns.poster2_tag': { en: 'Hardware 2026', es: 'Hardware 2026' },
+  'campaigns.poster2_title': { en: 'Full Tactical PoC Lineup', es: 'Ecosistema Integral PoC' },
+  'campaigns.poster3_tag': { en: 'Security & Custody', es: 'Seguridad & Custodia' },
+  'campaigns.poster3_title': { en: '4K Tactical Bodycam BQ-K8', es: 'Bodycam 4K BQ-K8' },
+  'campaigns.poster4_tag': { en: 'Fleet & Dispatch', es: 'Flotas y Transporte' },
+  'campaigns.poster4_title': { en: 'Mobile Base Station Transceiver', es: 'Transceptores Vehiculares' },
+
   // Footer Section
   'footer.brand_sub': { en: 'Tactical Communications', es: 'Comunicaciones Tácticas' },
   'footer.about': {

@@ -369,8 +369,70 @@
     <!-- Tactical Comparison Section -->
     <div id="comparison-section"></div>
 
+    <!-- Tactical Publicities & Field Posters Showcase -->
+    <section id="campaigns" class="py-20 bg-slate-950 text-white relative overflow-hidden border-t border-slate-800 scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-crimson-950/80 border border-crimson-700/60 text-crimson-400 text-xs font-bold uppercase tracking-widest mb-3">
+            <span class="w-2 h-2 rounded-full bg-crimson-500 animate-pulse"></span>
+            <span data-i18n="campaigns.badge">Material Oficial & Publicidades</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight" data-i18n="campaigns.title">Campañas Tácticas & Despliegues</h2>
+          <p class="text-sm sm:text-base text-slate-400 mt-3 leading-relaxed" data-i18n="campaigns.desc">
+            Descarga o consulta el material gráfico oficial utilizado en briefings de seguridad, preparación para emergencias y ferias de telecomunicaciones.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Poster 1: Huracán Season -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/huracan-season-poster.webp', 'Campaña Oficial Temporada de Huracanes')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/huracan-season-poster.webp" alt="Huracán Season Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-crimson-400 uppercase tracking-widest block" data-i18n="campaigns.poster1_tag">Emergencias Críticas</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-crimson-300 transition-colors" data-i18n="campaigns.poster1_title">Temporada de Huracanes</h3>
+            </div>
+          </div>
+
+          <!-- Poster 2: Tactical Lineup -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/tactical-lineup-poster.webp', 'Línea Táctica Completa PoC')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/tactical-lineup-poster.webp" alt="Tactical Lineup Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block" data-i18n="campaigns.poster2_tag">Hardware 2026</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-cyan-300 transition-colors" data-i18n="campaigns.poster2_title">Ecosistema Integral PoC</h3>
+            </div>
+          </div>
+
+          <!-- Poster 3: Bodycam BQ-K8 -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/bq-k8-bodycam-poster.webp', 'Terminal Táctico Bodycam 4K')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/bq-k8-bodycam-poster.webp" alt="Bodycam BQ-K8 Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block" data-i18n="campaigns.poster3_tag">Seguridad & Custodia</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-amber-300 transition-colors" data-i18n="campaigns.poster3_title">Bodycam 4K BQ-K8</h3>
+            </div>
+          </div>
+
+          <!-- Poster 4: Mobile Base Station -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/v1-plus-vehicle-poster.webp', 'Estación Base y Radios Móviles')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/v1-plus-vehicle-poster.webp" alt="Vehicle Radio Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block" data-i18n="campaigns.poster4_tag">Flotas y Transporte</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-emerald-300 transition-colors" data-i18n="campaigns.poster4_title">Transceptores Vehiculares</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Technical Specs -->
-    <section id="specs" class="py-20 bg-navy-800 text-white scroll-mt-20">
+    <section id="specs" class="py-20 bg-navy-800 text-white scroll-mt-20 border-t border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center sm:text-left">
           
@@ -406,68 +468,6 @@
             <p class="text-sm text-gray-400" data-i18n="specs.card4_desc">Direct engineering consultation and immediate hardware replacement guarantees.</p>
           </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- Tactical Publicities & Field Posters Showcase -->
-    <section id="campaigns" class="py-20 bg-slate-950 text-white relative overflow-hidden border-t border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-crimson-950/80 border border-crimson-700/60 text-crimson-400 text-xs font-bold uppercase tracking-widest mb-3">
-            <span class="w-2 h-2 rounded-full bg-crimson-500 animate-pulse"></span>
-            Material Oficial & Publicidades
-          </div>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">Campañas Tácticas & Despliegues</h2>
-          <p class="text-sm sm:text-base text-slate-400 mt-3 leading-relaxed">
-            Descarga o consulta el material gráfico oficial utilizado en briefings de seguridad, preparación para emergencias y ferias de telecomunicaciones.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Poster 1: Huracán Season -->
-          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/huracan-season-poster.webp', 'Campaña Oficial Temporada de Huracanes')">
-            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
-              <img src="/images/posters/huracan-season-poster.webp" alt="Huracán Season Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-            </div>
-            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
-              <span class="text-[10px] font-bold text-crimson-400 uppercase tracking-widest block">Emergencias Críticas</span>
-              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-crimson-300 transition-colors">Temporada de Huracanes</h3>
-            </div>
-          </div>
-
-          <!-- Poster 2: Tactical Lineup -->
-          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/tactical-lineup-poster.webp', 'Línea Táctica Completa PoC')">
-            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
-              <img src="/images/posters/tactical-lineup-poster.webp" alt="Tactical Lineup Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-            </div>
-            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
-              <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block">Hardware 2026</span>
-              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-cyan-300 transition-colors">Ecosistema Integral PoC</h3>
-            </div>
-          </div>
-
-          <!-- Poster 3: Bodycam BQ-K8 -->
-          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/bq-k8-bodycam-poster.webp', 'Terminal Táctico Bodycam 4K')">
-            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
-              <img src="/images/posters/bq-k8-bodycam-poster.webp" alt="Bodycam BQ-K8 Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-            </div>
-            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
-              <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">Seguridad & Custodia</span>
-              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-amber-300 transition-colors">Bodycam 4K BQ-K8</h3>
-            </div>
-          </div>
-
-          <!-- Poster 4: Mobile Base Station -->
-          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/v1-plus-vehicle-poster.webp', 'Estación Base y Radios Móviles')">
-            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
-              <img src="/images/posters/v1-plus-vehicle-poster.webp" alt="Vehicle Radio Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-            </div>
-            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
-              <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block">Flotas y Transporte</span>
-              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-emerald-300 transition-colors">Transceptores Vehiculares</h3>
-            </div>
-          </div>
         </div>
       </div>
     </section>
