@@ -215,8 +215,8 @@ export const translations: Translations = {
   },
   'accessories_page.conn_typec_name': { en: 'USB Type-C', es: 'USB Type-C' },
   'accessories_page.conn_typec_desc': {
-    en: 'Direct digital plug found on the G-Series (G0/G6/G8/G9, P0 IP6). No adapter required.',
-    es: 'Conector digital directo presente en la Serie G (G0/G6/G8/G9, P0 IP6). No requiere adaptador.'
+    en: 'Direct digital plug found on the G-Series (G0/G6/G8/G9, P0 IP67). No adapter required.',
+    es: 'Conector digital directo presente en la Serie G (G0/G6/G8/G9, P0 IP67). No requiere adaptador.'
   },
   'accessories_page.conn_kplug_name': { en: 'Type-K (2-Pin Kenwood)', es: 'Type-K (2 pines Kenwood)' },
   'accessories_page.conn_kplug_desc': {
@@ -365,8 +365,8 @@ export const translations: Translations = {
   'comparison.advantage': { en: 'Advantage', es: 'Ventaja' },
   'comparison.tie': { en: 'Equivalent', es: 'Equivalente' },
   'comparison.toast_top': {
-    en: 'Comparing top sellers: G-889 vs G-8 PLUS vs G0 PLUS',
-    es: 'Comparando más vendidos: G-889 vs G-8 PLUS vs G0 PLUS'
+    en: 'Comparing top sellers: G-889 vs G8 PLUS vs G0 PLUS',
+    es: 'Comparando más vendidos: G-889 vs G8 PLUS vs G0 PLUS'
   },
 
   // Extra Catalog & Modals
@@ -566,12 +566,12 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     description: 'Radio PoC inteligente de formato esbelto con pantalla vertical a color de alta definición y navegación minimalista de 3 teclas para despacho rápido.'
   },
   'G-P0-Black': {
-    name: 'P0 IP6 BLACK FLOATING POC',
+    name: 'P0 IP67 BLACK FLOATING POC',
     badge: 'IP68 FLOATING MARINE POC',
     description: 'Radio PoC marina especializada con flotabilidad positiva que permanece a flote en el agua. Construcción sellada IP68 sumergible en Negro Táctico.'
   },
   'P0-Ex-Blue': {
-    name: 'P0 IP6 BLUE ATEX FLOATING POC',
+    name: 'P0 IP67 BLUE ATEX FLOATING POC',
     badge: 'ATEX / EX FLOATING MARINE POC',
     description: 'Radio PoC marina certificada antiexplosiva (Ex) de seguridad intrínseca en Azul Marino ATEX. Sumergible IP68 y con flotabilidad positiva.'
   },
@@ -611,7 +611,7 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     description: 'Radio robusta de alta resistencia en Verde Militar con doble dial giratorio independiente (volumen y selector de grupo). Chasis blindado Mil-Spec con botón SOS frontal instantáneo, diseñado para operar con guantes tácticos en condiciones extremas.'
   },
   'WA0062-TriMode': {
-    name: 'G-8 PLUS TRI-MODE POC-UHF',
+    name: 'G8 PLUS TRI-MODE POC-UHF',
     badge: 'HYBRID POC-UHF',
     description: 'La solución definitiva de interoperabilidad táctica: compatibilidad triple en frecuencias analógicas VHF, frecuencias directas UHF y Push-to-Talk celular 4G LTE con cambio automático de portadora.'
   },

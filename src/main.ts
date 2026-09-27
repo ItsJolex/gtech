@@ -1073,7 +1073,7 @@ const briefingsEs: BriefingItem[] = [
   {
     id: 'briefing-es-4',
     badge: 'Terminal Dual-Mode',
-    eyebrow: 'G-8 PLUS POC-UHF',
+    eyebrow: 'G8 PLUS POC-UHF',
     title: 'Comunicación Inmediata 4G PoC y Banda UHF Táctica',
     desc: 'Resistencia probada en campo con cobertura celular y analógica simultánea.',
     src: '/videos/briefing-es-g8plus.mp4',
@@ -1130,7 +1130,7 @@ const briefingsEn: BriefingItem[] = [
   {
     id: 'briefing-en-4',
     badge: 'Dual-Mode Terminal',
-    eyebrow: 'G-8 PLUS POC-UHF',
+    eyebrow: 'G8 PLUS POC-UHF',
     title: 'Mission-Ready 4G PoC and Tactical UHF Interoperability',
     desc: 'Field-tested durability providing seamless tactical and cellular voice links.',
     src: '/videos/briefing-en-g8plus.mp4',

@@ -127,7 +127,7 @@
     "stockStatus": "in_stock",
     "stockCount": 29,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "G-8 PLUS TRI-MODE POC-UHF offers UHF 3W + VHF + 4G POC with a full DTMF keypad and dual A/B monitoring.",
+    "fallbackReason": "G8 PLUS TRI-MODE POC-UHF offers UHF 3W + VHF + 4G POC with a full DTMF keypad and dual A/B monitoring.",
     "specs": [
       {
         "label": "Operating Modes",
@@ -301,7 +301,7 @@
     "stockStatus": "in_stock",
     "stockCount": 45,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "Looking for maximum dual reception with a DTMF keypad? G-8 PLUS TRI-MODE POC-UHF adds direct VHF/UHF analog frequencies.",
+    "fallbackReason": "Looking for maximum dual reception with a DTMF keypad? G8 PLUS TRI-MODE POC-UHF adds direct VHF/UHF analog frequencies.",
     "specs": [
       {
         "label": "Network",
@@ -480,7 +480,7 @@
     "stockStatus": "in_stock",
     "stockCount": 47,
     "fallbackSimilarId": "G-P0-Black",
-    "fallbackReason": "P0 IP6 BLACK FLOATING POC offers an HD display and maritime buoyancy in an all-weather format.",
+    "fallbackReason": "P0 IP67 BLACK FLOATING POC offers an HD display and maritime buoyancy in an all-weather format.",
     "specs": [
       {
         "label": "Network",
@@ -722,7 +722,7 @@
   },
   {
     "id": "G-P0-Black",
-    "name": "P0 IP6 BLACK FLOATING POC",
+    "name": "P0 IP67 BLACK FLOATING POC",
     "badge": "IP68 FLOATING MARINE POC",
     "image": "/images/p0-ip6-black.webp",
     "description": "Specialized maritime and water-rescue PoC radio with positive buoyancy that floats on water. IP68 submersible sealed construction in Tactical Black.",
@@ -779,7 +779,7 @@
   },
   {
     "id": "P0-Ex-Blue",
-    "name": "P0 IP6 BLUE ATEX FLOATING POC",
+    "name": "P0 IP67 BLUE ATEX FLOATING POC",
     "badge": "ATEX / EX FLOATING MARINE POC",
     "image": "/images/p0-ip6-blue.webp",
     "description": "Certified explosion-proof (Ex) intrinsically safe maritime PoC radio in ATEX Safety Marine Blue. Submersible IP68 and positive buoyancy.",
@@ -787,7 +787,7 @@
     "stockStatus": "in_stock",
     "stockCount": 24,
     "fallbackSimilarId": "G-P0-Black",
-    "fallbackReason": "P0 IP6 BLACK FLOATING POC shares the same IP68 buoyant chassis in Tactical Black without ATEX explosion-proof certification.",
+    "fallbackReason": "P0 IP67 BLACK FLOATING POC shares the same IP68 buoyant chassis in Tactical Black without ATEX explosion-proof certification.",
     "specs": [
       {
         "label": "Certification",
@@ -898,7 +898,7 @@
   },
   {
     "id": "WA0062-TriMode",
-    "name": "G-8 PLUS TRI-MODE POC-UHF",
+    "name": "G8 PLUS TRI-MODE POC-UHF",
     "badge": "HYBRID POC-UHF",
     "image": "/images/g8-plus.webp",
     "description": "True multi-mission hybrid transceiver combining conventional VHF/UHF direct RF frequency communication with unlimited nationwide 4G LTE POC. Features dual dedicated antennas (UV whip + LTE stub), A/B dual-channel monitoring, and a full tactical DTMF keypad.",
@@ -965,7 +965,7 @@
     "stockStatus": "in_stock",
     "stockCount": 15,
     "fallbackSimilarId": "WA0062-TriMode",
-    "fallbackReason": "G-8 PLUS TRI-MODE POC-UHF offers VHF/UHF/4G POC with dual antennas and DTMF keypad in a handheld form factor.",
+    "fallbackReason": "G8 PLUS TRI-MODE POC-UHF offers VHF/UHF/4G POC with dual antennas and DTMF keypad in a handheld form factor.",
     "specs": [
       {
         "label": "RF Bands",
@@ -1107,7 +1107,7 @@
     "stockStatus": "in_stock",
     "stockCount": 53,
     "fallbackSimilarId": "G-P0-Black",
-    "fallbackReason": "P0 IP6 BLACK FLOATING POC offers all-weather operation with a sealed floating chamber.",
+    "fallbackReason": "P0 IP67 BLACK FLOATING POC offers all-weather operation with a sealed floating chamber.",
     "specs": [
       {
         "label": "Finishes",
