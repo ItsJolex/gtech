@@ -177,38 +177,40 @@
           </div>
         </div>
 
-        <!-- Right Column: Avatar Stage with Tactical Aura & Floating Telemetry -->
-        <div class="lg:w-1/2 relative w-full flex items-center justify-center">
-          <div class="relative w-full max-w-[320px] sm:max-w-sm lg:max-w-md mx-auto flex items-end justify-center">
+        <!-- Right Column: Avatar Stage with Tactical Aura & Non-Overlapping Telemetry -->
+        <div class="lg:w-1/2 relative w-full flex items-center justify-center pt-8 sm:pt-0">
+          <div class="relative w-full max-w-[340px] sm:max-w-md lg:max-w-lg mx-auto flex items-end justify-center">
             
             <!-- Animated Background Tactical Aura -->
-            <div class="absolute inset-0 bg-gradient-to-tr from-navy-800/10 via-crimson-800/5 to-transparent rounded-full filter blur-2xl -z-10 avatar-glow"></div>
-            <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-navy-800/10 -z-10 animate-radar-spin"></div>
-            <div class="absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full -z-10 radar-sweep"></div>
-            <div class="absolute w-48 h-48 sm:w-60 sm:h-60 rounded-full border border-dashed border-crimson-800/20 -z-10 animate-radar-spin" style="animation-duration: 30s; animation-direction: reverse;"></div>
+            <div class="absolute inset-0 bg-gradient-to-tr from-navy-800/15 via-crimson-800/10 to-transparent rounded-full filter blur-3xl -z-10 avatar-glow"></div>
+            <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-navy-800/10 -z-10 animate-radar-spin"></div>
+            <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full -z-10 radar-sweep"></div>
+            <div class="absolute w-56 h-56 sm:w-72 sm:h-72 rounded-full border border-dashed border-crimson-800/20 -z-10 animate-radar-spin" style="animation-duration: 30s; animation-direction: reverse;"></div>
 
-            <!-- Floating Badge 1: Top Left -->
-            <div class="absolute top-6 -left-2 sm:left-0 bg-white/95 backdrop-blur-sm border border-gray-200/80 px-3 py-1.5 rounded-xl shadow-lg z-20 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <!-- Floating Badge 1: Top Left (Moved safely OUTSIDE the character silhouette) -->
+            <div class="absolute -top-3 left-0 sm:-left-8 lg:-left-12 bg-white/95 backdrop-blur-md border border-gray-200/90 px-3.5 py-2 rounded-2xl shadow-xl z-20 flex items-center gap-2.5 transition-transform hover:scale-105 pointer-events-auto">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <div class="text-left">
-                <span class="block text-[9px] font-bold text-gray-400 uppercase leading-none" data-i18n="hero.badge_network_sub">Multiband Network</span>
-                <span class="text-[11px] font-extrabold text-navy-800" data-i18n="hero.badge_network">4G, 3G, 2G Active</span>
+                <span class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider leading-none" data-i18n="hero.badge_network_sub">Multiband Network</span>
+                <span class="text-xs font-extrabold text-navy-800" data-i18n="hero.badge_network">4G, 3G, 2G Active</span>
               </div>
             </div>
 
-            <!-- Floating Badge 2: Bottom Right -->
-            <div class="absolute bottom-8 -right-2 sm:right-0 bg-white/95 backdrop-blur-sm border border-gray-200/80 px-3 py-1.5 rounded-xl shadow-lg z-20 flex items-center gap-2">
-              <svg class="w-4 h-4 text-crimson-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <!-- Floating Badge 2: Bottom Right (Moved safely OUTSIDE the character torso) -->
+            <div class="absolute bottom-4 right-0 sm:-right-8 lg:-right-12 bg-white/95 backdrop-blur-md border border-gray-200/90 px-3.5 py-2 rounded-2xl shadow-xl z-20 flex items-center gap-2.5 transition-transform hover:scale-105 pointer-events-auto">
+              <div class="w-7 h-7 rounded-xl bg-crimson-50 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-crimson-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+              </div>
               <div class="text-left">
-                <span class="block text-[9px] font-bold text-gray-400 uppercase leading-none" data-i18n="hero.badge_security_sub">Security</span>
-                <span class="text-[11px] font-extrabold text-navy-800" data-i18n="hero.badge_security">AES-256 Encrypted</span>
+                <span class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider leading-none" data-i18n="hero.badge_security_sub">Security Protocol</span>
+                <span class="text-xs font-extrabold text-navy-800" data-i18n="hero.badge_security">AES-256 Encrypted</span>
               </div>
             </div>
 
-            <!-- Brand Cutout Avatar -->
+            <!-- Brand Cutout Avatar: Full Unobstructed View -->
             <img src="/images/hero-avatar.webp" 
                  alt="G-TECH.US Tactical Communications Expert" 
-                 class="relative z-10 w-full max-h-[380px] sm:max-h-[440px] object-contain drop-shadow-2xl [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)] select-none pointer-events-none" />
+                 class="relative z-10 w-full max-h-[420px] sm:max-h-[480px] object-contain drop-shadow-2xl [mask-image:linear-gradient(to_bottom,black_90%,transparent_100%)] select-none pointer-events-none" />
           </div>
         </div>
 
@@ -331,49 +333,54 @@
           </div>
         </div>
 
-        <!-- Tactical Privacy & Accessories Teaser Banner (High Contrast & Clean Typography) -->
-        <div id="accessories-teaser" class="mt-12 sm:mt-16 bg-slate-900 rounded-3xl p-6 sm:p-10 border-2 border-slate-700 shadow-2xl relative">
-          <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div class="max-w-2xl text-center lg:text-left space-y-4">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-crimson-950 border border-crimson-700 text-crimson-300 text-xs font-bold uppercase tracking-wider">
-                <svg class="w-3.5 h-3.5 text-crimson-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                <span data-i18n="accessories_teaser.eyebrow">Privacidad y Discreción Operativa</span>
-              </div>
+        <!-- Official Tactical Accessories Live Showcase Section -->
+        <div id="accessories-section" class="mt-16 sm:mt-24 pt-12 border-t border-gray-200 scroll-mt-24">
+          <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="text-crimson-800 font-extrabold tracking-widest uppercase text-xs sm:text-sm mb-2 flex items-center justify-center gap-1.5" data-i18n="home_accessories.badge">
+              <span class="w-2 h-2 rounded-full bg-crimson-600 animate-pulse"></span>
+              División de Accesorios Oficiales
+            </span>
+            <h3 class="text-2xl sm:text-4xl font-extrabold text-navy-800 tracking-tight" data-i18n="home_accessories.title">
+              Accesorios Tácticos de Audio, Privacidad y Carga
+            </h3>
+            <p class="text-gray-600 text-xs sm:text-base mt-2.5 leading-relaxed" data-i18n="home_accessories.subtitle">
+              Equipa tu flota con micrófonos de hombro de uso rudo IP56, auriculares encubiertos de tubo acústico transparente y estaciones de carga múltiple para operaciones ininterrumpidas.
+            </p>
 
-              <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight" data-i18n="accessories_teaser.title">
-                ¿No te gusta que todos escuchen lo que hablas por tu radio?
-              </h3>
-
-              <p class="text-gray-100 text-sm sm:text-base leading-relaxed" data-i18n="accessories_teaser.subtitle">
-                ¿Necesitas mayor privacidad en tus operaciones? Protege la confidencialidad de tus transmisiones con nuestra línea oficial de accesorios: auriculares encubiertos de tubo acústico transparente y micrófonos de solapa PTT diseñados para aislar el sonido exterior y operar con máxima discreción.
-              </p>
-
-              <div class="pt-1 flex flex-wrap gap-2.5 justify-center lg:justify-start">
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs font-bold text-white shadow-sm">
-                  <span class="flex-shrink-0" aria-hidden="true">&#127911;</span>
-                  <span data-i18n="accessories_teaser.pill_earphones">Auriculares Encubiertos de Tubo Acústico</span>
-                </span>
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs font-bold text-white shadow-sm">
-                  <span class="flex-shrink-0" aria-hidden="true">&#127897;</span>
-                  <span data-i18n="accessories_teaser.pill_mics">Micrófonos de Hombro PTT IP56</span>
-                </span>
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-800 border border-slate-600 text-xs font-bold text-white shadow-sm">
-                  <span class="flex-shrink-0" aria-hidden="true">&#9889;</span>
-                  <span data-i18n="accessories_teaser.pill_connectors">Conectores Type-C y Type-K (2 Pines)</span>
-                </span>
-              </div>
+            <!-- Category Filter Pills -->
+            <div id="home-accessory-filters" class="flex flex-wrap items-center justify-center gap-2 mt-6">
+              <button type="button" data-home-acc-filter="all" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all bg-navy-900 text-white shadow-sm">
+                <span data-i18n="home_accessories.filter_all">Todos los Accesorios</span>
+              </button>
+              <button type="button" data-home-acc-filter="microphones" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">🎙️</span><span data-i18n="home_accessories.filter_mics">Micrófonos PTT</span>
+              </button>
+              <button type="button" data-home-acc-filter="earphones" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">🎧</span><span data-i18n="home_accessories.filter_earphones">Auriculares Encubiertos</span>
+              </button>
+              <button type="button" data-home-acc-filter="chargers" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">⚡</span><span data-i18n="home_accessories.filter_chargers">Bases de Carga</span>
+              </button>
             </div>
+          </div>
 
-            <!-- CTA Direct Button -->
-            <div class="flex flex-col items-center gap-3 flex-shrink-0 w-full sm:w-auto">
-              <a href="/accessories.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-crimson-700 hover:bg-crimson-600 text-white font-extrabold text-base tracking-wide uppercase shadow-lg shadow-crimson-950/60 hover:scale-105 active:scale-95 transition-all text-center">
-                <span data-i18n="accessories_teaser.cta_btn">Explorar Catálogo de Accesorios</span>
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </a>
-              <span class="text-xs text-gray-300 font-semibold text-center" data-i18n="accessories_teaser.compatibility_hint">
-                Compatibles al 100% con toda la flota G-TECH
-              </span>
+          <!-- Dynamic Accessories Cards Grid -->
+          <div id="home-accessories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+            <!-- Populated via main.ts -->
+          </div>
+
+          <!-- Dedicated Catalog Link Callout -->
+          <div class="bg-navy-900 rounded-3xl p-6 sm:p-8 border border-navy-700/80 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-crimson-600/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="text-center md:text-left space-y-1 relative z-10">
+              <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest">Guía Completa de Conexión</span>
+              <h4 class="text-lg sm:text-xl font-extrabold text-white">¿Deseas verificar la compatibilidad exacta de tu conector (Type-C / Type-K)?</h4>
+              <p class="text-xs sm:text-sm text-navy-200">Revisa la tabla comparativa de pines y compatibilidad detallada por modelo de radio en nuestro catálogo especializado.</p>
             </div>
+            <a href="/accessories.html" class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-crimson-700 hover:bg-crimson-800 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all hover:scale-105 active:scale-95 shadow-md text-center whitespace-nowrap relative z-10">
+              <span data-i18n="home_accessories.view_all">Explorar Catálogo Especializado & Guía de Conexión</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -451,6 +458,68 @@
             <p class="text-sm text-gray-400" data-i18n="specs.card4_desc">Direct engineering consultation and immediate hardware replacement guarantees.</p>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- Tactical Publicities & Field Posters Showcase -->
+    <section id="campaigns" class="py-20 bg-slate-950 text-white relative overflow-hidden border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-crimson-950/80 border border-crimson-700/60 text-crimson-400 text-xs font-bold uppercase tracking-widest mb-3">
+            <span class="w-2 h-2 rounded-full bg-crimson-500 animate-pulse"></span>
+            Material Oficial & Publicidades
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">Campañas Tácticas & Despliegues</h2>
+          <p class="text-sm sm:text-base text-slate-400 mt-3 leading-relaxed">
+            Descarga o consulta el material gráfico oficial utilizado en briefings de seguridad, preparación para emergencias y ferias de telecomunicaciones.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Poster 1: Huracán Season -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/huracan-season-poster.webp', 'Campaña Oficial Temporada de Huracanes')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/huracan-season-poster.webp" alt="Huracán Season Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-crimson-400 uppercase tracking-widest block">Emergencias Críticas</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-crimson-300 transition-colors">Temporada de Huracanes</h3>
+            </div>
+          </div>
+
+          <!-- Poster 2: Tactical Lineup -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/tactical-lineup-poster.webp', 'Línea Táctica Completa PoC')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/tactical-lineup-poster.webp" alt="Tactical Lineup Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block">Hardware 2026</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-cyan-300 transition-colors">Ecosistema Integral PoC</h3>
+            </div>
+          </div>
+
+          <!-- Poster 3: Bodycam BQ-K8 -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/bq-k8-bodycam-poster.webp', 'Terminal Táctico Bodycam 4K')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/bq-k8-bodycam-poster.webp" alt="Bodycam BQ-K8 Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">Seguridad & Custodia</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-amber-300 transition-colors">Bodycam 4K BQ-K8</h3>
+            </div>
+          </div>
+
+          <!-- Poster 4: Mobile Base Station -->
+          <div class="group relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl cursor-pointer hover:border-crimson-600 transition-all duration-300" onclick="window.openPosterLightbox('/images/posters/v1-plus-vehicle-poster.webp', 'Estación Base y Radios Móviles')">
+            <div class="aspect-[3/4] overflow-hidden bg-slate-950 flex items-center justify-center">
+              <img src="/images/posters/v1-plus-vehicle-poster.webp" alt="Vehicle Radio Poster" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            </div>
+            <div class="p-4 border-t border-slate-800/80 bg-slate-900/90">
+              <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest block">Flotas y Transporte</span>
+              <h3 class="text-sm font-extrabold text-white mt-1 group-hover:text-emerald-300 transition-colors">Transceptores Vehiculares</h3>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -616,8 +685,65 @@
       </div>
     </div>
 
+    <!-- Home Accessory Specs Modal Overlay -->
+    <div id="home-accessory-modal" class="fixed inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4">
+      <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden relative max-h-[90vh] overflow-y-auto p-6 sm:p-8">
+        <div id="home-accessory-modal-content">
+          <!-- Dynamic Content populated via main.ts -->
+        </div>
+      </div>
+    </div>
+
     <!-- Cart Drawer Container (Off-Canvas) -->
     <div id="cart-drawer-container" class="hidden"></div>
+
+    <!-- Poster Lightbox Modal -->
+    <div id="poster-lightbox" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true">
+      <button type="button" class="absolute top-6 right-6 z-10 w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Close poster">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div class="relative max-w-4xl w-full max-h-[90vh]">
+        <img id="poster-lightbox-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain">
+        <div id="poster-lightbox-caption" class="mt-4 text-center text-white text-sm font-medium"></div>
+      </div>
+    </div>
+
+    <script>
+      window.openPosterLightbox = function(src, title) {
+        const lightbox = document.getElementById('poster-lightbox');
+        const img = document.getElementById('poster-lightbox-img');
+        const caption = document.getElementById('poster-lightbox-caption');
+        if (lightbox && img && caption) {
+          img.src = src;
+          img.alt = title;
+          caption.textContent = title;
+          lightbox.classList.remove('hidden');
+          lightbox.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        }
+      };
+
+      document.getElementById('poster-lightbox')?.addEventListener('click', function(e) {
+        if (e.target === this || e.target.closest('button')) {
+          this.classList.add('hidden');
+          this.classList.remove('flex');
+          document.body.style.overflow = '';
+          document.getElementById('poster-lightbox-img').src = '';
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          const lightbox = document.getElementById('poster-lightbox');
+          if (lightbox && !lightbox.classList.contains('hidden')) {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = '';
+            document.getElementById('poster-lightbox-img').src = '';
+          }
+        }
+      });
+    </script>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

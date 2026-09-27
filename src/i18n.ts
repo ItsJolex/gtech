@@ -186,6 +186,7 @@ export const translations: Translations = {
   'accessories_page.filter_all': { en: 'All Accessories', es: 'Todos los Accesorios' },
   'accessories_page.filter_mics': { en: 'Shoulder & Palm Microphones', es: 'Micrófonos de Solapa / Hombro' },
   'accessories_page.filter_earphones': { en: 'Covert Acoustic Earpieces', es: 'Auriculares Encubiertos de Tubo Acústico' },
+  'accessories_page.filter_chargers': { en: 'Multi-Chargers & Docks', es: 'Bases y Cargadores Múltiples' },
   'accessories_page.btn_add_quote': { en: 'Quote Accessory', es: 'Cotizar Accesorio' },
   'accessories_page.btn_specs': { en: 'Technical Specs', es: 'Ver Ficha Técnica' },
   'accessories_page.btn_wa': { en: 'Inquire via WhatsApp', es: 'Consultar por WhatsApp' },
@@ -219,6 +220,25 @@ export const translations: Translations = {
   'accessories_page.specs_secondary': { en: 'Official Datasheet / Reference', es: 'Ficha Oficial / Referencia' },
   'accessories_page.close': { en: 'Close', es: 'Cerrar' },
   'accessories_page.results': { en: 'items', es: 'artículos' },
+
+  // Home Page Accessories Section
+  'home_accessories.badge': {
+    en: 'Official Tactical Accessories',
+    es: 'División de Accesorios Oficiales'
+  },
+  'home_accessories.title': {
+    en: 'Operational Audio, Privacy & Power Accessories',
+    es: 'Accesorios Tácticos de Audio, Privacidad y Carga'
+  },
+  'home_accessories.subtitle': {
+    en: 'Equip your fleet with heavy-duty IP56 speaker microphones, covert transparent acoustic tube earpieces, and multi-unit fleet chargers.',
+    es: 'Equipa tu flota con micrófonos de hombro de uso rudo IP56, auriculares encubiertos de tubo acústico transparente y estaciones de carga múltiple para operaciones ininterrumpidas.'
+  },
+  'home_accessories.filter_all': { en: 'All Accessories', es: 'Todos los Accesorios' },
+  'home_accessories.filter_mics': { en: 'Shoulder Mics', es: 'Micrófonos PTT' },
+  'home_accessories.filter_earphones': { en: 'Covert Earpieces', es: 'Auriculares Encubiertos' },
+  'home_accessories.filter_chargers': { en: 'Multi-Chargers', es: 'Bases de Carga' },
+  'home_accessories.view_all': { en: 'Explore Full Accessory Catalog & Connector Guide', es: 'Explorar Catálogo Especializado & Guía de Conexión' },
 
   // AI Avatar Video Briefings
   'briefings.badge': {
@@ -562,10 +582,15 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     badge: 'VEHICLE MOBILE POC',
     description: 'Estación de radio móvil vehicular para flotas comerciales, patrullas, ambulancias y transporte pesado. Se conecta a 12V/24V con micrófono de mano ergonómico, telemetría GPS en tiempo real y altavoz frontal de alta presión acústica.'
   },
-  'WA0060-Armor': {
-    name: 'G-6 PLUS POC',
+  'WA0060-Black': {
+    name: 'G6 PLUS BLACK',
     badge: 'MIL-SPEC DUAL-KNOB POC',
-    description: 'Radio robusta de alta resistencia con doble dial giratorio independiente (volumen y selector de grupo). Chasis blindado Mil-Spec disponible en Negro Táctico y Verde Militar, diseñado para operar con guantes tácticos en condiciones extremas.'
+    description: 'Radio robusta de alta resistencia en Negro Táctico con doble dial giratorio independiente (volumen y selector de grupo). Chasis blindado Mil-Spec con botón SOS frontal instantáneo, diseñado para operar con guantes tácticos en condiciones extremas.'
+  },
+  'WA0060-Green': {
+    name: 'G6 PLUS GREEN',
+    badge: 'MIL-SPEC DUAL-KNOB POC',
+    description: 'Radio robusta de alta resistencia en Verde Militar con doble dial giratorio independiente (volumen y selector de grupo). Chasis blindado Mil-Spec con botón SOS frontal instantáneo, diseñado para operar con guantes tácticos en condiciones extremas.'
   },
   'WA0062-TriMode': {
     name: 'G-8 PLUS TRI-MODE POC-UHF',
@@ -596,6 +621,16 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     name: 'G-K8 4K BODYCAM POC',
     badge: '4K VIDEO + 4G POC',
     description: 'Dispositivo integrado de videovigilancia corporal con cámara 4K Ultra HD, visión nocturna infrarroja con 8 LEDs IR, telemetría GPS en tiempo real y transmisión Push-To-Talk sobre red 4G celular.'
+  },
+  'G-8900-Pro': {
+    name: 'G-8900 PRO VEHICLE BASE STATION',
+    badge: 'VEHICULAR / BASE STATION',
+    description: 'Estación base móvil vehicular PoC para gestión de flotas comerciales, vehículos de mando y centros de despacho. Cuenta con pantalla LCD panorámica a color, micrófono de palma frontal RJ45 con cable en espiral, botón SOS de emergencia dedicado y soporte de montaje reforzado para tablero.'
+  },
+  'G5-Plus': {
+    name: 'G5 PLUS COMMERCIAL POC',
+    badge: 'SCREENLESS HEAVY-DUTY POC',
+    description: 'Radio PoC comercial sin pantalla de máxima durabilidad, diseñada para comunicaciones Push-to-Talk instantáneas y libres de distracciones. Equipada con doble dial giratorio superior independiente, rejilla acústica frontal con altavoz de alta potencia de 2W, botón PTT texturizado y blindaje contra caídas e impactos.'
   }
 };
 

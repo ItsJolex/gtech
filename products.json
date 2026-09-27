@@ -412,6 +412,65 @@
     ]
   },
   {
+    "id": "G-8900-Pro",
+    "name": "G-8900 PRO VEHICLE BASE STATION",
+    "badge": "VEHICULAR / BASE STATION",
+    "image": "/images/g-8900-pro.webp",
+    "description": "Heavy-duty vehicular mobile base station PoC transceiver engineered for commercial fleet management, command vehicles, and dispatch centers. Features a wide horizontal color LCD telemetry screen, front RJ45 palm microphone with coiled cord, dedicated emergency SOS, and rugged dashboard bracket mounting.",
+    "inStock": true,
+    "stockStatus": "in_stock",
+    "stockCount": 35,
+    "fallbackSimilarId": "WA0058-Vehicle",
+    "fallbackReason": "V1 PLUS POC GPS SOS 4G offers a compact vehicular mobile unit with direct dashboard mounting.",
+    "specs": [
+      {
+        "label": "Form Factor",
+        "value": "Heavy-Duty Mobile Dashboard Console"
+      },
+      {
+        "label": "Power Input",
+        "value": "12V / 24V Vehicle Direct DC Input"
+      },
+      {
+        "label": "Display",
+        "value": "Wide Full-Color LCD Telemetry Screen"
+      },
+      {
+        "label": "Microphone",
+        "value": "Heavy-Duty Ergonomic Palm Mic with PTT"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Push-To-Talk Nationwide"
+      },
+      {
+        "label": "Audio Output",
+        "value": "5.0W High-Pressure Front Acoustic Speaker"
+      }
+    ],
+    "comparison": {
+      "connectivity": "4G LTE Nationwide POC + GPS Telemetry",
+      "protection": "All-Metal Heat-Sink Aluminum Chassis",
+      "batteryRuntime": "Continuous 12V/24V Vehicle Powered",
+      "audioOutput": "5.0W High-Pressure Front Speaker",
+      "controls": "Stepped Rotary Volume + Navigation Dial",
+      "formFactor": "Vehicular Console Station (950g)",
+      "antenna": "External High-Gain Roof Antenna Port",
+      "emergency": "Dedicated Red Front SOS Alert Key",
+      "videoVision": "Not available",
+      "certifications": "CE / FCC / RoHS Certified"
+    },
+    "tags": [
+      "vehicle",
+      "mobile",
+      "base-station",
+      "fleet",
+      "command",
+      "global-lte",
+      "12v-24v"
+    ]
+  },
+  {
     "id": "WA0055-GlobalLTE",
     "name": "G0 PLUS GLOBAL LITE POC",
     "badge": "GLOBAL LITE POC",
@@ -477,7 +536,7 @@
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 26,
-    "fallbackSimilarId": "WA0060-Armor",
+    "fallbackSimilarId": "WA0060-Black",
     "fallbackReason": "G-6 PLUS POC offers dual-knob, front SOS, and a Mil-Spec exoskeleton in tactical colors.",
     "specs": [
       {
@@ -526,27 +585,20 @@
     ]
   },
   {
-    "id": "WA0060-Armor",
-    "name": "G-6 PLUS POC",
+    "id": "WA0060-Black",
+    "name": "G6 PLUS BLACK",
     "badge": "MIL-SPEC DUAL-KNOB POC",
     "image": "/images/G-6-black.webp",
     "colors": [
       {
         "id": "black",
         "name": "Tactical Black",
-        "nameEs": "Negro T\u00e1ctico",
+        "nameEs": "Negro Táctico",
         "hex": "#1a1a1a",
         "image": "/images/G-6-black.webp"
-      },
-      {
-        "id": "green",
-        "name": "Military Olive Green",
-        "nameEs": "Verde Militar",
-        "hex": "#3d5236",
-        "image": "/images/G-6-green.webp"
       }
     ],
-    "description": "Ruggedized dual-knob digital radio available in Tactical Black and Military Olive Green armor. Engineered with dedicated top rotary channel and volume dials, an instant front SOS alarm button, and reinforced shock-absorbing exoskeleton.",
+    "description": "Ruggedized dual-knob digital radio in Tactical Black armor. Engineered with dedicated top rotary channel and volume dials, an instant front SOS alarm button, and reinforced shock-absorbing exoskeleton.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 34,
@@ -555,7 +607,7 @@
     "specs": [
       {
         "label": "Housing",
-        "value": "Reinforced Exoskeleton (Black / Olive Green)"
+        "value": "Reinforced Exoskeleton (Tactical Black)"
       },
       {
         "label": "Controls",
@@ -596,6 +648,75 @@
       "armor",
       "sos",
       "tactical",
+      "black",
+      "voice-only"
+    ]
+  },
+  {
+    "id": "WA0060-Green",
+    "name": "G6 PLUS GREEN",
+    "badge": "MIL-SPEC DUAL-KNOB POC",
+    "image": "/images/G-6-green.webp",
+    "colors": [
+      {
+        "id": "green",
+        "name": "Military Olive Green",
+        "nameEs": "Verde Militar",
+        "hex": "#3d5236",
+        "image": "/images/G-6-green.webp"
+      }
+    ],
+    "description": "Ruggedized dual-knob digital radio in Military Olive Green armor. Engineered with dedicated top rotary channel and volume dials, an instant front SOS alarm button, and reinforced shock-absorbing exoskeleton.",
+    "inStock": true,
+    "stockStatus": "in_stock",
+    "stockCount": 22,
+    "fallbackSimilarId": "G-280-2",
+    "fallbackReason": "G-280 POC-UHF offers similar dual knobs with analog UHF 3W + 4G POC.",
+    "specs": [
+      {
+        "label": "Housing",
+        "value": "Reinforced Exoskeleton (Military Olive Green)"
+      },
+      {
+        "label": "Controls",
+        "value": "Dual Top Knobs (Channel & Volume)"
+      },
+      {
+        "label": "Emergency",
+        "value": "Instant Front SOS Alarm Key"
+      },
+      {
+        "label": "Display",
+        "value": "High-Contrast Protected LCD"
+      },
+      {
+        "label": "Audio",
+        "value": "Slotted High-Acoustic Grille"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE POC Push-To-Talk"
+      }
+    ],
+    "comparison": {
+      "connectivity": "4G LTE Nationwide POC",
+      "protection": "Reinforced Mil-Spec Exoskeleton",
+      "batteryRuntime": "32 Hours (Extreme Endurance)",
+      "audioOutput": "2.2W Acoustic Chamber",
+      "controls": "Dual Rotary Knobs + Front SOS",
+      "formFactor": "Armored Dual-Knob Handheld",
+      "antenna": "Impact-Shielded Heavy Stubby",
+      "emergency": "Instant Front SOS Alarm Key",
+      "videoVision": "Not available",
+      "certifications": "MIL-STD-810H / IP67 / CE"
+    },
+    "tags": [
+      "dual-knob",
+      "mil-spec",
+      "armor",
+      "sos",
+      "tactical",
+      "green",
       "voice-only"
     ]
   },
@@ -713,6 +834,65 @@
       "explosion-proof",
       "intrinsically-safe",
       "water-rescue",
+      "global-lte"
+    ]
+  },
+  {
+    "id": "G5-Plus",
+    "name": "G5 PLUS COMMERCIAL POC",
+    "badge": "SCREENLESS HEAVY-DUTY POC",
+    "image": "/images/g5-plus.webp",
+    "description": "Commercial screenless high-durability PoC walkie-talkie engineered for instant, distraction-free push-to-talk operations. Features dual independent top rotary dials, prominent horizontal acoustic speaker grille with 2W high-power audio, textured grip PTT, and drop-proof mil-spec armor.",
+    "inStock": true,
+    "stockStatus": "in_stock",
+    "stockCount": 58,
+    "fallbackSimilarId": "WA0060-Black",
+    "fallbackReason": "G-6 PLUS POC provides dual-knob controls with a color display and armored casing.",
+    "specs": [
+      {
+        "label": "Form Factor",
+        "value": "Rugged Screenless Handheld Radio"
+      },
+      {
+        "label": "Design",
+        "value": "Screenless Zero-Distraction Interface"
+      },
+      {
+        "label": "Rotary Controls",
+        "value": "Dual Independent Knobs (Channel & Volume)"
+      },
+      {
+        "label": "Audio",
+        "value": "2.0W High-Output Noise-Reduction Speaker"
+      },
+      {
+        "label": "Battery",
+        "value": "3800mAh Ultra-Long Life Li-ion (36h+)"
+      },
+      {
+        "label": "Network",
+        "value": "4G LTE Nationwide Push-To-Talk"
+      }
+    ],
+    "comparison": {
+      "connectivity": "4G LTE Nationwide Cellular POC",
+      "protection": "Industrial Shock & Drop-Proof Armor",
+      "batteryRuntime": "36+ Hours (Screenless Extended Life)",
+      "audioOutput": "2.0W Loud Acoustic Slats",
+      "controls": "Dual Top Knobs + Textured Side PTT",
+      "formFactor": "Screenless Heavy-Duty Handheld (160g)",
+      "antenna": "Fixed Reinforced Stubby Cylindrical",
+      "emergency": "Programmable Side SOS Emergency Function",
+      "videoVision": "Not available",
+      "certifications": "CE / FCC Certified"
+    },
+    "tags": [
+      "screenless",
+      "commercial",
+      "industrial",
+      "voice-only",
+      "extended-battery",
+      "heavy-duty",
       "global-lte"
     ]
   },
@@ -917,7 +1097,7 @@
       {
         "id": "white",
         "name": "Arctic White",
-        "nameEs": "Blanco \u00c1rtico",
+        "nameEs": "Blanco Ártico",
         "hex": "#f3f4f6",
         "image": "/images/G-34181-white.webp"
       },

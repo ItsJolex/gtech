@@ -1,6 +1,7 @@
 import { products, fetchLiveProducts, onProductsUpdated } from './products';
 import type { Product } from './types';
-import { initCart, openCartDrawer, closeCartDrawer, addToCart, subscribe as subscribeCart, renderCartDrawer } from './cart';
+import { initCart, openCartDrawer, closeCartDrawer, addToCart, addCartItem, subscribe as subscribeCart, renderCartDrawer } from './cart';
+import accessoriesData from './accessories.json';
 import { initComparison } from './comparison';
 import { initFinder, resetFinder } from './finder';
 import { initI18n, getLanguage, toggleLanguage, t, tSpecLabel, onLanguageChange, getLocalizedProduct } from './i18n';
@@ -52,11 +53,11 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
             ${localized.badge}
           </span>
           ${stockBadge}
-          ${p.discountPrice ? `
+          ${(window as any).siteShowPrices && p.discountPrice ? `
             <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
               ${p.discountPrice}
             </span>
-          ` : p.priceEstimate ? `
+          ` : (window as any).siteShowPrices && p.priceEstimate ? `
             <span class="bg-navy-800 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
               ${p.priceEstimate}
             </span>
@@ -380,13 +381,13 @@ function renderCatalog(): void {
           ${localized.name}
         </h3>
 
-        ${product.discountPrice ? `
+        ${(window as any).siteShowPrices && product.discountPrice ? `
           <div class="flex items-baseline gap-2 mb-1.5 flex-wrap">
             <span class="text-sm sm:text-base font-extrabold text-emerald-600">${product.discountPrice}</span>
             ${product.priceEstimate ? `<span class="text-xs text-gray-400 line-through font-semibold">${product.priceEstimate}</span>` : ''}
             <span class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 tracking-wide">${lang === 'es' ? 'OFERTA' : 'SALE'}</span>
           </div>
-        ` : product.priceEstimate ? `
+        ` : (window as any).siteShowPrices && product.priceEstimate ? `
           <div class="flex items-baseline gap-2 mb-1.5 flex-wrap">
             <span class="text-xs sm:text-sm font-bold text-navy-900">${product.priceEstimate}</span>
           </div>
@@ -516,13 +517,13 @@ if (modalOverlay && modalContent) {
               </div>
               <div class="mb-3 flex items-center gap-2 flex-wrap">
                 <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-100">${localized.badge}</span>
-                ${p.discountPrice ? `
+                ${(window as any).siteShowPrices && p.discountPrice ? `
                   <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
                     <span class="text-sm md:text-base font-extrabold text-emerald-700">${p.discountPrice}</span>
                     ${p.priceEstimate ? `<span class="text-xs text-gray-400 line-through">${p.priceEstimate}</span>` : ''}
                     <span class="text-[10px] font-black uppercase text-emerald-800 bg-emerald-200/80 px-1.5 py-0.5 rounded">${lang === 'es' ? 'OFERTA' : 'SALE'}</span>
                   </div>
-                ` : p.priceEstimate ? `
+                ` : (window as any).siteShowPrices && p.priceEstimate ? `
                   <span class="inline-flex items-center text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200">${p.priceEstimate}</span>
                 ` : ''}
                 ${p.stockCount !== undefined && p.stockCount > 0 ? `
@@ -1221,6 +1222,258 @@ function initBriefings(): void {
   renderBriefings();
 }
 
+// -------------------------------------------------------------
+// HOME ACCESSORIES SHOWCASE MODULE
+// -------------------------------------------------------------
+interface HomeAccessorySpec {
+  label: string;
+  labelEs: string;
+  value: string;
+}
+
+interface HomeAccessory {
+  id: string;
+  name: string;
+  nameEs: string;
+  category: 'microphones' | 'earphones' | 'chargers';
+  badge: string;
+  badgeEs: string;
+  image: string;
+  secondaryImage?: string;
+  description: string;
+  descriptionEs: string;
+  connector: string;
+  connectorEs?: string;
+  compatibility: string[];
+  specs: HomeAccessorySpec[];
+  inStock: boolean;
+}
+
+const homeAccessoriesList = accessoriesData as HomeAccessory[];
+let activeHomeAccFilter: 'all' | 'microphones' | 'earphones' | 'chargers' = 'all';
+
+const homeAccGrid = document.getElementById('home-accessories-grid');
+const homeAccFilterContainer = document.getElementById('home-accessory-filters');
+const homeAccModal = document.getElementById('home-accessory-modal');
+const homeAccModalContent = document.getElementById('home-accessory-modal-content');
+
+function getLocalizedAccName(a: HomeAccessory): string {
+  return getLanguage() === 'es' ? a.nameEs : a.name;
+}
+
+function getLocalizedAccBadge(a: HomeAccessory): string {
+  return getLanguage() === 'es' ? a.badgeEs : a.badge;
+}
+
+function getLocalizedAccDesc(a: HomeAccessory): string {
+  return getLanguage() === 'es' ? a.descriptionEs : a.description;
+}
+
+function getLocalizedAccConnector(a: HomeAccessory): string {
+  return getLanguage() === 'es' && a.connectorEs ? a.connectorEs : a.connector;
+}
+
+function getLocalizedAccSpecLabel(s: HomeAccessorySpec): string {
+  return getLanguage() === 'es' ? s.labelEs : s.label;
+}
+
+function renderHomeAccessories(): void {
+  if (!homeAccGrid) return;
+  const lang = getLanguage();
+
+  const filtered = activeHomeAccFilter === 'all'
+    ? homeAccessoriesList
+    : homeAccessoriesList.filter(a => a.category === activeHomeAccFilter);
+
+  homeAccGrid.innerHTML = filtered.map(a => {
+    const name = getLocalizedAccName(a);
+    const badge = getLocalizedAccBadge(a);
+    const desc = getLocalizedAccDesc(a);
+    const connector = getLocalizedAccConnector(a);
+
+    const waMsg = lang === 'es'
+      ? `Hola G-TECH, me interesa cotizar el accesorio "${name}" (${connector}). ¿Tienen disponibilidad inmediata?`
+      : `Hello G-TECH, I'm inquiring about the "${name}" accessory (${connector}). Is it in stock?`;
+    const waLink = `https://wa.me/14074273356?text=${encodeURIComponent(waMsg)}`;
+
+    return `
+      <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
+        <div class="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" onclick="window.openHomeAccessoryModal('${a.id}')">
+          <img src="${a.image}" alt="${name}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='/images/G-510.webp'">
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${badge}</span>
+        </div>
+
+        <div class="p-5 flex flex-col flex-1 space-y-3">
+          <div>
+            <h4 class="text-base font-extrabold text-navy-800 leading-snug line-clamp-1 group-hover:text-crimson-800 transition-colors" title="${name}">${name}</h4>
+            <p class="text-xs text-gray-500 mt-1.5 leading-relaxed line-clamp-2">${desc}</p>
+          </div>
+
+          <div class="flex items-center gap-1.5 pt-1 text-[11px] font-bold uppercase tracking-wider text-navy-700 bg-navy-50/80 px-2.5 py-1.5 rounded-lg border border-navy-100">
+            <svg class="w-3.5 h-3.5 text-crimson-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span class="truncate">${connector}</span>
+          </div>
+
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full ${a.inStock ? 'bg-emerald-500' : 'bg-amber-500'} animate-pulse"></span>
+            <span class="text-[10px] font-bold uppercase tracking-wider ${a.inStock ? 'text-emerald-700' : 'text-amber-700'}">${a.inStock ? (lang === 'es' ? 'Disponible para Cotización' : 'Available for Quotation') : (lang === 'es' ? 'Sujeto a Confirmación' : 'Available on Request')}</span>
+          </div>
+
+          <div class="mt-auto pt-3 space-y-2">
+            <div class="flex gap-2">
+              <button type="button" onclick="window.addHomeAccessoryToQuote('${a.id}')" class="flex-1 px-3 py-2.5 rounded-xl bg-crimson-700 hover:bg-crimson-800 text-white text-[11px] font-extrabold uppercase tracking-wider transition-all active:scale-95 shadow-sm">
+                ${lang === 'es' ? 'Cotizar Accesorio' : 'Quote Accessory'}
+              </button>
+              <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="w-11 h-[42px] flex-shrink-0 inline-flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition-all active:scale-95 shadow-sm" title="WhatsApp" aria-label="WhatsApp">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 5.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+            </div>
+            <button type="button" onclick="window.openHomeAccessoryModal('${a.id}')" class="w-full px-3 py-2 rounded-xl bg-navy-50 hover:bg-navy-100 text-navy-800 border border-navy-200 text-[11px] font-extrabold uppercase tracking-wider transition-all active:scale-95">
+              ${lang === 'es' ? 'Ver Ficha Técnica' : 'Technical Specs'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Update active button state
+  homeAccFilterContainer?.querySelectorAll<HTMLElement>('[data-home-acc-filter]').forEach(btn => {
+    const isAct = btn.dataset.homeAccFilter === activeHomeAccFilter;
+    if (isAct) {
+      btn.className = 'home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all bg-navy-900 text-white shadow-sm';
+    } else {
+      btn.className = 'home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all';
+    }
+  });
+}
+
+function openHomeAccessoryModal(id: string): void {
+  const a = homeAccessoriesList.find(x => x.id === id);
+  if (!a || !homeAccModal || !homeAccModalContent) return;
+  const lang = getLanguage();
+
+  const name = getLocalizedAccName(a);
+  const badge = getLocalizedAccBadge(a);
+  const desc = getLocalizedAccDesc(a);
+  const connector = getLocalizedAccConnector(a);
+
+  const specsRows = a.specs
+    .map(s => `
+      <tr class="border-b border-gray-100 last:border-0">
+        <td class="py-2.5 pr-4 text-xs font-bold uppercase tracking-wider text-gray-500 align-top">${getLocalizedAccSpecLabel(s)}</td>
+        <td class="py-2.5 text-sm font-semibold text-navy-800">${s.value}</td>
+      </tr>
+    `).join('');
+
+  const compatPills = a.compatibility
+    .map(c => `<span class="inline-block px-2.5 py-1 rounded-md bg-navy-50 border border-navy-100 text-[11px] font-semibold text-navy-800">${c}</span>`)
+    .join('');
+
+  const waMsg = lang === 'es'
+    ? `Hola G-TECH, me interesa el accesorio "${name}" (${connector}). ¿Tienen disponibilidad y precio?`
+    : `Hello G-TECH, I am interested in the "${name}" accessory (${connector}). Is it available?`;
+  const waLink = `https://wa.me/14074273356?text=${encodeURIComponent(waMsg)}`;
+
+  homeAccModalContent.innerHTML = `
+    <div class="relative">
+      <button type="button" onclick="window.closeHomeAccessoryModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all" aria-label="Close">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="flex flex-col sm:flex-row gap-6">
+        <div class="sm:w-56 flex-shrink-0">
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden aspect-square p-4 flex items-center justify-center">
+            <img src="${a.image}" alt="${name}" class="w-full h-full object-contain">
+          </div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-50 border border-crimson-200 text-crimson-800 text-[10px] font-extrabold uppercase tracking-widest">${badge}</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-navy-800 mt-2">${name}</h3>
+          <p class="text-sm text-gray-600 mt-2 leading-relaxed">${desc}</p>
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy-50 border border-navy-200 text-xs font-bold text-navy-800">
+              <svg class="w-3.5 h-3.5 text-crimson-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              ${lang === 'es' ? 'Conector' : 'Connector'}: ${connector}
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-100 border border-emerald-300 text-xs font-bold text-emerald-900">
+              ${a.inStock ? (lang === 'es' ? 'Disponible para Cotización' : 'Available for Quote') : (lang === 'es' ? 'Bajo Pedido' : 'On Request')}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-gray-100">
+        <h4 class="text-xs font-bold uppercase tracking-widest text-navy-800 mb-3">${lang === 'es' ? 'Ficha Técnica Oficial' : 'Official Specifications'}</h4>
+        <table class="w-full">${specsRows}</table>
+      </div>
+
+      <div class="mt-6">
+        <h4 class="text-xs font-bold uppercase tracking-widest text-navy-800 mb-2">${lang === 'es' ? 'Radios Compatibles' : 'Compatible Radios'}</h4>
+        <div class="flex flex-wrap gap-1.5">${compatPills}</div>
+      </div>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <button type="button" onclick="window.addHomeAccessoryToQuote('${a.id}'); window.closeHomeAccessoryModal();" class="flex-1 px-5 py-3.5 rounded-xl font-bold uppercase tracking-wider text-white bg-crimson-700 hover:bg-crimson-800 transition-all text-xs active:scale-95 shadow-md">
+          ${lang === 'es' ? 'Agregar a Cotización' : 'Add to Quotation'}
+        </button>
+        <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="flex-1 px-5 py-3.5 rounded-xl font-bold uppercase tracking-wider text-white bg-green-600 hover:bg-green-700 transition-all text-xs text-center active:scale-95 shadow-md">
+          ${lang === 'es' ? 'Consultar por WhatsApp' : 'Inquire via WhatsApp'}
+        </a>
+      </div>
+    </div>
+  `;
+
+  homeAccModal.classList.remove('hidden');
+  homeAccModal.classList.add('flex');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHomeAccessoryModal(): void {
+  if (!homeAccModal) return;
+  homeAccModal.classList.add('hidden');
+  homeAccModal.classList.remove('flex');
+  document.body.style.overflow = '';
+}
+
+function addHomeAccessoryToQuote(id: string): void {
+  const a = homeAccessoriesList.find(x => x.id === id);
+  if (!a) return;
+  addCartItem({
+    id: a.id,
+    name: getLocalizedAccName(a),
+    badge: getLocalizedAccConnector(a),
+    image: a.image,
+    quantity: 1,
+    inStock: a.inStock
+  });
+  openCartDrawer();
+}
+
+function initHomeAccessories(): void {
+  homeAccFilterContainer?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-home-acc-filter]');
+    if (!btn) return;
+    const cat = btn.dataset.homeAccFilter as any;
+    if (cat) {
+      activeHomeAccFilter = cat;
+      renderHomeAccessories();
+    }
+  });
+
+  homeAccModal?.addEventListener('click', (e) => {
+    if (e.target === homeAccModal) closeHomeAccessoryModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && homeAccModal && !homeAccModal.classList.contains('hidden')) {
+      closeHomeAccessoryModal();
+    }
+  });
+
+  renderHomeAccessories();
+}
+
 // Initialize Systems
 initI18n();
 updateStaticTranslations();
@@ -1230,6 +1483,19 @@ initComparison();
 initFinder();
 initLegalModule();
 initBriefings();
+initHomeAccessories();
+
+// Fetch price display setting from Turso
+fetch('/api/settings')
+  .then(res => res.json())
+  .then(data => {
+    (window as any).siteShowPrices = data.showPrices || false;
+    renderCatalog();
+  })
+  .catch(() => {
+    (window as any).siteShowPrices = false;
+    renderCatalog();
+  });
 
 // Fetch live products from Turso DB and refresh catalog
 fetchLiveProducts().then(() => {
@@ -1248,6 +1514,7 @@ onProductsUpdated(() => {
 onLanguageChange(() => {
   closeBriefingModal();
   renderBriefings();
+  renderHomeAccessories();
 });
 
 // Global Window Bindings
@@ -1256,3 +1523,6 @@ onLanguageChange(() => {
 (window as any).closeCartDrawer = () => closeCartDrawer();
 (window as any).resetFinder = () => resetFinder();
 (window as any).openLegalModal = (type: any) => openLegalModal(type);
+(window as any).openHomeAccessoryModal = openHomeAccessoryModal;
+(window as any).closeHomeAccessoryModal = closeHomeAccessoryModal;
+(window as any).addHomeAccessoryToQuote = addHomeAccessoryToQuote;

@@ -50,7 +50,8 @@ export function getShortModelName(p: Product): string {
     'G-510': 'G-510 POCKET POC',
     'G-H28': 'G-H28 TACTICAL KEYPAD POC',
     'WA0058-Vehicle': 'V1 PLUS POC GPS SOS 4G',
-    'WA0060-Armor': 'G-6 PLUS POC',
+    'WA0060-Black': 'G6 PLUS BLACK',
+    'WA0060-Green': 'G6 PLUS GREEN',
     'G-P0-Black': 'P0 IP6 BLACK',
     'P0-Ex-Blue': 'P0 IP6 BLUE ATEX',
     'WA0062-TriMode': 'G-8 PLUS TRI-MODE POC-UHF',
@@ -58,7 +59,9 @@ export function getShortModelName(p: Product): string {
     'WA0055-GlobalLTE': 'G0 PLUS GLOBAL LITE POC',
     'WA0057-TacticalField': 'G-9 PLUS TACTICAL FIELD POC',
     'WA0066-Alervites': 'ALERVITES AT1',
-    'WA0069-Bodycam': 'G-K8 4K BODYCAM POC'
+    'WA0069-Bodycam': 'G-K8 4K BODYCAM POC',
+    'G-8900-Pro': 'G-8900 PRO BASE STATION',
+    'G5-Plus': 'G5 PLUS COMMERCIAL POC'
   };
   return map[p.id] || p.shortName || p.name;
 }

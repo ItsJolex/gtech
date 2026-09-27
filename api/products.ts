@@ -29,7 +29,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           is_visible, fallback_similar_id, fallback_reason,
           specs, comparison, tags, colors, category, sort_order
         FROM products 
-        WHERE is_visible = 1 AND category = ?
+        WHERE is_visible = 1 AND (is_deleted = 0 OR is_deleted IS NULL) AND category = ?
         ORDER BY sort_order ASC, updated_at DESC;
       `,
       args: ['radio'],

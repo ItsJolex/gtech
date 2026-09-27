@@ -6,12 +6,15 @@ interface ExtendedProduct extends Product {
   isVisible?: boolean;
   category?: string;
   sortOrder?: number;
+  isDeleted?: boolean;
+  deletedAt?: string;
 }
 
 // Global State
 let allProducts: ExtendedProduct[] = [];
 let currentFilter = 'all';
 let currentSearch = '';
+let currentCategory: 'radio' | 'accessory' = 'radio';
 let editingProduct: ExtendedProduct | null = null;
 let adminToken: string | null = sessionStorage.getItem('gtech_admin_token');
 
@@ -83,6 +86,7 @@ async function handleLogin(password: string) {
       authOverlay.classList.add('hidden');
       adminApp.classList.remove('hidden');
       loadProducts();
+      loadSettings();
     } else {
       authError.textContent = data.error || 'Clave maestra incorrecta';
       authError.classList.remove('hidden');
@@ -90,6 +94,47 @@ async function handleLogin(password: string) {
   } catch (err) {
     authError.textContent = 'Error al comunicarse con el servidor de autenticación';
     authError.classList.remove('hidden');
+  }
+}
+
+async function loadSettings() {
+  if (!adminToken) return;
+  try {
+    const res = await fetch('/api/admin/settings', {
+      headers: { Authorization: `Bearer ${adminToken}` },
+    });
+    if (res.ok) {
+      const settings = await res.json();
+      const showPrices = settings.show_prices === 'true';
+      updatePriceToggle(showPrices);
+    }
+  } catch (err) {
+    console.warn('Could not load settings:', err);
+  }
+}
+
+function updatePriceToggle(showPrices: boolean) {
+  const toggleBtn = document.getElementById('toggle-price-display') as HTMLButtonElement;
+  const slider = document.getElementById('toggle-price-slider') as HTMLSpanElement;
+  const label = document.getElementById('toggle-price-label') as HTMLSpanElement;
+  if (!toggleBtn || !slider || !label) return;
+  
+  if (showPrices) {
+    toggleBtn.classList.remove('bg-slate-700');
+    toggleBtn.classList.add('bg-emerald-600');
+    slider.classList.remove('translate-x-1');
+    slider.classList.add('translate-x-6');
+    label.textContent = 'ON';
+    label.classList.remove('text-slate-400');
+    label.classList.add('text-emerald-400');
+  } else {
+    toggleBtn.classList.remove('bg-emerald-600');
+    toggleBtn.classList.add('bg-slate-700');
+    slider.classList.remove('translate-x-6');
+    slider.classList.add('translate-x-1');
+    label.textContent = 'OFF';
+    label.classList.remove('text-emerald-400');
+    label.classList.add('text-slate-400');
   }
 }
 
@@ -118,6 +163,38 @@ logoutBtn?.addEventListener('click', () => {
   adminPassInput.value = '';
 });
 
+document.getElementById('toggle-price-display')?.addEventListener('click', async () => {
+  if (!adminToken) return;
+  
+  const toggleBtn = document.getElementById('toggle-price-display') as HTMLButtonElement;
+  
+  const isCurrentlyOn = toggleBtn.classList.contains('bg-emerald-600');
+  const newValue = !isCurrentlyOn;
+  
+  try {
+    toggleBtn.disabled = true;
+    const res = await fetch('/api/admin/settings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${adminToken}`,
+      },
+      body: JSON.stringify({ key: 'show_prices', value: String(newValue) }),
+    });
+    
+    if (res.ok) {
+      updatePriceToggle(newValue);
+      showToast(`Precios en tienda pública: ${newValue ? 'ACTIVADOS' : 'DESACTIVADOS'}`);
+    } else {
+      showToast('Error al actualizar configuración', true);
+    }
+  } catch (err) {
+    showToast('Error de conexión', true);
+  } finally {
+    toggleBtn.disabled = false;
+  }
+});
+
 // -------------------------------------------------------------
 // 2. DATA FETCHING (TURSO API)
 // -------------------------------------------------------------
@@ -132,7 +209,7 @@ async function loadProducts() {
   `;
 
   try {
-    const res = await fetch('/api/admin/products', {
+    const res = await fetch(`/api/admin/products?category=${currentCategory}`, {
       headers: {
         Authorization: `Bearer ${adminToken}`,
       },
@@ -170,17 +247,20 @@ function updateCounts() {
   const countVisible = document.getElementById('count-visible');
   const countHidden = document.getElementById('count-hidden');
   const countLow = document.getElementById('count-low');
+  const countTrash = document.getElementById('count-trash');
   const radiosCountBadge = document.getElementById('radios-count-badge');
 
-  const visible = allProducts.filter((p) => p.isVisible !== false).length;
-  const hidden = allProducts.filter((p) => p.isVisible === false).length;
-  const low = allProducts.filter((p) => p.stockStatus === 'low_stock' || p.stockStatus === 'out_of_stock').length;
+  const visible = allProducts.filter((p) => p.isVisible !== false && !p.isDeleted).length;
+  const hidden = allProducts.filter((p) => p.isVisible === false && !p.isDeleted).length;
+  const low = allProducts.filter((p) => (p.stockStatus === 'low_stock' || p.stockStatus === 'out_of_stock') && !p.isDeleted).length;
+  const trash = allProducts.filter((p) => p.isDeleted === true).length;
 
-  if (countAll) countAll.textContent = String(allProducts.length);
+  if (countAll) countAll.textContent = String(allProducts.filter(p => !p.isDeleted).length);
   if (countVisible) countVisible.textContent = String(visible);
   if (countHidden) countHidden.textContent = String(hidden);
   if (countLow) countLow.textContent = String(low);
-  if (radiosCountBadge) radiosCountBadge.textContent = String(allProducts.length);
+  if (countTrash) countTrash.textContent = String(trash);
+  if (radiosCountBadge) radiosCountBadge.textContent = String(allProducts.filter(p => !p.isDeleted).length);
 }
 
 // -------------------------------------------------------------
@@ -189,9 +269,11 @@ function updateCounts() {
 function renderProducts() {
   let filtered = allProducts.filter((p) => {
     // Status filter
-    if (currentFilter === 'visible' && p.isVisible === false) return false;
-    if (currentFilter === 'hidden' && p.isVisible !== false) return false;
-    if (currentFilter === 'low_stock' && p.stockStatus !== 'low_stock' && p.stockStatus !== 'out_of_stock') return false;
+    if (currentFilter === 'visible' && (p.isVisible === false || p.isDeleted === true)) return false;
+    if (currentFilter === 'hidden' && (p.isVisible !== false || p.isDeleted === true)) return false;
+    if (currentFilter === 'low_stock' && (p.stockStatus !== 'low_stock' && p.stockStatus !== 'out_of_stock' || p.isDeleted === true)) return false;
+    if (currentFilter === 'trash' && p.isDeleted !== true) return false;
+    if (currentFilter === 'all' && p.isDeleted === true) return false;
 
     // Search term
     if (currentSearch) {
@@ -304,24 +386,44 @@ function renderProducts() {
 
           <!-- Bottom Action Buttons -->
           <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-            <button 
-              type="button" 
-              data-action="edit" 
-              data-id="${p.id}"
-              class="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-              <span>Editar Ficha</span>
-            </button>
+            ${p.isDeleted === true ? `
+              <button 
+                type="button" 
+                data-action="restore" 
+                data-id="${p.id}"
+                class="flex-1 bg-emerald-900/60 hover:bg-emerald-800 active:scale-95 text-white py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>Restaurar</span>
+              </button>
+              <button 
+                type="button" 
+                data-action="permanent-delete" 
+                data-id="${p.id}"
+                data-name="${p.name}"
+                class="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors"
+                title="Eliminar permanentemente">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            ` : `
+              <button 
+                type="button" 
+                data-action="edit" 
+                data-id="${p.id}"
+                class="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <span>Editar Ficha</span>
+              </button>
 
-            <button 
-              type="button" 
-              data-action="delete" 
-              data-id="${p.id}"
-              data-name="${p.name}"
-              class="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors"
-              title="Eliminar radio permanentemente">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            </button>
+              <button 
+                type="button" 
+                data-action="delete" 
+                data-id="${p.id}"
+                data-name="${p.name}"
+                class="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors"
+                title="Mover a la papelera">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            `}
           </div>
 
         </div>
@@ -377,9 +479,64 @@ productsContainer?.addEventListener('click', async (e) => {
 
   if (action === 'delete') {
     const name = target.dataset.name || id;
-    if (confirm(`¿Estás seguro de eliminar permanentemente el radio "${name}" (${id})? Esta acción no se puede deshacer.`)) {
+    if (confirm(`¿Estás seguro de mover el radio "${name}" (${id}) a la papelera?`)) {
       try {
         const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        });
+
+        if (res.ok) {
+          const product = allProducts.find((p) => p.id === id);
+          if (product) product.isDeleted = true;
+          updateCounts();
+          renderProducts();
+          showToast(`Radio "${name}" movido a la papelera`);
+        } else {
+          showToast('No se pudo mover a la papelera', true);
+        }
+      } catch (err) {
+        showToast('Error de conexión al eliminar', true);
+      }
+    }
+  }
+
+  if (action === 'restore') {
+    const product = allProducts.find((p) => p.id === id);
+    const name = product?.name || id;
+    if (confirm(`¿Restaurar el radio "${name}" (${id}) desde la papelera?`)) {
+      try {
+        const res = await fetch('/api/admin/restore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminToken}`,
+          },
+          body: JSON.stringify({ id }),
+        });
+
+        if (res.ok) {
+          const product = allProducts.find((p) => p.id === id);
+          if (product) product.isDeleted = false;
+          updateCounts();
+          renderProducts();
+          showToast(`Radio "${name}" restaurado exitosamente`);
+        } else {
+          showToast('No se pudo restaurar el producto', true);
+        }
+      } catch (err) {
+        showToast('Error de conexión al restaurar', true);
+      }
+    }
+  }
+
+  if (action === 'permanent-delete') {
+    const name = target.dataset.name || id;
+    if (confirm(`¿ELIMINAR DEFINITIVAMENTE el radio "${name}" (${id})? Esta acción NO se puede deshacer.`)) {
+      try {
+        const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}&permanent=true`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${adminToken}`,
@@ -390,7 +547,7 @@ productsContainer?.addEventListener('click', async (e) => {
           allProducts = allProducts.filter((p) => p.id !== id);
           updateCounts();
           renderProducts();
-          showToast(`Radio "${name}" eliminado de Turso DB`);
+          showToast(`Radio "${name}" eliminado permanentemente`);
         } else {
           showToast('No se pudo eliminar el producto', true);
         }
@@ -485,7 +642,7 @@ pImageInput?.addEventListener('input', () => {
 // -------------------------------------------------------------
 // 7. MODAL DRAWER & TABS CONTROLLER
 // -------------------------------------------------------------
-function openProductModal(product: ExtendedProduct | null = null) {
+function openProductModal(product: ExtendedProduct | null = null, category: 'radio' | 'accessory' = 'radio') {
   editingProduct = product;
   const isEdit = Boolean(product);
 
@@ -541,15 +698,18 @@ function openProductModal(product: ExtendedProduct | null = null) {
     (document.getElementById('p-fallbackReason') as HTMLInputElement).value = product.fallbackReason || '';
   } else {
     // New Product Mode
-    if (modalTitle) modalTitle.textContent = 'Crear Nuevo Radio Táctico';
-    if (modalSubtitle) modalSubtitle.textContent = 'Se creará en Turso DB y aparecerá de inmediato en el catálogo.';
+    const isAccessory = category === 'accessory';
+    if (modalTitle) modalTitle.textContent = isAccessory ? 'Crear Nuevo Accesorio' : 'Crear Nuevo Radio Táctico';
+    if (modalSubtitle) modalSubtitle.textContent = isAccessory 
+      ? 'Se creará en Turso DB y aparecerá en el catálogo de accesorios.' 
+      : 'Se creará en Turso DB y aparecerá de inmediato en el catálogo.';
     btnDeleteProduct.classList.add('hidden');
 
     (document.getElementById('p-id') as HTMLInputElement).value = '';
     (document.getElementById('p-id') as HTMLInputElement).disabled = false;
     (document.getElementById('p-name') as HTMLInputElement).value = '';
     (document.getElementById('p-shortName') as HTMLInputElement).value = '';
-    (document.getElementById('p-badge') as HTMLInputElement).value = 'POC TACTICAL RADIO';
+    (document.getElementById('p-badge') as HTMLInputElement).value = isAccessory ? 'TACTICAL ACCESSORY' : 'POC TACTICAL RADIO';
     (document.getElementById('p-stockStatus') as HTMLSelectElement).value = 'in_stock';
     (document.getElementById('p-stockCount') as HTMLInputElement).value = '50';
     (document.getElementById('p-priceEstimate') as HTMLInputElement).value = '';
@@ -560,25 +720,44 @@ function openProductModal(product: ExtendedProduct | null = null) {
     imagePreview.src = '/images/logo-patch.webp';
     optimizationStats.textContent = 'Sin imagen';
 
-    (document.getElementById('dos-connectivity') as HTMLInputElement).value = '4G LTE Nationwide POC';
-    (document.getElementById('dos-protection') as HTMLInputElement).value = 'IP67 Waterproof & Dustproof';
-    (document.getElementById('dos-batteryRuntime') as HTMLInputElement).value = '24 Hours Full Shift';
-    (document.getElementById('dos-audioOutput') as HTMLInputElement).value = '2.0W High Pressure Audio';
-    (document.getElementById('dos-controls') as HTMLInputElement).value = 'Tactile PTT & Emergency Key';
-    (document.getElementById('dos-formFactor') as HTMLInputElement).value = 'Ergonomic Rugged Handheld';
-    (document.getElementById('dos-antenna') as HTMLInputElement).value = 'High-Gain Antennas';
-    (document.getElementById('dos-emergency') as HTMLInputElement).value = 'Dedicated Top SOS Button';
-    (document.getElementById('dos-videoVision') as HTMLInputElement).value = 'Not available';
-    (document.getElementById('dos-certifications') as HTMLInputElement).value = 'CE / FCC Certified';
+    if (isAccessory) {
+      (document.getElementById('dos-connectivity') as HTMLInputElement).value = 'Compatible con conectores Type-K / Type-C / RJ';
+      (document.getElementById('dos-protection') as HTMLInputElement).value = 'IP54 Splash & Dust Resistant';
+      (document.getElementById('dos-batteryRuntime') as HTMLInputElement).value = 'N/A (Pasivo)';
+      (document.getElementById('dos-audioOutput') as HTMLInputElement).value = 'Micrófono/Auricular Pasivo';
+      (document.getElementById('dos-controls') as HTMLInputElement).value = 'PTT Integrado en Micrófono';
+      (document.getElementById('dos-formFactor') as HTMLInputElement).value = 'Accesorio Táctico Modular';
+      (document.getElementById('dos-antenna') as HTMLInputElement).value = 'N/A';
+      (document.getElementById('dos-emergency') as HTMLInputElement).value = 'N/A';
+      (document.getElementById('dos-videoVision') as HTMLInputElement).value = 'N/A';
+      (document.getElementById('dos-certifications') as HTMLInputElement).value = 'CE / FCC / RoHS';
 
-    renderSpecsRows([
-      { label: 'Red', value: '4G LTE Push-To-Talk' },
-      { label: 'Batería', value: '4000mAh Li-ion' },
-    ]);
+      renderSpecsRows([
+        { label: 'Conector', value: 'Type-K / Type-C / RJ / 2-Pin' },
+        { label: 'Compatibilidad', value: 'G-M2, G-510, G-F1, G-889, G-8900 Pro, G6 Plus, P0, G5 Plus, V1 Plus, Alervites AT1' },
+        { label: 'Tipo', value: 'Micrófono de Hombro / Auricular Encubierto / Base de Carga' },
+      ]);
+    } else {
+      (document.getElementById('dos-connectivity') as HTMLInputElement).value = '4G LTE Nationwide POC';
+      (document.getElementById('dos-protection') as HTMLInputElement).value = 'IP67 Waterproof & Dustproof';
+      (document.getElementById('dos-batteryRuntime') as HTMLInputElement).value = '24 Hours Full Shift';
+      (document.getElementById('dos-audioOutput') as HTMLInputElement).value = '2.0W High Pressure Audio';
+      (document.getElementById('dos-controls') as HTMLInputElement).value = 'Tactile PTT & Emergency Key';
+      (document.getElementById('dos-formFactor') as HTMLInputElement).value = 'Ergonomic Rugged Handheld';
+      (document.getElementById('dos-antenna') as HTMLInputElement).value = 'High-Gain Antennas';
+      (document.getElementById('dos-emergency') as HTMLInputElement).value = 'Dedicated Top SOS Button';
+      (document.getElementById('dos-videoVision') as HTMLInputElement).value = 'Not available';
+      (document.getElementById('dos-certifications') as HTMLInputElement).value = 'CE / FCC Certified';
+
+      renderSpecsRows([
+        { label: 'Red', value: '4G LTE Push-To-Talk' },
+        { label: 'Batería', value: '4000mAh Li-ion' },
+      ]);
+    }
 
     renderColorsRows([]);
 
-    (document.getElementById('p-tags') as HTMLInputElement).value = 'poc, tactical, 4g, nationwide';
+    (document.getElementById('p-tags') as HTMLInputElement).value = isAccessory ? 'accessory, tactical, mic, earpiece, charger' : 'poc, tactical, 4g, nationwide';
     (document.getElementById('p-fallbackId') as HTMLInputElement).value = '';
     (document.getElementById('p-fallbackReason') as HTMLInputElement).value = '';
   }
@@ -595,7 +774,7 @@ function closeProductModal() {
   editingProduct = null;
 }
 
-btnNewProduct?.addEventListener('click', () => openProductModal(null));
+btnNewProduct?.addEventListener('click', () => openProductModal(null, currentCategory));
 btnCloseModal?.addEventListener('click', closeProductModal);
 btnCancelModal?.addEventListener('click', closeProductModal);
 
@@ -801,7 +980,7 @@ btnSaveProduct?.addEventListener('click', async () => {
     comparison,
     tags,
     colors: colors.length > 0 ? colors : undefined,
-    category: 'radio',
+    category: currentCategory,
   };
 
   btnSaveProduct.disabled = true;
@@ -843,7 +1022,7 @@ btnDeleteProduct?.addEventListener('click', async () => {
   if (!editingProduct) return;
   const { id, name } = editingProduct;
 
-  if (confirm(`¿Confirmas la eliminación permanente del radio "${name}" (${id})?`)) {
+  if (confirm(`¿Confirmas mover el producto "${name}" (${id}) a la papelera?\n\nPodrás restaurarlo o eliminarlo definitivamente desde la pestaña Papelera.`)) {
     try {
       const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}`, {
         method: 'DELETE',
@@ -853,7 +1032,7 @@ btnDeleteProduct?.addEventListener('click', async () => {
       });
 
       if (res.ok) {
-        showToast(`Radio "${name}" eliminado`);
+        showToast(`"${name}" movido a la papelera`);
         closeProductModal();
         loadProducts();
       } else {
@@ -884,7 +1063,46 @@ if (adminToken) {
   authOverlay.classList.add('hidden');
   adminApp.classList.remove('hidden');
   loadProducts();
+  loadSettings();
 } else {
   authOverlay.classList.remove('hidden');
   adminApp.classList.add('hidden');
 }
+
+// Tab navigation for Radios / Accessories
+const tabRadios = document.getElementById('tab-radios');
+const tabAccessories = document.getElementById('tab-accessories');
+
+function setNewProductLabel(label: string) {
+  const labelSpan = btnNewProduct?.querySelector('span');
+  if (labelSpan) {
+    labelSpan.textContent = label;
+  } else if (btnNewProduct) {
+    btnNewProduct.textContent = label;
+  }
+}
+
+function setActiveTab(category: 'radio' | 'accessory') {
+  currentCategory = category;
+  if (category === 'radio') {
+    tabRadios?.classList.add('bg-crimson-700', 'text-white', 'shadow-sm');
+    tabRadios?.classList.remove('text-slate-400');
+    tabAccessories?.classList.remove('bg-crimson-700', 'text-white', 'shadow-sm');
+    tabAccessories?.classList.add('text-slate-400');
+    setNewProductLabel('Nuevo Radio Táctico');
+  } else {
+    tabAccessories?.classList.add('bg-crimson-700', 'text-white', 'shadow-sm');
+    tabAccessories?.classList.remove('text-slate-400');
+    tabRadios?.classList.remove('bg-crimson-700', 'text-white', 'shadow-sm');
+    tabRadios?.classList.add('text-slate-400');
+    setNewProductLabel('Nuevo Accesorio');
+  }
+  currentFilter = 'all';
+  loadProducts();
+}
+
+tabRadios?.addEventListener('click', () => setActiveTab('radio'));
+tabAccessories?.addEventListener('click', () => setActiveTab('accessory'));
+
+// Modify loadProducts to use currentCategory
+// This is done by updating the fetch URL in loadProducts function

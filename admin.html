@@ -88,6 +88,15 @@
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               <span id="db-status-text">Turso DB Conectado</span>
             </div>
+
+            <!-- Price Toggle in Header -->
+            <div class="flex items-center gap-2 bg-slate-950 px-3.5 py-1.5 rounded-xl border border-slate-800">
+              <span class="text-xs font-bold text-slate-300 uppercase">Precios en Tienda:</span>
+              <button id="toggle-price-display" type="button" class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors bg-slate-700">
+                <span id="toggle-price-slider" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1"></span>
+              </button>
+              <span id="toggle-price-label" class="text-xs font-extrabold text-slate-400">OFF</span>
+            </div>
           </div>
 
           <!-- Catalog Navigation Tabs -->
@@ -104,7 +113,6 @@
               class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
               <span>Accesorios</span>
-              <span class="text-[9px] uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-semibold">Fase 2</span>
             </button>
           </nav>
 
@@ -168,6 +176,7 @@
             <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="visible">Visibles (<span id="count-visible">0</span>)</button>
             <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="hidden">Ocultos (<span id="count-hidden">0</span>)</button>
             <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="low_stock">Bajo Stock (<span id="count-low">0</span>)</button>
+            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="trash">Papelera (<span id="count-trash">0</span>)</button>
           </div>
         </div>
 
@@ -558,7 +567,7 @@
           type="button" 
           id="btn-delete-product" 
           class="hidden px-4 py-2 rounded-xl text-xs font-bold text-rose-400 hover:text-white hover:bg-rose-900/60 transition-colors border border-rose-900/60">
-          Eliminar Radio
+          Mover a Papelera
         </button>
         <div></div>
 

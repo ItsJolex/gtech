@@ -55,6 +55,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             in_stock, stock_status, stock_count, price_estimate, discount_price,
             is_visible, fallback_similar_id, fallback_reason,
             specs, comparison, tags, colors, category, sort_order,
+            is_deleted, deleted_at,
             created_at, updated_at
           FROM products
           WHERE category = ?
@@ -84,6 +85,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         colors: row.colors ? JSON.parse(row.colors as string) : undefined,
         category: (row.category as string) || 'radio',
         sortOrder: Number(row.sort_order || 0),
+        isDeleted: Number(row.is_deleted || 0) === 1,
+        deletedAt: (row.deleted_at as string) || undefined,
         createdAt: row.created_at,
         updatedAt: row.updated_at,
       }));
@@ -268,24 +271,39 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // ----------------------------------------------------
-    // DELETE: Remove product
+    // DELETE: Remove product (soft delete by default, permanent if requested)
     // ----------------------------------------------------
     if (method === 'DELETE') {
       const id = (req.query.id as string) || req.body?.id;
+      const permanent = req.query.permanent === 'true';
+
       if (!id) {
         return res.status(400).json({ error: 'Product ID is required for deletion' });
       }
 
-      const result = await client.execute({
-        sql: 'DELETE FROM products WHERE id = ?;',
-        args: [id],
-      });
+      if (permanent) {
+        const result = await client.execute({
+          sql: 'DELETE FROM products WHERE id = ?;',
+          args: [id],
+        });
 
-      if (result.rowsAffected === 0) {
-        return res.status(404).json({ error: `Product "${id}" not found` });
+        if (result.rowsAffected === 0) {
+          return res.status(404).json({ error: `Product "${id}" not found` });
+        }
+
+        return res.status(200).json({ ok: true, id, message: 'Producto eliminado definitivamente' });
+      } else {
+        const result = await client.execute({
+          sql: 'UPDATE products SET is_deleted = 1, deleted_at = CURRENT_TIMESTAMP WHERE id = ?;',
+          args: [id]
+        });
+
+        if (result.rowsAffected === 0) {
+          return res.status(404).json({ error: `Producto "${id}" no encontrado` });
+        }
+
+        return res.status(200).json({ ok: true, id, message: 'Producto movido a la papelera' });
       }
-
-      return res.status(200).json({ ok: true, id, message: 'Product deleted successfully' });
     }
 
     return res.status(405).json({ error: `Method ${method} not allowed` });
