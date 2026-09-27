@@ -317,12 +317,12 @@ function renderCatalog(): void {
     return `
       <div id="catalog-card-${product.id}" class="bg-white rounded-2xl p-2.5 sm:p-4 shadow-sm hover:shadow-xl border border-slate-200/90 hover:border-crimson-700/40 flex flex-col h-full relative group cursor-pointer transition-all duration-300 card-hardware-accel" onclick="openModal('${product.id}')">
 
-        <!-- 1. IMAGE CONTAINER (Sin recorte de antenas + Botones SIM y Specs en esquinas originales) -->
-        <div class="aspect-square bg-slate-50/90 rounded-xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-slate-200/70 group/cardimg shadow-2xs">
+        <!-- 1. IMAGE CONTAINER (Ajuste 1:1 borde a borde con cuadro redondeado) -->
+        <div class="aspect-square bg-navy-950/10 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-slate-200/70 group/cardimg shadow-xs">
           <img id="card-img-${product.id}"
                src="${initialCardImg}"
                alt="${localized.name}"
-               class="w-full h-full object-contain p-2.5 sm:p-3.5 rounded-xl group-hover:scale-105 transition-transform duration-300"
+               class="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-transform duration-300"
                loading="lazy">
 
           <!-- Top Badges Header -->

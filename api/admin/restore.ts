@@ -17,7 +17,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!verifyAuth(req)) return res.status(401).json({ error: 'Unauthorized' });
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { id } = req.body || {};
+  const { id, type } = req.body || {};
   if (!id) return res.status(400).json({ error: 'ID is required' });
 
   const client = createClient({
@@ -25,14 +25,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     authToken: process.env.TURSO_AUTH_TOKEN!,
   });
 
-  const result = await client.execute({
-    sql: 'UPDATE products SET is_deleted = 0, deleted_at = NULL, updated_at = CURRENT_TIMESTAMP WHERE id = ?;',
+  const targetTable = type === 'accessory' ? 'accessories' : 'products';
+  let result = await client.execute({
+    sql: `UPDATE ${targetTable} SET is_deleted = 0, deleted_at = NULL, updated_at = CURRENT_TIMESTAMP WHERE id = ?;`,
     args: [id],
   });
 
-  if (result.rowsAffected === 0) {
-    return res.status(404).json({ error: `Producto "${id}" no encontrado` });
+  if (result.rowsAffected === 0 && targetTable === 'products') {
+    result = await client.execute({
+      sql: 'UPDATE accessories SET is_deleted = 0, deleted_at = NULL, updated_at = CURRENT_TIMESTAMP WHERE id = ?;',
+      args: [id],
+    });
   }
 
-  return res.status(200).json({ ok: true, message: `Producto ${id} restaurado exitosamente` });
+  if (result.rowsAffected === 0) {
+    return res.status(404).json({ error: `Elemento "${id}" no encontrado` });
+  }
+
+  return res.status(200).json({ ok: true, message: `Elemento ${id} restaurado exitosamente` });
 }

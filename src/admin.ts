@@ -8,6 +8,13 @@ interface ExtendedProduct extends Product {
   sortOrder?: number;
   isDeleted?: boolean;
   deletedAt?: string;
+  nameEs?: string;
+  badgeEs?: string;
+  descriptionEs?: string;
+  connector?: string;
+  connectorEs?: string;
+  compatibility?: string[];
+  secondaryImage?: string;
 }
 
 // Global State
@@ -198,18 +205,45 @@ document.getElementById('toggle-price-display')?.addEventListener('click', async
 // -------------------------------------------------------------
 // 2. DATA FETCHING (TURSO API)
 // -------------------------------------------------------------
+async function updateTabBadges() {
+  if (!adminToken) return;
+  try {
+    const [radiosRes, accRes] = await Promise.all([
+      fetch('/api/admin/products?category=radio', { headers: { Authorization: `Bearer ${adminToken}` } }),
+      fetch('/api/admin/accessories', { headers: { Authorization: `Bearer ${adminToken}` } }),
+    ]);
+
+    if (radiosRes.ok) {
+      const radios = await radiosRes.json();
+      const count = radios.filter((r: any) => !r.isDeleted).length;
+      const b = document.getElementById('radios-count-badge');
+      if (b) b.textContent = String(count);
+    }
+    if (accRes.ok) {
+      const accessories = await accRes.json();
+      const count = accessories.filter((a: any) => !a.isDeleted).length;
+      const b = document.getElementById('accessories-count-badge');
+      if (b) b.textContent = String(count);
+    }
+  } catch (err) {
+    console.warn('Could not update tab counts:', err);
+  }
+}
+
 async function loadProducts() {
   if (!adminToken) return;
 
+  const isAccessory = currentCategory === 'accessory';
   productsContainer.innerHTML = `
     <div class="col-span-full py-16 text-center text-slate-500">
       <div class="inline-block animate-spin w-8 h-8 border-4 border-crimson-600 border-t-transparent rounded-full mb-3"></div>
-      <p class="text-sm font-semibold">Cargando flota de radios desde Turso DB...</p>
+      <p class="text-sm font-semibold">Cargando ${isAccessory ? 'catálogo de accesorios' : 'flota de radios'} desde Turso DB...</p>
     </div>
   `;
 
   try {
-    const res = await fetch(`/api/admin/products?category=${currentCategory}`, {
+    const endpoint = isAccessory ? '/api/admin/accessories' : '/api/admin/products?category=radio';
+    const res = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${adminToken}`,
       },
@@ -230,11 +264,12 @@ async function loadProducts() {
     allProducts = await res.json();
     updateCounts();
     renderProducts();
+    updateTabBadges();
   } catch (err: any) {
-    console.error('Error fetching products:', err);
+    console.error('Error fetching data:', err);
     productsContainer.innerHTML = `
       <div class="col-span-full py-12 text-center text-rose-400 bg-rose-950/20 border border-rose-900/50 rounded-2xl p-6">
-        <p class="font-bold text-sm">Error al cargar productos de Turso DB</p>
+        <p class="font-bold text-sm">Error al cargar datos de Turso DB</p>
         <p class="text-xs text-slate-400 mt-1">${err.message}</p>
         <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold">Reintentar</button>
       </div>
@@ -248,11 +283,10 @@ function updateCounts() {
   const countHidden = document.getElementById('count-hidden');
   const countLow = document.getElementById('count-low');
   const countTrash = document.getElementById('count-trash');
-  const radiosCountBadge = document.getElementById('radios-count-badge');
 
   const visible = allProducts.filter((p) => p.isVisible !== false && !p.isDeleted).length;
   const hidden = allProducts.filter((p) => p.isVisible === false && !p.isDeleted).length;
-  const low = allProducts.filter((p) => (p.stockStatus === 'low_stock' || p.stockStatus === 'out_of_stock') && !p.isDeleted).length;
+  const low = allProducts.filter((p) => (p.stockStatus === 'low_stock' || p.stockStatus === 'out_of_stock' || p.inStock === false) && !p.isDeleted).length;
   const trash = allProducts.filter((p) => p.isDeleted === true).length;
 
   if (countAll) countAll.textContent = String(allProducts.filter(p => !p.isDeleted).length);
@@ -260,29 +294,32 @@ function updateCounts() {
   if (countHidden) countHidden.textContent = String(hidden);
   if (countLow) countLow.textContent = String(low);
   if (countTrash) countTrash.textContent = String(trash);
-  if (radiosCountBadge) radiosCountBadge.textContent = String(allProducts.filter(p => !p.isDeleted).length);
 }
 
 // -------------------------------------------------------------
 // 3. PRODUCT RENDERING
 // -------------------------------------------------------------
 function renderProducts() {
+  const isAccessory = currentCategory === 'accessory';
+
   let filtered = allProducts.filter((p) => {
     // Status filter
     if (currentFilter === 'visible' && (p.isVisible === false || p.isDeleted === true)) return false;
     if (currentFilter === 'hidden' && (p.isVisible !== false || p.isDeleted === true)) return false;
-    if (currentFilter === 'low_stock' && (p.stockStatus !== 'low_stock' && p.stockStatus !== 'out_of_stock' || p.isDeleted === true)) return false;
+    if (currentFilter === 'low_stock' && (p.stockStatus !== 'low_stock' && p.stockStatus !== 'out_of_stock' && p.inStock !== false || p.isDeleted === true)) return false;
     if (currentFilter === 'trash' && p.isDeleted !== true) return false;
     if (currentFilter === 'all' && p.isDeleted === true) return false;
 
     // Search term
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
-      const matchName = p.name.toLowerCase().includes(q);
-      const matchId = p.id.toLowerCase().includes(q);
-      const matchBadge = p.badge.toLowerCase().includes(q);
-      const matchDesc = p.description.toLowerCase().includes(q);
-      return matchName || matchId || matchBadge || matchDesc;
+      const matchName = (p.name || '').toLowerCase().includes(q);
+      const matchNameEs = (p.nameEs || '').toLowerCase().includes(q);
+      const matchId = (p.id || '').toLowerCase().includes(q);
+      const matchBadge = (p.badge || '').toLowerCase().includes(q);
+      const matchDesc = (p.description || '').toLowerCase().includes(q);
+      const matchConnector = (p.connector || '').toLowerCase().includes(q);
+      return matchName || matchNameEs || matchId || matchBadge || matchDesc || matchConnector;
     }
 
     return true;
@@ -292,7 +329,7 @@ function renderProducts() {
     productsContainer.innerHTML = `
       <div class="col-span-full py-16 text-center text-slate-500">
         <svg class="w-12 h-12 mx-auto text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <p class="text-sm font-bold text-slate-400">No se encontraron productos con los filtros aplicados</p>
+        <p class="text-sm font-bold text-slate-400">No se encontraron ${isAccessory ? 'accesorios' : 'productos'} con los filtros aplicados</p>
         <p class="text-xs text-slate-500 mt-1">Prueba con otro término o limpia la búsqueda.</p>
       </div>
     `;
@@ -305,13 +342,26 @@ function renderProducts() {
       const isDiscount = Boolean(p.discountPrice);
 
       let stockPill = '';
-      if (p.stockStatus === 'out_of_stock') {
+      if (p.stockStatus === 'out_of_stock' || p.inStock === false) {
         stockPill = '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-rose-950 text-rose-300 border border-rose-800">Agotado</span>';
       } else if (p.stockStatus === 'low_stock') {
         stockPill = '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-amber-950 text-amber-300 border border-amber-800">Bajo Stock</span>';
       } else {
         stockPill = '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-950 text-emerald-300 border border-emerald-800">Disponible</span>';
       }
+
+      const connectorHtml = p.connector ? `
+        <div class="inline-flex items-center gap-1.5 text-[11px] font-mono text-cyan-400 bg-cyan-950/70 border border-cyan-800/40 px-2 py-0.5 rounded-md mt-1">
+          <svg class="w-3 h-3 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span class="truncate">${p.connector}</span>
+        </div>
+      ` : '';
+
+      const compatHtml = (p.compatibility && p.compatibility.length > 0) ? `
+        <div class="text-[10px] text-slate-400 mt-1 truncate" title="Compatible con: ${p.compatibility.join(', ')}">
+          <span class="text-slate-500 font-bold uppercase">Compat:</span> ${p.compatibility.join(', ')}
+        </div>
+      ` : '';
 
       return `
         <div class="bg-slate-900 border ${
@@ -354,9 +404,14 @@ function renderProducts() {
               <h3 class="text-sm font-extrabold text-white leading-tight group-hover:text-cyan-300 transition-colors line-clamp-2">
                 ${p.name}
               </h3>
-              <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-950 px-2 py-0.5 rounded-md">
-                ${p.badge}
-              </span>
+              ${p.nameEs && p.nameEs !== p.name ? `<p class="text-xs text-slate-400 line-clamp-1 italic">${p.nameEs}</p>` : ''}
+              <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-950 px-2 py-0.5 rounded-md">
+                  ${p.badge}
+                </span>
+                ${connectorHtml}
+              </div>
+              ${compatHtml}
             </div>
 
             <!-- Price and Discount Tag -->
@@ -411,7 +466,7 @@ function renderProducts() {
                 data-id="${p.id}"
                 class="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                <span>Editar Ficha</span>
+                <span>Editar ${isAccessory ? 'Accesorio' : 'Ficha'}</span>
               </button>
 
               <button 
@@ -443,6 +498,8 @@ productsContainer?.addEventListener('click', async (e) => {
   const id = target.dataset.id;
   if (!id) return;
 
+  const isAccessory = currentCategory === 'accessory';
+
   if (action === 'toggle-visibility') {
     const product = allProducts.find((p) => p.id === id);
     if (!product) return;
@@ -450,7 +507,8 @@ productsContainer?.addEventListener('click', async (e) => {
 
     try {
       target.textContent = 'Actualizando...';
-      const res = await fetch('/api/admin/products', {
+      const endpoint = isAccessory ? '/api/admin/accessories' : '/api/admin/products';
+      const res = await fetch(endpoint, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -463,7 +521,7 @@ productsContainer?.addEventListener('click', async (e) => {
         product.isVisible = nextVis;
         updateCounts();
         renderProducts();
-        showToast(`Radio ${product.name} marcado como ${nextVis ? 'Visible' : 'Oculto'}`);
+        showToast(`${isAccessory ? 'Accesorio' : 'Radio'} ${product.name} marcado como ${nextVis ? 'Visible' : 'Oculto'}`);
       } else {
         showToast('Error al actualizar visibilidad', true);
       }
@@ -474,14 +532,18 @@ productsContainer?.addEventListener('click', async (e) => {
 
   if (action === 'edit') {
     const product = allProducts.find((p) => p.id === id);
-    if (product) openProductModal(product);
+    if (product) openProductModal(product, currentCategory);
   }
 
   if (action === 'delete') {
     const name = target.dataset.name || id;
-    if (confirm(`¿Estás seguro de mover el radio "${name}" (${id}) a la papelera?`)) {
+    if (confirm(`¿Estás seguro de mover el ${isAccessory ? 'accesorio' : 'radio'} "${name}" (${id}) a la papelera?`)) {
       try {
-        const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}`, {
+        const endpoint = isAccessory
+          ? `/api/admin/accessories?id=${encodeURIComponent(id)}`
+          : `/api/admin/products?id=${encodeURIComponent(id)}`;
+
+        const res = await fetch(endpoint, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${adminToken}`,
@@ -493,7 +555,8 @@ productsContainer?.addEventListener('click', async (e) => {
           if (product) product.isDeleted = true;
           updateCounts();
           renderProducts();
-          showToast(`Radio "${name}" movido a la papelera`);
+          updateTabBadges();
+          showToast(`${isAccessory ? 'Accesorio' : 'Radio'} "${name}" movido a la papelera`);
         } else {
           showToast('No se pudo mover a la papelera', true);
         }
@@ -506,7 +569,7 @@ productsContainer?.addEventListener('click', async (e) => {
   if (action === 'restore') {
     const product = allProducts.find((p) => p.id === id);
     const name = product?.name || id;
-    if (confirm(`¿Restaurar el radio "${name}" (${id}) desde la papelera?`)) {
+    if (confirm(`¿Restaurar el ${isAccessory ? 'accesorio' : 'radio'} "${name}" (${id}) desde la papelera?`)) {
       try {
         const res = await fetch('/api/admin/restore', {
           method: 'POST',
@@ -514,7 +577,7 @@ productsContainer?.addEventListener('click', async (e) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${adminToken}`,
           },
-          body: JSON.stringify({ id }),
+          body: JSON.stringify({ id, type: currentCategory }),
         });
 
         if (res.ok) {
@@ -522,9 +585,10 @@ productsContainer?.addEventListener('click', async (e) => {
           if (product) product.isDeleted = false;
           updateCounts();
           renderProducts();
-          showToast(`Radio "${name}" restaurado exitosamente`);
+          updateTabBadges();
+          showToast(`${isAccessory ? 'Accesorio' : 'Radio'} "${name}" restaurado exitosamente`);
         } else {
-          showToast('No se pudo restaurar el producto', true);
+          showToast('No se pudo restaurar el elemento', true);
         }
       } catch (err) {
         showToast('Error de conexión al restaurar', true);
@@ -534,9 +598,13 @@ productsContainer?.addEventListener('click', async (e) => {
 
   if (action === 'permanent-delete') {
     const name = target.dataset.name || id;
-    if (confirm(`¿ELIMINAR DEFINITIVAMENTE el radio "${name}" (${id})? Esta acción NO se puede deshacer.`)) {
+    if (confirm(`¿ELIMINAR DEFINITIVAMENTE el ${isAccessory ? 'accesorio' : 'radio'} "${name}" (${id})? Esta acción NO se puede deshacer.`)) {
       try {
-        const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}&permanent=true`, {
+        const endpoint = isAccessory
+          ? `/api/admin/accessories?id=${encodeURIComponent(id)}&permanent=true`
+          : `/api/admin/products?id=${encodeURIComponent(id)}&permanent=true`;
+
+        const res = await fetch(endpoint, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${adminToken}`,
@@ -547,9 +615,10 @@ productsContainer?.addEventListener('click', async (e) => {
           allProducts = allProducts.filter((p) => p.id !== id);
           updateCounts();
           renderProducts();
-          showToast(`Radio "${name}" eliminado permanentemente`);
+          updateTabBadges();
+          showToast(`${isAccessory ? 'Accesorio' : 'Radio'} "${name}" eliminado permanentemente`);
         } else {
-          showToast('No se pudo eliminar el producto', true);
+          showToast('No se pudo eliminar el elemento', true);
         }
       } catch (err) {
         showToast('Error de conexión al eliminar', true);
@@ -642,17 +711,48 @@ pImageInput?.addEventListener('input', () => {
 // -------------------------------------------------------------
 // 7. MODAL DRAWER & TABS CONTROLLER
 // -------------------------------------------------------------
-function openProductModal(product: ExtendedProduct | null = null, category: 'radio' | 'accessory' = 'radio') {
+function openProductModal(product: ExtendedProduct | null = null, category: 'radio' | 'accessory' = currentCategory) {
   editingProduct = product;
   const isEdit = Boolean(product);
+  const isAccessory = category === 'accessory';
 
   const modalTitle = document.getElementById('modal-title');
   const modalSubtitle = document.getElementById('modal-subtitle');
   const modalError = document.getElementById('modal-error');
   if (modalError) modalError.classList.add('hidden');
 
+  // Toggle tab buttons in modal
+  const tabDossier = document.getElementById('editor-tab-dossier');
+  const tabColors = document.getElementById('editor-tab-colors');
+  const tabTags = document.getElementById('editor-tab-tags');
+
+  if (tabDossier) tabDossier.classList.toggle('hidden', isAccessory);
+  if (tabColors) tabColors.classList.toggle('hidden', isAccessory);
+  if (tabTags) tabTags.classList.toggle('hidden', isAccessory);
+
+  // Toggle field sections in Tab 1
+  const fieldShortName = document.getElementById('field-shortName');
+  const fieldStockCount = document.getElementById('field-stockCount');
+  const fieldDiscountPrice = document.getElementById('field-discountPrice');
+  const fieldNameEs = document.getElementById('field-nameEs');
+  const fieldBadgeEs = document.getElementById('field-badgeEs');
+  const fieldAccCategory = document.getElementById('field-accCategory');
+  const accHardwareFields = document.getElementById('accessory-hardware-fields');
+  const fieldDescriptionEs = document.getElementById('field-descriptionEs');
+  const fieldSecondaryImage = document.getElementById('field-secondaryImage');
+
+  if (fieldShortName) fieldShortName.classList.toggle('hidden', isAccessory);
+  if (fieldStockCount) fieldStockCount.classList.toggle('hidden', isAccessory);
+  if (fieldDiscountPrice) fieldDiscountPrice.classList.toggle('hidden', isAccessory);
+  if (fieldNameEs) fieldNameEs.classList.toggle('hidden', !isAccessory);
+  if (fieldBadgeEs) fieldBadgeEs.classList.toggle('hidden', !isAccessory);
+  if (fieldAccCategory) fieldAccCategory.classList.toggle('hidden', !isAccessory);
+  if (accHardwareFields) accHardwareFields.classList.toggle('hidden', !isAccessory);
+  if (fieldDescriptionEs) fieldDescriptionEs.classList.toggle('hidden', !isAccessory);
+  if (fieldSecondaryImage) fieldSecondaryImage.classList.toggle('hidden', !isAccessory);
+
   if (isEdit && product) {
-    if (modalTitle) modalTitle.textContent = `Editar: ${product.name}`;
+    if (modalTitle) modalTitle.textContent = isAccessory ? `Editar Accesorio: ${product.name}` : `Editar Radio: ${product.name}`;
     if (modalSubtitle) modalSubtitle.textContent = `Modificando ID: ${product.id}`;
     btnDeleteProduct.classList.remove('hidden');
 
@@ -662,7 +762,7 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     (document.getElementById('p-name') as HTMLInputElement).value = product.name;
     (document.getElementById('p-shortName') as HTMLInputElement).value = product.shortName || '';
     (document.getElementById('p-badge') as HTMLInputElement).value = product.badge;
-    (document.getElementById('p-stockStatus') as HTMLSelectElement).value = product.stockStatus || 'in_stock';
+    (document.getElementById('p-stockStatus') as HTMLSelectElement).value = product.stockStatus || (product.inStock ? 'in_stock' : 'out_of_stock');
     (document.getElementById('p-stockCount') as HTMLInputElement).value = product.stockCount !== undefined ? String(product.stockCount) : '';
     (document.getElementById('p-priceEstimate') as HTMLInputElement).value = product.priceEstimate || '';
     (document.getElementById('p-discountPrice') as HTMLInputElement).value = product.discountPrice || '';
@@ -672,6 +772,25 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     imagePreview.src = product.image;
     optimizationStats.textContent = 'WebP Actual';
     optimizationStats.className = 'text-[10px] font-mono text-slate-400 text-center';
+
+    // Accessory specific fields
+    const nameEsInput = document.getElementById('p-nameEs') as HTMLInputElement | null;
+    const badgeEsInput = document.getElementById('p-badgeEs') as HTMLInputElement | null;
+    const accCatSelect = document.getElementById('p-accCategory') as HTMLSelectElement | null;
+    const connInput = document.getElementById('p-connector') as HTMLInputElement | null;
+    const connEsInput = document.getElementById('p-connectorEs') as HTMLInputElement | null;
+    const compatInput = document.getElementById('p-compatibility') as HTMLInputElement | null;
+    const descEsInput = document.getElementById('p-descriptionEs') as HTMLTextAreaElement | null;
+    const secImgInput = document.getElementById('p-secondaryImage') as HTMLInputElement | null;
+
+    if (nameEsInput) nameEsInput.value = product.nameEs || product.name || '';
+    if (badgeEsInput) badgeEsInput.value = product.badgeEs || product.badge || '';
+    if (accCatSelect) accCatSelect.value = product.category || 'microphones';
+    if (connInput) connInput.value = product.connector || '';
+    if (connEsInput) connEsInput.value = product.connectorEs || product.connector || '';
+    if (compatInput) compatInput.value = (product.compatibility || []).join(', ');
+    if (descEsInput) descEsInput.value = product.descriptionEs || product.description || '';
+    if (secImgInput) secImgInput.value = product.secondaryImage || '';
 
     // Tab 2: Dossier
     const comp = product.comparison || ({} as any);
@@ -697,12 +816,11 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     (document.getElementById('p-fallbackId') as HTMLInputElement).value = product.fallbackSimilarId || '';
     (document.getElementById('p-fallbackReason') as HTMLInputElement).value = product.fallbackReason || '';
   } else {
-    // New Product Mode
-    const isAccessory = category === 'accessory';
+    // New Mode
     if (modalTitle) modalTitle.textContent = isAccessory ? 'Crear Nuevo Accesorio' : 'Crear Nuevo Radio Táctico';
     if (modalSubtitle) modalSubtitle.textContent = isAccessory 
-      ? 'Se creará en Turso DB y aparecerá en el catálogo de accesorios.' 
-      : 'Se creará en Turso DB y aparecerá de inmediato en el catálogo.';
+      ? 'Se guardará en Turso DB y aparecerá en el catálogo de accesorios.' 
+      : 'Se guardará en Turso DB y aparecerá de inmediato en el catálogo.';
     btnDeleteProduct.classList.add('hidden');
 
     (document.getElementById('p-id') as HTMLInputElement).value = '';
@@ -711,8 +829,8 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     (document.getElementById('p-shortName') as HTMLInputElement).value = '';
     (document.getElementById('p-badge') as HTMLInputElement).value = isAccessory ? 'TACTICAL ACCESSORY' : 'POC TACTICAL RADIO';
     (document.getElementById('p-stockStatus') as HTMLSelectElement).value = 'in_stock';
-    (document.getElementById('p-stockCount') as HTMLInputElement).value = '50';
-    (document.getElementById('p-priceEstimate') as HTMLInputElement).value = '';
+    (document.getElementById('p-stockCount') as HTMLInputElement).value = isAccessory ? '100' : '50';
+    (document.getElementById('p-priceEstimate') as HTMLInputElement).value = isAccessory ? '$35' : '';
     (document.getElementById('p-discountPrice') as HTMLInputElement).value = '';
     (document.getElementById('p-isVisible') as HTMLInputElement).checked = true;
     (document.getElementById('p-description') as HTMLTextAreaElement).value = '';
@@ -720,22 +838,29 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     imagePreview.src = '/images/logo-patch.webp';
     optimizationStats.textContent = 'Sin imagen';
 
-    if (isAccessory) {
-      (document.getElementById('dos-connectivity') as HTMLInputElement).value = 'Compatible con conectores Type-K / Type-C / RJ';
-      (document.getElementById('dos-protection') as HTMLInputElement).value = 'IP54 Splash & Dust Resistant';
-      (document.getElementById('dos-batteryRuntime') as HTMLInputElement).value = 'N/A (Pasivo)';
-      (document.getElementById('dos-audioOutput') as HTMLInputElement).value = 'Micrófono/Auricular Pasivo';
-      (document.getElementById('dos-controls') as HTMLInputElement).value = 'PTT Integrado en Micrófono';
-      (document.getElementById('dos-formFactor') as HTMLInputElement).value = 'Accesorio Táctico Modular';
-      (document.getElementById('dos-antenna') as HTMLInputElement).value = 'N/A';
-      (document.getElementById('dos-emergency') as HTMLInputElement).value = 'N/A';
-      (document.getElementById('dos-videoVision') as HTMLInputElement).value = 'N/A';
-      (document.getElementById('dos-certifications') as HTMLInputElement).value = 'CE / FCC / RoHS';
+    const nameEsInput = document.getElementById('p-nameEs') as HTMLInputElement | null;
+    const badgeEsInput = document.getElementById('p-badgeEs') as HTMLInputElement | null;
+    const accCatSelect = document.getElementById('p-accCategory') as HTMLSelectElement | null;
+    const connInput = document.getElementById('p-connector') as HTMLInputElement | null;
+    const connEsInput = document.getElementById('p-connectorEs') as HTMLInputElement | null;
+    const compatInput = document.getElementById('p-compatibility') as HTMLInputElement | null;
+    const descEsInput = document.getElementById('p-descriptionEs') as HTMLTextAreaElement | null;
+    const secImgInput = document.getElementById('p-secondaryImage') as HTMLInputElement | null;
 
+    if (nameEsInput) nameEsInput.value = '';
+    if (badgeEsInput) badgeEsInput.value = isAccessory ? 'ACCESORIO TÁCTICO' : '';
+    if (accCatSelect) accCatSelect.value = 'microphones';
+    if (connInput) connInput.value = isAccessory ? 'Type-K (2-Pin Kenwood)' : '';
+    if (connEsInput) connEsInput.value = isAccessory ? 'Type-K (2 Pines Kenwood)' : '';
+    if (compatInput) compatInput.value = isAccessory ? 'G-510, G-280, G-H28, G-F1, G-889, G-K8, G-8900 Pro' : '';
+    if (descEsInput) descEsInput.value = '';
+    if (secImgInput) secImgInput.value = '';
+
+    if (isAccessory) {
       renderSpecsRows([
-        { label: 'Conector', value: 'Type-K / Type-C / RJ / 2-Pin' },
-        { label: 'Compatibilidad', value: 'G-M2, G-510, G-F1, G-889, G-8900 Pro, G6 Plus, P0, G5 Plus, V1 Plus, Alervites AT1' },
-        { label: 'Tipo', value: 'Micrófono de Hombro / Auricular Encubierto / Base de Carga' },
+        { label: 'Cable', value: 'Reforzado Kevlar espiralado retractil' },
+        { label: 'Clip', value: 'Clip giratorio 360 grados de acero inoxidable' },
+        { label: 'Micrófono', value: 'Cápsula condensador omnidireccional con filtro de viento' },
       ]);
     } else {
       (document.getElementById('dos-connectivity') as HTMLInputElement).value = '4G LTE Nationwide POC';
@@ -756,8 +881,7 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     }
 
     renderColorsRows([]);
-
-    (document.getElementById('p-tags') as HTMLInputElement).value = isAccessory ? 'accessory, tactical, mic, earpiece, charger' : 'poc, tactical, 4g, nationwide';
+    (document.getElementById('p-tags') as HTMLInputElement).value = isAccessory ? 'accessory, tactical, mic, ptt' : 'poc, tactical, 4g, nationwide';
     (document.getElementById('p-fallbackId') as HTMLInputElement).value = '';
     (document.getElementById('p-fallbackReason') as HTMLInputElement).value = '';
   }
@@ -888,13 +1012,9 @@ btnSaveProduct?.addEventListener('click', async () => {
 
   const id = (document.getElementById('p-id') as HTMLInputElement).value.trim();
   const name = (document.getElementById('p-name') as HTMLInputElement).value.trim();
-  const shortName = (document.getElementById('p-shortName') as HTMLInputElement).value.trim();
   const badge = (document.getElementById('p-badge') as HTMLInputElement).value.trim();
   const stockStatus = (document.getElementById('p-stockStatus') as HTMLSelectElement).value as StockStatus;
-  const stockCountVal = (document.getElementById('p-stockCount') as HTMLInputElement).value;
-  const stockCount = stockCountVal ? parseInt(stockCountVal, 10) : undefined;
   const priceEstimate = (document.getElementById('p-priceEstimate') as HTMLInputElement).value.trim();
-  const discountPrice = (document.getElementById('p-discountPrice') as HTMLInputElement).value.trim();
   const isVisible = (document.getElementById('p-isVisible') as HTMLInputElement).checked;
   const description = (document.getElementById('p-description') as HTMLTextAreaElement).value.trim();
   const image = pImageInput.value.trim();
@@ -904,20 +1024,6 @@ btnSaveProduct?.addEventListener('click', async () => {
     modalError.classList.remove('hidden');
     return;
   }
-
-  // Build comparison
-  const comparison = {
-    connectivity: (document.getElementById('dos-connectivity') as HTMLInputElement).value.trim(),
-    protection: (document.getElementById('dos-protection') as HTMLInputElement).value.trim(),
-    batteryRuntime: (document.getElementById('dos-batteryRuntime') as HTMLInputElement).value.trim(),
-    audioOutput: (document.getElementById('dos-audioOutput') as HTMLInputElement).value.trim(),
-    controls: (document.getElementById('dos-controls') as HTMLInputElement).value.trim(),
-    formFactor: (document.getElementById('dos-formFactor') as HTMLInputElement).value.trim(),
-    antenna: (document.getElementById('dos-antenna') as HTMLInputElement).value.trim(),
-    emergency: (document.getElementById('dos-emergency') as HTMLInputElement).value.trim(),
-    videoVision: (document.getElementById('dos-videoVision') as HTMLInputElement).value.trim(),
-    certifications: (document.getElementById('dos-certifications') as HTMLInputElement).value.trim(),
-  };
 
   // Build specs
   const specRows = Array.from(specsList.querySelectorAll('.spec-row'));
@@ -929,59 +1035,7 @@ btnSaveProduct?.addEventListener('click', async () => {
     })
     .filter(Boolean) as { label: string; value: string }[];
 
-  // Build colors
-  const colorRows = Array.from(colorsList.querySelectorAll('.color-row'));
-  const colors: ProductColor[] = colorRows
-    .map((r) => {
-      const colId = (r.querySelector('.col-id') as HTMLInputElement).value.trim();
-      const colName = (r.querySelector('.col-name') as HTMLInputElement).value.trim();
-      const colNameEs = (r.querySelector('.col-nameEs') as HTMLInputElement).value.trim();
-      const colHex = (r.querySelector('.col-hex') as HTMLInputElement).value.trim();
-      const colImg = (r.querySelector('.col-image') as HTMLInputElement).value.trim();
-      if (colId && colName) {
-        return {
-          id: colId,
-          name: colName,
-          nameEs: colNameEs || undefined,
-          hex: colHex || '#000000',
-          image: colImg || image,
-        };
-      }
-      return null;
-    })
-    .filter(Boolean) as ProductColor[];
-
-  // Build tags
-  const tagsRaw = (document.getElementById('p-tags') as HTMLInputElement).value;
-  const tags = tagsRaw
-    .split(',')
-    .map((t) => t.trim())
-    .filter(Boolean);
-
-  const fallbackSimilarId = (document.getElementById('p-fallbackId') as HTMLInputElement).value.trim() || undefined;
-  const fallbackReason = (document.getElementById('p-fallbackReason') as HTMLInputElement).value.trim() || undefined;
-
-  const payload: ExtendedProduct = {
-    id,
-    name,
-    shortName: shortName || undefined,
-    badge,
-    image,
-    description,
-    inStock: stockStatus !== 'out_of_stock',
-    stockStatus,
-    stockCount,
-    priceEstimate: priceEstimate || undefined,
-    discountPrice: discountPrice || undefined,
-    isVisible,
-    fallbackSimilarId,
-    fallbackReason,
-    specs,
-    comparison,
-    tags,
-    colors: colors.length > 0 ? colors : undefined,
-    category: currentCategory,
-  };
+  const isAccessory = currentCategory === 'accessory';
 
   btnSaveProduct.disabled = true;
   btnSaveProduct.textContent = 'Guardando en Turso...';
@@ -990,24 +1044,146 @@ btnSaveProduct?.addEventListener('click', async () => {
     const isEdit = Boolean(editingProduct);
     const method = isEdit ? 'PUT' : 'POST';
 
-    const res = await fetch('/api/admin/products', {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${adminToken}`,
-      },
-      body: JSON.stringify(payload),
-    });
+    if (isAccessory) {
+      const accCategory = (document.getElementById('p-accCategory') as HTMLSelectElement)?.value || 'microphones';
+      const nameEs = (document.getElementById('p-nameEs') as HTMLInputElement)?.value.trim() || name;
+      const badgeEs = (document.getElementById('p-badgeEs') as HTMLInputElement)?.value.trim() || badge;
+      const connector = (document.getElementById('p-connector') as HTMLInputElement)?.value.trim() || '';
+      const connectorEs = (document.getElementById('p-connectorEs') as HTMLInputElement)?.value.trim() || connector;
+      const compatibilityRaw = (document.getElementById('p-compatibility') as HTMLInputElement)?.value || '';
+      const compatibility = compatibilityRaw
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const descriptionEs = (document.getElementById('p-descriptionEs') as HTMLTextAreaElement)?.value.trim() || description;
+      const secondaryImage = (document.getElementById('p-secondaryImage') as HTMLInputElement)?.value.trim() || undefined;
 
-    const resData = await res.json();
+      const payload = {
+        id,
+        name,
+        nameEs,
+        category: accCategory,
+        badge,
+        badgeEs,
+        image,
+        secondaryImage,
+        description,
+        descriptionEs,
+        connector,
+        connectorEs,
+        compatibility,
+        specs,
+        inStock: stockStatus !== 'out_of_stock',
+        priceEstimate: priceEstimate || undefined,
+        isVisible,
+      };
 
-    if (!res.ok) {
-      throw new Error(resData.error || 'Error al guardar el producto');
+      const res = await fetch('/api/admin/accessories', {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const resData = await res.json();
+      if (!res.ok) {
+        throw new Error(resData.error || 'Error al guardar el accesorio');
+      }
+
+      showToast(`✓ Accesorio "${name}" guardado exitosamente en Turso DB`);
+    } else {
+      const shortName = (document.getElementById('p-shortName') as HTMLInputElement).value.trim();
+      const stockCountVal = (document.getElementById('p-stockCount') as HTMLInputElement).value;
+      const stockCount = stockCountVal ? parseInt(stockCountVal, 10) : undefined;
+      const discountPrice = (document.getElementById('p-discountPrice') as HTMLInputElement).value.trim();
+
+      const comparison = {
+        connectivity: (document.getElementById('dos-connectivity') as HTMLInputElement).value.trim(),
+        protection: (document.getElementById('dos-protection') as HTMLInputElement).value.trim(),
+        batteryRuntime: (document.getElementById('dos-batteryRuntime') as HTMLInputElement).value.trim(),
+        audioOutput: (document.getElementById('dos-audioOutput') as HTMLInputElement).value.trim(),
+        controls: (document.getElementById('dos-controls') as HTMLInputElement).value.trim(),
+        formFactor: (document.getElementById('dos-formFactor') as HTMLInputElement).value.trim(),
+        antenna: (document.getElementById('dos-antenna') as HTMLInputElement).value.trim(),
+        emergency: (document.getElementById('dos-emergency') as HTMLInputElement).value.trim(),
+        videoVision: (document.getElementById('dos-videoVision') as HTMLInputElement).value.trim(),
+        certifications: (document.getElementById('dos-certifications') as HTMLInputElement).value.trim(),
+      };
+
+      const colorRows = Array.from(colorsList.querySelectorAll('.color-row'));
+      const colors: ProductColor[] = colorRows
+        .map((r) => {
+          const colId = (r.querySelector('.col-id') as HTMLInputElement).value.trim();
+          const colName = (r.querySelector('.col-name') as HTMLInputElement).value.trim();
+          const colNameEs = (r.querySelector('.col-nameEs') as HTMLInputElement).value.trim();
+          const colHex = (r.querySelector('.col-hex') as HTMLInputElement).value.trim();
+          const colImg = (r.querySelector('.col-image') as HTMLInputElement).value.trim();
+          if (colId && colName) {
+            return {
+              id: colId,
+              name: colName,
+              nameEs: colNameEs || undefined,
+              hex: colHex || '#000000',
+              image: colImg || image,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean) as ProductColor[];
+
+      const tagsRaw = (document.getElementById('p-tags') as HTMLInputElement).value;
+      const tags = tagsRaw
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean);
+
+      const fallbackSimilarId = (document.getElementById('p-fallbackId') as HTMLInputElement).value.trim() || undefined;
+      const fallbackReason = (document.getElementById('p-fallbackReason') as HTMLInputElement).value.trim() || undefined;
+
+      const payload: ExtendedProduct = {
+        id,
+        name,
+        shortName: shortName || undefined,
+        badge,
+        image,
+        description,
+        inStock: stockStatus !== 'out_of_stock',
+        stockStatus,
+        stockCount,
+        priceEstimate: priceEstimate || undefined,
+        discountPrice: discountPrice || undefined,
+        isVisible,
+        fallbackSimilarId,
+        fallbackReason,
+        specs,
+        comparison,
+        tags,
+        colors: colors.length > 0 ? colors : undefined,
+        category: 'radio',
+      };
+
+      const res = await fetch('/api/admin/products', {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const resData = await res.json();
+      if (!res.ok) {
+        throw new Error(resData.error || 'Error al guardar el producto');
+      }
+
+      showToast(`✓ Radio "${name}" guardado exitosamente en Turso DB`);
     }
 
-    showToast(`✓ Radio ${name} guardado exitosamente en Turso DB`);
     closeProductModal();
     loadProducts();
+    updateTabBadges();
   } catch (err: any) {
     modalError.textContent = err.message || 'Error desconocido';
     modalError.classList.remove('hidden');
@@ -1021,10 +1197,15 @@ btnSaveProduct?.addEventListener('click', async () => {
 btnDeleteProduct?.addEventListener('click', async () => {
   if (!editingProduct) return;
   const { id, name } = editingProduct;
+  const isAccessory = currentCategory === 'accessory';
 
-  if (confirm(`¿Confirmas mover el producto "${name}" (${id}) a la papelera?\n\nPodrás restaurarlo o eliminarlo definitivamente desde la pestaña Papelera.`)) {
+  if (confirm(`¿Confirmas mover el ${isAccessory ? 'accesorio' : 'producto'} "${name}" (${id}) a la papelera?\n\nPodrás restaurarlo o eliminarlo definitivamente desde la pestaña Papelera.`)) {
     try {
-      const res = await fetch(`/api/admin/products?id=${encodeURIComponent(id)}`, {
+      const endpoint = isAccessory
+        ? `/api/admin/accessories?id=${encodeURIComponent(id)}`
+        : `/api/admin/products?id=${encodeURIComponent(id)}`;
+
+      const res = await fetch(endpoint, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${adminToken}`,
@@ -1035,8 +1216,9 @@ btnDeleteProduct?.addEventListener('click', async () => {
         showToast(`"${name}" movido a la papelera`);
         closeProductModal();
         loadProducts();
+        updateTabBadges();
       } else {
-        alert('No se pudo eliminar el producto');
+        alert('No se pudo eliminar el elemento');
       }
     } catch (err) {
       alert('Error de conexión');
@@ -1046,14 +1228,16 @@ btnDeleteProduct?.addEventListener('click', async () => {
 
 // Download JSON Backup
 downloadBackupBtn?.addEventListener('click', () => {
+  const isAccessory = currentCategory === 'accessory';
+  const prefix = isAccessory ? 'gtech-accessories-backup' : 'gtech-products-backup';
   const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(allProducts, null, 2));
   const downloadAnchor = document.createElement('a');
   downloadAnchor.setAttribute('href', dataStr);
-  downloadAnchor.setAttribute('download', `gtech-products-backup-${new Date().toISOString().slice(0, 10)}.json`);
+  downloadAnchor.setAttribute('download', `${prefix}-${new Date().toISOString().slice(0, 10)}.json`);
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();
-  showToast('Respaldo JSON descargado');
+  showToast(`Respaldo JSON de ${isAccessory ? 'accesorios' : 'radios'} descargado`);
 });
 
 // -------------------------------------------------------------
@@ -1084,25 +1268,38 @@ function setNewProductLabel(label: string) {
 
 function setActiveTab(category: 'radio' | 'accessory') {
   currentCategory = category;
+  const titleEl = document.getElementById('catalog-section-title');
+  const descEl = document.getElementById('catalog-section-desc');
+
   if (category === 'radio') {
     tabRadios?.classList.add('bg-crimson-700', 'text-white', 'shadow-sm');
     tabRadios?.classList.remove('text-slate-400');
     tabAccessories?.classList.remove('bg-crimson-700', 'text-white', 'shadow-sm');
     tabAccessories?.classList.add('text-slate-400');
     setNewProductLabel('Nuevo Radio Táctico');
+    if (titleEl) titleEl.textContent = 'Inventario Activo de Radios PoC';
+    if (descEl) descEl.textContent = 'Modifica precios, inventario, ficha técnica o alterna visibilidad. Cualquier cambio se sincroniza en vivo con Turso.';
   } else {
     tabAccessories?.classList.add('bg-crimson-700', 'text-white', 'shadow-sm');
     tabAccessories?.classList.remove('text-slate-400');
     tabRadios?.classList.remove('bg-crimson-700', 'text-white', 'shadow-sm');
     tabRadios?.classList.add('text-slate-400');
     setNewProductLabel('Nuevo Accesorio');
+    if (titleEl) titleEl.textContent = 'Catálogo de Accesorios Tácticos';
+    if (descEl) descEl.textContent = 'Micrófonos PTT, auriculares tácticos y estaciones de carga. Sincronizado en vivo con Turso DB.';
   }
   currentFilter = 'all';
+  filterPills.forEach((b) => {
+    if ((b as HTMLElement).dataset.filter === 'all') {
+      b.classList.add('bg-slate-800', 'text-white');
+      b.classList.remove('bg-slate-950', 'text-slate-400');
+    } else {
+      b.classList.remove('bg-slate-800', 'text-white');
+      b.classList.add('bg-slate-950', 'text-slate-400');
+    }
+  });
   loadProducts();
 }
 
 tabRadios?.addEventListener('click', () => setActiveTab('radio'));
 tabAccessories?.addEventListener('click', () => setActiveTab('accessory'));
-
-// Modify loadProducts to use currentCategory
-// This is done by updating the fetch URL in loadProducts function

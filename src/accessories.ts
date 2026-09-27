@@ -30,7 +30,22 @@ interface Accessory {
   inStock: boolean;
 }
 
-const accessories: Accessory[] = accessoriesData as Accessory[];
+let accessories: Accessory[] = [...(accessoriesData as Accessory[])];
+
+async function fetchLiveAccessories(): Promise<void> {
+  try {
+    const res = await fetch('/api/accessories');
+    if (res.ok) {
+      const live = await res.json();
+      if (Array.isArray(live) && live.length > 0) {
+        accessories = live;
+        renderGrid();
+      }
+    }
+  } catch (err) {
+    console.warn('Could not fetch live accessories from Turso, keeping fallback:', err);
+  }
+}
 
 const WHATSAPP_NUMBER = '14074273356';
 
@@ -358,6 +373,7 @@ initAccessoryEvents();
 initLanguageToggle();
 initCartButton();
 renderGrid();
+fetchLiveAccessories();
 
 onLanguageChange(() => {
   updateStaticTranslations();
