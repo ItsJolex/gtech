@@ -163,6 +163,15 @@ function openSpecsModal(a: Accessory): void {
           <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-50 border border-crimson-200 text-crimson-800 text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(localizedBadge(a))}</span>
           <h3 class="text-lg sm:text-xl font-extrabold text-navy-800 mt-2">${escapeHtml(localizedName(a))}</h3>
           <p class="text-sm text-gray-600 mt-2 leading-relaxed">${escapeHtml(localizedDescription(a))}</p>
+          ${a.id === 'acc-acoustic-earpiece-typec-2pack' ? `
+            <div class="mt-3.5 p-3 rounded-xl bg-amber-50 border border-amber-200/90 flex items-start gap-2.5 text-xs text-amber-900 leading-relaxed shadow-2xs">
+              <svg class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <div>
+                <strong class="font-extrabold block text-amber-950 uppercase tracking-wider text-[11px] mb-0.5">${isEs() ? 'Aclaratoria de Presentación:' : 'Package Presentation Notice:'}</strong>
+                <span>${isEs() ? 'Este producto se comercializa por 1 sola unidad individual. La fotografía muestra 2 piezas únicamente con fines ilustrativos.' : 'This product is sold as 1 single individual unit. The photograph displays 2 pieces for illustrative purposes only.'}</span>
+              </div>
+            </div>
+          ` : ''}
           <div class="mt-4 flex flex-wrap items-center gap-2">
             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-navy-50 border border-navy-200 text-[11px] font-bold text-navy-800">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -227,6 +236,13 @@ function renderCard(a: Accessory): string {
           <h3 class="text-base font-extrabold text-navy-800 leading-snug">${escapeHtml(localizedName(a))}</h3>
           <p class="text-xs text-gray-500 mt-1.5 leading-relaxed line-clamp-3">${escapeHtml(localizedDescription(a))}</p>
         </div>
+
+        ${a.id === 'acc-acoustic-earpiece-typec-2pack' ? `
+          <div class="px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-200/90 flex items-center gap-1.5 text-[11px] font-bold text-amber-900 shadow-2xs">
+            <svg class="w-3.5 h-3.5 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>${isEs() ? 'Venta por 1 sola unidad (foto ilustrativa)' : 'Sold as 1 single unit (photo illustrative)'}</span>
+          </div>
+        ` : ''}
 
         <ul class="space-y-1.5 pt-1">${topSpecs}</ul>
 

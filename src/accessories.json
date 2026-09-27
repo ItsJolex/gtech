@@ -207,14 +207,14 @@
   },
   {
     "id": "acc-acoustic-earpiece-typec-2pack",
-    "name": "Covert Acoustic Tube Earpiece (USB Type-C)",
-    "nameEs": "Auricular Encubierto de Tubo Acústico (USB Type-C)",
+    "name": "Covert Acoustic Tube Earpiece - 1 Unit (USB Type-C)",
+    "nameEs": "Auricular Encubierto Tubo Acústico - 1 Unidad (USB Type-C)",
     "category": "earphones",
-    "badge": "Máxima Privacidad",
-    "badgeEs": "Máxima Privacidad",
+    "badge": "1 Single Unit",
+    "badgeEs": "1 Unidad Individual",
     "image": "/images/accessories/acoustic-earpiece-typec-2pack.webp",
-    "description": "Medical-grade transparent acoustic tube surveillance earpiece with discreet inline lapel PTT microphone and direct USB Type-C plug for sensitive security operations.",
-    "descriptionEs": "Auricular encubierto de tubo acústico transparente de grado médico con micrófono PTT de solapa y conector USB Type-C para operaciones de seguridad de máxima confidencialidad.",
+    "description": "Medical-grade transparent acoustic tube surveillance earpiece with discreet inline lapel PTT microphone and direct USB Type-C plug. (Notice: Sold as 1 single individual unit; photograph displays two units for illustrative purposes only).",
+    "descriptionEs": "Auricular encubierto de tubo acústico transparente de grado médico con micrófono PTT de solapa y conector USB Type-C. (Aclaratoria: Se comercializa por 1 sola unidad individual; la imagen muestra dos unidades únicamente con fines ilustrativos).",
     "connector": "USB Type-C",
     "connectorEs": "USB Type-C",
     "compatibility": [
@@ -228,6 +228,16 @@
       "G5 Plus"
     ],
     "specs": [
+      {
+        "label": "Package Presentation",
+        "labelEs": "Presentación de Venta",
+        "value": "1 Sola Unidad Individual (Venta por Unidad)"
+      },
+      {
+        "label": "Image Clarification",
+        "labelEs": "Aclaratoria de Foto",
+        "value": "Foto ilustrativa (No incluye segundo auricular)"
+      },
       {
         "label": "Acoustic Tube",
         "labelEs": "Tubo Acústico",
