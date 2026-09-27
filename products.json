@@ -474,7 +474,7 @@
     "id": "WA0055-GlobalLTE",
     "name": "G0 PLUS GLOBAL LITE POC",
     "badge": "GLOBAL LITE POC",
-    "image": "/images/IMG-20260922-WA0055.webp",
+    "image": "/images/g0-plus.webp",
     "description": "Flagship global cellular push-to-talk transceiver featuring an integrated rectangular LTE antenna module, vibrant high-definition screen, tactile navigation matrix, and acoustic noise-cancelling front audio speaker.",
     "inStock": true,
     "stockStatus": "in_stock",
@@ -531,7 +531,7 @@
     "id": "WA0057-TacticalField",
     "name": "G-9 PLUS TACTICAL FIELD POC",
     "badge": "TACTICAL FIELD POC",
-    "image": "/images/IMG-20260922-WA0057.webp",
+    "image": "/images/g9-plus.webp",
     "description": "Heavy-duty field communication radio featuring a high-gain stubby antenna with blue color-code ring, top rotary knob, high-output front speaker, and a 6-button tactical dispatch keypad with dedicated individual and group call buttons.",
     "inStock": true,
     "stockStatus": "in_stock",
@@ -656,7 +656,7 @@
     "id": "WA0060-Green",
     "name": "G6 PLUS GREEN",
     "badge": "MIL-SPEC DUAL-KNOB POC",
-    "image": "/images/G-6-green.webp",
+    "image": "/images/g6-plus-green.webp",
     "colors": [
       {
         "id": "green",
@@ -724,7 +724,7 @@
     "id": "G-P0-Black",
     "name": "P0 IP6 BLACK FLOATING POC",
     "badge": "IP68 FLOATING MARINE POC",
-    "image": "/images/G-F1-floating-black.webp",
+    "image": "/images/p0-ip6-black.webp",
     "description": "Specialized maritime and water-rescue PoC radio with positive buoyancy that floats on water. IP68 submersible sealed construction in Tactical Black.",
     "inStock": true,
     "stockStatus": "in_stock",
@@ -781,7 +781,7 @@
     "id": "P0-Ex-Blue",
     "name": "P0 IP6 BLUE ATEX FLOATING POC",
     "badge": "ATEX / EX FLOATING MARINE POC",
-    "image": "/images/G-F1-floating-blue.webp",
+    "image": "/images/p0-ip6-blue.webp",
     "description": "Certified explosion-proof (Ex) intrinsically safe maritime PoC radio in ATEX Safety Marine Blue. Submersible IP68 and positive buoyancy.",
     "inStock": true,
     "stockStatus": "in_stock",
@@ -900,7 +900,7 @@
     "id": "WA0062-TriMode",
     "name": "G-8 PLUS TRI-MODE POC-UHF",
     "badge": "HYBRID POC-UHF",
-    "image": "/images/IMG-20260922-WA0062.webp",
+    "image": "/images/g8-plus.webp",
     "description": "True multi-mission hybrid transceiver combining conventional VHF/UHF direct RF frequency communication with unlimited nationwide 4G LTE POC. Features dual dedicated antennas (UV whip + LTE stub), A/B dual-channel monitoring, and a full tactical DTMF keypad.",
     "inStock": true,
     "stockStatus": "in_stock",
@@ -1018,7 +1018,7 @@
     "id": "WA0058-Vehicle",
     "name": "V1 PLUS POC GPS SOS 4G",
     "badge": "VEHICLE MOBILE POC",
-    "image": "/images/IMG-20260922-WA0058.webp",
+    "image": "/images/v1-plus.webp",
     "description": "Heavy-duty mobile POC vehicle transceiver for fleet trucks, emergency apparatus, security patrols, and commercial transport. Features a heavy-duty palm microphone, backlit SOS & dispatch keys, integrated GPS tracking, and dashboard mounting bracket.",
     "inStock": true,
     "stockStatus": "in_stock",
@@ -1078,28 +1078,28 @@
     "name": "ALERVITES AT1 BY BAOFENG",
     "shortName": "ALERVITES AT1",
     "badge": "ALERVITES AT1 POC",
-    "image": "/images/G-34181-black.webp",
+    "image": "/images/alervites-black.webp",
     "colors": [
       {
         "id": "black",
         "name": "Obsidian Black",
         "nameEs": "Negro Obsidiana",
         "hex": "#1a1a1a",
-        "image": "/images/G-34181-black.webp"
+        "image": "/images/alervites-black.webp"
       },
       {
         "id": "grey",
         "name": "Gunmetal Gray",
         "nameEs": "Gris Titanio",
         "hex": "#6b7280",
-        "image": "/images/G-34181-grey.webp"
+        "image": "/images/alervites-grey.webp"
       },
       {
         "id": "white",
         "name": "Arctic White",
         "nameEs": "Blanco Ártico",
         "hex": "#f3f4f6",
-        "image": "/images/G-34181-white.webp"
+        "image": "/images/alervites-white.webp"
       }
     ],
     "description": "Sleek, contemporary commercial POC radio available in Obsidian Black, Gunmetal Gray, and Arctic White finishes. Designed for corporate security, luxury hospitality, event management, and retail logistics.",
