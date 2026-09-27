@@ -45,8 +45,8 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
       </div>
 
       <!-- IMAGE AT THE TOP -->
-      <div id="deep-specs-top-hero" class="w-full max-w-sm mx-auto aspect-square bg-navy-950/10 rounded-2xl flex items-center justify-center border border-gray-200/80 relative mb-6 shadow-sm overflow-hidden group">
-        <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+      <div id="deep-specs-top-hero" class="w-full max-w-sm mx-auto aspect-square bg-slate-50/90 rounded-2xl flex items-center justify-center border border-slate-200/80 relative mb-6 shadow-inner overflow-hidden group">
+        <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
 
         <div class="absolute top-2 left-2 flex items-center gap-1.5 flex-wrap">
           <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
@@ -312,14 +312,12 @@ function renderCatalog(): void {
       ? product.colors[currentColorIdx].image
       : product.image;
 
-    const simBtnLabel = lang === 'es' ? 'Tarjeta SIM' : 'SIM Card';
-    const specsBtnLabel = lang === 'es' ? 'Ficha Técnica' : 'Deep Specs';
     const quoteBtnLabel = t('catalog.quote_btn') || (lang === 'es' ? 'Cotizar' : 'Quote');
 
     return `
       <div id="catalog-card-${product.id}" class="bg-white rounded-2xl p-2.5 sm:p-4 shadow-sm hover:shadow-xl border border-slate-200/90 hover:border-crimson-700/40 flex flex-col h-full relative group cursor-pointer transition-all duration-300 card-hardware-accel" onclick="openModal('${product.id}')">
 
-        <!-- 1. IMAGE CONTAINER (Sin recorte de antenas + Fondo limpio) -->
+        <!-- 1. IMAGE CONTAINER (Sin recorte de antenas + Botones SIM y Specs en esquinas originales) -->
         <div class="aspect-square bg-slate-50/90 rounded-xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-slate-200/70 group/cardimg shadow-2xs">
           <img id="card-img-${product.id}"
                src="${initialCardImg}"
@@ -345,7 +343,7 @@ function renderCatalog(): void {
             </div>
           ` : ''}
 
-          <!-- Color dots for multi-color models (Centrados sin estorbar) -->
+          <!-- Color dots for multi-color models (Centrados abajo) -->
           ${product.colors && product.colors.length > 1 ? `
             <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2 py-1 rounded-full border border-white/20 pointer-events-auto shadow-md" onclick="event.stopPropagation()">
               ${product.colors.map((c, idx) => `
@@ -360,6 +358,34 @@ function renderCatalog(): void {
               `).join('')}
             </div>
           ` : ''}
+
+          <!-- BOTTOM-LEFT: SIM Pricing & Coverage Quick Button (EN SU LUGAR ORIGINAL) -->
+          <button type="button"
+                  onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
+                  class="absolute bottom-2 left-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-600/95 hover:bg-emerald-600 text-white backdrop-blur-sm border border-white/25 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim pointer-events-auto"
+                  title="${t('catalog.sim_rates') || 'Tarifas SIM'}"
+                  aria-label="View SIM pricing">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+              <rect x="8" y="10" width="8" height="8" rx="1"/>
+              <path d="M12 10v8M8 14h8"/>
+            </svg>
+          </button>
+
+          <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button (EN SU LUGAR ORIGINAL) -->
+          <button type="button"
+                  onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
+                  class="absolute bottom-2 right-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/90 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/25 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec pointer-events-auto"
+                  title="${t('catalog.full_specs') || 'Ficha Técnica'}"
+                  aria-label="View detailed specifications">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover/spec:text-amber-200 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </button>
         </div>
 
         <!-- 2. PRODUCT TITLE -->
@@ -388,7 +414,7 @@ function renderCatalog(): void {
           </div>
         ` : ''}
 
-        <!-- 4. DESCRIPCIÓN CON ALTURA MÍNIMA UNIFORME -->
+        <!-- 3. DESCRIPCIÓN CON ALTURA MÍNIMA UNIFORME -->
         <p class="hidden sm:block text-slate-600 text-xs sm:text-sm mb-3 line-clamp-2 leading-relaxed min-h-[2.4rem]">
           ${localized.description}
         </p>
@@ -397,40 +423,7 @@ function renderCatalog(): void {
           <span class="text-navy-700 font-semibold">${product.specs?.[0]?.value || '4G LTE PoC'}</span>
         </div>
 
-        <!-- 5. FILA DE ACCIONES SECUNDARIAS TÁCTICAS: SIM (IZQUIERDA) & ESPECIFICACIONES (DERECHA) -->
-        <div class="flex items-center justify-between gap-1.5 sm:gap-2 mb-2 pt-2 border-t border-slate-100">
-          <!-- ABAJO A LA IZQUIERDA: Botón Tarjeta SIM -->
-          <button type="button"
-                  onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
-                  class="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5 px-2 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300/80 text-[10px] sm:text-[11px] font-bold transition-all active:scale-95 shadow-2xs group/sim"
-                  title="${t('catalog.sim_rates') || 'Tarifas SIM Globales'}"
-                  aria-label="View SIM pricing">
-            <svg class="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
-              <rect x="8" y="10" width="8" height="8" rx="1"/>
-              <path d="M12 10v8M8 14h8"/>
-            </svg>
-            <span class="truncate">${simBtnLabel}</span>
-          </button>
-
-          <!-- ABAJO A LA DERECHA: Botón Especificaciones Profundas (icono de documento, NO '?') -->
-          <button type="button"
-                  onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
-                  class="flex-1 inline-flex items-center justify-center gap-1 sm:gap-1.5 px-2 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-navy-900 border border-slate-300/80 text-[10px] sm:text-[11px] font-bold transition-all active:scale-95 shadow-2xs group/spec"
-                  title="${t('catalog.full_specs') || 'Ficha Técnica Completa'}"
-                  aria-label="View detailed specifications">
-            <svg class="w-3.5 h-3.5 text-navy-700 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10 9 9 9 8 9"/>
-            </svg>
-            <span class="truncate">${specsBtnLabel}</span>
-          </button>
-        </div>
-
-        <!-- 6. FILA DE ACCIONES PRINCIPALES (COTIZAR + WHATSAPP) FLUSH AL FINAL -->
+        <!-- 4. FILA DE ACCIONES PRINCIPALES (COTIZAR + WHATSAPP) FLUSH AL FINAL -->
         <div class="flex items-center gap-1.5 mt-auto">
           <button type="button"
                   onclick="event.stopPropagation(); addToCart('${product.id}')"
@@ -517,113 +510,177 @@ if (modalOverlay && modalContent) {
 
     modalContent.innerHTML = `
       <div class="relative">
-        <button onclick="closeModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all focus:outline-none" aria-label="Close modal">
+        <button onclick="closeModal()" class="absolute -top-3 -right-3 md:-top-4 md:-right-4 z-30 bg-white hover:bg-slate-100 text-slate-500 hover:text-navy-900 rounded-full p-2.5 shadow-lg border border-slate-200 transition-all focus:outline-none" aria-label="Close modal">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
-        <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
-          <div id="modal-product-img-wrapper" class="w-full md:w-1/2 aspect-square max-w-sm md:max-w-none mx-auto bg-navy-950/10 rounded-2xl overflow-hidden flex items-center justify-center border border-gray-200/80 relative shadow-sm flex-shrink-0">
-            <img id="modal-product-img" src="${initialImg}" alt="${localized.name}" class="w-full h-full object-cover rounded-2xl transition-all duration-300">
-            ${!p.inStock ? `
-              <div class="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
-                <span class="bg-crimson-600 text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-lg shadow-xl">${t('catalog.sold_out')}</span>
-              </div>
-            ` : ''}
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-start">
+          <!-- COLUMNA IZQUIERDA: IMAGEN + VARIANTES DE COLOR + SELLOS TÁCTICOS (md:col-span-5) -->
+          <div class="md:col-span-5 flex flex-col space-y-3.5">
+            <!-- Image Card -->
+            <div id="modal-product-img-wrapper" class="aspect-square bg-slate-50/90 rounded-2xl border border-slate-200/80 p-4 flex items-center justify-center relative overflow-hidden shadow-inner group/mimg">
+              <img id="modal-product-img"
+                   src="${initialImg}"
+                   alt="${localized.name}"
+                   class="w-full h-full object-contain max-h-[290px] sm:max-h-[320px] transition-transform duration-300 group-hover/mimg:scale-105">
 
-          <div id="modal-product-summary" class="w-full md:w-1/2 flex flex-col justify-between">
-            <div>
-              <div class="pr-8 mb-2 flex items-center gap-3 flex-wrap">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-navy-800 leading-tight">${localized.name}</h2>
+              <!-- Top Badges over image -->
+              <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 pointer-events-none z-10">
+                <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[65%]">
+                  ${localized.badge}
+                </span>
                 ${stockBadge}
               </div>
-              <div class="mb-3 flex items-center gap-2 flex-wrap">
-                <span class="inline-flex items-center text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-100">${localized.badge}</span>
-                ${(window as any).siteShowPrices && p.discountPrice ? `
-                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
-                    <span class="text-sm md:text-base font-extrabold text-emerald-700">${p.discountPrice}</span>
-                    ${p.priceEstimate ? `<span class="text-xs text-gray-400 line-through">${p.priceEstimate}</span>` : ''}
-                    <span class="text-[10px] font-black uppercase text-emerald-800 bg-emerald-200/80 px-1.5 py-0.5 rounded">${lang === 'es' ? 'OFERTA' : 'SALE'}</span>
-                  </div>
-                ` : (window as any).siteShowPrices && p.priceEstimate ? `
-                  <span class="inline-flex items-center text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-800 border border-slate-200">${p.priceEstimate}</span>
-                ` : ''}
-                ${p.stockCount !== undefined && p.stockCount > 0 ? `
-                  <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600">
-                    ${p.stockCount} ${lang === 'es' ? 'unidades en stock' : 'units in stock'}
-                  </span>
-                ` : ''}
-              </div>
 
-              <!-- Color Selection Swatches inside Modal -->
-              ${p.colors && p.colors.length > 1 ? `
-                <div class="mb-4 p-3 bg-gray-50 rounded-xl border border-gray-200">
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="text-xs font-bold uppercase tracking-wider text-navy-800">${lang === 'es' ? 'Seleccionar Color:' : 'Select Color:'}</span>
-                    <span id="modal-selected-color-label" class="text-xs font-extrabold text-crimson-700">${initialColorLabel}</span>
-                  </div>
-                  <div class="flex flex-wrap items-center gap-2">
-                    ${p.colors.map((c, i) => `
-                      <button type="button"
-                              onclick="window.selectModalColor('${p.id}', '${c.id}')"
-                              id="modal-color-btn-${c.id}"
-                              class="modal-color-swatch flex items-center gap-2 px-3 py-2 rounded-xl border-2 transition-all ${i === activeColorIndex ? 'border-crimson-600 bg-white shadow-sm ring-2 ring-crimson-600/20 font-bold' : 'border-gray-200 hover:border-gray-300 bg-white/80 font-medium'}">
-                        <span class="w-4 h-4 rounded-full border border-black/20 shadow-xs flex-shrink-0" style="background-color: ${c.hex};"></span>
-                        <span class="text-xs text-navy-900">${lang === 'es' ? (c.nameEs || c.name) : c.name}</span>
-                      </button>
-                    `).join('')}
-                  </div>
+              ${!p.inStock ? `
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-[1px] flex items-center justify-center z-10">
+                  <span class="bg-crimson-800 text-white px-4 py-2 rounded-xl font-bold uppercase tracking-wider text-sm shadow-xl">${t('catalog.sold_out')}</span>
                 </div>
               ` : ''}
+            </div>
 
-              <p class="text-gray-600 text-sm md:text-base mb-6 leading-relaxed">${localized.description}</p>
-              
-              <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
-                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">${t('catalog.view_dossier')}</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <!-- Color Swatches (if multi-color) - directly under image on left -->
+            ${p.colors && p.colors.length > 1 ? `
+              <div class="p-3 bg-slate-50/90 rounded-xl border border-slate-200/80">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">${lang === 'es' ? 'Variante / Color:' : 'Color Variant:'}</span>
+                  <span id="modal-selected-color-label" class="text-xs font-black text-crimson-700">${initialColorLabel}</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  ${p.colors.map((c, i) => `
+                    <button type="button"
+                            onclick="window.selectModalColor('${p.id}', '${c.id}')"
+                            id="modal-color-btn-${c.id}"
+                            class="modal-color-swatch flex items-center gap-2 px-2.5 py-1.5 rounded-lg border transition-all ${i === activeColorIndex ? 'border-crimson-600 bg-white shadow-xs ring-2 ring-crimson-600/20 font-bold' : 'border-slate-200 hover:border-slate-300 bg-white/70 font-medium'}"
+                            title="${lang === 'es' ? (c.nameEs || c.name) : c.name}">
+                      <span class="w-3.5 h-3.5 rounded-full border border-black/20 shadow-2xs flex-shrink-0" style="background-color: ${c.hex};"></span>
+                      <span class="text-[11px] text-navy-900">${lang === 'es' ? (c.nameEs || c.name) : c.name}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Tactical Micro Trust Badges Grid (fills space neatly, eliminating blank void) -->
+            <div class="grid grid-cols-2 gap-2 p-3 bg-slate-50/90 rounded-xl border border-slate-200/80 text-[11px] text-slate-700 font-semibold">
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <span class="truncate">${lang === 'es' ? 'Garantía Oficial' : 'Official Warranty'}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span class="truncate">${lang === 'es' ? 'PTT Instantáneo' : 'Instant PTT'}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-navy-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span class="truncate">${lang === 'es' ? 'Cifrado AES-256' : 'AES-256 Security'}</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+                <span class="truncate">${lang === 'es' ? 'Red PoC 4G LTE' : 'PoC 4G LTE Net'}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMNA DERECHA: TÍTULO + PRECIO + DESCRIPCIÓN + DOSSIER + ACCIONES (md:col-span-7) -->
+          <div id="modal-product-summary" class="md:col-span-7 flex flex-col justify-between h-full space-y-4">
+            <div>
+              <!-- Title & Badges Header -->
+              <div class="mb-2">
+                <h2 class="text-xl sm:text-2xl font-black text-navy-900 leading-tight mb-1.5">${localized.name}</h2>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="inline-flex items-center text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded bg-crimson-50 text-crimson-800 border border-crimson-200/80">${localized.badge}</span>
+                  ${(window as any).siteShowPrices && p.discountPrice ? `
+                    <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-50 border border-emerald-200">
+                      <span class="text-sm font-black text-emerald-700">${p.discountPrice}</span>
+                      ${p.priceEstimate ? `<span class="text-xs text-gray-400 line-through font-semibold">${p.priceEstimate}</span>` : ''}
+                      <span class="text-[9px] font-black uppercase text-emerald-800 bg-emerald-200/80 px-1 py-0.2 rounded">${lang === 'es' ? 'OFERTA' : 'SALE'}</span>
+                    </div>
+                  ` : (window as any).siteShowPrices && p.priceEstimate ? `
+                    <span class="inline-flex items-center text-xs font-bold px-2.5 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">${p.priceEstimate}</span>
+                  ` : ''}
+                  ${p.stockCount !== undefined && p.stockCount > 0 ? `
+                    <span class="inline-flex items-center text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                      ${p.stockCount} ${lang === 'es' ? 'disp.' : 'avail.'}
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Description -->
+              <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-3.5">
+                ${localized.description}
+              </p>
+
+              <!-- Technical Dossier Grid (compact, elegant) -->
+              <div class="bg-slate-50/90 rounded-xl p-3 sm:p-3.5 mb-3.5 border border-slate-200/70">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-[10px] sm:text-[11px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-navy-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    ${t('catalog.view_dossier')}
+                  </h4>
+                  <span class="text-[10px] text-slate-400 font-mono">ID: ${p.id}</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   ${p.specs.map(s => `
-                    <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                      <span class="block text-xs text-gray-500 mb-0.5">${tSpecLabel(s.label)}</span>
-                      <span class="block text-sm font-bold text-navy-800 break-words">${s.value}</span>
+                    <div class="bg-white p-2 sm:p-2.5 rounded-lg border border-slate-200/70 shadow-2xs">
+                      <span class="block text-[10px] font-semibold text-slate-400 uppercase tracking-tight">${tSpecLabel(s.label)}</span>
+                      <span class="block text-xs font-bold text-navy-900 break-words leading-snug">${s.value}</span>
                     </div>
                   `).join('')}
                 </div>
               </div>
 
-              <!-- Annual SIM Plan Indicator Banner -->
-              <div class="mb-4 p-3 bg-emerald-50/80 hover:bg-emerald-50 border border-emerald-200/80 rounded-xl flex items-center justify-between gap-3 cursor-pointer transition-colors" onclick="window.openSimPricingModal('${p.id}')">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="text-xl flex-shrink-0">📡</span>
-                  <div class="min-w-0">
-                    <span class="block text-xs font-bold text-emerald-900 truncate">${lang === 'es' ? 'Planes SIM PoC Anuales Disponibles' : 'Annual PoC SIM Plans Available'}</span>
-                    <span class="block text-[11px] text-emerald-700 truncate font-medium">USA/CAN/MEX $30 • Brasil $45 • LatAm $45 • Europa $50 • Global $50 al año</span>
-                  </div>
-                </div>
-                <span class="text-xs font-bold text-emerald-800 underline flex-shrink-0 whitespace-nowrap">${lang === 'es' ? 'Ver Tarifas →' : 'View Rates →'}</span>
+              <!-- DUAL TACTICAL BUTTONS: PLANES SIM (IZQ) & ESPECIFICACIONES PROFUNDAS (DER) DENTRO DEL MODAL -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3.5">
+                <!-- Botón Planes & Tarifas SIM -->
+                <button type="button"
+                        onclick="window.openSimPricingModal('${p.id}')"
+                        class="w-full py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95 group">
+                  <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
+                    <rect x="8" y="10" width="8" height="8" rx="1"/>
+                    <path d="M12 10v8M8 14h8"/>
+                  </svg>
+                  <span class="truncate">${lang === 'es' ? 'Planes & Tarifas SIM' : 'SIM Plans & Rates'}</span>
+                </button>
+
+                <!-- Botón Especificaciones Profundas -->
+                <button type="button"
+                        onclick="window.openDeepDiveModal('${p.id}', 'from_modal')"
+                        class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 border border-slate-300 font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95 group">
+                  <svg class="w-4 h-4 text-navy-700 flex-shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                  </svg>
+                  <span class="truncate">${lang === 'es' ? 'Ficha Técnica Profunda' : 'Full Deep Specs'}</span>
+                </button>
               </div>
             </div>
-            
-            <div class="pt-4 border-t border-gray-100 space-y-2">
+
+            <!-- Action Footer: Cotizar + WhatsApp -->
+            <div class="pt-3 border-t border-slate-100 space-y-2 mt-auto">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                 <button id="modal-add-to-cart-btn"
                         onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}', '${activeColor ? activeColor.name : ''}', '${initialImg}'); closeModal(); openCartDrawer()`}"
-                        class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg tactical-glow-crimson active:scale-95"
+                        class="w-full px-4 py-3 rounded-xl font-extrabold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg tactical-glow-crimson active:scale-95"
                         title="${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                   <span>${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}</span>
                 </button>
+
                 <a id="modal-whatsapp-btn"
                    href="https://wa.me/14074273356?text=${waModalMsg}"
                    target="_blank"
-                   class="w-full px-3 sm:px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg active:scale-95"
+                   class="w-full px-4 py-3 rounded-xl font-extrabold uppercase tracking-wider text-white bg-green-500 hover:bg-green-600 transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg active:scale-95"
                    title="${t('catalog.whatsapp_direct')}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                   <span>${t('catalog.whatsapp_direct')}</span>
                 </a>
               </div>
-              <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
-                ${t('catalog.close')}
-              </button>
             </div>
           </div>
         </div>
@@ -654,12 +711,12 @@ if (modalOverlay && modalContent) {
 
     document.querySelectorAll('.modal-color-swatch').forEach(el => {
       el.classList.remove('border-crimson-600', 'ring-2', 'ring-crimson-600/20', 'font-bold');
-      el.classList.add('border-gray-200', 'font-medium');
+      el.classList.add('border-slate-200', 'font-medium');
     });
     const activeBtn = document.getElementById(`modal-color-btn-${chosen.id}`);
     if (activeBtn) {
       activeBtn.classList.add('border-crimson-600', 'ring-2', 'ring-crimson-600/20', 'font-bold');
-      activeBtn.classList.remove('border-gray-200', 'font-medium');
+      activeBtn.classList.remove('border-slate-200', 'border-gray-200', 'font-medium');
     }
 
     const addBtn = document.getElementById('modal-add-to-cart-btn');
@@ -761,10 +818,19 @@ if (modalOverlay && modalContent) {
         : `Hello G-TECH, I would like to inquire about ${hardwareText} with the ${activePlan.name} Annual SIM Plan (${activePlan.price}/year).`;
 
       modalContent.innerHTML = `
-        <div class="relative">
-          <button onclick="closeModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all focus:outline-none" aria-label="Close modal">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-          </button>
+        <div class="relative animate-fade-in">
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
+            ${product ? `
+              <button onclick="window.openModal('${product.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                ${lang === 'es' ? '← Volver al Resumen' : '← Back to Overview'}
+              </button>
+            ` : `<span></span>`}
+
+            <button onclick="closeModal()" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
 
           <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 shadow-sm">

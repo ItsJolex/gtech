@@ -1100,16 +1100,9 @@
         "nameEs": "Blanco Ártico",
         "hex": "#f3f4f6",
         "image": "/images/G-34181-white.webp"
-      },
-      {
-        "id": "trio",
-        "name": "Tri-Color Combo",
-        "nameEs": "Combo Tricolor",
-        "hex": "#a1a1aa",
-        "image": "/images/alervites-trio.webp"
       }
     ],
-    "description": "Sleek, contemporary commercial POC radio available in Obsidian Black, Gunmetal Gray, Arctic White, and a Tri-Color Combo presentation. Designed for corporate security, luxury hospitality, event management, and retail logistics.",
+    "description": "Sleek, contemporary commercial POC radio available in Obsidian Black, Gunmetal Gray, and Arctic White finishes. Designed for corporate security, luxury hospitality, event management, and retail logistics.",
     "inStock": true,
     "stockStatus": "in_stock",
     "stockCount": 53,
@@ -1118,7 +1111,7 @@
     "specs": [
       {
         "label": "Finishes",
-        "value": "Obsidian Black, Gunmetal Gray, Arctic White, Tri-Color Combo"
+        "value": "Obsidian Black, Gunmetal Gray, Arctic White"
       },
       {
         "label": "Screen Telemetry",
