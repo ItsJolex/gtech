@@ -1,13 +1,12 @@
 [
   {
     "id": "acc-bqs5-mic",
-    "name": "G-TECH BQ-S5 Tactical Shoulder PTT Mic",
-    "nameEs": "Micrófono Táctico de Hombro G-TECH BQ-S5 PTT",
+    "name": "G-TECH G-S5 Tactical Shoulder PTT Mic",
+    "nameEs": "Micrófono Táctico de Hombro G-TECH G-S5 PTT",
     "category": "microphones",
     "badge": "IP56 Heavy-Duty",
     "badgeEs": "Uso Rudo IP56",
-    "image": "/images/accessories/bq-s5-tactical-mic.webp",
-    "secondaryImage": "/images/accessories/mic-bqs-specs-infographic.webp",
+    "image": "/images/accessories/g-s5-tactical-mic.webp",
     "description": "Professional tactical speaker microphone equipped with integrated emergency LED flashlight, warning strobe beacon, ultra-long 480-hour standby battery (2000mAh), and heavy-duty 2-Pin Type-K coiled cable.",
     "descriptionEs": "Micrófono de hombro táctico profesional equipado con linterna LED integrada, luz de advertencia estroboscópica, batería de 2000mAh para 480h de espera y cable espiralado reforzado Type-K de 2 pines.",
     "connector": "Type-K (2-Pin Kenwood)",
@@ -23,23 +22,42 @@
       "Alervites AT1"
     ],
     "specs": [
-      { "label": "Waterproof Rating", "labelEs": "Resistencia al Agua", "value": "IP56 Certified" },
-      { "label": "Battery Capacity", "labelEs": "Batería Interna", "value": "2000 mAh Li-ion" },
-      { "label": "Standby Time", "labelEs": "Tiempo en Espera", "value": "480 Horas" },
-      { "label": "Lighting Modes", "labelEs": "Modos de Luz", "value": "Flashlight / Warning Strobe / Alarm" },
-      { "label": "Connector Type", "labelEs": "Tipo de Conector", "value": "Type-K 2-Pin (3.5mm + 2.5mm)" }
+      {
+        "label": "Waterproof Rating",
+        "labelEs": "Resistencia al Agua",
+        "value": "IP56 Certified"
+      },
+      {
+        "label": "Battery Capacity",
+        "labelEs": "Batería Interna",
+        "value": "2000 mAh Li-ion"
+      },
+      {
+        "label": "Standby Time",
+        "labelEs": "Tiempo en Espera",
+        "value": "480 Horas"
+      },
+      {
+        "label": "Lighting Modes",
+        "labelEs": "Modos de Luz",
+        "value": "Flashlight / Warning Strobe / Alarm"
+      },
+      {
+        "label": "Connector Type",
+        "labelEs": "Tipo de Conector",
+        "value": "Type-K 2-Pin (3.5mm + 2.5mm)"
+      }
     ],
     "inStock": true
   },
   {
     "id": "acc-bqs4-typec-mic",
-    "name": "G-TECH BQ-S4 Digital USB Type-C Speaker Mic",
-    "nameEs": "Micrófono Digital Type-C G-TECH BQ-S4",
+    "name": "G-TECH G-S4 Digital USB Type-C Speaker Mic",
+    "nameEs": "Micrófono Digital Type-C G-TECH G-S4",
     "category": "microphones",
     "badge": "USB Type-C Digital",
     "badgeEs": "Digital USB Type-C",
-    "image": "/images/accessories/bq-s4-typec-mic.webp",
-    "secondaryImage": "/images/accessories/mic-bqs-specs-infographic.webp",
+    "image": "/images/accessories/g-s4-typec-mic.webp",
     "description": "High-fidelity digital shoulder microphone with direct USB Type-C connection. Delivers crystal-clear PTT audio, active noise isolation, emergency strobe, and IP56 rugged sealing for modern G-Series PoC terminals.",
     "descriptionEs": "Micrófono de hombro digital de alta fidelidad con conexión directa USB Type-C. Audio PTT nítido, cancelación de ruido ambiental, estroboscópico de emergencia y sellado IP56 para terminales PoC modernas G-Series.",
     "connector": "USB Type-C",
@@ -56,10 +74,26 @@
       "V1 Plus"
     ],
     "specs": [
-      { "label": "Protection", "labelEs": "Protección", "value": "IP56 Ruggedized" },
-      { "label": "Audio Processing", "labelEs": "Procesamiento de Audio", "value": "Digital Noise Suppression" },
-      { "label": "Connector", "labelEs": "Conector", "value": "Right-Angle USB Type-C" },
-      { "label": "Cable", "labelEs": "Cable", "value": "Reinforced PU Coiled 1.2m" }
+      {
+        "label": "Protection",
+        "labelEs": "Protección",
+        "value": "IP56 Ruggedized"
+      },
+      {
+        "label": "Audio Processing",
+        "labelEs": "Procesamiento de Audio",
+        "value": "Digital Noise Suppression"
+      },
+      {
+        "label": "Connector",
+        "labelEs": "Conector",
+        "value": "Right-Angle USB Type-C"
+      },
+      {
+        "label": "Cable",
+        "labelEs": "Cable",
+        "value": "Reinforced PU Coiled 1.2m"
+      }
     ],
     "inStock": true
   },
@@ -86,10 +120,26 @@
       "Alervites AT1"
     ],
     "specs": [
-      { "label": "Quantity", "labelEs": "Cantidad", "value": "2 Unidades Completas" },
-      { "label": "Auxiliary Port", "labelEs": "Puerto Auxiliar", "value": "Jack 3.5mm para auricular" },
-      { "label": "Clip", "labelEs": "Clip", "value": "Acero inoxidable giratorio 360°" },
-      { "label": "Connector", "labelEs": "Conector", "value": "Type-K (3.5mm + 2.5mm)" }
+      {
+        "label": "Quantity",
+        "labelEs": "Cantidad",
+        "value": "2 Unidades Completas"
+      },
+      {
+        "label": "Auxiliary Port",
+        "labelEs": "Puerto Auxiliar",
+        "value": "Jack 3.5mm para auricular"
+      },
+      {
+        "label": "Clip",
+        "labelEs": "Clip",
+        "value": "Acero inoxidable giratorio 360°"
+      },
+      {
+        "label": "Connector",
+        "labelEs": "Conector",
+        "value": "Type-K (3.5mm + 2.5mm)"
+      }
     ],
     "inStock": true
   },
@@ -117,9 +167,21 @@
       "V1 Plus"
     ],
     "specs": [
-      { "label": "Quantity", "labelEs": "Cantidad", "value": "2 Unidades Completas" },
-      { "label": "Audio Protocol", "labelEs": "Protocolo de Audio", "value": "Digital Direct Stream" },
-      { "label": "Connector", "labelEs": "Conector", "value": "Molded Right-Angle USB Type-C" }
+      {
+        "label": "Quantity",
+        "labelEs": "Cantidad",
+        "value": "2 Unidades Completas"
+      },
+      {
+        "label": "Audio Protocol",
+        "labelEs": "Protocolo de Audio",
+        "value": "Digital Direct Stream"
+      },
+      {
+        "label": "Connector",
+        "labelEs": "Conector",
+        "value": "Molded Right-Angle USB Type-C"
+      }
     ],
     "inStock": true
   },
@@ -140,9 +202,21 @@
       "Receptores Tácticos Auxiliares 3.5mm"
     ],
     "specs": [
-      { "label": "Quantity", "labelEs": "Cantidad", "value": "2 Unidades Completas" },
-      { "label": "Pin Size", "labelEs": "Tamaño del Pin", "value": "3.5mm TRRS Audio / Mic" },
-      { "label": "Clip", "labelEs": "Clip", "value": "360° Heavy-Duty Swivel" }
+      {
+        "label": "Quantity",
+        "labelEs": "Cantidad",
+        "value": "2 Unidades Completas"
+      },
+      {
+        "label": "Pin Size",
+        "labelEs": "Tamaño del Pin",
+        "value": "3.5mm TRRS Audio / Mic"
+      },
+      {
+        "label": "Clip",
+        "labelEs": "Clip",
+        "value": "360° Heavy-Duty Swivel"
+      }
     ],
     "inStock": true
   },
@@ -169,10 +243,26 @@
       "G5 Plus"
     ],
     "specs": [
-      { "label": "Quantity", "labelEs": "Cantidad", "value": "2 Auriculares Completos" },
-      { "label": "Acoustic Tube", "labelEs": "Tubo Acústico", "value": "Silicona Transparente Quirúrgica" },
-      { "label": "PTT Type", "labelEs": "Tipo de PTT", "value": "Inline Lapel PTT con Clip Metálico" },
-      { "label": "Privacy Rating", "labelEs": "Privacidad", "value": "100% Cero Fuga Acústica Ambiental" }
+      {
+        "label": "Quantity",
+        "labelEs": "Cantidad",
+        "value": "2 Auriculares Completos"
+      },
+      {
+        "label": "Acoustic Tube",
+        "labelEs": "Tubo Acústico",
+        "value": "Silicona Transparente Quirúrgica"
+      },
+      {
+        "label": "PTT Type",
+        "labelEs": "Tipo de PTT",
+        "value": "Inline Lapel PTT con Clip Metálico"
+      },
+      {
+        "label": "Privacy Rating",
+        "labelEs": "Privacidad",
+        "value": "100% Cero Fuga Acústica Ambiental"
+      }
     ],
     "inStock": true
   },
@@ -198,61 +288,26 @@
       "Alervites AT1"
     ],
     "specs": [
-      { "label": "Quantity", "labelEs": "Cantidad", "value": "2 Auriculares Completos" },
-      { "label": "Cable Core", "labelEs": "Núcleo de Cable", "value": "Kevlar Reforzado Antitirón" },
-      { "label": "Ear Tip", "labelEs": "Almohadilla", "value": "Hipoalergénica Mushroom Bud" },
-      { "label": "Connector", "labelEs": "Conector", "value": "Standard 2-Pin Type-K (3.5mm + 2.5mm)" }
-    ],
-    "inStock": true
-  },
-  {
-    "id": "acc-bq-series-mic-kit",
-    "name": "G-TECH PoC Radio Microphone Ecosystem Kit",
-    "nameEs": "Kit Ecosistema de Audio PoC Serie BQ G-TECH",
-    "category": "microphones",
-    "badge": "Kit de Estudio Completo",
-    "badgeEs": "Kit de Estudio Completo",
-    "image": "/images/accessories/bq-series-mic-kit.webp",
-    "description": "Multi-product operational kit featuring the BQ-S4 (USB-C) and BQ-S5 (Type-K) microphones, dedicated desktop charging cradle, swappable 2000mAh battery pack with G-TECH badge, and reinforced accessories.",
-    "descriptionEs": "Kit operativo integral que incluye los micrófonos tácticos BQ-S4 (USB-C) y BQ-S5 (Type-K), base de carga de escritorio, batería intercambiable de 2000mAh con insignia oficial G-TECH y accesorios de montaje.",
-    "connector": "Dual Type-K & Type-C",
-    "connectorEs": "Doble Conector Type-K y Type-C",
-    "compatibility": [
-      "Toda la Flota Portátil G-TECH (Universal)"
-    ],
-    "specs": [
-      { "label": "Included Microphones", "labelEs": "Micrófonos Incluidos", "value": "BQ-S5 (Type-K) + BQ-S4 (Type-C)" },
-      { "label": "Charging Base", "labelEs": "Base de Carga", "value": "Desktop Charging Cradle Incluida" },
-      { "label": "Battery Pack", "labelEs": "Batería Extra", "value": "2000 mAh Li-ion con Insignia G-TECH" }
-    ],
-    "inStock": true
-  },
-  {
-    "id": "acc-multi-charger-dock",
-    "name": "Heavy-Duty 6-Unit Multi-Charger Desktop Dock",
-    "nameEs": "Estación de Carga Múltiple de 6 Unidades para Flota",
-    "category": "chargers",
-    "badge": "Carga de Flota 6-Bay",
-    "badgeEs": "Carga de Flota 6-Bay",
-    "image": "/images/accessories/multi-charger-dock.webp",
-    "description": "Commercial 6-bay multi-unit rapid desktop charger station engineered for dispatch centers and security fleets. Features independent LED telemetry indicators per slot, intelligent overcharge protection, and universal AC 110-240V power.",
-    "descriptionEs": "Estación de carga rápida de escritorio para 6 unidades simultáneas diseñada para centros de despacho y flotas de seguridad. Indicadores LED de telemetría independientes por bahía, protección inteligente contra sobrecarga y alimentación AC 110-240V.",
-    "connector": "AC 110-240V Multi-Bay",
-    "connectorEs": "Alimentación Centralizada AC 110-240V",
-    "compatibility": [
-      "G-510 POCKET POC",
-      "G-280 POC-UHF",
-      "G0 PLUS",
-      "G-6 PLUS",
-      "G-8 PLUS",
-      "G-5288 PLUS",
-      "ALERVITES AT1"
-    ],
-    "specs": [
-      { "label": "Slots", "labelEs": "Bahías de Carga", "value": "6 Unidades Simultáneas" },
-      { "label": "Input Power", "labelEs": "Alimentación", "value": "AC 100-240V 50/60Hz Universal" },
-      { "label": "Telemetry", "labelEs": "Indicadores LED", "value": "LED Bicolor de Estado por Ranura" },
-      { "label": "Safety Protection", "labelEs": "Protección Eléctrica", "value": "Sobretensión, Cortocircuito y Temperatura" }
+      {
+        "label": "Quantity",
+        "labelEs": "Cantidad",
+        "value": "2 Auriculares Completos"
+      },
+      {
+        "label": "Cable Core",
+        "labelEs": "Núcleo de Cable",
+        "value": "Kevlar Reforzado Antitirón"
+      },
+      {
+        "label": "Ear Tip",
+        "labelEs": "Almohadilla",
+        "value": "Hipoalergénica Mushroom Bud"
+      },
+      {
+        "label": "Connector",
+        "labelEs": "Conector",
+        "value": "Standard 2-Pin Type-K (3.5mm + 2.5mm)"
+      }
     ],
     "inStock": true
   }
