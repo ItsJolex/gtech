@@ -22,6 +22,7 @@ let allProducts: ExtendedProduct[] = [];
 let currentFilter = 'all';
 let currentSearch = '';
 let currentCategory: 'radio' | 'accessory' = 'radio';
+let currentAccCategory = 'all';
 let editingProduct: ExtendedProduct | null = null;
 let adminToken: string | null = sessionStorage.getItem('gtech_admin_token');
 
@@ -34,6 +35,8 @@ const adminApp = document.getElementById('admin-app') as HTMLDivElement;
 const productsContainer = document.getElementById('products-container') as HTMLDivElement;
 const searchInput = document.getElementById('search-input') as HTMLInputElement;
 const filterPills = document.querySelectorAll('.filter-pill');
+const accCategoryFilters = document.getElementById('accessory-category-filters') as HTMLDivElement | null;
+const accCatPills = document.querySelectorAll('.acc-cat-pill');
 const productModal = document.getElementById('product-modal') as HTMLDivElement;
 const productForm = document.getElementById('product-form') as HTMLFormElement;
 const btnCloseModal = document.getElementById('btn-close-modal') as HTMLButtonElement;
@@ -294,6 +297,17 @@ function updateCounts() {
   if (countHidden) countHidden.textContent = String(hidden);
   if (countLow) countLow.textContent = String(low);
   if (countTrash) countTrash.textContent = String(trash);
+
+  // Update accessory category counts
+  const mic = allProducts.filter((p) => p.category === 'microphones' && !p.isDeleted).length;
+  const ear = allProducts.filter((p) => p.category === 'earphones' && !p.isDeleted).length;
+  const charg = allProducts.filter((p) => p.category === 'chargers' && !p.isDeleted).length;
+  const countMic = document.getElementById('count-cat-mic');
+  const countEar = document.getElementById('count-cat-ear');
+  const countCharg = document.getElementById('count-cat-charg');
+  if (countMic) countMic.textContent = String(mic);
+  if (countEar) countEar.textContent = String(ear);
+  if (countCharg) countCharg.textContent = String(charg);
 }
 
 // -------------------------------------------------------------
@@ -309,6 +323,11 @@ function renderProducts() {
     if (currentFilter === 'low_stock' && (p.stockStatus !== 'low_stock' && p.stockStatus !== 'out_of_stock' && p.inStock !== false || p.isDeleted === true)) return false;
     if (currentFilter === 'trash' && p.isDeleted !== true) return false;
     if (currentFilter === 'all' && p.isDeleted === true) return false;
+
+    // Accessory category sub-filter
+    if (isAccessory && currentAccCategory !== 'all' && p.category !== currentAccCategory) {
+      return false;
+    }
 
     // Search term
     if (currentSearch) {
@@ -348,6 +367,21 @@ function renderProducts() {
         stockPill = '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-amber-950 text-amber-300 border border-amber-800">Bajo Stock</span>';
       } else {
         stockPill = '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-950 text-emerald-300 border border-emerald-800">Disponible</span>';
+      }
+
+      let categoryBadge = '';
+      if (isAccessory && p.category) {
+        const catMap: Record<string, string> = {
+          microphones: '🎙️ Micrófono PTT',
+          earphones: '🎧 Auricular Acústico',
+          chargers: '⚡ Cargador / Base',
+        };
+        const catName = catMap[p.category] || p.category;
+        categoryBadge = `
+          <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-cyan-950/90 border border-cyan-800/60 px-2 py-0.5 rounded-md">
+            ${catName}
+          </span>
+        `;
       }
 
       const connectorHtml = p.connector ? `
@@ -406,6 +440,7 @@ function renderProducts() {
               </h3>
               ${p.nameEs && p.nameEs !== p.name ? `<p class="text-xs text-slate-400 line-clamp-1 italic">${p.nameEs}</p>` : ''}
               <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                ${categoryBadge}
                 <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-950 px-2 py-0.5 rounded-md">
                   ${p.badge}
                 </span>
@@ -649,6 +684,20 @@ filterPills.forEach((btn) => {
   });
 });
 
+accCatPills.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    accCatPills.forEach((b) => {
+      b.classList.remove('bg-cyan-900/60', 'text-cyan-300', 'border-cyan-700/60');
+      b.classList.add('bg-slate-950', 'text-slate-400');
+    });
+    btn.classList.add('bg-cyan-900/60', 'text-cyan-300', 'border-cyan-700/60');
+    btn.classList.remove('bg-slate-950', 'text-slate-400');
+
+    currentAccCategory = (btn as HTMLElement).dataset.accCat || 'all';
+    renderProducts();
+  });
+});
+
 // -------------------------------------------------------------
 // 6. AUTO-WEBP IMAGE PIPELINE SCRIPT
 // -------------------------------------------------------------
@@ -723,12 +772,14 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
 
   // Toggle tab buttons in modal
   const tabDossier = document.getElementById('editor-tab-dossier');
+  const tabSpecs = document.getElementById('editor-tab-specs');
   const tabColors = document.getElementById('editor-tab-colors');
   const tabTags = document.getElementById('editor-tab-tags');
 
   if (tabDossier) tabDossier.classList.toggle('hidden', isAccessory);
   if (tabColors) tabColors.classList.toggle('hidden', isAccessory);
   if (tabTags) tabTags.classList.toggle('hidden', isAccessory);
+  if (tabSpecs) tabSpecs.textContent = isAccessory ? '2. Especificaciones' : '3. Especificaciones';
 
   // Toggle field sections in Tab 1
   const fieldShortName = document.getElementById('field-shortName');
@@ -756,6 +807,14 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     if (modalSubtitle) modalSubtitle.textContent = `Modificando ID: ${product.id}`;
     btnDeleteProduct.classList.remove('hidden');
 
+    if (product.isDeleted) {
+      btnDeleteProduct.textContent = 'Restaurar de Papelera';
+      btnDeleteProduct.className = 'px-4 py-2 rounded-xl text-xs font-bold text-emerald-400 hover:text-white hover:bg-emerald-900/60 transition-colors border border-emerald-800/60';
+    } else {
+      btnDeleteProduct.textContent = 'Mover a Papelera';
+      btnDeleteProduct.className = 'px-4 py-2 rounded-xl text-xs font-bold text-rose-400 hover:text-white hover:bg-rose-900/60 transition-colors border border-rose-900/60';
+    }
+
     // Tab 1: General
     (document.getElementById('p-id') as HTMLInputElement).value = product.id;
     (document.getElementById('p-id') as HTMLInputElement).disabled = true;
@@ -779,7 +838,7 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     const accCatSelect = document.getElementById('p-accCategory') as HTMLSelectElement | null;
     const connInput = document.getElementById('p-connector') as HTMLInputElement | null;
     const connEsInput = document.getElementById('p-connectorEs') as HTMLInputElement | null;
-    const compatInput = document.getElementById('p-compatibility') as HTMLInputElement | null;
+    const compatInput = document.getElementById('p-compatibility') as HTMLTextAreaElement | null;
     const descEsInput = document.getElementById('p-descriptionEs') as HTMLTextAreaElement | null;
     const secImgInput = document.getElementById('p-secondaryImage') as HTMLInputElement | null;
 
@@ -843,7 +902,7 @@ function openProductModal(product: ExtendedProduct | null = null, category: 'rad
     const accCatSelect = document.getElementById('p-accCategory') as HTMLSelectElement | null;
     const connInput = document.getElementById('p-connector') as HTMLInputElement | null;
     const connEsInput = document.getElementById('p-connectorEs') as HTMLInputElement | null;
-    const compatInput = document.getElementById('p-compatibility') as HTMLInputElement | null;
+    const compatInput = document.getElementById('p-compatibility') as HTMLTextAreaElement | null;
     const descEsInput = document.getElementById('p-descriptionEs') as HTMLTextAreaElement | null;
     const secImgInput = document.getElementById('p-secondaryImage') as HTMLInputElement | null;
 
@@ -1050,7 +1109,7 @@ btnSaveProduct?.addEventListener('click', async () => {
       const badgeEs = (document.getElementById('p-badgeEs') as HTMLInputElement)?.value.trim() || badge;
       const connector = (document.getElementById('p-connector') as HTMLInputElement)?.value.trim() || '';
       const connectorEs = (document.getElementById('p-connectorEs') as HTMLInputElement)?.value.trim() || connector;
-      const compatibilityRaw = (document.getElementById('p-compatibility') as HTMLInputElement)?.value || '';
+      const compatibilityRaw = (document.getElementById('p-compatibility') as HTMLTextAreaElement)?.value || '';
       const compatibility = compatibilityRaw
         .split(',')
         .map((s) => s.trim())
@@ -1193,11 +1252,38 @@ btnSaveProduct?.addEventListener('click', async () => {
   }
 });
 
-// Delete inside modal
+// Delete / Restore inside modal
 btnDeleteProduct?.addEventListener('click', async () => {
   if (!editingProduct) return;
   const { id, name } = editingProduct;
   const isAccessory = currentCategory === 'accessory';
+
+  if (editingProduct.isDeleted) {
+    if (confirm(`¿Confirmas restaurar el ${isAccessory ? 'accesorio' : 'radio'} "${name}" (${id}) desde la papelera?`)) {
+      try {
+        const res = await fetch('/api/admin/restore', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${adminToken}`,
+          },
+          body: JSON.stringify({ id, type: currentCategory }),
+        });
+
+        if (res.ok) {
+          showToast(`"${name}" restaurado exitosamente`);
+          closeProductModal();
+          loadProducts();
+          updateTabBadges();
+        } else {
+          alert('No se pudo restaurar el elemento');
+        }
+      } catch (err) {
+        alert('Error de conexión al restaurar');
+      }
+    }
+    return;
+  }
 
   if (confirm(`¿Confirmas mover el ${isAccessory ? 'accesorio' : 'producto'} "${name}" (${id}) a la papelera?\n\nPodrás restaurarlo o eliminarlo definitivamente desde la pestaña Papelera.`)) {
     try {
@@ -1279,6 +1365,10 @@ function setActiveTab(category: 'radio' | 'accessory') {
     setNewProductLabel('Nuevo Radio Táctico');
     if (titleEl) titleEl.textContent = 'Inventario Activo de Radios PoC';
     if (descEl) descEl.textContent = 'Modifica precios, inventario, ficha técnica o alterna visibilidad. Cualquier cambio se sincroniza en vivo con Turso.';
+    if (accCategoryFilters) {
+      accCategoryFilters.classList.add('hidden');
+      accCategoryFilters.classList.remove('flex');
+    }
   } else {
     tabAccessories?.classList.add('bg-crimson-700', 'text-white', 'shadow-sm');
     tabAccessories?.classList.remove('text-slate-400');
@@ -1287,6 +1377,20 @@ function setActiveTab(category: 'radio' | 'accessory') {
     setNewProductLabel('Nuevo Accesorio');
     if (titleEl) titleEl.textContent = 'Catálogo de Accesorios Tácticos';
     if (descEl) descEl.textContent = 'Micrófonos PTT, auriculares tácticos y estaciones de carga. Sincronizado en vivo con Turso DB.';
+    if (accCategoryFilters) {
+      accCategoryFilters.classList.remove('hidden');
+      accCategoryFilters.classList.add('flex');
+    }
+    currentAccCategory = 'all';
+    accCatPills.forEach((p) => {
+      if ((p as HTMLElement).dataset.accCat === 'all') {
+        p.classList.add('bg-cyan-900/60', 'text-cyan-300', 'border-cyan-700/60');
+        p.classList.remove('bg-slate-950', 'text-slate-400');
+      } else {
+        p.classList.remove('bg-cyan-900/60', 'text-cyan-300', 'border-cyan-700/60');
+        p.classList.add('bg-slate-950', 'text-slate-400');
+      }
+    });
   }
   currentFilter = 'all';
   filterPills.forEach((b) => {

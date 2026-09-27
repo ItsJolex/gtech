@@ -28,3 +28,4 @@ dist-ssr
 # Local Agent Implementation Plans
 IMPLEMENTATION_PLAN_OPENCODE.md
 *.plan.md
+scratch/

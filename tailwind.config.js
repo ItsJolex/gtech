@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./accessories.html",
+    "./admin.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
