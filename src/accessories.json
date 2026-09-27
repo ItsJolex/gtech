@@ -99,14 +99,14 @@
   },
   {
     "id": "acc-shoulder-mic-2pin-2pack",
-    "name": "Heavy-Duty Shoulder Speaker Mic (2-Pack, 2-Pin K-Plug)",
-    "nameEs": "Pack Doble Micrófonos de Solapa Heavy Duty (2-Pin Type-K)",
+    "name": "Heavy-Duty Shoulder Speaker Mic (2-Pin K-Plug)",
+    "nameEs": "Micrófono Táctico de Hombro Heavy Duty (2-Pin Type-K)",
     "category": "microphones",
-    "badge": "Pack x2 Unidades",
-    "badgeEs": "Pack x2 Unidades",
+    "badge": "2-Pin Kenwood",
+    "badgeEs": "2-Pin Kenwood",
     "image": "/images/accessories/shoulder-mic-2pin-2pack.webp",
-    "description": "Value dual-pack of tactical shoulder speaker microphones with 360-degree swivel clip, loud front-facing speaker, side PTT lever, and 3.5mm auxiliary listen-only earphone jack for 2-pin Kenwood standard radios.",
-    "descriptionEs": "Paquete doble de micrófonos de solapa tácticos con pinza giratoria de 360°, altavoz frontal de alta potencia, pulsador PTT lateral y salida auxiliar de 3.5mm para auricular encubierto en radios estándar Kenwood de 2 pines.",
+    "description": "Tactical shoulder speaker microphone with 360-degree swivel clip, loud front-facing speaker, side PTT lever, and 3.5mm auxiliary listen-only earphone jack for 2-pin Kenwood standard radios.",
+    "descriptionEs": "Micrófono de solapa táctico con pinza giratoria de 360°, altavoz frontal de alta potencia, pulsador PTT lateral y salida auxiliar de 3.5mm para auricular encubierto en radios estándar Kenwood de 2 pines.",
     "connector": "Type-K (2-Pin Kenwood)",
     "connectorEs": "Type-K (2 pines Kenwood)",
     "compatibility": [
@@ -120,11 +120,6 @@
       "Alervites AT1"
     ],
     "specs": [
-      {
-        "label": "Quantity",
-        "labelEs": "Cantidad",
-        "value": "2 Unidades Completas"
-      },
       {
         "label": "Auxiliary Port",
         "labelEs": "Puerto Auxiliar",
@@ -145,14 +140,14 @@
   },
   {
     "id": "acc-shoulder-mic-typec-2pack",
-    "name": "Heavy-Duty Shoulder Speaker Mic (2-Pack, USB Type-C)",
-    "nameEs": "Pack Doble Micrófonos de Solapa Digitales (2-Pack, USB Type-C)",
+    "name": "Heavy-Duty Shoulder Speaker Mic (USB Type-C)",
+    "nameEs": "Micrófono Digital de Hombro Heavy Duty (USB Type-C)",
     "category": "microphones",
-    "badge": "Pack x2 Type-C",
-    "badgeEs": "Pack x2 Type-C",
+    "badge": "USB Type-C",
+    "badgeEs": "USB Type-C",
     "image": "/images/accessories/shoulder-mic-typec-2pack.webp",
-    "description": "Pair of identical digital handheld shoulder speaker microphones with molded right-angle USB Type-C connectors, high-impact polymer casing, and reinforced expandable cords.",
-    "descriptionEs": "Par de micrófonos de hombro digitales idénticos con conector moldeado en ángulo recto USB Type-C, carcasa de polímero de alto impacto y cables espiralados expandibles reforzados.",
+    "description": "Digital handheld shoulder speaker microphone with molded right-angle USB Type-C connector, high-impact polymer casing, and reinforced expandable coiled cord.",
+    "descriptionEs": "Micrófono de hombro digital con conector moldeado en ángulo recto USB Type-C, carcasa de polímero de alto impacto y cable espiralado expandible reforzado.",
     "connector": "USB Type-C",
     "connectorEs": "USB Type-C",
     "compatibility": [
@@ -168,11 +163,6 @@
     ],
     "specs": [
       {
-        "label": "Quantity",
-        "labelEs": "Cantidad",
-        "value": "2 Unidades Completas"
-      },
-      {
         "label": "Audio Protocol",
         "labelEs": "Protocolo de Audio",
         "value": "Digital Direct Stream"
@@ -187,14 +177,14 @@
   },
   {
     "id": "acc-shoulder-mic-35mm-2pack",
-    "name": "Heavy-Duty Shoulder Speaker Mic (2-Pack, 3.5mm Single Pin)",
-    "nameEs": "Pack Doble Micrófonos de Solapa (2-Pack, 3.5mm TRRS)",
+    "name": "Heavy-Duty Shoulder Speaker Mic (3.5mm Single Pin)",
+    "nameEs": "Micrófono de Hombro Heavy Duty (3.5mm TRRS)",
     "category": "microphones",
-    "badge": "Pack x2 3.5mm",
-    "badgeEs": "Pack x2 3.5mm",
+    "badge": "3.5mm TRRS",
+    "badgeEs": "3.5mm TRRS",
     "image": "/images/accessories/shoulder-mic-35mm-2pack.webp",
-    "description": "Dual-pack of two universal shoulder microphones with 3.5mm single pin TRRS audio jack, high-gain front speaker, and robust swivel belt clip.",
-    "descriptionEs": "Paquete de 2 micrófonos de solapa universales con conector mono pin TRRS de 3.5mm, altavoz frontal de alta ganancia y clip de acero inoxidable reforzado.",
+    "description": "Universal shoulder microphone with 3.5mm single pin TRRS audio jack, high-gain front speaker, and robust swivel belt clip.",
+    "descriptionEs": "Micrófono de solapa universal con conector mono pin TRRS de 3.5mm, altavoz frontal de alta ganancia y clip de acero inoxidable reforzado.",
     "connector": "3.5mm Single Pin (TRRS)",
     "connectorEs": "3.5mm Single Pin (TRRS)",
     "compatibility": [
@@ -202,11 +192,6 @@
       "Receptores Tácticos Auxiliares 3.5mm"
     ],
     "specs": [
-      {
-        "label": "Quantity",
-        "labelEs": "Cantidad",
-        "value": "2 Unidades Completas"
-      },
       {
         "label": "Pin Size",
         "labelEs": "Tamaño del Pin",
@@ -222,14 +207,14 @@
   },
   {
     "id": "acc-acoustic-earpiece-typec-2pack",
-    "name": "Covert Acoustic Tube Earpiece (2-Pack, USB Type-C)",
-    "nameEs": "Auriculares Encubiertos de Tubo Acústico (2-Pack, Type-C)",
+    "name": "Covert Acoustic Tube Earpiece (USB Type-C)",
+    "nameEs": "Auricular Encubierto de Tubo Acústico (USB Type-C)",
     "category": "earphones",
     "badge": "Máxima Privacidad",
     "badgeEs": "Máxima Privacidad",
     "image": "/images/accessories/acoustic-earpiece-typec-2pack.webp",
-    "description": "Pair of medical-grade transparent acoustic tube surveillance earpieces with discreet inline lapel PTT microphones and direct USB Type-C plugs for sensitive security operations.",
-    "descriptionEs": "Par de auriculares encubiertos de tubo acústico transparente de grado médico con micrófonos PTT de solapa y conectores USB Type-C para operaciones de seguridad de máxima confidencialidad.",
+    "description": "Medical-grade transparent acoustic tube surveillance earpiece with discreet inline lapel PTT microphone and direct USB Type-C plug for sensitive security operations.",
+    "descriptionEs": "Auricular encubierto de tubo acústico transparente de grado médico con micrófono PTT de solapa y conector USB Type-C para operaciones de seguridad de máxima confidencialidad.",
     "connector": "USB Type-C",
     "connectorEs": "USB Type-C",
     "compatibility": [
@@ -244,11 +229,6 @@
     ],
     "specs": [
       {
-        "label": "Quantity",
-        "labelEs": "Cantidad",
-        "value": "2 Auriculares Completos"
-      },
-      {
         "label": "Acoustic Tube",
         "labelEs": "Tubo Acústico",
         "value": "Silicona Transparente Quirúrgica"
@@ -262,51 +242,6 @@
         "label": "Privacy Rating",
         "labelEs": "Privacidad",
         "value": "100% Cero Fuga Acústica Ambiental"
-      }
-    ],
-    "inStock": true
-  },
-  {
-    "id": "acc-acoustic-earpiece-2pin-2pack",
-    "name": "Tactical Acoustic Tube Earpiece (2-Pack, 2-Pin K-Plug)",
-    "nameEs": "Auriculares Tácticos Tubo Acústico (2-Pack, 2-Pines Type-K)",
-    "category": "earphones",
-    "badge": "Seguridad Encubierta",
-    "badgeEs": "Seguridad Encubierta",
-    "image": "/images/accessories/acoustic-earpiece-2pin-2pack.webp",
-    "description": "Dual covert surveillance earpiece set featuring transparent coiled sound tubes, low-profile lapel microphones, ergonomic silicone ear tips, and standard Kenwood 2-Pin connectors.",
-    "descriptionEs": "Juego doble de auriculares encubiertos de vigilancia con tubo acústico transparente, micrófono de solapa discreto, almohadillas ergonómicas y conector Kenwood estándar de 2 pines.",
-    "connector": "Type-K (2-Pin Kenwood)",
-    "connectorEs": "Type-K (2 pines Kenwood)",
-    "compatibility": [
-      "G-5288 Plus",
-      "G-889 POC-UHF",
-      "G-280 POC-UHF",
-      "G8 Plus POC-UHF",
-      "G-M2",
-      "G-510",
-      "Alervites AT1"
-    ],
-    "specs": [
-      {
-        "label": "Quantity",
-        "labelEs": "Cantidad",
-        "value": "2 Auriculares Completos"
-      },
-      {
-        "label": "Cable Core",
-        "labelEs": "Núcleo de Cable",
-        "value": "Kevlar Reforzado Antitirón"
-      },
-      {
-        "label": "Ear Tip",
-        "labelEs": "Almohadilla",
-        "value": "Hipoalergénica Mushroom Bud"
-      },
-      {
-        "label": "Connector",
-        "labelEs": "Conector",
-        "value": "Standard 2-Pin Type-K (3.5mm + 2.5mm)"
       }
     ],
     "inStock": true
