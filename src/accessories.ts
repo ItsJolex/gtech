@@ -10,6 +10,7 @@ interface AccessorySpec {
   label: string;
   labelEs: string;
   value: string;
+  valueEs?: string;
 }
 
 interface Accessory {
@@ -26,6 +27,7 @@ interface Accessory {
   connector: string;
   connectorEs?: string;
   compatibility: string[];
+  compatibilityEs?: string[];
   specs: AccessorySpec[];
   inStock: boolean;
 }
@@ -78,7 +80,17 @@ function localizedConnector(a: Accessory): string {
 }
 
 function localizedSpecLabel(s: AccessorySpec): string {
-  return isEs() ? s.labelEs : s.label;
+  return isEs() && s.labelEs ? s.labelEs : s.label;
+}
+
+function localizedSpecValue(s: AccessorySpec): string {
+  return isEs() && s.valueEs ? s.valueEs : s.value;
+}
+
+function localizedCompatibility(a: Accessory): string[] {
+  return isEs() && a.compatibilityEs && a.compatibilityEs.length > 0
+    ? a.compatibilityEs
+    : a.compatibility;
 }
 
 function escapeHtml(value: string): string {
@@ -125,12 +137,12 @@ function openSpecsModal(a: Accessory): void {
       (s) => `
       <tr class="border-b border-gray-100 last:border-0">
         <td class="py-2.5 pr-4 text-xs font-bold uppercase tracking-wider text-gray-500 align-top">${escapeHtml(localizedSpecLabel(s))}</td>
-        <td class="py-2.5 text-sm font-semibold text-navy-800">${escapeHtml(s.value)}</td>
+        <td class="py-2.5 text-sm font-semibold text-navy-800">${escapeHtml(localizedSpecValue(s))}</td>
       </tr>`
     )
     .join('');
 
-  const compatPills = a.compatibility
+  const compatPills = localizedCompatibility(a)
     .map(
       (c) =>
         `<span class="inline-block px-2 py-0.5 rounded-md bg-navy-50 border border-navy-100 text-[11px] font-semibold text-navy-800">${escapeHtml(c)}</span>`
@@ -217,7 +229,7 @@ function renderCard(a: Accessory): string {
       (s) => `
       <li class="flex items-start gap-1.5 text-[11px] text-gray-600">
         <span class="w-1 h-1 rounded-full bg-crimson-500 mt-1.5 flex-shrink-0"></span>
-        <span><span class="font-semibold text-navy-800">${escapeHtml(localizedSpecLabel(s))}:</span> ${escapeHtml(s.value)}</span>
+        <span><span class="font-semibold text-navy-800">${escapeHtml(localizedSpecLabel(s))}:</span> ${escapeHtml(localizedSpecValue(s))}</span>
       </li>`
     )
     .join('');

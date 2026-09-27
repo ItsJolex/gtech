@@ -25,27 +25,32 @@
       {
         "label": "Waterproof Rating",
         "labelEs": "Resistencia al Agua",
-        "value": "IP56 Certified"
+        "value": "IP56 Certified",
+        "valueEs": "Certificación IP56"
       },
       {
         "label": "Battery Capacity",
         "labelEs": "Batería Interna",
-        "value": "2000 mAh Li-ion"
+        "value": "2000 mAh Li-ion",
+        "valueEs": "2000 mAh Li-ion"
       },
       {
         "label": "Standby Time",
         "labelEs": "Tiempo en Espera",
-        "value": "480 Horas"
+        "value": "480 Hours",
+        "valueEs": "480 Horas"
       },
       {
         "label": "Lighting Modes",
         "labelEs": "Modos de Luz",
-        "value": "Flashlight / Warning Strobe / Alarm"
+        "value": "Flashlight / Warning Strobe / Alarm",
+        "valueEs": "Linterna / Estroboscopio de Alerta / Alarma"
       },
       {
         "label": "Connector Type",
         "labelEs": "Tipo de Conector",
-        "value": "Type-K 2-Pin (3.5mm + 2.5mm)"
+        "value": "Type-K 2-Pin (3.5mm + 2.5mm)",
+        "valueEs": "Type-K 2 Pines (3.5mm + 2.5mm)"
       }
     ],
     "inStock": true
@@ -77,22 +82,26 @@
       {
         "label": "Protection",
         "labelEs": "Protección",
-        "value": "IP56 Ruggedized"
+        "value": "IP56 Ruggedized",
+        "valueEs": "Sellado Robusto IP56"
       },
       {
         "label": "Audio Processing",
         "labelEs": "Procesamiento de Audio",
-        "value": "Digital Noise Suppression"
+        "value": "Digital Noise Suppression",
+        "valueEs": "Supresión Digital de Ruido"
       },
       {
         "label": "Connector",
         "labelEs": "Conector",
-        "value": "Right-Angle USB Type-C"
+        "value": "Right-Angle USB Type-C",
+        "valueEs": "USB Type-C en Ángulo Recto"
       },
       {
         "label": "Cable",
         "labelEs": "Cable",
-        "value": "Reinforced PU Coiled 1.2m"
+        "value": "Reinforced PU Coiled 1.2m",
+        "valueEs": "PU Reforzado Espiralado 1.2m"
       }
     ],
     "inStock": true
@@ -123,17 +132,20 @@
       {
         "label": "Auxiliary Port",
         "labelEs": "Puerto Auxiliar",
-        "value": "Jack 3.5mm para auricular"
+        "value": "3.5mm Listen-Only Earphone Jack",
+        "valueEs": "Jack 3.5mm para auricular"
       },
       {
         "label": "Clip",
         "labelEs": "Clip",
-        "value": "Acero inoxidable giratorio 360°"
+        "value": "360° Stainless Steel Swivel",
+        "valueEs": "Acero inoxidable giratorio 360°"
       },
       {
         "label": "Connector",
         "labelEs": "Conector",
-        "value": "Type-K (3.5mm + 2.5mm)"
+        "value": "Type-K (3.5mm + 2.5mm)",
+        "valueEs": "Type-K (3.5mm + 2.5mm)"
       }
     ],
     "inStock": true
@@ -165,12 +177,14 @@
       {
         "label": "Audio Protocol",
         "labelEs": "Protocolo de Audio",
-        "value": "Digital Direct Stream"
+        "value": "Digital Direct Stream",
+        "valueEs": "Flujo Digital Directo"
       },
       {
         "label": "Connector",
         "labelEs": "Conector",
-        "value": "Molded Right-Angle USB Type-C"
+        "value": "Molded Right-Angle USB Type-C",
+        "valueEs": "Moldeado en Ángulo Recto USB Type-C"
       }
     ],
     "inStock": true
@@ -189,18 +203,24 @@
     "connectorEs": "3.5mm Single Pin (TRRS)",
     "compatibility": [
       "Universal PoC Handhelds",
+      "3.5mm Auxiliary Tactical Receivers"
+    ],
+    "compatibilityEs": [
+      "Terminales PoC Universales",
       "Receptores Tácticos Auxiliares 3.5mm"
     ],
     "specs": [
       {
         "label": "Pin Size",
         "labelEs": "Tamaño del Pin",
-        "value": "3.5mm TRRS Audio / Mic"
+        "value": "3.5mm TRRS Audio / Mic",
+        "valueEs": "3.5mm TRRS Audio / Mic"
       },
       {
         "label": "Clip",
         "labelEs": "Clip",
-        "value": "360° Heavy-Duty Swivel"
+        "value": "360° Heavy-Duty Swivel",
+        "valueEs": "Giratorio 360° de Alta Resistencia"
       }
     ],
     "inStock": true
@@ -231,27 +251,32 @@
       {
         "label": "Package Presentation",
         "labelEs": "Presentación de Venta",
-        "value": "1 Sola Unidad Individual (Venta por Unidad)"
+        "value": "1 Single Unit (Sold Individually)",
+        "valueEs": "1 Sola Unidad Individual (Venta por Unidad)"
       },
       {
         "label": "Image Clarification",
         "labelEs": "Aclaratoria de Foto",
-        "value": "Foto ilustrativa (No incluye segundo auricular)"
+        "value": "Illustrative Photo (Does not include second unit)",
+        "valueEs": "Foto ilustrativa (No incluye segundo auricular)"
       },
       {
         "label": "Acoustic Tube",
         "labelEs": "Tubo Acústico",
-        "value": "Silicona Transparente Quirúrgica"
+        "value": "Surgical-Grade Clear Silicone",
+        "valueEs": "Silicona Transparente Quirúrgica"
       },
       {
         "label": "PTT Type",
         "labelEs": "Tipo de PTT",
-        "value": "Inline Lapel PTT con Clip Metálico"
+        "value": "Inline Lapel PTT with Steel Clip",
+        "valueEs": "Inline Lapel PTT con Clip Metálico"
       },
       {
         "label": "Privacy Rating",
         "labelEs": "Privacidad",
-        "value": "100% Cero Fuga Acústica Ambiental"
+        "value": "100% Zero Ambient Acoustic Bleed",
+        "valueEs": "100% Cero Fuga Acústica Ambiental"
       }
     ],
     "inStock": true

@@ -1317,6 +1317,7 @@ interface HomeAccessorySpec {
   label: string;
   labelEs: string;
   value: string;
+  valueEs?: string;
 }
 
 interface HomeAccessory {
@@ -1333,6 +1334,7 @@ interface HomeAccessory {
   connector: string;
   connectorEs?: string;
   compatibility: string[];
+  compatibilityEs?: string[];
   specs: HomeAccessorySpec[];
   inStock: boolean;
 }
@@ -1363,6 +1365,14 @@ function getLocalizedAccConnector(a: HomeAccessory): string {
 
 function getLocalizedAccSpecLabel(s: HomeAccessorySpec): string {
   return getLanguage() === 'es' ? s.labelEs : s.label;
+}
+
+function getLocalizedAccSpecValue(s: HomeAccessorySpec): string {
+  return getLanguage() === 'es' && s.valueEs ? s.valueEs : s.value;
+}
+
+function getLocalizedAccCompat(a: HomeAccessory): string[] {
+  return getLanguage() === 'es' && a.compatibilityEs && a.compatibilityEs.length > 0 ? a.compatibilityEs : a.compatibility;
 }
 
 function renderHomeAccessories(): void {
@@ -1457,11 +1467,11 @@ function openHomeAccessoryModal(id: string): void {
     .map(s => `
       <tr class="border-b border-gray-100 last:border-0">
         <td class="py-2.5 pr-4 text-xs font-bold uppercase tracking-wider text-gray-500 align-top">${getLocalizedAccSpecLabel(s)}</td>
-        <td class="py-2.5 text-sm font-semibold text-navy-800">${s.value}</td>
+        <td class="py-2.5 text-sm font-semibold text-navy-800">${getLocalizedAccSpecValue(s)}</td>
       </tr>
     `).join('');
 
-  const compatPills = a.compatibility
+  const compatPills = getLocalizedAccCompat(a)
     .map(c => `<span class="inline-block px-2.5 py-1 rounded-md bg-navy-50 border border-navy-100 text-[11px] font-semibold text-navy-800">${c}</span>`)
     .join('');
 
