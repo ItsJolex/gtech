@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { createClient } from '@libsql/client/web';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
@@ -15,7 +16,7 @@ function generateQuoteNumber(): string {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
-  const rand = Math.floor(1000 + Math.random() * 9000);
+  const rand = String(crypto.randomInt(100000, 1000000));
   return `GT-${year}${month}${day}-${rand}`;
 }
 
@@ -81,7 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const client = getTursoClient();
       
-      const forwarded = req.headers['x-real-ip'] || req.headers['x-forwarded-for'];
+      const forwarded = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];
       const ip = Array.isArray(forwarded) ? forwarded[0] : (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket?.remoteAddress || null);
 
       // Rate limiting: max 15 quotes per 10 minutes per IP
@@ -101,7 +102,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       const quoteNumber = generateQuoteNumber();
-      const id = `quote-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+      const id = `quote-${crypto.randomUUID()}`;
 
       const insertSql = `
         INSERT INTO quotes (
@@ -134,7 +135,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ]
       });
 
-      console.log(`[Quote Created] #${quoteNumber} by ${customerName} (${customerEmail}) - ${totalUnits} units`);
+      console.log(`[Quote Created] #${quoteNumber} - ${totalUnits} units`);
 
       return res.status(201).json({
         success: true,
@@ -146,7 +147,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     } catch (err: any) {
       console.error('Error in /api/quotes POST:', err);
-      return res.status(500).json({ error: err.message || 'Database error while saving quote' });
+      return res.status(500).json({ error: 'Internal server error while saving quote' });
     }
   }
 
