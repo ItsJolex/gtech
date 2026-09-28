@@ -1,3 +1,4 @@
+import { escapeHtml, safeUrl } from './utils/escape.ts';
 import { convertToWebP, formatBytes, type OptimizedImageResult } from './utils/imageOptimizer';
 import type { Product, ProductColor, StockStatus } from './types';
 
@@ -81,192 +82,9 @@ function showToast(message: string, isError = false) {
 // -------------------------------------------------------------
 // 1. AUTHENTICATION FLOW
 // -------------------------------------------------------------
-async function handleLogin(password: string) {
-  try {
-    const res = await fetch('/api/admin/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    });
 
-    const data = await res.json();
-    if (res.ok && data.ok) {
-      adminToken = data.token || password;
-      sessionStorage.setItem('gtech_admin_token', adminToken!);
-      authOverlay.classList.add('hidden');
-      adminApp.classList.remove('hidden');
-      loadProducts();
-      loadSettings();
-    } else {
-      authError.textContent = data.error || 'Clave maestra incorrecta';
-      authError.classList.remove('hidden');
-    }
-  } catch (err) {
-    authError.textContent = 'Error al comunicarse con el servidor de autenticación';
-    authError.classList.remove('hidden');
-  }
-}
-
-async function loadSettings() {
-  if (!adminToken) return;
-  try {
-    const res = await fetch('/api/admin/settings', {
-      headers: { Authorization: `Bearer ${adminToken}` },
-    });
-    if (res.ok) {
-      const settings = await res.json();
-      const showPrices = settings.show_prices === 'true';
-      updatePriceToggle(showPrices);
-    }
-  } catch (err) {
-    console.warn('Could not load settings:', err);
-  }
-}
-
-function updatePriceToggle(showPrices: boolean) {
-  const toggleBtn = document.getElementById('toggle-price-display') as HTMLButtonElement;
-  const slider = document.getElementById('toggle-price-slider') as HTMLSpanElement;
-  const label = document.getElementById('toggle-price-label') as HTMLSpanElement;
-  if (!toggleBtn || !slider || !label) return;
-  
-  if (showPrices) {
-    toggleBtn.classList.remove('bg-slate-700');
-    toggleBtn.classList.add('bg-emerald-600');
-    slider.classList.remove('translate-x-1');
-    slider.classList.add('translate-x-6');
-    label.textContent = 'ON';
-    label.classList.remove('text-slate-400');
-    label.classList.add('text-emerald-400');
-  } else {
-    toggleBtn.classList.remove('bg-emerald-600');
-    toggleBtn.classList.add('bg-slate-700');
-    slider.classList.remove('translate-x-6');
-    slider.classList.add('translate-x-1');
-    label.textContent = 'OFF';
-    label.classList.remove('text-emerald-400');
-    label.classList.add('text-slate-400');
-  }
-}
-
-authForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  authError.classList.add('hidden');
-  const pass = adminPassInput.value.trim();
-  if (pass) handleLogin(pass);
-});
-
-togglePassBtn?.addEventListener('click', () => {
-  if (adminPassInput.type === 'password') {
-    adminPassInput.type = 'text';
-    togglePassBtn.textContent = 'Ocultar';
-  } else {
-    adminPassInput.type = 'password';
-    togglePassBtn.textContent = 'Ver';
-  }
-});
-
-logoutBtn?.addEventListener('click', () => {
-  sessionStorage.removeItem('gtech_admin_token');
-  adminToken = null;
-  adminApp.classList.add('hidden');
-  authOverlay.classList.remove('hidden');
-  adminPassInput.value = '';
-});
-
-document.getElementById('toggle-price-display')?.addEventListener('click', async () => {
-  if (!adminToken) return;
-  
-  const toggleBtn = document.getElementById('toggle-price-display') as HTMLButtonElement;
-  
-  const isCurrentlyOn = toggleBtn.classList.contains('bg-emerald-600');
-  const newValue = !isCurrentlyOn;
-  
-  try {
-    toggleBtn.disabled = true;
-    const res = await fetch('/api/admin/settings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${adminToken}`,
-      },
-      body: JSON.stringify({ key: 'show_prices', value: String(newValue) }),
-    });
-    
-    if (res.ok) {
-      updatePriceToggle(newValue);
-      showToast(`Precios en tienda pública: ${newValue ? 'ACTIVADOS' : 'DESACTIVADOS'}`);
-    } else {
-      showToast('Error al actualizar configuración', true);
-    }
-  } catch (err) {
-    showToast('Error de conexión', true);
-  } finally {
-    toggleBtn.disabled = false;
-  }
-});
-
-// -------------------------------------------------------------
-// 2. DATA FETCHING (TURSO API)
-// -------------------------------------------------------------
-async function updateTabBadges() {
-  if (!adminToken) return;
-  try {
-    const [radiosRes, accRes, quotesRes] = await Promise.all([
-      fetch('/api/admin/products?category=radio', { headers: { Authorization: `Bearer ${adminToken}` } }),
-      fetch('/api/admin/accessories', { headers: { Authorization: `Bearer ${adminToken}` } }),
-      fetch('/api/admin/quotes', { headers: { Authorization: `Bearer ${adminToken}` } }),
-    ]);
-
-    if (radiosRes.ok) {
-      const radios = await radiosRes.json();
-      const count = radios.filter((r: any) => !r.isDeleted).length;
-      const b = document.getElementById('radios-count-badge');
-      if (b) b.textContent = String(count);
-    }
-    if (accRes.ok) {
-      const accessories = await accRes.json();
-      const count = accessories.filter((a: any) => !a.isDeleted).length;
-      const b = document.getElementById('accessories-count-badge');
-      if (b) b.textContent = String(count);
-    }
-    if (quotesRes.ok) {
-      const quotes = await quotesRes.json();
-      const pendingCount = quotes.filter((q: any) => q.status === 'pending').length;
-      const b = document.getElementById('quotes-count-badge');
-      if (b) b.textContent = String(pendingCount);
-    }
-  } catch (err) {
-    console.warn('Could not update tab counts:', err);
-  }
-}
-
-async function loadProducts() {
-  if (!adminToken) return;
-
-  const isAccessory = currentCategory === 'accessory';
-  productsContainer.innerHTML = `
-    <div class="col-span-full py-16 text-center text-slate-500">
-      <div class="inline-block animate-spin w-8 h-8 border-4 border-crimson-600 border-t-transparent rounded-full mb-3"></div>
-      <p class="text-sm font-semibold">Cargando ${isAccessory ? 'catálogo de accesorios' : 'flota de radios'} desde Turso DB...</p>
-    </div>
-  `;
-
-  try {
-    const endpoint = isAccessory ? '/api/admin/accessories' : '/api/admin/products?category=radio';
-    const res = await fetch(endpoint, {
-      headers: {
-        Authorization: `Bearer ${adminToken}`,
-      },
-    });
-
-    if (res.status === 401) {
-      sessionStorage.removeItem('gtech_admin_token');
-      adminToken = null;
-      adminApp.classList.add('hidden');
-      authOverlay.classList.remove('hidden');
-      return;
-    }
-
+function handle401(res: Response) {
+  if (handle401(res)) return;
     if (!res.ok) {
       throw new Error(`HTTP Error ${res.status}`);
     }
@@ -394,7 +212,7 @@ function renderProducts() {
       const connectorHtml = p.connector ? `
         <div class="inline-flex items-center gap-1.5 text-[11px] font-mono text-cyan-400 bg-cyan-950/70 border border-cyan-800/40 px-2 py-0.5 rounded-md mt-1">
           <svg class="w-3 h-3 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <span class="truncate">${p.connector}</span>
+          <span class="truncate">${escapeHtml(p.connector)}</span>
         </div>
       ` : '';
 
@@ -413,7 +231,7 @@ function renderProducts() {
           <div>
             <div class="flex items-start justify-between gap-3 mb-3">
               <div class="w-20 h-20 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center p-1 relative overflow-hidden flex-shrink-0">
-                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform" onerror="this.src='/images/logo-patch.webp'" />
+                <img src="${safeUrl(p.image)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain group-hover:scale-105 transition-transform" onerror="this.src='/images/logo-patch.webp'" />
                 <span class="absolute top-1 left-1 text-[8px] font-bold px-1 rounded bg-black/60 text-slate-300 uppercase">WebP</span>
               </div>
 
@@ -426,7 +244,7 @@ function renderProducts() {
                 <button 
                   type="button"
                   data-action="toggle-visibility"
-                  data-id="${p.id}"
+                  data-id="${escapeHtml(p.id)}"
                   class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold transition-colors ${
                     isVis
                       ? 'bg-slate-800 text-slate-200 hover:bg-slate-700'
@@ -441,15 +259,15 @@ function renderProducts() {
 
             <!-- Title & Badge -->
             <div class="space-y-1 mb-3">
-              <span class="text-[10px] font-mono text-cyan-400 tracking-wider block">${p.id}</span>
+              <span class="text-[10px] font-mono text-cyan-400 tracking-wider block">${escapeHtml(p.id)}</span>
               <h3 class="text-sm font-extrabold text-white leading-tight group-hover:text-cyan-300 transition-colors line-clamp-2">
-                ${p.name}
+                ${escapeHtml(p.name)}
               </h3>
               ${p.nameEs && p.nameEs !== p.name ? `<p class="text-xs text-slate-400 line-clamp-1 italic">${p.nameEs}</p>` : ''}
               <div class="flex flex-wrap items-center gap-1.5 pt-1">
                 ${categoryBadge}
                 <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-950 px-2 py-0.5 rounded-md">
-                  ${p.badge}
+                  ${escapeHtml(p.badge)}
                 </span>
                 ${connectorHtml}
               </div>
@@ -487,7 +305,7 @@ function renderProducts() {
               <button 
                 type="button" 
                 data-action="restore" 
-                data-id="${p.id}"
+                data-id="${escapeHtml(p.id)}"
                 class="flex-1 bg-emerald-900/60 hover:bg-emerald-800 active:scale-95 text-white py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 <span>Restaurar</span>
@@ -495,8 +313,8 @@ function renderProducts() {
               <button 
                 type="button" 
                 data-action="permanent-delete" 
-                data-id="${p.id}"
-                data-name="${p.name}"
+                data-id="${escapeHtml(p.id)}"
+                data-name="${escapeHtml(p.name)}"
                 class="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors"
                 title="Eliminar permanentemente">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -505,7 +323,7 @@ function renderProducts() {
               <button 
                 type="button" 
                 data-action="edit" 
-                data-id="${p.id}"
+                data-id="${escapeHtml(p.id)}"
                 class="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-white py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5">
                 <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                 <span>Editar ${isAccessory ? 'Accesorio' : 'Ficha'}</span>
@@ -514,8 +332,8 @@ function renderProducts() {
               <button 
                 type="button" 
                 data-action="delete" 
-                data-id="${p.id}"
-                data-name="${p.name}"
+                data-id="${escapeHtml(p.id)}"
+                data-name="${escapeHtml(p.name)}"
                 class="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors"
                 title="Mover a la papelera">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -1154,7 +972,8 @@ btnSaveProduct?.addEventListener('click', async () => {
       });
 
       const resData = await res.json();
-      if (!res.ok) {
+      if (handle401(res)) return;
+    if (!res.ok) {
         throw new Error(resData.error || 'Error al guardar el accesorio');
       }
 
@@ -1240,7 +1059,8 @@ btnSaveProduct?.addEventListener('click', async () => {
       });
 
       const resData = await res.json();
-      if (!res.ok) {
+      if (handle401(res)) return;
+    if (!res.ok) {
         throw new Error(resData.error || 'Error al guardar el producto');
       }
 
@@ -1541,15 +1361,7 @@ function updateQuoteCounts() {
   if (qBadge) qBadge.textContent = String(pendingCount);
 }
 
-function escapeHtml(str: string | null | undefined): string {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+
 
 function renderQuotes() {
   if (!quotesContainer) return;
