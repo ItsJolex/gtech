@@ -1,3 +1,4 @@
+import { escapeHtml, safeUrl } from './utils/escape.ts';
 import type { Product, CartItem } from './types';
 import { getProductById } from './products';
 import { t, getLanguage } from './i18n';
@@ -89,7 +90,7 @@ export function addToCart(productId: string, selectedColor?: string, customImage
   animateCartBadge();
   
   const colorSuffix = selectedColor ? ` (${selectedColor})` : '';
-  return { success: true, message: `${product.name}${colorSuffix} added to cart` };
+  return { success: true, message: `${escapeHtml(product.name)}${colorSuffix} added to cart` };
 }
 
 export function addCartItem(item: CartItem): { success: boolean; message: string } {
@@ -106,7 +107,7 @@ export function addCartItem(item: CartItem): { success: boolean; message: string
   updateCartBadge();
   animateCartBadge();
 
-  return { success: true, message: `${item.name} added to cart` };
+  return { success: true, message: `${escapeHtml(item.name)} added to cart` };
 }
 
 export function removeFromCart(productId: string, selectedColor?: string): void {
@@ -211,7 +212,7 @@ function showOutOfStockModal(product: Product, fallbackProduct?: Product): void 
           </svg>
         </div>
         <h3 class="text-xl font-bold text-navy-800 mb-2">${t('cart.oos_title')}</h3>
-        <p class="text-gray-600 mb-4">${product.name} <span class="font-semibold">[${product.badge}]</span> ${t('cart.oos_status')}</p>
+        <p class="text-gray-600 mb-4">${escapeHtml(product.name)} <span class="font-semibold">[${escapeHtml(product.badge)}]</span> ${t('cart.oos_status')}</p>
         ${fallbackHtml}
         <div class="mt-6 pt-4 border-t border-gray-100">
           <button onclick="closeModal()" class="px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-sm">
@@ -297,13 +298,13 @@ export function renderCartDrawer(): void {
           ${cart.map(item => `
             <div class="bg-navy-800/50 border border-navy-700 rounded-xl p-3 flex gap-3">
               <div class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 bg-navy-900 rounded-lg overflow-hidden border border-navy-700 flex items-center justify-center">
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                <img src="${safeUrl(item.image)}" alt="${escapeHtml(item.name)}" class="w-full h-full object-cover">
               </div>
               <div class="flex-1 min-w-0 flex flex-col justify-between">
                 <div>
-                  <h4 class="text-white font-semibold text-sm truncate">${item.name}</h4>
+                  <h4 class="text-white font-semibold text-sm truncate">${escapeHtml(item.name)}</h4>
                   <div class="flex items-center gap-1.5 flex-wrap mt-1">
-                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-crimson-900/50 text-crimson-300 border border-crimson-800 inline-block">${item.badge}</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-crimson-900/50 text-crimson-300 border border-crimson-800 inline-block">${escapeHtml(item.badge)}</span>
                     ${item.selectedColor ? `
                       <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-navy-950 text-amber-300 border border-amber-500/40 inline-block">Color: ${item.selectedColor}</span>
                     ` : ''}
@@ -424,7 +425,7 @@ export function generateWhatsAppMessage(): void {
 
   cart.forEach(item => {
     const colorSuffix = item.selectedColor ? ` (Color: ${item.selectedColor})` : '';
-    lines.push(`• *${item.quantity}x* ${item.name}${colorSuffix} [${item.badge}]`);
+    lines.push(`• *${item.quantity}x* ${escapeHtml(item.name)}${colorSuffix} [${escapeHtml(item.badge)}]`);
   });
 
   if (selectedCartSimPlan !== 'none') {
@@ -518,10 +519,10 @@ export function openEmailOrderModal(): void {
     <div class="flex items-center justify-between text-xs py-1.5 border-b border-slate-800/80 last:border-0">
       <div class="flex items-center gap-2 truncate pr-2">
         <span class="w-5 h-5 rounded bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-[10px] flex-shrink-0">${item.quantity}x</span>
-        <span class="text-white font-medium truncate">${item.name}</span>
+        <span class="text-white font-medium truncate">${escapeHtml(item.name)}</span>
         ${item.selectedColor ? `<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-950 text-amber-300 border border-amber-600/40">${item.selectedColor}</span>` : ''}
       </div>
-      <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 flex-shrink-0">${item.badge}</span>
+      <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 flex-shrink-0">${escapeHtml(item.badge)}</span>
     </div>
   `).join('');
 

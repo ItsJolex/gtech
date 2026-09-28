@@ -1,3 +1,4 @@
+import { escapeHtml } from './utils/escape.ts';
 import type { CartItem } from './types';
 import accessoriesData from './accessories.json';
 import { initCart, addCartItem, openCartDrawer } from './cart';
@@ -93,14 +94,7 @@ function localizedCompatibility(a: Accessory): string[] {
     : a.compatibility;
 }
 
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+
 
 function whatsappInquiryLink(a: Accessory): string {
   const message = isEs()

@@ -1,3 +1,4 @@
+import { escapeHtml, safeUrl } from './utils/escape.ts';
 import { products, fetchLiveProducts, onProductsUpdated } from './products';
 import type { Product } from './types';
 import { initCart, openCartDrawer, closeCartDrawer, addToCart, addCartItem, subscribe as subscribeCart, renderCartDrawer } from './cart';
@@ -46,7 +47,7 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
       <!-- IMAGE AT THE TOP -->
       <div id="deep-specs-top-hero" class="w-full max-w-sm mx-auto aspect-square bg-slate-50/90 rounded-2xl flex items-center justify-center border border-slate-200/80 relative mb-6 shadow-inner overflow-hidden group">
-        <img src="${p.image}" alt="${escapeHtml(localized.name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
+        <img src="${safeUrl(p.image)}" alt="${escapeHtml(localized.name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
 
         <div class="absolute top-2 left-2 flex items-center gap-1.5 flex-wrap">
           <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
@@ -320,7 +321,7 @@ function renderCatalog(): void {
         <!-- 1. IMAGE CONTAINER (Ajuste 1:1 borde a borde con cuadro redondeado) -->
         <div class="aspect-square bg-navy-950/10 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-slate-200/70 group/cardimg shadow-xs">
           <img id="card-img-${product.id}"
-               src="${initialCardImg}"
+               src="${safeUrl(initialCardImg)}"
                alt="${escapeHtml(localized.name)}"
                class="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-transform duration-300"
                loading="lazy">
@@ -1023,14 +1024,7 @@ function formatDuration(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+
 
 interface BriefingItem {
   id: string;
@@ -1397,7 +1391,7 @@ function renderHomeAccessories(): void {
     return `
       <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
         <div class="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" onclick="window.openHomeAccessoryModal('${a.id}')">
-          <img src="${a.image}" alt="${escapeHtml(name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='/images/G-510.webp'">
+          <img src="${safeUrl(a.image)}" alt="${escapeHtml(name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='/images/G-510.webp'">
           <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(badge)}</span>
         </div>
 
@@ -1489,7 +1483,7 @@ function openHomeAccessoryModal(id: string): void {
       <div class="flex flex-col sm:flex-row gap-6">
         <div class="sm:w-56 flex-shrink-0">
           <div class="rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden aspect-square p-4 flex items-center justify-center">
-            <img src="${a.image}" alt="${escapeHtml(name)}" class="w-full h-full object-contain">
+            <img src="${safeUrl(a.image)}" alt="${escapeHtml(name)}" class="w-full h-full object-contain">
           </div>
         </div>
         <div class="flex-1 min-w-0">
