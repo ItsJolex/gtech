@@ -672,10 +672,13 @@
           <div data-i18n="footer.rights">
             &copy; 2026 G-TECH.US (🐺 G tech). All rights reserved. Directed by Geramel. Orlando, Florida, USA.
           </div>
-          <div class="flex items-center gap-4 text-[11px]">
-            <a href="/index.html#contact" class="hover:text-gray-300 transition-colors" data-i18n="footer.link_privacy">Privacy Policy</a>
-            <span>&bull;</span>
-            <a href="/index.html#contact" class="hover:text-gray-300 transition-colors" data-i18n="footer.link_terms">Terms of Service</a>
+          <div class="flex items-center gap-4 text-[11px] flex-wrap justify-center">
+            <button type="button" data-action="open-legal" data-doc="privacy" class="hover:text-cyan-400 transition-colors" data-i18n="footer.link_privacy">Privacy Policy</button>
+            <button type="button" data-action="open-legal" data-doc="terms" class="hover:text-cyan-400 transition-colors" data-i18n="footer.link_terms">Terms of Service</button>
+            <button type="button" data-action="open-legal" data-doc="ai" class="text-cyan-400 hover:text-cyan-300 font-bold transition-colors" data-i18n="footer.link_ai">AI Transparency</button>
+            <button type="button" data-action="open-legal" data-doc="fcc" class="text-amber-400 hover:text-amber-300 font-bold transition-colors" data-i18n="footer.link_fcc">FCC & 911 Disclaimer</button>
+            <button type="button" data-action="open-legal" data-doc="dmca" class="hover:text-cyan-400 transition-colors" data-i18n="footer.link_dmca">DMCA Safe Harbor</button>
+            <button type="button" data-action="open-cookie-banner" class="hover:text-gray-300 transition-colors" data-i18n="footer.link_cookies">Cookie Preferences</button>
           </div>
         </div>
       </div>

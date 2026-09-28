@@ -343,6 +343,10 @@ export function renderCartDrawer(): void {
               <option value="europe" ${selectedCartSimPlan === 'europe' ? 'selected' : ''}>🇪🇺 Europa (+$50/año por radio)</option>
               <option value="global" ${selectedCartSimPlan === 'global' ? 'selected' : ''}>🌐 Global Multi (+$50/año por radio)</option>
             </select>
+            <div class="mt-2 text-[10px] text-slate-400 leading-tight flex items-start gap-1.5">
+              <svg class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>${t('cart.sim_disclaimer')}</span>
+            </div>
           </div>
 
           <div class="flex items-center justify-between text-white">
@@ -669,18 +673,31 @@ export function openEmailOrderModal(): void {
             ></textarea>
           </div>
 
-          <!-- Legal & Privacy Compliance (Florida FIPA & FCC) -->
-          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+          <!-- Legal & Privacy Compliance (COPPA, Florida FIPA, CAN-SPAM & FCC) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
             <div class="flex items-start gap-2.5">
               <svg class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
               <p class="text-[11px] text-slate-400 leading-relaxed">
                 ${t('cart.legal_disclaimer')}
               </p>
             </div>
-            <label class="flex items-center gap-2 text-xs text-slate-300 pt-1 cursor-pointer">
-              <input type="checkbox" id="order-privacy-consent" checked class="rounded border-slate-700 text-rose-600 focus:ring-rose-500 bg-slate-950">
-              <span class="text-[11px] text-slate-400">${t('cart.privacy_consent')}</span>
+            
+            <!-- COPPA 18+ Age Gate -->
+            <label class="flex items-start gap-2.5 text-xs text-slate-300 pt-1 cursor-pointer">
+              <input type="checkbox" id="order-age-consent" required class="mt-0.5 rounded border-slate-700 text-rose-600 focus:ring-rose-500 bg-slate-950 flex-shrink-0">
+              <span class="text-[11px] text-amber-200/90 font-medium leading-tight">${t('cart.age_consent')}</span>
             </label>
+
+            <!-- Florida FIPA Privacy Consent -->
+            <label class="flex items-start gap-2.5 text-xs text-slate-300 cursor-pointer">
+              <input type="checkbox" id="order-privacy-consent" checked class="mt-0.5 rounded border-slate-700 text-rose-600 focus:ring-rose-500 bg-slate-950 flex-shrink-0">
+              <span class="text-[11px] text-slate-400 leading-tight">${t('cart.privacy_consent')}</span>
+            </label>
+
+            <!-- CAN-SPAM Notice -->
+            <div class="pt-1.5 border-t border-slate-800/80 text-[10px] text-slate-500 leading-normal">
+              ${t('cart.canspam_notice')}
+            </div>
           </div>
 
           <div id="email-modal-error" class="hidden text-xs font-semibold text-rose-400 bg-rose-950/60 border border-rose-900 p-3 rounded-xl"></div>
@@ -808,6 +825,16 @@ export async function submitOrderViaEmail(clientType: 'gmail' | 'mailapp' | 'cop
     return;
   }
 
+  const ageConsentInput = document.getElementById('order-age-consent') as HTMLInputElement | null;
+  if (ageConsentInput && !ageConsentInput.checked) {
+    if (errorEl) {
+      errorEl.textContent = t('cart.age_error');
+      errorEl.classList.remove('hidden');
+    }
+    ageConsentInput.focus();
+    return;
+  }
+
   if (errorEl) {
     errorEl.classList.add('hidden');
   }
@@ -851,7 +878,8 @@ export async function submitOrderViaEmail(clientType: 'gmail' | 'mailapp' | 'cop
       })),
       totalUnits,
       simPlan: selectedCartSimPlan,
-      channel: clientType === 'gmail' ? 'gmail' : (clientType === 'mailapp' ? 'email_client' : 'clipboard')
+      channel: clientType === 'gmail' ? 'gmail' : (clientType === 'mailapp' ? 'email_client' : 'clipboard'),
+      ageConsent: true
     };
 
     const controller = new AbortController();
@@ -928,12 +956,18 @@ NOTAS OPERATIVAS / REQUERIMIENTOS ESPECIALES:
 ${notes || 'Ninguna especificación adicional.'}
 
 ------------------------------------------------------
-AVISO LEGAL Y CUMPLIMIENTO (FLORIDA FIPA & FCC):
-Esta solicitud constituye un Request for Quotation (RFQ) formal y reserva preventiva de inventario en almacén. No se realizan cargos automáticos a tarjetas de crédito por este medio. Toda orden se formaliza mediante factura comercial oficial de G-TECH.US bajo normativas de telecomunicaciones de la FCC y las leyes de privacidad comercial del Estado de Florida.
+CERTIFICACIÓN DE EDAD Y CAPACIDAD LEGAL (COPPA 15 U.S.C. § 6501):
+El solicitante certifica ser mayor de 18 años con plena capacidad legal para solicitar cotizaciones en nombre de una entidad comercial u organizativa. G-TECH no recopila intencionalmente datos de menores de 13 años.
+
+TÉRMINOS DE COBERTURA SIM (CUMPLIMIENTO CALIFORNIA ARL):
+Los servicios de conectividad SIM corresponden a planes anuales prepagados a término fijo (12 meses). No existen renovaciones forzosas, cobros automáticos recurrentes ni cargos sorpresa a tarjetas sin previa orden de compra autorizada.
+
+AVISO CAN-SPAM, PRIVACIDAD FLORIDA FIPA Y REGULACIÓN FCC:
+Esta solicitud constituye un Request for Quotation (RFQ) formal y reserva preventiva iniciado voluntariamente por el usuario (mensaje transaccional legítimo). G-TECH no envía correo masivo ni spam no solicitado. Para solicitar la baja o eliminación de sus datos de contacto, responda con el asunto "BAJA" o contacte a ${OFFICIAL_EMAIL}.
 
 G-TECH.US Tactical Radio Systems (🐺 G tech)
-Dirección Operativa: Geramel • Orlando, Florida, USA.
-Contacto Directo: ${OFFICIAL_EMAIL}
+Dirección Comercial Física: Geramel Castellano • Orlando, Florida, USA.
+Contacto Directo de Ingeniería: ${OFFICIAL_EMAIL}
 ======================================================`
 : `G-TECH.US | FORMAL QUOTATION & DISPATCH REQUEST
 ======================================================
@@ -963,11 +997,17 @@ OPERATIONAL NOTES & SPECIAL REQUIREMENTS:
 ${notes || 'No additional specifications provided.'}
 
 ------------------------------------------------------
-LEGAL NOTICE & REGULATORY COMPLIANCE (FLORIDA FIPA & FCC):
-This document represents a formal Request For Quotation (RFQ) and warehouse inventory reservation. No automated credit card charges are processed via this web portal. All orders are formalized via official G-TECH commercial invoices adhering to FCC regulations and Florida Information Protection Act standards.
+AGE CERTIFICATION & LEGAL CAPACITY (COPPA 15 U.S.C. § 6501):
+The customer certifies they are 18 years of age or older with full legal capacity to request commercial quotations. G-TECH does not knowingly collect personal data from children under 13.
+
+SIM CONNECTIVITY TERMS (CALIFORNIA ARL COMPLIANT):
+Any selected cellular SIM services are 12-month fixed-term prepaid packages. No unsolicited recurring auto-billing or automatic credit card renewals will occur without formal purchase order authorization.
+
+CAN-SPAM ACT, FLORIDA FIPA & FCC REGULATORY NOTICE:
+This is a transactional Request For Quotation (RFQ) initiated strictly at the customer's affirmative request. It does not constitute unsolicited commercial email (spam). To opt out of technical follow-ups or exercise data privacy rights under Florida FIPA, reply with "REMOVE" or contact ${OFFICIAL_EMAIL}.
 
 G-TECH.US Tactical Radio Systems (🐺 G tech)
-Executive Direction: Geramel • Orlando, Florida, USA.
+Physical Postal Address: Geramel Castellano • Orlando, Florida, USA.
 Direct Engineering Contact: ${OFFICIAL_EMAIL}
 ======================================================`;
 

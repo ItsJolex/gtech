@@ -80,6 +80,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: 'Order must contain at least one item' });
       }
 
+      if (body.ageConsent === false) {
+        return res.status(400).json({ error: 'Adult age certification (18+) is required (COPPA Compliance)' });
+      }
+
       const client = getTursoClient();
       
       const forwarded = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];

@@ -152,6 +152,7 @@ export const translations: Translations = {
   'footer.link_terms': { en: 'Terms of Service', es: 'Términos de Servicio' },
   'footer.link_ai': { en: 'AI Transparency', es: 'Transparencia de IA' },
   'footer.link_fcc': { en: 'FCC & 911 Disclaimer', es: 'Aviso FCC y 911' },
+  'footer.link_dmca': { en: 'DMCA Safe Harbor', es: 'Aviso DMCA' },
   'footer.link_cookies': { en: 'Cookie Preferences', es: 'Preferencias de Cookies' },
 
   // Privacy Teaser Banner (index.html)
@@ -318,6 +319,22 @@ export const translations: Translations = {
   'cart.privacy_consent': {
     en: 'I agree to receive official quotation and technical dispatch communications from G-TECH.US.',
     es: 'Acepto recibir cotizaciones y comunicaciones técnicas de despacho oficial de G-TECH.US.'
+  },
+  'cart.age_consent': {
+    en: 'I certify that I am at least 18 years old and requesting this quotation for lawful commercial/professional organization purposes (COPPA & Florida FIPA Compliance).',
+    es: 'Certifico que soy mayor de 18 años y solicito esta cotización para fines comerciales / profesionales legítimos (Cumplimiento COPPA y Florida FIPA).'
+  },
+  'cart.age_error': {
+    en: 'You must certify that you are 18 years or older with professional legal capacity to submit this quotation request (COPPA Compliance).',
+    es: 'Debes certificar que eres mayor de 18 años con capacidad legal profesional para enviar esta solicitud (Cumplimiento COPPA).'
+  },
+  'cart.sim_disclaimer': {
+    en: 'Prepaid 12-Month Coverage: Hardware and SIM plans are fixed-term prepaid services. No recurring automatic debits or unexpected credit card renewals (California ARL Compliant).',
+    es: 'Cobertura Prepagada de 12 Meses: Los planes de hardware y SIM son prepagados a término fijo. Sin cargos automáticos recurrentes ni renovaciones imprevistas a tarjetas (Cumplimiento California ARL).'
+  },
+  'cart.canspam_notice': {
+    en: 'CAN-SPAM & Physical Address: G-TECH Communications, Orlando, Florida, USA. User-initiated quote request. To opt out or delete data, contact gtech.usfl@gmail.com.',
+    es: 'Aviso CAN-SPAM y Domicilio: G-TECH Communications, Orlando, Florida, EE.UU. Cotización solicitada por el usuario. Para baja o supresión de datos, contacte a gtech.usfl@gmail.com.'
   },
   'cart.quote_success_title': { en: 'Quotation Generated & Registered', es: 'Cotización Generada y Registrada' },
   'cart.quote_ref': { en: 'Official Reference #:', es: 'Referencia Oficial #:' },

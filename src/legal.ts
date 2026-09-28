@@ -2,7 +2,7 @@ import { getLanguage, onLanguageChange, t } from './i18n';
 
 const COOKIE_STORAGE_KEY = 'gtech_cookie_consent';
 
-export type LegalDocType = 'ai' | 'fcc' | 'privacy' | 'terms';
+export type LegalDocType = 'ai' | 'fcc' | 'privacy' | 'terms' | 'dmca';
 
 interface LegalDoc {
   title: { en: string; es: string };
@@ -153,69 +153,107 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
 
   privacy: {
     title: {
-      en: 'Privacy Policy & Data Protection (Florida FIPA)',
-      es: 'Política de Privacidad y Protección de Datos (Florida FIPA)'
+      en: 'Privacy Policy & Comprehensive Regulatory Compliance (COPPA, CIPA, CAN-SPAM, FIPA & GDPR)',
+      es: 'Política de Privacidad y Cumplimiento Regulatorio Integral (COPPA, CIPA, CAN-SPAM, FIPA y GDPR)'
     },
     badge: {
-      en: 'Florida Information Protection Act (FIPA) Compliant',
-      es: 'Conforme a la Ley de Protección de Información de Florida (FIPA)'
+      en: 'Florida FIPA • COPPA 18+ • CIPA Wiretap Protection • CAN-SPAM Certified',
+      es: 'Florida FIPA • COPPA 18+ • Protección CIPA • Certificado CAN-SPAM'
     },
     contentHtml: {
       en: `
         <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
           <p>
-            G-TECH Communications ("G-TECH.US", "we", "our"), operated under the management of Geramel based in Orlando, Florida, is committed to safeguarding personal information in strict compliance with the <strong>Florida Information Protection Act (FIPA, Fla. Stat. § 501.171)</strong> and FTC privacy regulations.
+            G-TECH Communications ("G-TECH.US", "we", "our"), operated under the management of Geramel based in Orlando, Florida, is committed to safeguarding personal information in strict compliance with the <strong>Florida Information Protection Act (FIPA, Fla. Stat. § 501.171)</strong>, the <strong>Children's Online Privacy Protection Act (COPPA, 15 U.S.C. §§ 6501–6506)</strong>, the <strong>California Invasion of Privacy Act (CIPA § 631)</strong>, the <strong>CAN-SPAM Act</strong>, and international data standards.
           </p>
 
           <h4 class="font-bold text-navy-900 text-base">1. Information We Collect</h4>
           <ul class="list-disc pl-5 space-y-1 text-gray-600">
-            <li><strong>Quotation Requests:</strong> Selected device models, quantities, and optional destination city when generating quotation requests.</li>
-            <li><strong>Direct Communications:</strong> Contact information provided when contacting us via WhatsApp (+1 407-427-3356) or email (gtech.usfl@gmail.com).</li>
-            <li><strong>Technical Local Storage:</strong> Essential client-side session keys (<code>gtech_cart_v2</code>, <code>gtech_lang</code>, and cookie consent preferences).</li>
+            <li><strong>Quotation Requests (B2B):</strong> Selected device models, quantities, and destination city provided during quotation generation.</li>
+            <li><strong>Contact Details:</strong> Professional contact details voluntarily submitted via Gmail, email client, or direct WhatsApp (+1 407-427-3356).</li>
+            <li><strong>Technical Local Storage:</strong> Essential client-side session tokens (<code>gtech_cart_v2</code>, <code>gtech_lang</code>, and cookie consent preferences).</li>
           </ul>
 
-          <h4 class="font-bold text-navy-900 text-base">2. Third-Party Messaging Services (WhatsApp / Meta)</h4>
+          <h4 class="font-bold text-navy-900 text-base">2. Child Privacy & COPPA Compliance (15 U.S.C. §§ 6501–6506)</h4>
           <p>
-            When utilizing the "Request Quote via WhatsApp" feature, quotation details are securely transferred to WhatsApp (Meta Platforms, Inc.). Such communications are subject to end-to-end encryption protocols in accordance with WhatsApp's privacy standards. We do not sell or monetize quotation data.
+            <strong>Strict Adult & Professional Audience:</strong> G-TECH.US and our tactical radio solutions are intended exclusively for commercial enterprises, security agencies, government organizations, and individuals aged eighteen (18) and older. We do not knowingly solicit, collect, or store personal information from children under thirteen (13) years of age. All quotation requests require explicit certification of majority. If we become aware that personal information of a child under 13 has been submitted without verifiable parental consent, we will purge such data immediately.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">3. Cloud Quotation Portal & Database Protection</h4>
+          <h4 class="font-bold text-navy-900 text-base">3. Zero Session Replay & Keystroke Recording Guarantee (California CIPA § 631(a) Immunity)</h4>
           <p>
-            Quotation requests submitted via Gmail, email client, or the web order station are securely stored in our cloud infrastructure (Turso DB / libSQL) protected by TLS 1.3 encryption in transit and AES-256 at rest. This data is strictly utilized by G-TECH technical dispatch to process official quotes, manage fleet reservations, and coordinate logistics. No credit card numbers or financial credentials are ever collected or stored.
+            <strong>No Wiretapping or Session Tracking:</strong> G-TECH.US maintains a strict zero-surveillance policy. We <strong>DO NOT</strong> use session replay software, screen recording tools (such as Hotjar, FullStory, Microsoft Clarity, LogRocket, or Inspectlet), or third-party keystroke wiretapping scripts. We do not intercept unsubmitted form fields, mouse paths, or real-time user keystrokes. Your browsing session remains private and unrecorded.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">4. Your Privacy Rights</h4>
+          <h4 class="font-bold text-navy-900 text-base">4. CAN-SPAM Act Compliance & Physical Postal Address (15 U.S.C. § 7701)</h4>
           <p>
-            Florida and US residents may request access to, correction, or deletion of their contact records at any time by emailing <code>gtech.usfl@gmail.com</code>.
+            <strong>Transactional Commercial Communications:</strong> Any email generated through the Quotation Station is a user-initiated transactional Request For Quotation (RFQ). G-TECH does not engage in unsolicited mass commercial emailing or purchase third-party lead lists. In full adherence to the CAN-SPAM Act:
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-gray-600">
+            <li><strong>Physical Postal Address:</strong> G-TECH Communications, Geramel Castellano • Orlando, Florida, USA.</li>
+            <li><strong>Opt-Out Mechanism:</strong> You may opt out of future quote follow-ups or request permanent contact deletion by emailing <code>gtech.usfl@gmail.com</code> or replying with "REMOVE".</li>
+          </ul>
+
+          <h4 class="font-bold text-navy-900 text-base">5. Zero Remote Fonts & IP Leak Protection (GDPR Compliant)</h4>
+          <p>
+            In strict compliance with European privacy standards and German precedent (LG München, Az. 3 O 17493/20), G-TECH.US does not load fonts from remote Google Fonts servers. All typography utilizes local native operating system fonts or self-hosted assets, eliminating unauthorized IP address transmission to third-party CDNs.
+          </p>
+
+          <h4 class="font-bold text-navy-900 text-base">6. Cloud Quotation Portal & Database Protection</h4>
+          <p>
+            Quotation requests are recorded in our secure cloud infrastructure (Turso DB / libSQL) protected by TLS 1.3 encryption in transit and AES-256 at rest. This data is strictly utilized by G-TECH technical dispatch to process official quotes, manage fleet reservations, and coordinate logistics. No credit card numbers or financial credentials are ever collected or stored on our web servers.
+          </p>
+
+          <h4 class="font-bold text-navy-900 text-base">7. Your Privacy Rights</h4>
+          <p>
+            You may request verification, correction, or deletion of your contact records at any time by emailing <code>gtech.usfl@gmail.com</code>.
           </p>
         </div>
       `,
       es: `
         <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
           <p>
-            G-TECH Comunicaciones ("G-TECH.US"), operado bajo la dirección de Geramel en Orlando, Florida, protege los datos personales de sus clientes en estricto cumplimiento con la <strong>Ley de Protección de Información de Florida (FIPA, Fla. Stat. § 501.171)</strong> y directrices de la FTC.
+            G-TECH Comunicaciones ("G-TECH.US", "nosotros"), bajo la dirección operativa de Geramel en Orlando, Florida, protege los datos personales de sus clientes en estricto cumplimiento con la <strong>Ley de Protección de Información de Florida (FIPA, Fla. Stat. § 501.171)</strong>, la ley de protección infantil <strong>COPPA (15 U.S.C. §§ 6501–6506)</strong>, la ley contra escuchas no consentidas de California <strong>CIPA (§ 631)</strong>, el <strong>CAN-SPAM Act</strong> y directrices de comercio de la FTC.
           </p>
 
           <h4 class="font-bold text-navy-900 text-base">1. Información que Recopilamos</h4>
           <ul class="list-disc pl-5 space-y-1 text-gray-600">
-            <li><strong>Solicitudes de Cotización:</strong> Equipos seleccionados, cantidades y destino especificado por el usuario al generar la cotización.</li>
-            <li><strong>Canales de Contacto Directo:</strong> Número de teléfono y correo electrónico cuando se comunica vía WhatsApp (+1 407-427-3356) o Gmail (gtech.usfl@gmail.com).</li>
-            <li><strong>Almacenamiento Local Técnico:</strong> Claves locales esenciales (<code>gtech_cart_v2</code>, <code>gtech_lang</code> y preferencias de cookies).</li>
+            <li><strong>Solicitudes de Cotización (B2B):</strong> Modelos de radios seleccionados, cantidades y destino especificado al generar la cotización.</li>
+            <li><strong>Datos de Contacto:</strong> Información provista voluntariamente al comunicarse por Gmail, app de correo o WhatsApp (+1 407-427-3356).</li>
+            <li><strong>Almacenamiento Local Técnico:</strong> Claves locales de sesión técnica (<code>gtech_cart_v2</code>, <code>gtech_lang</code> y preferencias de cookies).</li>
           </ul>
 
-          <h4 class="font-bold text-navy-900 text-base">2. Servicios de Mensajería de Terceros (WhatsApp / Meta)</h4>
+          <h4 class="font-bold text-navy-900 text-base">2. Protección Infantil y Cumplimiento COPPA (15 U.S.C. §§ 6501–6506)</h4>
           <p>
-            Al pulsar "Solicitar Cotización por WhatsApp", los datos del carrito se transfieren a la aplicación WhatsApp (Meta Platforms, Inc.), operando bajo cifrado de extremo a extremo. G-TECH no comercializa ni vende datos de contacto a terceros.
+            <strong>Audiencia Exclusiva Adulta y Profesional:</strong> Los productos y servicios de G-TECH.US están dirigidos exclusivamente a empresas, entidades de seguridad, profesionales y personas mayores de dieciocho (18) años. No recopilamos intencionalmente información personal de menores de 13 años. Toda solicitud de cotización exige certificar la mayoría de edad. Si tomamos conocimiento de que un menor de 13 años ha suministrado datos sin autorización parental, dicha información será eliminada de inmediato.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">3. Protección en el Portal de Cotizaciones y Base de Datos</h4>
+          <h4 class="font-bold text-navy-900 text-base">3. Cero Grabación de Sesiones y Ausencia de Wiretapping (Cumplimiento CIPA § 631(a))</h4>
           <p>
-            Las solicitudes de cotización generadas mediante Gmail, correo electrónico o la estación de pedidos se registran de forma segura en nuestra infraestructura en la nube (Turso DB / libSQL), protegidas mediante cifrado TLS 1.3 en tránsito y AES-256 en reposo. Esta información es empleada estrictamente por el departamento técnico comercial de G-TECH para emitir la cotización oficial, reservar inventario y coordinar la logística de despacho. No se recopilan ni almacenan números de tarjeta de crédito ni datos financieros sensibles.
+            <strong>Sin Rastreo Invasivo de Pantalla ni Registro de Teclas:</strong> G-TECH mantiene una política de cero vigilancia. <strong>NO utilizamos</strong> programas de grabación de pantalla o session replay (tales como Hotjar, FullStory, Microsoft Clarity, LogRocket ni similares), ni scripts espías de pulsación de teclas (keystroke recording). No interceptamos textos no enviados en formularios ni movimientos de puntero. Su navegación es totalmente privada.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">4. Derechos del Usuario</h4>
+          <h4 class="font-bold text-navy-900 text-base">4. Cumplimiento CAN-SPAM Act y Domicilio Postal Físico (15 U.S.C. § 7701)</h4>
           <p>
-            Los usuarios pueden solicitar en cualquier momento la consulta o eliminación de sus datos de contacto escribiendo a <code>gtech.usfl@gmail.com</code>.
+            <strong>Comunicaciones Transaccionales Legítimas:</strong> Toda cotización generada mediante el portal es una solicitud transaccional iniciada voluntariamente por el usuario (RFQ). G-TECH no realiza envíos masivos de spam ni compra bases de datos. En cumplimiento con la ley CAN-SPAM:
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-gray-600">
+            <li><strong>Dirección Postal Comercial:</strong> G-TECH Communications, Geramel Castellano • Orlando, Florida, USA.</li>
+            <li><strong>Mecanismo de Exclusión (Opt-Out):</strong> Puede solicitar la baja de seguimiento o eliminación total de sus datos escribiendo a <code>gtech.usfl@gmail.com</code> o respondiendo con la palabra "BAJA".</li>
+          </ul>
+
+          <h4 class="font-bold text-navy-900 text-base">5. Cero Fuentes Remotas y Protección de Fuga de IP (Conforme a GDPR)</h4>
+          <p>
+            Conforme a los estándares de privacidad europeos y la jurisprudencia del Tribunal de Múnich (LG München, fallo 20.01.2022), este sitio web no carga tipografías desde servidores remotos de Google Fonts. Toda la tipografía se renderiza mediante fuentes nativas del sistema operativo, evitando transmitir la dirección IP del visitante a redes externas no consentidas.
+          </p>
+
+          <h4 class="font-bold text-navy-900 text-base">6. Seguridad en la Base de Datos de Cotizaciones</h4>
+          <p>
+            Las solicitudes de cotización se almacenan de forma segura en nuestra base de datos (Turso DB / libSQL) bajo cifrado TLS 1.3 en tránsito y AES-256 en reposo, empleada exclusivamente para emitir cotizaciones oficiales y coordinar despachos. No se solicitan ni almacenan números de tarjetas de crédito.
+          </p>
+
+          <h4 class="font-bold text-navy-900 text-base">7. Derechos del Usuario</h4>
+          <p>
+            Puede ejercer sus derechos de consulta, rectificación o eliminación escribiendo en cualquier momento a <code>gtech.usfl@gmail.com</code>.
           </p>
         </div>
       `
@@ -224,12 +262,12 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
 
   terms: {
     title: {
-      en: 'Commercial Terms of Service & Quotation Conditions',
-      es: 'Términos Comerciales de Servicio y Condiciones de Cotización'
+      en: 'Commercial Terms of Service, Warranty & California ARL Compliance',
+      es: 'Términos Comerciales de Servicio, Garantía y Cumplimiento California ARL'
     },
     badge: {
-      en: 'Commercial Hardware Agreement • Florida Jurisdiction',
-      es: 'Acuerdo Comercial de Hardware • Jurisdicción de Florida'
+      en: 'Commercial Hardware Agreement • California ARL & Florida Jurisdiction',
+      es: 'Acuerdo Comercial de Hardware • California ARL y Jurisdicción de Florida'
     },
     contentHtml: {
       en: `
@@ -243,17 +281,27 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
           <p>
             Products and equipment do not include warranty except strictly and exclusively for verified manufacturer factory defects upon delivery. In such cases, a strict limited warranty of thirty (30) days applies, beginning from the date of receipt, to report and process any factory defect. Outside of the applicable warranty period, or for any issue resulting from misuse, drops, unauthorized moisture exposure, improper electrical input, or physical tampering, no warranty is provided.
           </p>
- 
-          <h4 class="font-bold text-navy-900 text-base">3. Cellular SIM Subscriptions & Carrier Service</h4>
+
+          <h4 class="font-bold text-navy-900 text-base">3. Cellular SIM Subscriptions & California Automatic Renewal Law (ARL) Compliance</h4>
           <p>
-            SIM data packages and cellular connectivity services provided through G-TECH are provisioned via partner multi-carrier IoT networks. Active service requires continuous account standing. Airtime plans carry no activation fees and can be managed per mission requirements.
+            In strict compliance with the <strong>California Automatic Renewal Law (Cal. Bus. & Prof. Code §§ 17600–17606)</strong> and FTC rules:
           </p>
- 
-          <h4 class="font-bold text-navy-900 text-base">4. Governing Law & Arbitration</h4>
+          <ul class="list-disc pl-5 space-y-1.5 text-gray-600">
+            <li><strong>Fixed-Term Prepaid Service:</strong> All SIM card cellular plans (USA, Brazil, Latin America, Europe, Global) are provisioned on a prepaid twelve (12) month fixed-term basis.</li>
+            <li><strong>No Automatic Re-billing / Unsolicited Debits:</strong> G-TECH does not automatically charge, recurringly bill, or debit credit cards upon the expiration of the 12-month period without affirmative, written purchase order renewal from the client.</li>
+            <li><strong>Renewal Procedure:</strong> Prior to service expiration, client will receive a manual renewal invoice with full cancellation options.</li>
+          </ul>
+
+          <h4 class="font-bold text-navy-900 text-base">4. Intellectual Property & DMCA Safe Harbor Notice (17 U.S.C. § 512)</h4>
+          <p>
+            All tactical logos, product photography, UI code, and branding materials are proprietary assets of G-TECH.US. If any copyright owner believes their intellectual property is displayed improperly, please submit a formal DMCA Notice to our Designated Agent at <code>gtech.usfl@gmail.com</code> (see DMCA Safe Harbor policy).
+          </p>
+
+          <h4 class="font-bold text-navy-900 text-base">5. Governing Law & Arbitration</h4>
           <p>
             These Terms of Service are governed by and construed in accordance with the laws of the State of Florida, USA. Any unresolved commercial dispute shall be submitted to binding arbitration in Orange County, Florida.
           </p>
- 
+
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
             🐺 G tech (G-TECH.US) • Registered Commercial Entity • Orlando, Florida, USA.
           </div>
@@ -265,24 +313,129 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
           <p>
             La "Estación de Cotización" de G-TECH.US permite generar estimaciones de costos, consultas de inventario y pedidos de flotas. <strong>El envío de una cotización por WhatsApp o correo NO constituye una compraventa vinculante inmediata.</strong> El contrato comercial se formaliza una vez aprobada la Factura Pro-Forma oficial y confirmado el pago correspondiente.
           </p>
- 
+
           <h4 class="font-bold text-navy-900 text-base">2. Política de Garantía Limitada de Fábrica (30 Días)</h4>
           <p>
             Los equipos no cuentan con garantía a menos que se trate estrictamente de un defecto de fábrica comprobado de origen. En dicho caso, el cliente cuenta con un plazo estricto de garantía de treinta (30) días a partir de la recepción del producto para reportar la falla. Fuera del período de garantía aplicable, o ante daños ocasionados por golpes, mal uso, humedad no permitida, sobrecarga eléctrica o manipulación indebida, los equipos no tienen garantía bajo ninguna circunstancia.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">3. Planes de Datos SIM y Conectividad</h4>
+          <h4 class="font-bold text-navy-900 text-base">3. Suscripciones SIM y Cumplimiento California Automatic Renewal Law (ARL)</h4>
           <p>
-            Los planes de datos celulares globales se suministran a través de redes IoT multi-operador aliadas. El servicio no tiene costos ocultos de activación y puede renovarse o gestionarse según las necesidades de la flota.
+            En estricto cumplimiento con la <strong>Ley de Renovaciones Automáticas de California (Cal. Bus. & Prof. Code §§ 17600–17606)</strong> y normativas de la FTC:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-gray-600">
+            <li><strong>Servicio Prepagado a Término Fijo:</strong> Todos los planes de tarjetas SIM PoC (USA, Brasil, Latinoamérica, Europa, Global) corresponden a paquetes prepagados por doce (12) meses fijos.</li>
+            <li><strong>Sin Cargos Automáticos ni Renovaciones Sorpresa:</strong> G-TECH NO realiza cargos automáticos ni cobros recurrentes a tarjetas de crédito al finalizar los 12 meses sin la aprobación previa y por escrito de una nueva orden de compra.</li>
+            <li><strong>Proceso de Renovación:</strong> Al término de la cobertura, el cliente recibe aviso para renovar manualmente si así lo desea.</li>
+          </ul>
+
+          <h4 class="font-bold text-navy-900 text-base">4. Propiedad Intelectual y Aviso DMCA Safe Harbor (17 U.S.C. § 512)</h4>
+          <p>
+            Todos los logotipos tácticos, fotografías de producto, código de interfaz y elementos de marca son activos protegidos de G-TECH.US. Cualquier titular de derechos puede presentar una notificación formal de retiro ante nuestro Agente Designado al correo <code>gtech.usfl@gmail.com</code> (ver documento DMCA Safe Harbor).
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">4. Ley Aplicable y Jurisdicción</h4>
+          <h4 class="font-bold text-navy-900 text-base">5. Ley Aplicable y Jurisdicción</h4>
           <p>
             Estos términos se rigen bajo las leyes del Estado de Florida, EE.UU. Cualquier controversia comercial se resolverá bajo arbitraje vinculante en el Condado de Orange, Florida.
           </p>
 
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
             🐺 G tech (G-TECH.US) • Entidad Comercial • Orlando, Florida, EE.UU.
+          </div>
+        </div>
+      `
+    }
+  },
+
+  dmca: {
+    title: {
+      en: 'DMCA Safe Harbor Policy & Designated Copyright Agent Notice',
+      es: 'Política de Safe Harbor DMCA y Agente Designado de Derechos de Autor'
+    },
+    badge: {
+      en: '17 U.S.C. § 512 Compliance • Intellectual Property Shield',
+      es: 'Cumplimiento 17 U.S.C. § 512 • Protección de Propiedad Intelectual'
+    },
+    contentHtml: {
+      en: `
+        <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
+          <div class="p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-xs">
+            <strong>DMCA Safe Harbor Notice (17 U.S.C. § 512):</strong> G-TECH respects intellectual property rights and adheres to the notice and takedown procedures established under the Digital Millennium Copyright Act.
+          </div>
+
+          <h4 class="font-bold text-navy-900 text-base">1. Designated Copyright Agent</h4>
+          <p>
+            Pursuant to Title II of the Digital Millennium Copyright Act (17 U.S.C. § 512(c)(2)), our Designated Agent for receipt of notifications of claimed infringement is:
+          </p>
+          <div class="p-3 bg-gray-50 border border-gray-200 rounded-xl space-y-1 text-xs font-mono text-navy-950">
+            <div><strong>Designated Agent:</strong> Geramel Castellano</div>
+            <div><strong>Company:</strong> G-TECH Communications (🐺 G tech)</div>
+            <div><strong>Physical Address:</strong> Orlando, Florida, USA</div>
+            <div><strong>Official Email:</strong> gtech.usfl@gmail.com</div>
+            <div><strong>Direct Telephone:</strong> +1 (407) 427-3356</div>
+          </div>
+
+          <h4 class="font-bold text-navy-900 text-base">2. Takedown Notice Requirements (§ 512(c)(3))</h4>
+          <p>
+            To be legally effective, any copyright infringement notification must be provided in writing to the Designated Agent and include substantially the following:
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-gray-600">
+            <li>Physical or electronic signature of a person authorized to act on behalf of the copyright owner.</li>
+            <li>Identification of the copyrighted work claimed to have been infringed.</li>
+            <li>Identification of the material claimed to be infringing and reasonably sufficient information to permit us to locate the material (URL or description).</li>
+            <li>Information reasonably sufficient to permit us to contact the complaining party (address, telephone number, email).</li>
+            <li>A statement that the complaining party has a good faith belief that use of the material is not authorized by the copyright owner, its agent, or the law.</li>
+            <li>A statement made under penalty of perjury that the information in the notification is accurate and that the complaining party is authorized to act on behalf of the owner.</li>
+          </ul>
+
+          <h4 class="font-bold text-navy-900 text-base">3. Counter-Notification & Repeat Infringer Policy</h4>
+          <p>
+            If material has been removed pursuant to a DMCA notice, the affected party may submit a counter-notification conforming to 17 U.S.C. § 512(g)(3). In accordance with § 512(i), G-TECH maintains a policy that provides for termination of access in appropriate circumstances for repeat infringers.
+          </p>
+
+          <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
+            Effective Date: September 2026 • G-TECH.US DMCA Legal Directorate • Orlando, Florida, USA.
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
+          <div class="p-3.5 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-xs">
+            <strong>Aviso de Safe Harbor DMCA (17 U.S.C. § 512):</strong> G-TECH respeta los derechos de propiedad intelectual y cumple con los procedimientos formales de notificación y retiro (Notice and Takedown) establecidos bajo la ley estadounidense Digital Millennium Copyright Act.
+          </div>
+
+          <h4 class="font-bold text-navy-900 text-base">1. Agente Designado de Derechos de Autor</h4>
+          <p>
+            De conformidad con el Título II del DMCA (17 U.S.C. § 512(c)(2)), los datos de nuestro Agente Oficial Designado para la recepción de reclamaciones son:
+          </p>
+          <div class="p-3 bg-gray-50 border border-gray-200 rounded-xl space-y-1 text-xs font-mono text-navy-950">
+            <div><strong>Agente Designado:</strong> Geramel Castellano</div>
+            <div><strong>Entidad:</strong> G-TECH Comunicaciones (🐺 G tech)</div>
+            <div><strong>Dirección Física:</strong> Orlando, Florida, EE.UU.</div>
+            <div><strong>Correo Oficial:</strong> gtech.usfl@gmail.com</div>
+            <div><strong>Teléfono Directo:</strong> +1 (407) 427-3356</div>
+          </div>
+
+          <h4 class="font-bold text-navy-900 text-base">2. Requisitos de la Notificación de Retiro (§ 512(c)(3))</h4>
+          <p>
+            Para tener validez legal, toda reclamación por infracción de derechos de autor debe enviarse por escrito a nuestro Agente Designado e incluir:
+          </p>
+          <ul class="list-disc pl-5 space-y-1 text-gray-600">
+            <li>Firma física o electrónica de la persona autorizada para actuar en nombre del titular del copyright.</li>
+            <li>Identificación de la obra protegida presuntamente infringida.</li>
+            <li>Identificación del material presuntamente infractor e información suficiente para su localización (URL o captura).</li>
+            <li>Datos de contacto del remitente (nombre, domicilio postal, teléfono y correo electrónico).</li>
+            <li>Declaración de fe de que el uso impugnado no está autorizado por el titular, su agente o la ley.</li>
+            <li>Declaración bajo pena de perjurio de que la información provista es exacta y que el declarante cuenta con autorización legal.</li>
+          </ul>
+
+          <h4 class="font-bold text-navy-900 text-base">3. Contranotificación y Política de Infractores Reincidentes</h4>
+          <p>
+            Si un material ha sido retirado en virtud de una notificación DMCA, la parte afectada puede presentar una contranotificación bajo 17 U.S.C. § 512(g)(3). Conforme al § 512(i), G-TECH cancelará el acceso o suspenderá a cualquier usuario o colaborador que incurra en infracciones reiteradas.
+          </p>
+
+          <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
+            Fecha de Entrada en Vigor: Septiembre 2026 • Dirección Legal DMCA G-TECH.US • Orlando, Florida, EE.UU.
           </div>
         </div>
       `
@@ -300,8 +453,36 @@ export function initLegalModule(): void {
 }
 
 export function openLegalModal(type: LegalDocType): void {
-  const modalOverlay = document.getElementById('product-modal');
-  const modalContent = document.getElementById('modal-content');
+  let modalOverlay = document.getElementById('product-modal');
+  let modalContent = document.getElementById('modal-content');
+
+  // Dynamic fallback for pages that don't have product-modal in HTML (e.g. accessories, alliances)
+  if (!modalOverlay || !modalContent) {
+    let dynamicModal = document.getElementById('legal-dynamic-modal');
+    if (!dynamicModal) {
+      dynamicModal = document.createElement('div');
+      dynamicModal.id = 'legal-dynamic-modal';
+      dynamicModal.className = 'fixed inset-0 z-[250] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4';
+      dynamicModal.setAttribute('role', 'dialog');
+      dynamicModal.setAttribute('aria-modal', 'true');
+      dynamicModal.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-hidden shadow-2xl p-6 relative border border-gray-100 flex flex-col">
+          <div id="legal-dynamic-modal-content" class="overflow-y-auto pr-1 flex-1"></div>
+        </div>
+      `;
+      document.body.appendChild(dynamicModal);
+      dynamicModal.addEventListener('click', (e) => {
+        if (e.target === dynamicModal || (e.target as HTMLElement).closest('[data-action="close-modal"]')) {
+          dynamicModal!.classList.add('hidden');
+          dynamicModal!.classList.remove('flex');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+    modalOverlay = dynamicModal;
+    modalContent = document.getElementById('legal-dynamic-modal-content');
+  }
+
   if (!modalOverlay || !modalContent) return;
 
   const doc = LEGAL_DOCS[type];
