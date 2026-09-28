@@ -24,7 +24,7 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
       en: `
         <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
           <div class="p-3.5 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-900 text-xs">
-            <strong>Legal Notice (FTC Digital Transparency 2025/2026):</strong> This disclosure is published in full accordance with Section 5 of the Federal Trade Commission Act regarding fair digital advertising practices and algorithmic transparency.
+            <strong>Legal Notice (FTC Digital Transparency 2025/2026):</strong> This disclosure is published as part of our commitment to transparent digital practices.
           </div>
 
           <h4 class="font-bold text-navy-900 text-base">1. Scope of Artificial Intelligence Usage</h4>
@@ -44,7 +44,7 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
 
           <h4 class="font-bold text-navy-900 text-base">3. Customer Reviews and Telemetry Integrity</h4>
           <p>
-            In strict compliance with FTC guidelines prohibiting synthetic personas and fake endorsements, G-TECH.US does not employ AI-generated customer testimonials, fake user personas, or simulated reviews. All customer communications are conducted directly through verified engineering channels with Geramel and the G-Tech technical team.
+            As part of our commitment to authenticity, G-TECH.US does not employ AI-generated customer testimonials, fake user personas, or simulated reviews. All customer communications are conducted directly through verified engineering channels with Geramel and the G-Tech technical team.
           </p>
 
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
@@ -55,7 +55,7 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
       es: `
         <div class="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed">
           <div class="p-3.5 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-900 text-xs">
-            <strong>Aviso Legal (Transparencia Digital FTC 2025/2026):</strong> Esta declaración se publica en estricto apego a la Sección 5 de la Ley de la Comisión Federal de Comercio (FTC) sobre prácticas comerciales justas y transparencia algorítmica.
+            <strong>Aviso Legal (Transparencia Digital FTC 2025/2026):</strong> Esta declaración se publica en consideración a las directrices de comercio sobre prácticas comerciales justas y transparencia algorítmica.
           </div>
 
           <h4 class="font-bold text-navy-900 text-base">1. Alcance del Uso de Inteligencia Artificial</h4>
@@ -75,7 +75,7 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
 
           <h4 class="font-bold text-navy-900 text-base">3. Integridad de Reseñas y Canales de Atención</h4>
           <p>
-            En cumplimiento estricto con las directrices de la FTC que prohíben testimonios sintéticos, G-TECH.US no utiliza reseñas inventadas ni perfiles artificiales de clientes. Toda atención técnica y comercial se realiza directamente a través de los canales verificados de Geramel y el equipo técnico oficial de G-Tech.
+            Como parte de nuestro compromiso con la autenticidad, G-TECH.US no utiliza reseñas inventadas ni perfiles artificiales de clientes. Toda atención técnica y comercial se realiza directamente a través de los canales verificados de Geramel y el equipo técnico oficial de G-Tech.
           </p>
 
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
@@ -114,7 +114,7 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
 
           <h4 class="font-bold text-navy-900 text-base">3. FCC Part 15 and Regulatory Approvals</h4>
           <p>
-            G-TECH communications devices conform to applicable FCC Part 15 and Part 90 radiation limits and electromagnetic compatibility standards. Operation is subject to the condition that the device does not cause harmful radio interference to licensed services.
+            G-TECH communications devices conform to applicable FCC Part 15 and Part 90 radiation limits and electromagnetic compatibility standards. Operation is subject to the condition that the device does not cause harmful radio interference to licensed services. <strong>Warning: Operation of direct RF VHF/UHF radios (analog or digital) within the United States generally requires a valid FCC license (Part 90 Commercial or Part 95 GMRS). It is the purchaser's sole responsibility to obtain necessary licensing prior to transmitting on these frequencies.</strong>
           </p>
 
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
@@ -138,9 +138,9 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
             Las radios PoC están diseñadas para coordinación de flotas, seguridad privada, logística comercial e industria. <strong>NO constituyen un sustituto certificado para los Centros de Atención de Emergencias 911 (PSAP), servicios E911 ni sistemas de radio Land Mobile Radio (LMR) / P25 de seguridad pública del estado.</strong> Ante situaciones de riesgo de vida, el personal debe emplear teléfonos con marcación directa a emergencias 911.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">3. Cumplimiento con Normativa FCC Parte 15</h4>
+          <h4 class="font-bold text-navy-900 text-base">3. Cumplimiento con Normativa FCC Parte 15/90</h4>
           <p>
-            Los dispositivos cumplen con los límites de radiación y compatibilidad electromagnética aplicables de la Comisión Federal de Comunicaciones (FCC Parte 15/90). Su uso está sujeto a no provocar interferencias perjudiciales a frecuencias licenciadas.
+            Los dispositivos cumplen con los límites de radiación y compatibilidad electromagnética aplicables de la Comisión Federal de Comunicaciones (FCC Parte 15/90). Su uso está sujeto a no provocar interferencias perjudiciales a frecuencias licenciadas. <strong>Advertencia: La operación de radios VHF/UHF de RF directa (analógicas o digitales) dentro de los EE.UU. generalmente requiere una licencia válida de la FCC (Parte 90 Comercial o Parte 95 GMRS). Es responsabilidad exclusiva del comprador obtener las licencias necesarias antes de transmitir en estas frecuencias.</strong>
           </p>
 
           <div class="pt-2 text-xs text-gray-500 border-t border-gray-100">
@@ -239,9 +239,9 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
             The "Quotation Station" on G-TECH.US facilitates rapid generation of price estimates, inventory inquiries, and fleet specifications. <strong>Submission of a quotation request via WhatsApp or email does NOT constitute a final binding contract of sale.</strong> A binding commercial transaction occurs only upon issuance and client approval of a formal Pro-Forma Invoice and payment confirmation.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">2. Limited Factory Warranty Policy (1 Week)</h4>
+          <h4 class="font-bold text-navy-900 text-base">2. Limited Factory Warranty Policy (30 Days)</h4>
           <p>
-            Products and equipment do not include warranty except strictly and exclusively for verified manufacturer factory defects upon delivery. In such cases, a strict limited warranty of one (1) week (7 calendar days) applies, beginning from the date of receipt, to report and process any factory defect. Outside of this 1-week window, or for any issue resulting from misuse, drops, unauthorized moisture exposure, improper electrical input, or physical tampering, no warranty is provided.
+            Products and equipment do not include warranty except strictly and exclusively for verified manufacturer factory defects upon delivery. In such cases, a strict limited warranty of thirty (30) days applies, beginning from the date of receipt, to report and process any factory defect. Outside of the applicable warranty period, or for any issue resulting from misuse, drops, unauthorized moisture exposure, improper electrical input, or physical tampering, no warranty is provided.
           </p>
  
           <h4 class="font-bold text-navy-900 text-base">3. Cellular SIM Subscriptions & Carrier Service</h4>
@@ -266,9 +266,9 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
             La "Estación de Cotización" de G-TECH.US permite generar estimaciones de costos, consultas de inventario y pedidos de flotas. <strong>El envío de una cotización por WhatsApp o correo NO constituye una compraventa vinculante inmediata.</strong> El contrato comercial se formaliza una vez aprobada la Factura Pro-Forma oficial y confirmado el pago correspondiente.
           </p>
  
-          <h4 class="font-bold text-navy-900 text-base">2. Política de Garantía Limitada de Fábrica (1 Semana)</h4>
+          <h4 class="font-bold text-navy-900 text-base">2. Política de Garantía Limitada de Fábrica (30 Días)</h4>
           <p>
-            Los equipos no cuentan con garantía a menos que se trate estrictamente de un defecto de fábrica comprobado de origen. En dicho caso, el cliente cuenta con un plazo estricto de garantía de una (1) semana (7 días continuos) a partir de la recepción del producto para reportar la falla. Fuera de ese período de una semana, o ante daños ocasionados por golpes, mal uso, humedad no permitida, sobrecarga eléctrica o manipulación indebida, los equipos no tienen garantía bajo ninguna circunstancia.
+            Los equipos no cuentan con garantía a menos que se trate estrictamente de un defecto de fábrica comprobado de origen. En dicho caso, el cliente cuenta con un plazo estricto de garantía de treinta (30) días a partir de la recepción del producto para reportar la falla. Fuera del período de garantía aplicable, o ante daños ocasionados por golpes, mal uso, humedad no permitida, sobrecarga eléctrica o manipulación indebida, los equipos no tienen garantía bajo ninguna circunstancia.
           </p>
 
           <h4 class="font-bold text-navy-900 text-base">3. Planes de Datos SIM y Conectividad</h4>

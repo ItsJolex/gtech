@@ -81,7 +81,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const client = getTursoClient();
       
-      const forwarded = req.headers['x-forwarded-for'];
+      const forwarded = req.headers['x-real-ip'] || req.headers['x-forwarded-for'];
       const ip = Array.isArray(forwarded) ? forwarded[0] : (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket?.remoteAddress || null);
 
       // Rate limiting: max 15 quotes per 10 minutes per IP
@@ -150,31 +150,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
   }
 
-  // ----------------------------------------------------
-  // GET: Read quote by quoteNumber or query (read-only)
-  // ----------------------------------------------------
-  if (req.method === 'GET') {
-    try {
-      const { quoteNumber } = req.query;
-      if (!quoteNumber) {
-        return res.status(400).json({ error: 'quoteNumber is required' });
-      }
-
-      const client = getTursoClient();
-      const result = await client.execute({
-        sql: `SELECT id, quote_number, customer_name, customer_email, destination, total_units, status, created_at FROM quotes WHERE quote_number = ? LIMIT 1`,
-        args: [String(quoteNumber)]
-      });
-
-      if (result.rows.length === 0) {
-        return res.status(404).json({ error: 'Quote not found' });
-      }
-
-      return res.status(200).json(result.rows[0]);
-    } catch (err: any) {
-      return res.status(500).json({ error: err.message || 'Database query error' });
-    }
-  }
-
+  
   return res.status(405).json({ error: 'Method not allowed' });
 }

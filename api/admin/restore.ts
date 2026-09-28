@@ -3,13 +3,17 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 function verifyAuth(req: VercelRequest): boolean {
   const authHeader = req.headers.authorization;
-  const secretKey = process.env.ADMIN_SECRET_KEY || 'gtech_admin_2026_tactical';
+  const secretKey = process.env.ADMIN_SECRET_KEY;
+  if (!secretKey) return res.status(500).json({ error: 'ADMIN_SECRET_KEY not configured' });
   if (!authHeader) return false;
   return authHeader.replace(/^Bearer\s+/i, '').trim() === secretKey;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin || '';
+  if (origin.includes('localhost') || origin.includes('gtech.us') || origin.includes('g-tech.us')) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 

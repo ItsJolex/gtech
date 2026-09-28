@@ -46,11 +46,11 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
       <!-- IMAGE AT THE TOP -->
       <div id="deep-specs-top-hero" class="w-full max-w-sm mx-auto aspect-square bg-slate-50/90 rounded-2xl flex items-center justify-center border border-slate-200/80 relative mb-6 shadow-inner overflow-hidden group">
-        <img src="${p.image}" alt="${localized.name}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
+        <img src="${p.image}" alt="${escapeHtml(localized.name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">
 
         <div class="absolute top-2 left-2 flex items-center gap-1.5 flex-wrap">
           <span class="bg-navy-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
-            ${localized.badge}
+            ${escapeHtml(localized.badge)}
           </span>
           ${stockBadge}
           ${(window as any).siteShowPrices && p.discountPrice ? `
@@ -75,8 +75,8 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
 
       <!-- PRODUCT TITLE & BRIEF -->
       <div class="text-center max-w-2xl mx-auto mb-6">
-        <h2 class="text-xl sm:text-2xl font-black text-navy-900 tracking-tight mb-2">${localized.name}</h2>
-        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${localized.description}</p>
+        <h2 class="text-xl sm:text-2xl font-black text-navy-900 tracking-tight mb-2">${escapeHtml(localized.name)}</h2>
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${escapeHtml(localized.description)}</p>
       </div>
 
       <!-- EXTENSIVE SPECIFICATIONS DOSSIER -->
@@ -321,14 +321,14 @@ function renderCatalog(): void {
         <div class="aspect-square bg-navy-950/10 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-slate-200/70 group/cardimg shadow-xs">
           <img id="card-img-${product.id}"
                src="${initialCardImg}"
-               alt="${localized.name}"
+               alt="${escapeHtml(localized.name)}"
                class="w-full h-full object-cover rounded-xl sm:rounded-2xl group-hover:scale-105 transition-transform duration-300"
                loading="lazy">
 
           <!-- Top Badges Header -->
           <div class="absolute top-2 inset-x-2 flex items-center justify-between gap-1 z-10 pointer-events-none">
             <span class="bg-navy-900/95 backdrop-blur-xs text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[65%] sm:max-w-[70%]">
-              ${localized.badge}
+              ${escapeHtml(localized.badge)}
             </span>
             ${product.stockStatus === 'low_stock' && product.inStock ? `
               <span class="bg-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-bold uppercase tracking-wider shadow flex-shrink-0">${t('catalog.low_stock')}${product.stockCount ? ` (${product.stockCount})` : ''}</span>
@@ -389,8 +389,8 @@ function renderCatalog(): void {
         </div>
 
         <!-- 2. PRODUCT TITLE -->
-        <h3 class="text-xs sm:text-base font-extrabold text-navy-900 line-clamp-2 leading-snug mb-1 min-h-[2.4rem] sm:min-h-[2.6rem]" title="${localized.name}">
-          ${localized.name}
+        <h3 class="text-xs sm:text-base font-extrabold text-navy-900 line-clamp-2 leading-snug mb-1 min-h-[2.4rem] sm:min-h-[2.6rem]" title="${escapeHtml(localized.name)}">
+          ${escapeHtml(localized.name)}
         </h3>
 
         ${(window as any).siteShowPrices && product.discountPrice ? `
@@ -416,7 +416,7 @@ function renderCatalog(): void {
 
         <!-- 3. DESCRIPCIÓN CON ALTURA MÍNIMA UNIFORME -->
         <p class="hidden sm:block text-slate-600 text-xs sm:text-sm mb-3 line-clamp-2 leading-relaxed min-h-[2.4rem]">
-          ${localized.description}
+          ${escapeHtml(localized.description)}
         </p>
 
         <div class="sm:hidden mb-2 text-[10px] text-slate-500 truncate">
@@ -521,13 +521,13 @@ if (modalOverlay && modalContent) {
             <div id="modal-product-img-wrapper" class="aspect-square bg-slate-50/90 rounded-2xl border border-slate-200/80 p-4 flex items-center justify-center relative overflow-hidden shadow-inner group/mimg">
               <img id="modal-product-img"
                    src="${initialImg}"
-                   alt="${localized.name}"
+                   alt="${escapeHtml(localized.name)}"
                    class="w-full h-full object-contain max-h-[290px] sm:max-h-[320px] transition-transform duration-300 group-hover/mimg:scale-105">
 
               <!-- Top Badges over image -->
               <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 pointer-events-none z-10">
                 <span class="bg-navy-900/90 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm tracking-tight truncate max-w-[65%]">
-                  ${localized.badge}
+                  ${escapeHtml(localized.badge)}
                 </span>
                 ${stockBadge}
               </div>
@@ -587,9 +587,9 @@ if (modalOverlay && modalContent) {
             <div>
               <!-- Title & Badges Header -->
               <div class="mb-2">
-                <h2 class="text-xl sm:text-2xl font-black text-navy-900 leading-tight mb-1.5">${localized.name}</h2>
+                <h2 class="text-xl sm:text-2xl font-black text-navy-900 leading-tight mb-1.5">${escapeHtml(localized.name)}</h2>
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span class="inline-flex items-center text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded bg-crimson-50 text-crimson-800 border border-crimson-200/80">${localized.badge}</span>
+                  <span class="inline-flex items-center text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded bg-crimson-50 text-crimson-800 border border-crimson-200/80">${escapeHtml(localized.badge)}</span>
                   ${(window as any).siteShowPrices && p.discountPrice ? `
                     <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-50 border border-emerald-200">
                       <span class="text-sm font-black text-emerald-700">${p.discountPrice}</span>
@@ -609,7 +609,7 @@ if (modalOverlay && modalContent) {
 
               <!-- Description -->
               <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-3.5">
-                ${localized.description}
+                ${escapeHtml(localized.description)}
               </p>
 
               <!-- Technical Dossier Grid (compact, elegant) -->
@@ -728,8 +728,8 @@ if (modalOverlay && modalContent) {
     if (waBtn) {
       const localized = getLocalizedProduct(p);
       const waText = lang === 'es'
-        ? `Hola G-TECH, deseo cotizar formalmente el equipo ${localized.name} (Color: ${colorLabel})`
-        : `Hello G-TECH, I'm interested in requesting a quote for ${localized.name} (Color: ${colorLabel})`;
+        ? `Hola G-TECH, deseo cotizar formalmente el equipo ${escapeHtml(localized.name)} (Color: ${colorLabel})`
+        : `Hello G-TECH, I'm interested in requesting a quote for ${escapeHtml(localized.name)} (Color: ${colorLabel})`;
       waBtn.href = `https://wa.me/14074273356?text=${encodeURIComponent(waText)}`;
     }
   };
@@ -810,7 +810,7 @@ if (modalOverlay && modalContent) {
     const renderModalBody = () => {
       const activePlan = plans.find(p => p.id === selectedPlanId) || plans[0];
       const hardwareText = localized
-        ? (isEs ? `el equipo táctico ${localized.name}` : `the tactical radio ${localized.name}`)
+        ? (isEs ? `el equipo táctico ${escapeHtml(localized.name)}` : `the tactical radio ${escapeHtml(localized.name)}`)
         : (isEs ? `equipos tácticos PoC` : `tactical PoC radios`);
 
       const waMsg = isEs
@@ -1390,21 +1390,21 @@ function renderHomeAccessories(): void {
     const connector = getLocalizedAccConnector(a);
 
     const waMsg = lang === 'es'
-      ? `Hola G-TECH, me interesa cotizar el accesorio "${name}" (${connector}). ¿Tienen disponibilidad inmediata?`
-      : `Hello G-TECH, I'm inquiring about the "${name}" accessory (${connector}). Is it in stock?`;
+      ? `Hola G-TECH, me interesa cotizar el accesorio "${escapeHtml(name)}" (${connector}). ¿Tienen disponibilidad inmediata?`
+      : `Hello G-TECH, I'm inquiring about the "${escapeHtml(name)}" accessory (${connector}). Is it in stock?`;
     const waLink = `https://wa.me/14074273356?text=${encodeURIComponent(waMsg)}`;
 
     return `
       <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
         <div class="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" onclick="window.openHomeAccessoryModal('${a.id}')">
-          <img src="${a.image}" alt="${name}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='/images/G-510.webp'">
-          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${badge}</span>
+          <img src="${a.image}" alt="${escapeHtml(name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='/images/G-510.webp'">
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(badge)}</span>
         </div>
 
         <div class="p-5 flex flex-col flex-1 space-y-3">
           <div>
-            <h4 class="text-base font-extrabold text-navy-800 leading-snug line-clamp-1 group-hover:text-crimson-800 transition-colors" title="${name}">${name}</h4>
-            <p class="text-xs text-gray-500 mt-1.5 leading-relaxed line-clamp-2">${desc}</p>
+            <h4 class="text-base font-extrabold text-navy-800 leading-snug line-clamp-1 group-hover:text-crimson-800 transition-colors" title="${escapeHtml(name)}">${escapeHtml(name)}</h4>
+            <p class="text-xs text-gray-500 mt-1.5 leading-relaxed line-clamp-2">${escapeHtml(desc)}</p>
           </div>
 
           ${a.id === 'acc-acoustic-earpiece-typec-2pack' ? `
@@ -1476,8 +1476,8 @@ function openHomeAccessoryModal(id: string): void {
     .join('');
 
   const waMsg = lang === 'es'
-    ? `Hola G-TECH, me interesa el accesorio "${name}" (${connector}). ¿Tienen disponibilidad y precio?`
-    : `Hello G-TECH, I am interested in the "${name}" accessory (${connector}). Is it available?`;
+    ? `Hola G-TECH, me interesa el accesorio "${escapeHtml(name)}" (${connector}). ¿Tienen disponibilidad y precio?`
+    : `Hello G-TECH, I am interested in the "${escapeHtml(name)}" accessory (${connector}). Is it available?`;
   const waLink = `https://wa.me/14074273356?text=${encodeURIComponent(waMsg)}`;
 
   homeAccModalContent.innerHTML = `
@@ -1489,13 +1489,13 @@ function openHomeAccessoryModal(id: string): void {
       <div class="flex flex-col sm:flex-row gap-6">
         <div class="sm:w-56 flex-shrink-0">
           <div class="rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden aspect-square p-4 flex items-center justify-center">
-            <img src="${a.image}" alt="${name}" class="w-full h-full object-contain">
+            <img src="${a.image}" alt="${escapeHtml(name)}" class="w-full h-full object-contain">
           </div>
         </div>
         <div class="flex-1 min-w-0">
-          <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-50 border border-crimson-200 text-crimson-800 text-[10px] font-extrabold uppercase tracking-widest">${badge}</span>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-navy-800 mt-2">${name}</h3>
-          <p class="text-sm text-gray-600 mt-2 leading-relaxed">${desc}</p>
+          <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-50 border border-crimson-200 text-crimson-800 text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(badge)}</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-navy-800 mt-2">${escapeHtml(name)}</h3>
+          <p class="text-sm text-gray-600 mt-2 leading-relaxed">${escapeHtml(desc)}</p>
           ${a.id === 'acc-acoustic-earpiece-typec-2pack' ? `
             <div class="mt-3.5 p-3 rounded-xl bg-amber-50 border border-amber-200/90 flex items-start gap-2.5 text-xs text-amber-900 leading-relaxed shadow-2xs">
               <svg class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
