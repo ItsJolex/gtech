@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./accessories.html",
+    "./alliances.html",
     "./admin.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
@@ -20,6 +21,7 @@ export default {
           700: '#334E68',
           800: '#2A4160',
           900: '#1A293D',
+          950: '#0F172A',
         },
         crimson: {
           50: '#FEF2F2',

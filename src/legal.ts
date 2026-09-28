@@ -322,7 +322,7 @@ export function openLegalModal(type: LegalDocType): void {
           </span>
           <h3 class="text-lg sm:text-xl font-black text-navy-900 leading-snug">${title}</h3>
         </div>
-        <button onclick="closeModal()" class="text-gray-400 hover:text-navy-900 p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0" aria-label="Close modal">
+        <button data-action="close-modal" class="text-gray-400 hover:text-navy-900 p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0" aria-label="Close modal">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
@@ -334,7 +334,7 @@ export function openLegalModal(type: LegalDocType): void {
 
       <!-- Footer Action -->
       <div class="pt-4 mt-4 border-t border-gray-100 flex justify-end flex-shrink-0">
-        <button onclick="closeModal()" class="px-6 py-2.5 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs">
+        <button data-action="close-modal" class="px-6 py-2.5 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs">
           ${lang === 'es' ? 'Cerrar Documento' : 'Close Document'}
         </button>
       </div>
@@ -366,7 +366,7 @@ export function renderCookieBanner(force: boolean = false): void {
             ${t('cookie.title')}
           </span>
         </div>
-        <button onclick="window.dismissCookieBanner('essential')" class="text-gray-400 hover:text-white p-1" aria-label="Dismiss">
+        <button data-action="dismiss-cookie" data-type="essential" class="text-gray-400 hover:text-white p-1" aria-label="Dismiss">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
@@ -376,10 +376,10 @@ export function renderCookieBanner(force: boolean = false): void {
       </p>
 
       <div class="flex items-center gap-2 pt-1 text-xs">
-        <button onclick="window.dismissCookieBanner('all')" class="flex-1 bg-crimson-800 hover:bg-crimson-900 text-white font-bold py-2 px-3 rounded-xl transition-all shadow-md text-center text-xs">
+        <button data-action="dismiss-cookie" data-type="all" class="flex-1 bg-crimson-800 hover:bg-crimson-900 text-white font-bold py-2 px-3 rounded-xl transition-all shadow-md text-center text-xs">
           ${t('cookie.accept_all')}
         </button>
-        <button onclick="window.dismissCookieBanner('essential')" class="flex-1 bg-navy-800 hover:bg-navy-700 text-gray-300 hover:text-white font-semibold py-2 px-3 rounded-xl transition-all border border-navy-700 text-center text-xs">
+        <button data-action="dismiss-cookie" data-type="essential" class="flex-1 bg-navy-800 hover:bg-navy-700 text-gray-300 hover:text-white font-semibold py-2 px-3 rounded-xl transition-all border border-navy-700 text-center text-xs">
           ${t('cookie.essential_only')}
         </button>
       </div>

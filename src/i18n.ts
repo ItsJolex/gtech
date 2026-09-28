@@ -28,6 +28,7 @@ export const translations: Translations = {
   'nav.get_quote': { en: 'Get a Quote', es: 'Cotizar' },
   'nav.accessories': { en: 'Accessories', es: 'Accesorios' },
   'nav.accessories_full': { en: 'Tactical Accessories', es: 'Accesorios Tácticos' },
+  'nav.alliances': { en: 'Alliances & Clients', es: 'Alianzas & Clientes' },
 
   // Hero
   'hero.slogan': {
@@ -132,6 +133,7 @@ export const translations: Translations = {
   },
   'footer.instagram_btn': { en: 'Instagram @geramel1', es: 'Instagram @geramel1' },
   'footer.facebook_btn': { en: 'Facebook Official', es: 'Facebook Oficial' },
+  'footer.tiktok_btn': { en: 'TikTok @geramelcastellano', es: 'TikTok @geramelcastellano' },
   'footer.whatsapp_fleet_btn': {
     en: 'Request Fleet Quotation via WhatsApp →',
     es: 'Cotizar Flota por WhatsApp →'
@@ -465,6 +467,291 @@ export const translations: Translations = {
   'sim_section.badge_apn': { en: 'Pre-Configured Private APN', es: 'APN Privado Preconfigurado' },
   'sim_section.badge_unlimited': { en: 'Unlimited PTT Airtime', es: 'Voz PTT Ilimitada' },
   'sim_section.btn_consult': { en: 'Inquire SIM Plans via WhatsApp', es: 'Cotizar Tarjetas SIM por WhatsApp' },
+
+  // Landing Page About / Alliances Preview Section
+  'about_preview.eyebrow': {
+    en: 'Real Field Operations // Proof of Trust',
+    es: 'Operaciones Reales en Campo // Prueba de Confianza'
+  },
+  'about_preview.title': {
+    en: 'Want to know more about us?',
+    es: '¿Quieres conocer más de nosotros?'
+  },
+  'about_preview.subtitle': {
+    en: 'Discover our official strategic alliance with Florida security forces and real testimonials from our most loyal clients across the Americas.',
+    es: 'Descubre nuestra alianza estratégica oficial con fuerzas de seguridad de Florida y los testimonios reales de nuestros clientes más fieles en todo el continente.'
+  },
+  'about_preview.alliance_tag': {
+    en: 'Strategic Security Alliance',
+    es: 'Alianza Estratégica de Seguridad'
+  },
+  'about_preview.alliance_title': {
+    en: 'Protective Services Florida Tactical Unit & FTI',
+    es: 'Protective Services Florida Tactical Unit & FTI'
+  },
+  'about_preview.alliance_desc': {
+    en: 'Official collaboration equipping active patrol officers and tactical defense academy instructors with G-TECH PoC 4G and 4K bodycams.',
+    es: 'Colaboración oficial equipando a oficiales de patrullaje activo e instructores de academias tácticas con terminales G-TECH PoC 4G y bodycams 4K.'
+  },
+  'about_preview.clients_tag': {
+    en: 'Loyal Clients & Reviews',
+    es: 'Clientes Fieles y Reseñas'
+  },
+  'about_preview.clients_title': {
+    en: 'Trusted by Critical Operations Across the Americas',
+    es: 'Confianza en Operaciones Críticas en las Américas'
+  },
+  'about_preview.clients_desc': {
+    en: 'From frontline perimeter security in Florida to international logistics centers in Brazil and the Dominican Republic, real users endorse our zero-downtime hardware.',
+    es: 'Desde seguridad perimetral de primera línea en Florida hasta centros logísticos en Brasil y República Dominicana, usuarios reales respaldan nuestros equipos.'
+  },
+  'about_preview.cta_btn': {
+    en: 'Explore Alliances & Client Reviews →',
+    es: 'Ver Alianzas y Clientes Fieles →'
+  },
+
+  // Alliances & Clients Dedicated Subpage
+  'alliances_page.hero_eyebrow': {
+    en: 'Field-Tested Communications // Operational Synergy',
+    es: 'Comunicaciones Probadas en Campo // Sinergia Operativa'
+  },
+  'alliances_page.hero_title': {
+    en: 'Strategic Alliances & Loyal Clients',
+    es: 'Alianzas Estratégicas y Clientes Fieles'
+  },
+  'alliances_page.hero_subtitle': {
+    en: 'Real security forces, elite academies, and international enterprise operations rely on G-TECH.US for mission-critical Push-to-Talk communication with zero latency.',
+    es: 'Cuerpos de seguridad real, academias de élite y operaciones corporativas internacionales confían en G-TECH.US para comunicaciones Push-to-Talk críticas sin latencia.'
+  },
+  'alliances_page.back_to_fleet': {
+    en: '← Back to PoC Radios',
+    es: '← Volver a Radios PoC'
+  },
+  'alliances_page.nav_alliance': {
+    en: 'Security Alliance (FTI)',
+    es: 'Alianza de Seguridad (FTI)'
+  },
+  'alliances_page.nav_clients': {
+    en: 'Loyal Clients & Reviews',
+    es: 'Clientes Fieles y Reseñas'
+  },
+  'alliances_page.alliance_eyebrow': {
+    en: 'Institutional Strategic Partner',
+    es: 'Socio Estratégico Institucional'
+  },
+  'alliances_page.alliance_title': {
+    en: 'Protective Services Florida Tactical Unit & FTI Special Operations',
+    es: 'Protective Services Florida Tactical Unit & FTI Operaciones Especiales'
+  },
+  'alliances_page.alliance_badge_label': {
+    en: 'Official Security Academy Collaboration',
+    es: 'Colaboración Oficial con Academia de Seguridad'
+  },
+  'alliances_page.alliance_desc_1': {
+    en: 'G-TECH.US is proud to maintain an active strategic operational alliance with Protective Services Florida Tactical Unit and the Florida Tactical Institute (FTI). Our high-durability PoC devices, 4K Bodycams, and multi-unit fleet chargers are deployed directly in frontline patrol operations, executive protection, and defense academy training.',
+    es: 'G-TECH.US se enorgullece de mantener una alianza estratégica y operativa con Protective Services Florida Tactical Unit y el Florida Tactical Institute (FTI). Nuestros dispositivos PoC de alta resistencia, bodycams 4K y estaciones de carga múltiple son desplegados directamente en patrullaje preventivo, protección ejecutiva y entrenamiento de instructores tácticos.'
+  },
+  'alliances_page.alliance_desc_2': {
+    en: 'Through this collaboration, G-TECH equipment undergoes rigorous daily field drills in self-defense, Krav Maga, tactical patrol, and instant response dispatch, proving its resilience under demanding physical conditions.',
+    es: 'A través de esta colaboración, el equipamiento G-TECH supera rigurosos entrenamientos diarios de defensa personal, Krav Maga, patrullaje táctico y despacho de respuesta inmediata, demostrando su total resistencia en condiciones operativas exigentes.'
+  },
+  'alliances_page.pillar1_title': {
+    en: 'Limitless Push-To-Talk',
+    es: 'Push-To-Talk Sin Límite'
+  },
+  'alliances_page.pillar1_desc': {
+    en: 'Instant squad dispatch crossing municipal and state boundaries seamlessly over 4G LTE.',
+    es: 'Despacho instantáneo de equipos cruzando fronteras municipales y estatales sobre 4G LTE.'
+  },
+  'alliances_page.pillar2_title': {
+    en: '4K Tactical Bodycam Evidence',
+    es: 'Evidencia Bodycam 4K'
+  },
+  'alliances_page.pillar2_desc': {
+    en: 'Real-time video recording mounted on tactical vests for maximum chain-of-custody security.',
+    es: 'Grabación de video en tiempo real montada en chalecos tácticos para máxima seguridad probatoria.'
+  },
+  'alliances_page.pillar3_title': {
+    en: '24/7 Fleet Power Infrastructure',
+    es: 'Carga de Flota 24/7'
+  },
+  'alliances_page.pillar3_desc': {
+    en: 'Intelligent 6-bay multi-unit rapid chargers and direct logistics support for nonstop readiness.',
+    es: 'Bases multicargador inteligentes de 6 bahías y soporte logístico inmediato para continuidad total.'
+  },
+  'alliances_page.alliance_video_caption': {
+    en: 'Official tactical formation featuring Florida Tactical Unit officers equipped with G-TECH communications.',
+    es: 'Formación táctica oficial de oficiales de la Unidad Táctica de Florida equipados con comunicaciones G-TECH.'
+  },
+  'alliances_page.clients_eyebrow': {
+    en: 'Field Reviews & Case Studies',
+    es: 'Reseñas de Campo y Casos de Éxito'
+  },
+  'alliances_page.clients_title': {
+    en: 'Our Most Loyal Clients & Real Experiences',
+    es: 'Nuestros Clientes Más Fieles y Experiencias Reales'
+  },
+  'alliances_page.clients_subtitle': {
+    en: 'Direct feedback and operational deployments from professionals who rely on G-TECH radios every single day.',
+    es: 'Opiniones directas y despliegues operativos de profesionales que dependen de las radios G-TECH todos los días.'
+  },
+  'alliances_page.client_1_title': {
+    en: 'Tactical Officer & Field Operations',
+    es: 'Oficial Táctico & Operaciones en Florida'
+  },
+  'alliances_page.client_1_location': {
+    en: 'Florida, United States',
+    es: 'Florida, Estados Unidos'
+  },
+  'alliances_page.client_1_review': {
+    en: '“In private security and perimeter patrol, instant communication is non-negotiable. The G-TECH PoC radio combined with the tactical bodycam gives our officers crystal-clear audio, immediate nationwide dispatch, and complete video documentation with one single touch.”',
+    es: '“En seguridad privada y patrullaje perimetral, la comunicación inmediata no es negociable. La radio PoC de G-TECH junto a la bodycam táctica brinda a nuestros oficiales audio nítido, enlace inmediato sin límite de distancia y respaldo audiovisual con un solo toque.”'
+  },
+  'alliances_page.client_2_title': {
+    en: 'Corporate Operations & Logistics',
+    es: 'Operaciones Corporativas y Logística'
+  },
+  'alliances_page.client_2_location': {
+    en: 'Enterprise Division, Brazil',
+    es: 'División Corporativa, Brasil'
+  },
+  'alliances_page.client_2_review': {
+    en: '“Our logistics fleet and facility security teams needed reliable dispatch across long distances without investing in private repeaters. G-TECH provided seamless cellular PTT coverage, outstanding battery autonomy, and top-tier industrial durability.”',
+    es: '“Nuestra flota logística y equipos de seguridad de instalaciones requerían despacho confiable a larga distancia sin invertir en repetidoras privadas. G-TECH nos dio cobertura celular PTT impecable, gran autonomía y durabilidad industrial.”'
+  },
+  'alliances_page.client_3_title': {
+    en: 'Dispatch & Fleet Coordination',
+    es: 'Centro de Despacho y Coordinación'
+  },
+  'alliances_page.client_3_location': {
+    en: 'Operations Hub, Dominican Republic',
+    es: 'Centro Operativo, República Dominicana'
+  },
+  'alliances_page.client_3_review': {
+    en: '“The audio clarity in noisy urban and field environments is exceptional. The ergonomic design, heavy-duty shoulder microphones, and instant call setup time have significantly improved our team coordination and response times.”',
+    es: '“La claridad de audio en entornos ruidosos urbanos y de campo es excepcional. El diseño ergonómico, los micrófonos de hombro de uso rudo y la inmediatez de enlace han elevado nuestros tiempos de respuesta y coordinación.”'
+  },
+  'alliances_page.client_video_title': {
+    en: 'Field Video Testimonial',
+    es: 'Testimonio en Video desde el Terreno'
+  },
+  'alliances_page.client_video_desc': {
+    en: 'Real user review highlighting the ease of use, compact design, and reliable audio performance of G-TECH dual handheld PoC units.',
+    es: 'Reseña de usuario real destacando la facilidad de uso, diseño compacto y desempeño de audio de las unidades portátiles PoC G-TECH.'
+  },
+  'alliances_page.btn_request_fleet': {
+    en: 'Equip Your Fleet with G-TECH →',
+    es: 'Equipar Tu Flota con G-TECH →'
+  },
+  'alliances_page.briefing_tag': {
+    en: 'Operations Room',
+    es: 'Sala de Operaciones'
+  },
+  'alliances_page.briefing_title': {
+    en: 'Fleet Deployment & Multi-Charger Hub',
+    es: 'Despliegue de Flota & Centro de Carga'
+  },
+  'alliances_page.briefing_desc': {
+    en: 'Geramel Castellano in an operational meeting with security command, reviewing multi-channel PoC radio deployment and 6-unit desktop dock charging stations for frontline personnel.',
+    es: 'Geramel Castellano en reunión operativa con la dirección de seguridad, revisando el equipamiento de radios PoC multicanal y bases de escritorio de 6 unidades para el personal activo.'
+  },
+  'alliances_page.briefing_loc': {
+    en: '📍 Orlando, Florida',
+    es: '📍 Orlando, Florida'
+  },
+  'alliances_page.briefing_status': {
+    en: 'Active PoC Fleet',
+    es: 'Flota PoC Activa'
+  },
+  'alliances_page.academy_tag': {
+    en: 'Security Academy',
+    es: 'Academia de Seguridad'
+  },
+  'alliances_page.academy_title': {
+    en: 'Tactical Instructor Training',
+    es: 'Entrenamiento Táctico de Instructores'
+  },
+  'alliances_page.academy_desc': {
+    en: 'Geramel Castellano alongside head Krav Maga, self-defense, and close-quarters combat instructors, evaluating bodycam and radio durability under dynamic tactical drills.',
+    es: 'Geramel Castellano junto a los líderes instructores de defensa personal, Krav Maga y combate cuerpo a cuerpo, evaluando el comportamiento de las bodycams y radios en movimiento dinámico.'
+  },
+  'alliances_page.academy_loc': {
+    en: '📍 Training Center',
+    es: '📍 Centro de Entrenamiento'
+  },
+  'alliances_page.academy_status': {
+    en: 'Physical Drills Approved',
+    es: 'Pruebas Físicas Aprobadas'
+  },
+  'alliances_page.video_badge': {
+    en: 'Official Video',
+    es: 'Video Oficial'
+  },
+  'alliances_page.video_foot_1': {
+    en: '🎬 Live Tactical Formation',
+    es: '🎬 Formación Táctica Real'
+  },
+  'alliances_page.video_foot_2': {
+    en: '100% Equipped',
+    es: '100% Equipados'
+  },
+  'alliances_page.divider_label': {
+    en: 'Exclusive Clients Division • Real Field Deployments',
+    es: 'División Exclusiva de Clientes • Experiencias en Terreno'
+  },
+  'alliances_page.verified_rating': {
+    en: '5.0 Verified',
+    es: '5.0 Verificado'
+  },
+  'alliances_page.active_client': {
+    en: 'Active Client',
+    es: 'Cliente Activo'
+  },
+  'alliances_page.officer_tag': {
+    en: 'Officer on Duty',
+    es: 'Oficial en Servicio'
+  },
+  'alliances_page.client_1_hardware': {
+    en: 'Hardware: 4G PoC + 4K Bodycam',
+    es: 'Hardware: PoC 4G + Bodycam 4K'
+  },
+  'alliances_page.brazil_tag': {
+    en: 'Corporate Division',
+    es: 'División Corporativa'
+  },
+  'alliances_page.client_2_hardware': {
+    en: 'Hardware: Portable PoC LTE Fleet',
+    es: 'Hardware: Flota Portátil PoC LTE'
+  },
+  'alliances_page.dominican_tag': {
+    en: 'Operations Center',
+    es: 'Centro de Operaciones'
+  },
+  'alliances_page.client_3_hardware': {
+    en: 'Hardware: Multi-Band Terminals',
+    es: 'Hardware: Terminales Multi-Banda'
+  },
+  'alliances_page.client_video_badge': {
+    en: 'Verified Testimonial',
+    es: 'Testimonio Verificado'
+  },
+  'alliances_page.cta_title': {
+    en: 'Ready to equip your squad or enterprise fleet?',
+    es: '¿Listo para equipar a tu equipo o corporación?'
+  },
+  'alliances_page.cta_subtitle': {
+    en: 'Consult directly with our telecommunications engineers to design a custom solution tailored to your security or logistics fleet.',
+    es: 'Consulta directamente con nuestros ingenieros de telecomunicaciones para armar una solución a la medida de tu flota de seguridad o logística.'
+  },
+  'alliances_page.cta_whatsapp': {
+    en: 'Quote Fleet via WhatsApp',
+    es: 'Cotizar Flota por WhatsApp'
+  },
+  'alliances_page.cta_explore': {
+    en: 'Explore PoC Radios',
+    es: 'Explorar Radios PoC'
+  },
+
 
   // Legal & Cookies
   'cookie.title': { en: 'Cookie & Data Privacy Notice', es: 'Aviso de Cookies y Privacidad' },

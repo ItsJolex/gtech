@@ -1,3 +1,4 @@
+import './events.ts';
 import { escapeHtml } from './utils/escape.ts';
 import type { CartItem } from './types';
 import accessoriesData from './accessories.json';
@@ -31,6 +32,7 @@ interface Accessory {
   compatibilityEs?: string[];
   specs: AccessorySpec[];
   inStock: boolean;
+  priceEstimate?: string;
 }
 
 let accessories: Accessory[] = [...(accessoriesData as Accessory[])];
@@ -165,8 +167,14 @@ function openSpecsModal(a: Accessory): void {
             <img src="${escapeHtml(a.image)}" alt="${escapeHtml(localizedName(a))}" class="w-full h-full object-contain">
           </div>
         </div>
-        <div class="flex-1 min-w-0">
-          <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-50 border border-crimson-200 text-crimson-800 text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(localizedBadge(a))}</span>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-50 border border-crimson-200 text-crimson-800 text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(localizedBadge(a))}</span>
+            ${a.priceEstimate ? `
+              <span class="inline-block px-2.5 py-1 rounded-md bg-crimson-700 text-white text-xs font-black tracking-wider shadow-xs">
+                ${escapeHtml(a.priceEstimate)}
+              </span>
+            ` : ''}
+          </div>
           <h3 class="text-lg sm:text-xl font-extrabold text-navy-800 mt-2">${escapeHtml(localizedName(a))}</h3>
           <p class="text-sm text-gray-600 mt-2 leading-relaxed">${escapeHtml(localizedDescription(a))}</p>
           ${a.id === 'acc-acoustic-earpiece-typec-2pack' ? `
@@ -233,8 +241,13 @@ function renderCard(a: Accessory): string {
       <div class="relative aspect-square bg-gray-50 overflow-hidden group cursor-pointer" data-accessory-specs="${escapeHtml(a.id)}">
         <img src="${escapeHtml(a.image)}" alt="${escapeHtml(localizedName(a))}" loading="lazy"
              class="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500"
-             onerror="this.src='/images/G-510.webp'">
+             >
         <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(localizedBadge(a))}</span>
+        ${a.priceEstimate ? `
+          <span class="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-crimson-600 text-white text-xs font-black shadow-md tracking-wider">
+            ${escapeHtml(a.priceEstimate)}
+          </span>
+        ` : ''}
       </div>
 
       <div class="p-5 flex flex-col flex-1 space-y-3">

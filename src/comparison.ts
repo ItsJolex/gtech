@@ -435,7 +435,7 @@ function showToast(message: string): void {
   }, 3000);
 }
 
-(window as any).compareProducts = (id1: string, id2: string) => {
+export function compareProducts(id1: string, id2: string): void {
   const drawerContainer = document.getElementById('cart-drawer-container');
   if (drawerContainer) {
     drawerContainer.classList.add('hidden');
@@ -444,4 +444,6 @@ function showToast(message: string): void {
   const event = new CustomEvent('compare-products', { detail: { id1, id2 } });
   window.dispatchEvent(event);
   document.getElementById('comparison')?.scrollIntoView({ behavior: 'smooth' });
-};
+}
+
+(window as any).compareProducts = compareProducts;

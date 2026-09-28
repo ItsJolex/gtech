@@ -1,3 +1,4 @@
+import './events.ts';
 import { escapeHtml, safeUrl } from './utils/escape.ts';
 import { convertToWebP, formatBytes, type OptimizedImageResult } from './utils/imageOptimizer';
 import type { Product, ProductColor, StockStatus } from './types';
@@ -289,7 +290,7 @@ async function loadProducts() {
       <div class="col-span-full py-12 text-center text-rose-400 bg-rose-950/20 border border-rose-900/50 rounded-2xl p-6">
         <p class="font-bold text-sm">Error al cargar datos de Turso DB</p>
         <p class="text-xs text-slate-400 mt-1">${err.message}</p>
-        <button onclick="window.location.reload()" class="mt-4 px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold">Reintentar</button>
+        <button data-action="reload" class="mt-4 px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold">Reintentar</button>
       </div>
     `;
   }
@@ -421,7 +422,7 @@ function renderProducts() {
           <div>
             <div class="flex items-start justify-between gap-3 mb-3">
               <div class="w-20 h-20 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center p-1 relative overflow-hidden flex-shrink-0">
-                <img src="${safeUrl(p.image)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain group-hover:scale-105 transition-transform" onerror="this.src='/images/logo-patch.webp'" />
+                <img src="${safeUrl(p.image)}" alt="${escapeHtml(p.name)}" class="w-full h-full object-contain group-hover:scale-105 transition-transform"  />
                 <span class="absolute top-1 left-1 text-[8px] font-bold px-1 rounded bg-black/60 text-slate-300 uppercase">WebP</span>
               </div>
 
@@ -1695,7 +1696,7 @@ function renderQuotes() {
                 ${statusInfo.label}
               </span>
               <select 
-                onchange="window.updateAdminQuoteStatus('${escapeHtml(q.id)}', this.value)" 
+                data-action="update-quote-status" data-id="${escapeHtml(q.id)}" 
                 class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-rose-500">
                 <option value="pending" ${q.status === 'pending' ? 'selected' : ''}>⏳ Pendiente</option>
                 <option value="contacted" ${q.status === 'contacted' ? 'selected' : ''}>💬 Contactado</option>
@@ -1768,7 +1769,7 @@ function renderQuotes() {
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Notas Administrativas / Seguimiento:</span>
                 <button 
                   type="button" 
-                  onclick="window.saveAdminQuoteNotes('${escapeHtml(q.id)}', (document.getElementById('admin-notes-${escapeHtml(q.id)}') as HTMLTextAreaElement).value)" 
+                  data-action="save-quote-notes" data-id="${escapeHtml(q.id)}" 
                   class="text-[10px] font-bold px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition-colors">
                   Guardar Nota
                 </button>
@@ -1788,7 +1789,7 @@ function renderQuotes() {
             <div class="flex items-center gap-2">
               <button 
                 type="button" 
-                onclick="window.deleteAdminQuote('${escapeHtml(q.id)}')" 
+                data-action="delete-quote" data-id="${escapeHtml(q.id)}" 
                 class="px-3 py-1.5 text-xs text-rose-400 hover:text-white hover:bg-rose-950/60 rounded-lg border border-rose-900/60 transition-colors"
                 title="Eliminar registro de cotización">
                 Eliminar

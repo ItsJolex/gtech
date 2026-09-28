@@ -53,7 +53,8 @@
         "valueEs": "Type-K 2 Pines (3.5mm + 2.5mm)"
       }
     ],
-    "inStock": true
+    "inStock": true,
+    "priceEstimate": "$60"
   },
   {
     "id": "acc-bqs4-typec-mic",
@@ -104,7 +105,8 @@
         "valueEs": "PU Reforzado Espiralado 1.2m"
       }
     ],
-    "inStock": true
+    "inStock": true,
+    "priceEstimate": "$60"
   },
   {
     "id": "acc-shoulder-mic-2pin-2pack",
@@ -148,7 +150,8 @@
         "valueEs": "Type-K (3.5mm + 2.5mm)"
       }
     ],
-    "inStock": true
+    "inStock": true,
+    "priceEstimate": "$20"
   },
   {
     "id": "acc-shoulder-mic-typec-2pack",
@@ -187,7 +190,8 @@
         "valueEs": "Moldeado en Ángulo Recto USB Type-C"
       }
     ],
-    "inStock": true
+    "inStock": true,
+    "priceEstimate": "$20"
   },
   {
     "id": "acc-shoulder-mic-35mm-2pack",
@@ -223,7 +227,8 @@
         "valueEs": "Giratorio 360° de Alta Resistencia"
       }
     ],
-    "inStock": true
+    "inStock": true,
+    "priceEstimate": "$20"
   },
   {
     "id": "acc-acoustic-earpiece-typec-2pack",
@@ -279,6 +284,57 @@
         "valueEs": "100% Cero Fuga Acústica Ambiental"
       }
     ],
-    "inStock": true
+    "inStock": true,
+    "priceEstimate": "$20"
+  },
+  {
+    "id": "acc-multi-charger-dock",
+    "name": "Heavy-Duty 6-Unit Multi-Charger Desktop Dock",
+    "nameEs": "Estación de Carga Múltiple de 6 Unidades para Flota",
+    "category": "chargers",
+    "badge": "Carga de Flota 6-Bay",
+    "badgeEs": "Carga de Flota 6-Bay",
+    "image": "/images/accessories/multi-charger-dock.webp",
+    "description": "Commercial 6-bay multi-unit rapid desktop charger station engineered for dispatch centers and security fleets. Features independent LED telemetry indicators per slot, intelligent overcharge protection, and universal AC 110-240V power.",
+    "descriptionEs": "Estación de carga rápida de escritorio para 6 unidades simultáneas diseñada para centros de despacho y flotas de seguridad. Indicadores LED de telemetría independientes por bahía, protección inteligente contra sobrecarga y alimentación AC 110-240V.",
+    "connector": "AC 110-240V Multi-Bay",
+    "connectorEs": "Alimentación Centralizada AC 110-240V",
+    "compatibility": [
+      "G-510 POCKET POC",
+      "G-280 POC-UHF",
+      "G0 PLUS",
+      "G-6 PLUS",
+      "G-8 PLUS",
+      "G-5288 PLUS",
+      "ALERVITES AT1"
+    ],
+    "specs": [
+      {
+        "label": "Slots",
+        "labelEs": "Bahías de Carga",
+        "value": "6 Unidades Simultáneas",
+        "valueEs": "6 Unidades Simultáneas"
+      },
+      {
+        "label": "Input Power",
+        "labelEs": "Alimentación",
+        "value": "AC 100-240V 50/60Hz Universal",
+        "valueEs": "AC 100-240V 50/60Hz Universal"
+      },
+      {
+        "label": "Telemetry",
+        "labelEs": "Indicadores LED",
+        "value": "LED Status Indicator per Bay",
+        "valueEs": "LED Bicolor de Estado por Ranura"
+      },
+      {
+        "label": "Protection",
+        "labelEs": "Protección Eléctrica",
+        "value": "Overcharge & Surge Guard",
+        "valueEs": "Sobretensión, Cortocircuito y Temperatura"
+      }
+    ],
+    "inStock": true,
+    "priceEstimate": "$65"
   }
 ]

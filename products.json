@@ -56,7 +56,8 @@
       "events",
       "global-lte",
       "voice-only"
-    ]
+    ],
+    "priceEstimate": "$125"
   },
   {
     "id": "G-510",
@@ -115,7 +116,8 @@
       "security",
       "global-lte",
       "voice-only"
-    ]
+    ],
+    "priceEstimate": "$149"
   },
   {
     "id": "G-280-2",
@@ -172,7 +174,8 @@
       "dual-knob",
       "dual-mode",
       "tactical"
-    ]
+    ],
+    "priceEstimate": "$165"
   },
   {
     "id": "G-H28",
@@ -229,7 +232,8 @@
       "flashlight",
       "security",
       "long-shift"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "G-F1",
@@ -289,7 +293,8 @@
       "tactical",
       "global-lte",
       "voice-only"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "G-889",
@@ -349,7 +354,8 @@
       "long-shift",
       "uhf",
       "vhf"
-    ]
+    ],
+    "priceEstimate": "$225"
   },
   {
     "id": "WA0069-Bodycam",
@@ -409,7 +415,8 @@
       "law-enforcement",
       "global-lte",
       "4k"
-    ]
+    ],
+    "priceEstimate": "$225"
   },
   {
     "id": "G-8900-Pro",
@@ -468,7 +475,8 @@
       "command",
       "global-lte",
       "12v-24v"
-    ]
+    ],
+    "priceEstimate": "$225"
   },
   {
     "id": "WA0055-GlobalLTE",
@@ -525,7 +533,8 @@
       "dispatch",
       "tactical",
       "noise-cancelling"
-    ]
+    ],
+    "priceEstimate": "$145"
   },
   {
     "id": "WA0057-TacticalField",
@@ -582,7 +591,8 @@
       "dispatch",
       "rotary-knob",
       "voice-only"
-    ]
+    ],
+    "priceEstimate": "$165"
   },
   {
     "id": "WA0060-Black",
@@ -650,7 +660,8 @@
       "tactical",
       "black",
       "voice-only"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "WA0060-Green",
@@ -718,7 +729,8 @@
       "tactical",
       "green",
       "voice-only"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "G-P0-Black",
@@ -775,7 +787,8 @@
       "ip68",
       "water-rescue",
       "global-lte"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "P0-Ex-Blue",
@@ -835,7 +848,8 @@
       "intrinsically-safe",
       "water-rescue",
       "global-lte"
-    ]
+    ],
+    "priceEstimate": "$198"
   },
   {
     "id": "G5-Plus",
@@ -894,7 +908,8 @@
       "extended-battery",
       "heavy-duty",
       "global-lte"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "WA0062-TriMode",
@@ -953,7 +968,8 @@
       "dtmf",
       "tactical",
       "dual-antenna"
-    ]
+    ],
+    "priceEstimate": "$220"
   },
   {
     "id": "WA0064-LongRange",
@@ -1012,7 +1028,8 @@
       "command",
       "dual-knob",
       "tactical"
-    ]
+    ],
+    "priceEstimate": "$265"
   },
   {
     "id": "WA0058-Vehicle",
@@ -1071,7 +1088,8 @@
       "12v-24v",
       "global-lte",
       "gps"
-    ]
+    ],
+    "priceEstimate": "$185"
   },
   {
     "id": "WA0066-Alervites",
@@ -1153,6 +1171,7 @@
       "hospitality",
       "events",
       "global-lte"
-    ]
+    ],
+    "priceEstimate": "$95"
   }
 ]

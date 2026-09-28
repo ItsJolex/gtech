@@ -1,3 +1,4 @@
+import './events.ts';
 import { escapeHtml, safeUrl } from './utils/escape.ts';
 import { products, fetchLiveProducts, onProductsUpdated } from './products';
 import type { Product } from './types';
@@ -28,7 +29,7 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
       <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
         <div class="flex items-center gap-2">
           ${fromModal ? `
-            <button onclick="window.openModal('${p.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
+            <button data-action="open-modal" data-id="${p.id}" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
               ${t('catalog.back_to_overview')}
             </button>
@@ -40,7 +41,7 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
           <span class="text-xs text-gray-500 font-medium">${t('catalog.model_id')}: ${p.id}</span>
         </div>
 
-        <button onclick="closeModal()" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
+        <button data-action="close-modal" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
@@ -66,7 +67,7 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
         </div>
 
         <!-- SIM Quick Action Button in Deep Hero -->
-        <button onclick="window.openSimPricingModal('${p.id}')"
+        <button data-action="open-sim-pricing" data-id="${p.id}"
                 class="absolute bottom-2 right-2 sm:bottom-2.5 sm:right-2.5 w-8 h-8 sm:w-auto sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-navy-900/85 hover:bg-navy-950 text-white backdrop-blur-md border border-white/20 shadow-md flex items-center justify-center sm:gap-1.5 transition-all hover:scale-105 text-xs font-bold text-emerald-300"
                 title="${t('catalog.sim_rates')}" aria-label="SIM Coverage Rates">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><rect x="8" y="10" width="8" height="8" rx="1"/><path d="M12 10v8M8 14h8"/></svg>
@@ -177,7 +178,7 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
       <!-- Sticky Action Footer -->
       <div class="pt-4 border-t border-gray-100 space-y-2.5">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <button onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}'); closeModal(); openCartDrawer()`}"
+          <button data-action="buy-main" data-id="${escapeHtml(p.id)}" data-instock="${p.inStock ? '1' : '0'}"
                   class="w-full px-4 py-3 rounded-xl font-bold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg whitespace-nowrap tactical-glow-crimson"
                   title="${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
@@ -191,7 +192,7 @@ function buildDeepSpecsHTML(p: Product, fromModal: boolean = false): string {
             <span class="truncate">${t('catalog.whatsapp_inquiry')}</span>
           </a>
         </div>
-        <button onclick="closeModal()" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+        <button data-action="close-modal" class="w-full py-2.5 rounded-xl font-bold uppercase tracking-wider text-gray-500 hover:text-navy-900 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
           ${t('catalog.close_dossier')}
         </button>
       </div>
@@ -316,7 +317,7 @@ function renderCatalog(): void {
     const quoteBtnLabel = t('catalog.quote_btn') || (lang === 'es' ? 'Cotizar' : 'Quote');
 
     return `
-      <div id="catalog-card-${product.id}" class="bg-white rounded-2xl p-2.5 sm:p-4 shadow-sm hover:shadow-xl border border-slate-200/90 hover:border-crimson-700/40 flex flex-col h-full relative group cursor-pointer transition-all duration-300 card-hardware-accel" onclick="openModal('${product.id}')">
+      <div id="catalog-card-${product.id}" class="bg-white rounded-2xl p-2.5 sm:p-4 shadow-sm hover:shadow-xl border border-slate-200/90 hover:border-crimson-700/40 flex flex-col h-full relative group cursor-pointer transition-all duration-300 card-hardware-accel" data-action="open-modal" data-id="${escapeHtml(product.id)}">
 
         <!-- 1. IMAGE CONTAINER (Ajuste 1:1 borde a borde con cuadro redondeado) -->
         <div class="aspect-square bg-navy-950/10 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 relative overflow-hidden flex items-center justify-center border border-slate-200/70 group/cardimg shadow-xs">
@@ -346,10 +347,10 @@ function renderCatalog(): void {
 
           <!-- Color dots for multi-color models (Centrados abajo) -->
           ${product.colors && product.colors.length > 1 ? `
-            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2 py-1 rounded-full border border-white/20 pointer-events-auto shadow-md" onclick="event.stopPropagation()">
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2 py-1 rounded-full border border-white/20 pointer-events-auto shadow-md" data-action="stop-propagation">
               ${product.colors.map((c, idx) => `
                 <button type="button"
-                        onclick="event.stopPropagation(); window.setCardColor('${product.id}', '${c.id}')"
+                        data-action="set-card-color" data-product-id="${product.id}" data-color-id="${c.id}"
                         id="dot-${product.id}-${c.id}"
                         class="card-color-dot-${product.id} w-3 h-3 rounded-full border border-white/80 transition-all ${idx === currentColorIdx ? 'ring-2 ring-white scale-110' : 'opacity-70 hover:opacity-100'}"
                         style="background-color: ${c.hex};"
@@ -362,7 +363,7 @@ function renderCatalog(): void {
 
           <!-- BOTTOM-LEFT: SIM Pricing & Coverage Quick Button (EN SU LUGAR ORIGINAL) -->
           <button type="button"
-                  onclick="event.stopPropagation(); window.openSimPricingModal('${product.id}')"
+                  data-action="open-sim-pricing" data-id="${product.id}"
                   class="absolute bottom-2 left-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-600/95 hover:bg-emerald-600 text-white backdrop-blur-sm border border-white/25 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/sim pointer-events-auto"
                   title="${t('catalog.sim_rates') || 'Tarifas SIM'}"
                   aria-label="View SIM pricing">
@@ -375,7 +376,7 @@ function renderCatalog(): void {
 
           <!-- BOTTOM-RIGHT: Deep-Dive Technical Specs Button (EN SU LUGAR ORIGINAL) -->
           <button type="button"
-                  onclick="event.stopPropagation(); window.openDeepDiveModal('${product.id}', 'from_catalog')"
+                  data-action="open-deep-dive" data-id="${product.id}" data-source="from_catalog"
                   class="absolute bottom-2 right-2 z-20 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-navy-900/90 hover:bg-navy-950 text-white backdrop-blur-sm border border-white/25 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 group/spec pointer-events-auto"
                   title="${t('catalog.full_specs') || 'Ficha Técnica'}"
                   aria-label="View detailed specifications">
@@ -427,7 +428,7 @@ function renderCatalog(): void {
         <!-- 4. FILA DE ACCIONES PRINCIPALES (COTIZAR + WHATSAPP) FLUSH AL FINAL -->
         <div class="flex items-center gap-1.5 mt-auto">
           <button type="button"
-                  onclick="event.stopPropagation(); addToCart('${product.id}')"
+                  data-action="add-to-cart-stop" data-id="${product.id}"
                   class="flex-1 py-2 px-2 bg-crimson-800 hover:bg-crimson-900 text-white rounded-lg font-bold text-[11px] sm:text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all"
                   title="${quoteBtnLabel}" aria-label="Add to quotation">
             <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -435,7 +436,7 @@ function renderCatalog(): void {
           </button>
 
           <a href="https://wa.me/14074273356?text=${waQuoteText}"
-             target="_blank" onclick="event.stopPropagation()"
+             target="_blank" data-action="stop-propagation"
              class="w-8 h-8 sm:w-9 sm:h-9 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm transition-transform active:scale-95"
              title="${t('catalog.whatsapp_direct')}" aria-label="Inquire via WhatsApp">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -511,7 +512,7 @@ if (modalOverlay && modalContent) {
 
     modalContent.innerHTML = `
       <div class="relative">
-        <button onclick="closeModal()" class="absolute -top-3 -right-3 md:-top-4 md:-right-4 z-30 bg-white hover:bg-slate-100 text-slate-500 hover:text-navy-900 rounded-full p-2.5 shadow-lg border border-slate-200 transition-all focus:outline-none" aria-label="Close modal">
+        <button data-action="close-modal" class="absolute -top-3 -right-3 md:-top-4 md:-right-4 z-30 bg-white hover:bg-slate-100 text-slate-500 hover:text-navy-900 rounded-full p-2.5 shadow-lg border border-slate-200 transition-all focus:outline-none" aria-label="Close modal">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
@@ -550,7 +551,7 @@ if (modalOverlay && modalContent) {
                 <div class="flex flex-wrap items-center gap-2">
                   ${p.colors.map((c, i) => `
                     <button type="button"
-                            onclick="window.selectModalColor('${p.id}', '${c.id}')"
+                            data-action="select-modal-color" data-product-id="${p.id}" data-color-id="${c.id}"
                             id="modal-color-btn-${c.id}"
                             class="modal-color-swatch flex items-center gap-2 px-2.5 py-1.5 rounded-lg border transition-all ${i === activeColorIndex ? 'border-crimson-600 bg-white shadow-xs ring-2 ring-crimson-600/20 font-bold' : 'border-slate-200 hover:border-slate-300 bg-white/70 font-medium'}"
                             title="${lang === 'es' ? (c.nameEs || c.name) : c.name}">
@@ -636,7 +637,7 @@ if (modalOverlay && modalContent) {
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3.5">
                 <!-- Botón Planes & Tarifas SIM -->
                 <button type="button"
-                        onclick="window.openSimPricingModal('${p.id}')"
+                        data-action="open-sim-pricing" data-id="${p.id}"
                         class="w-full py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-300 font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95 group">
                   <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 2h8l6 6v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/>
@@ -648,7 +649,7 @@ if (modalOverlay && modalContent) {
 
                 <!-- Botón Especificaciones Profundas -->
                 <button type="button"
-                        onclick="window.openDeepDiveModal('${p.id}', 'from_modal')"
+                        data-action="open-deep-dive" data-id="${p.id}" data-source="from_modal"
                         class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 border border-slate-300 font-extrabold text-xs flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95 group">
                   <svg class="w-4 h-4 text-navy-700 flex-shrink-0 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -666,7 +667,7 @@ if (modalOverlay && modalContent) {
             <div class="pt-3 border-t border-slate-100 space-y-2 mt-auto">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                 <button id="modal-add-to-cart-btn"
-                        onclick="${!p.inStock ? `showOutOfStockFallback('${p.id}')` : `addToCart('${p.id}', '${activeColor ? activeColor.name : ''}', '${initialImg}'); closeModal(); openCartDrawer()`}"
+                        data-action="buy-modal" data-id="${escapeHtml(p.id)}" data-instock="${p.inStock ? '1' : '0'}" data-color="${escapeHtml(activeColor ? activeColor.name : '')}" data-img="${safeUrl(initialImg)}"
                         class="w-full px-4 py-3 rounded-xl font-extrabold uppercase tracking-wider text-white ${!p.inStock ? 'bg-crimson-700 hover:bg-crimson-800' : 'bg-crimson-800 hover:bg-crimson-900'} transition-all text-center flex items-center justify-center gap-2 text-xs shadow-md hover:shadow-lg tactical-glow-crimson active:scale-95"
                         title="${!p.inStock ? t('catalog.alternative') : t('catalog.add_to_quotation')}">
                   <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -822,13 +823,13 @@ if (modalOverlay && modalContent) {
         <div class="relative animate-fade-in">
           <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
             ${product ? `
-              <button onclick="window.openModal('${product.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
+              <button data-action="open-modal" data-id="${product.id}" class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-navy-800 hover:text-crimson-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 ${lang === 'es' ? '← Volver al Resumen' : '← Back to Overview'}
               </button>
             ` : `<span></span>`}
 
-            <button onclick="closeModal()" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
+            <button data-action="close-modal" class="text-gray-400 hover:text-navy-900 p-1.5 rounded-full hover:bg-gray-100 transition-colors" aria-label="Close modal">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
           </div>
@@ -857,7 +858,7 @@ if (modalOverlay && modalContent) {
             ${plans.map(plan => {
               const isSelected = plan.id === selectedPlanId;
               return `
-                <div onclick="window.selectSimPlan('${plan.id}')"
+                <div data-action="select-sim-plan" data-plan-id="${plan.id}"
                      class="cursor-pointer border rounded-2xl p-3.5 sm:p-4 flex items-center justify-between transition-all ${
                        isSelected
                          ? 'bg-emerald-50/60 border-emerald-500 shadow-sm ring-1 ring-emerald-500/30'
@@ -896,7 +897,7 @@ if (modalOverlay && modalContent) {
 
           <!-- Action Footer -->
           <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
-            <button onclick="closeModal()" class="w-full sm:w-auto px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
+            <button data-action="close-modal" class="w-full sm:w-auto px-6 py-3 rounded-full font-bold uppercase tracking-wider text-navy-800 bg-gray-100 hover:bg-gray-200 transition-colors text-xs text-center">
               ${t('catalog.close')}
             </button>
             <a href="https://wa.me/14074273356?text=${encodeURIComponent(waMsg)}"
@@ -1390,8 +1391,8 @@ function renderHomeAccessories(): void {
 
     return `
       <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
-        <div class="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" onclick="window.openHomeAccessoryModal('${a.id}')">
-          <img src="${safeUrl(a.image)}" alt="${escapeHtml(name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='/images/G-510.webp'">
+        <div class="relative aspect-square bg-gray-50 overflow-hidden cursor-pointer" data-action="open-home-acc-modal" data-id="${a.id}">
+          <img src="${safeUrl(a.image)}" alt="${escapeHtml(name)}" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" loading="lazy" >
           <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-navy-900/85 text-white text-[10px] font-extrabold uppercase tracking-widest">${escapeHtml(badge)}</span>
         </div>
 
@@ -1420,14 +1421,14 @@ function renderHomeAccessories(): void {
 
           <div class="mt-auto pt-3 space-y-2">
             <div class="flex gap-2">
-              <button type="button" onclick="window.addHomeAccessoryToQuote('${a.id}')" class="flex-1 px-3 py-2.5 rounded-xl bg-crimson-700 hover:bg-crimson-800 text-white text-[11px] font-extrabold uppercase tracking-wider transition-all active:scale-95 shadow-sm">
+              <button type="button" data-action="add-home-acc" data-id="${a.id}" class="flex-1 px-3 py-2.5 rounded-xl bg-crimson-700 hover:bg-crimson-800 text-white text-[11px] font-extrabold uppercase tracking-wider transition-all active:scale-95 shadow-sm">
                 ${lang === 'es' ? 'Cotizar Accesorio' : 'Quote Accessory'}
               </button>
               <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="w-11 h-[42px] flex-shrink-0 inline-flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition-all active:scale-95 shadow-sm" title="WhatsApp" aria-label="WhatsApp">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 5.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               </a>
             </div>
-            <button type="button" onclick="window.openHomeAccessoryModal('${a.id}')" class="w-full px-3 py-2 rounded-xl bg-navy-50 hover:bg-navy-100 text-navy-800 border border-navy-200 text-[11px] font-extrabold uppercase tracking-wider transition-all active:scale-95">
+            <button type="button" data-action="open-home-acc-modal" data-id="${a.id}" class="w-full px-3 py-2 rounded-xl bg-navy-50 hover:bg-navy-100 text-navy-800 border border-navy-200 text-[11px] font-extrabold uppercase tracking-wider transition-all active:scale-95">
               ${lang === 'es' ? 'Ver Ficha Técnica' : 'Technical Specs'}
             </button>
           </div>
@@ -1476,7 +1477,7 @@ function openHomeAccessoryModal(id: string): void {
 
   homeAccModalContent.innerHTML = `
     <div class="relative">
-      <button type="button" onclick="window.closeHomeAccessoryModal()" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all" aria-label="Close">
+      <button type="button" data-action="close-home-acc-modal" class="absolute -top-2 -right-2 md:top-0 md:right-0 z-30 bg-white/95 hover:bg-white text-gray-500 hover:text-navy-800 rounded-full p-2.5 shadow-md border border-gray-200 transition-all" aria-label="Close">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
 
@@ -1522,7 +1523,7 @@ function openHomeAccessoryModal(id: string): void {
       </div>
 
       <div class="mt-8 flex flex-col sm:flex-row gap-3">
-        <button type="button" onclick="window.addHomeAccessoryToQuote('${a.id}'); window.closeHomeAccessoryModal();" class="flex-1 px-5 py-3.5 rounded-xl font-bold uppercase tracking-wider text-white bg-crimson-700 hover:bg-crimson-800 transition-all text-xs active:scale-95 shadow-md">
+        <button type="button" data-action="add-home-acc-close" data-id="${a.id}" class="flex-1 px-5 py-3.5 rounded-xl font-bold uppercase tracking-wider text-white bg-crimson-700 hover:bg-crimson-800 transition-all text-xs active:scale-95 shadow-md">
           ${lang === 'es' ? 'Agregar a Cotización' : 'Add to Quotation'}
         </button>
         <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="flex-1 px-5 py-3.5 rounded-xl font-bold uppercase tracking-wider text-white bg-green-600 hover:bg-green-700 transition-all text-xs text-center active:scale-95 shadow-md">
@@ -1593,15 +1594,18 @@ initLegalModule();
 initBriefings();
 initHomeAccessories();
 
+// Default siteShowPrices to true so catalog displays configured prices immediately
+(window as any).siteShowPrices = true;
+
 // Fetch price display setting from Turso
 fetch('/api/settings')
   .then(res => res.json())
   .then(data => {
-    (window as any).siteShowPrices = data.showPrices || false;
+    (window as any).siteShowPrices = data.showPrices ?? true;
     renderCatalog();
   })
   .catch(() => {
-    (window as any).siteShowPrices = false;
+    (window as any).siteShowPrices = true;
     renderCatalog();
   });
 
