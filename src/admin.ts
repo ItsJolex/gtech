@@ -84,7 +84,197 @@ function showToast(message: string, isError = false) {
 // -------------------------------------------------------------
 
 function handle401(res: Response) {
-  if (handle401(res)) return;
+  if (res.status === 401) {
+    sessionStorage.removeItem('gtech_admin_token');
+    adminToken = null;
+    adminApp.classList.add('hidden');
+    authOverlay.classList.remove('hidden');
+    return true;
+  }
+  return false;
+}
+
+async function handleLogin(password: string) {
+  try {
+    const res = await fetch('/api/admin/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+
+    const data = await res.json();
+    if (res.ok && data.ok) {
+      adminToken = data.token;
+      sessionStorage.setItem('gtech_admin_token', adminToken!);
+      authOverlay.classList.add('hidden');
+      adminApp.classList.remove('hidden');
+      loadProducts();
+      loadSettings();
+    } else {
+      authError.textContent = data.error || 'Clave maestra incorrecta';
+      authError.classList.remove('hidden');
+    }
+  } catch (err) {
+    authError.textContent = 'Error al comunicarse con el servidor de autenticación';
+    authError.classList.remove('hidden');
+  }
+}
+
+async function loadSettings() {
+  if (!adminToken) return;
+  try {
+    const res = await fetch('/api/admin/settings', {
+      headers: { Authorization: `Bearer ${adminToken}` },
+    });
+    if (res.ok) {
+      const settings = await res.json();
+      const showPrices = settings.show_prices === 'true';
+      updatePriceToggle(showPrices);
+    }
+  } catch (err) {
+    console.warn('Could not load settings:', err);
+  }
+}
+
+function updatePriceToggle(showPrices: boolean) {
+  const toggleBtn = document.getElementById('toggle-price-display') as HTMLButtonElement;
+  const slider = document.getElementById('toggle-price-slider') as HTMLSpanElement;
+  const label = document.getElementById('toggle-price-label') as HTMLSpanElement;
+  if (!toggleBtn || !slider || !label) return;
+  
+  if (showPrices) {
+    toggleBtn.classList.remove('bg-slate-700');
+    toggleBtn.classList.add('bg-emerald-600');
+    slider.classList.remove('translate-x-1');
+    slider.classList.add('translate-x-6');
+    label.textContent = 'ON';
+    label.classList.remove('text-slate-400');
+    label.classList.add('text-emerald-400');
+  } else {
+    toggleBtn.classList.remove('bg-emerald-600');
+    toggleBtn.classList.add('bg-slate-700');
+    slider.classList.remove('translate-x-6');
+    slider.classList.add('translate-x-1');
+    label.textContent = 'OFF';
+    label.classList.remove('text-emerald-400');
+    label.classList.add('text-slate-400');
+  }
+}
+
+authForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  authError.classList.add('hidden');
+  const pass = adminPassInput.value.trim();
+  if (pass) handleLogin(pass);
+});
+
+togglePassBtn?.addEventListener('click', () => {
+  if (adminPassInput.type === 'password') {
+    adminPassInput.type = 'text';
+    togglePassBtn.textContent = 'Ocultar';
+  } else {
+    adminPassInput.type = 'password';
+    togglePassBtn.textContent = 'Ver';
+  }
+});
+
+logoutBtn?.addEventListener('click', () => {
+  sessionStorage.removeItem('gtech_admin_token');
+  adminToken = null;
+  adminApp.classList.add('hidden');
+  authOverlay.classList.remove('hidden');
+  adminPassInput.value = '';
+});
+
+document.getElementById('toggle-price-display')?.addEventListener('click', async () => {
+  if (!adminToken) return;
+  
+  const toggleBtn = document.getElementById('toggle-price-display') as HTMLButtonElement;
+  
+  const isCurrentlyOn = toggleBtn.classList.contains('bg-emerald-600');
+  const newValue = !isCurrentlyOn;
+  
+  try {
+    toggleBtn.disabled = true;
+    const res = await fetch('/api/admin/settings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${adminToken}`,
+      },
+      body: JSON.stringify({ key: 'show_prices', value: String(newValue) }),
+    });
+    
+    if (res.ok) {
+      updatePriceToggle(newValue);
+      showToast(`Precios en tienda pública: ${newValue ? 'ACTIVADOS' : 'DESACTIVADOS'}`);
+    } else {
+      showToast('Error al actualizar configuración', true);
+    }
+  } catch (err) {
+    showToast('Error de conexión', true);
+  } finally {
+    toggleBtn.disabled = false;
+  }
+});
+
+// -------------------------------------------------------------
+// 2. DATA FETCHING (TURSO API)
+// -------------------------------------------------------------
+async function updateTabBadges() {
+  if (!adminToken) return;
+  try {
+    const [radiosRes, accRes, quotesRes] = await Promise.all([
+      fetch('/api/admin/products?category=radio', { headers: { Authorization: `Bearer ${adminToken}` } }),
+      fetch('/api/admin/accessories', { headers: { Authorization: `Bearer ${adminToken}` } }),
+      fetch('/api/admin/quotes', { headers: { Authorization: `Bearer ${adminToken}` } }),
+    ]);
+
+    if (radiosRes.ok) {
+      const radios = await radiosRes.json();
+      const count = radios.filter((r: any) => !r.isDeleted).length;
+      const b = document.getElementById('radios-count-badge');
+      if (b) b.textContent = String(count);
+    }
+    if (accRes.ok) {
+      const accessories = await accRes.json();
+      const count = accessories.filter((a: any) => !a.isDeleted).length;
+      const b = document.getElementById('accessories-count-badge');
+      if (b) b.textContent = String(count);
+    }
+    if (quotesRes.ok) {
+      const quotes = await quotesRes.json();
+      const pendingCount = quotes.filter((q: any) => q.status === 'pending').length;
+      const b = document.getElementById('quotes-count-badge');
+      if (b) b.textContent = String(pendingCount);
+    }
+  } catch (err) {
+    console.warn('Could not update tab counts:', err);
+  }
+}
+
+async function loadProducts() {
+  if (!adminToken) return;
+
+  const isAccessory = currentCategory === 'accessory';
+  productsContainer.innerHTML = `
+    <div class="col-span-full py-16 text-center text-slate-500">
+      <div class="inline-block animate-spin w-8 h-8 border-4 border-crimson-600 border-t-transparent rounded-full mb-3"></div>
+      <p class="text-sm font-semibold">Cargando ${isAccessory ? 'catálogo de accesorios' : 'flota de radios'} desde Turso DB...</p>
+    </div>
+  `;
+
+  try {
+    const endpoint = isAccessory ? '/api/admin/accessories' : '/api/admin/products?category=radio';
+    const res = await fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${adminToken}`,
+      },
+    });
+
+    if (handle401(res)) return;
+
+    if (handle401(res)) return;
     if (!res.ok) {
       throw new Error(`HTTP Error ${res.status}`);
     }
@@ -1360,7 +1550,6 @@ function updateQuoteCounts() {
   if (qCompleted) qCompleted.textContent = String(completedCount);
   if (qBadge) qBadge.textContent = String(pendingCount);
 }
-
 
 
 function renderQuotes() {

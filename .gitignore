@@ -30,3 +30,5 @@ IMPLEMENTATION_PLAN_OPENCODE.md
 *.plan.md
 scratch/
 PLAN_OPENCODE*.md
+PLAN_*.md
+assets-source/
