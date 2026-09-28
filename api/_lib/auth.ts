@@ -1,9 +1,19 @@
 import crypto from 'node:crypto';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+function getSessionSecret(): string | null {
+  if (process.env.ADMIN_SESSION_SECRET) {
+    return process.env.ADMIN_SESSION_SECRET;
+  }
+  if (process.env.ADMIN_SECRET_KEY) {
+    return crypto.createHash('sha256').update(process.env.ADMIN_SECRET_KEY + '_gtech_session_salt_2026').digest('hex');
+  }
+  return null;
+}
+
 export function createToken(): string {
-  const secret = process.env.ADMIN_SESSION_SECRET;
-  if (!secret) throw new Error('ADMIN_SESSION_SECRET is not configured');
+  const secret = getSessionSecret();
+  if (!secret) throw new Error('ADMIN_SECRET_KEY is not configured');
   
   const payload = Buffer.from(JSON.stringify({ exp: Date.now() + 8 * 60 * 60 * 1000 })).toString('base64url');
   const signature = crypto.createHmac('sha256', secret).update(payload).digest('base64url');
@@ -12,10 +22,10 @@ export function createToken(): string {
 
 export function verifyAuth(req: VercelRequest, res: VercelResponse): boolean {
   const secretKeyConfig = process.env.ADMIN_SECRET_KEY;
-  const sessionSecret = process.env.ADMIN_SESSION_SECRET;
+  const sessionSecret = getSessionSecret();
   
   if (!secretKeyConfig || !sessionSecret) {
-    res.status(500).json({ error: 'Server configuration error' });
+    res.status(500).json({ error: 'Server configuration error: ADMIN_SECRET_KEY not set' });
     return false;
   }
 
