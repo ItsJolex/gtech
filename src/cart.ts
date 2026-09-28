@@ -348,11 +348,28 @@ export function renderCartDrawer(): void {
             <span class="text-sm font-medium">${t('cart.total_units')}</span>
             <span class="text-lg font-bold text-crimson-400">${totalUnits}</span>
           </div>
-          <button onclick="generateWhatsAppMessage()" class="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-white bg-green-600 hover:bg-green-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            ${t('cart.request_btn')}
-          </button>
-          <button onclick="clearCart()" class="w-full py-3 rounded-xl font-medium uppercase tracking-wider text-navy-300 bg-navy-700 hover:bg-navy-600 transition-colors">
+
+          <!-- Dual Checkout Actions: WhatsApp & Gmail/PC -->
+          <div class="space-y-2.5 pt-1">
+            <button onclick="generateWhatsAppMessage()" class="w-full py-3.5 px-4 rounded-xl font-bold uppercase tracking-wider text-white bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] transition-all shadow-lg shadow-emerald-950/40 flex items-center justify-center gap-2.5 text-xs sm:text-sm">
+              <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span>${t('cart.request_btn')}</span>
+            </button>
+
+            <button onclick="openEmailOrderModal()" class="w-full py-3.5 px-4 rounded-xl font-bold uppercase tracking-wider text-white bg-slate-800 hover:bg-slate-700 hover:border-slate-600 border border-slate-700/80 active:scale-[0.99] transition-all shadow-lg flex items-center justify-center gap-2.5 text-xs sm:text-sm group">
+              <svg class="w-5 h-5 flex-shrink-0 text-red-500 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+              </svg>
+              <span>${t('cart.request_gmail_btn')}</span>
+              <span class="ml-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-950/70 border border-rose-800/60 text-rose-300 font-semibold">PC</span>
+            </button>
+          </div>
+
+          <div class="text-[11px] text-center text-slate-400">
+            ${isEs ? '💡 Compatible con teléfonos móviles y computadoras de escritorio (PC/Mac)' : '💡 Optimized for mobile phones and desktop computers (PC/Mac)'}
+          </div>
+
+          <button onclick="clearCart()" class="w-full py-2.5 rounded-xl font-medium uppercase tracking-wider text-navy-400 hover:text-white bg-navy-900/60 hover:bg-navy-800 transition-colors text-xs border border-navy-700/60">
             ${t('cart.clear_btn')}
           </button>
         </div>
@@ -441,6 +458,580 @@ export function setCartSimPlan(planId: string): void {
   selectedCartSimPlan = planId;
 }
 
+// -------------------------------------------------------------
+// EMAIL & GMAIL ORDER SYSTEM (FOR PC / DESKTOP & CORPORATE PROCUREMENT)
+// -------------------------------------------------------------
+const OFFICIAL_EMAIL = 'gtech.usfl@gmail.com';
+
+function generateFallbackQuoteNumber(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const rand = Math.floor(1000 + Math.random() * 9000);
+  return `GT-${year}${month}${day}-${rand}`;
+}
+
+export function openEmailOrderModal(): void {
+  if (cart.length === 0) return;
+
+  const isEs = getLanguage() === 'es';
+  const totalUnits = getCartCount();
+
+  // Retrieve saved local profile for customer convenience
+  const savedName = localStorage.getItem('gtech_client_name') || '';
+  const savedEmail = localStorage.getItem('gtech_client_email') || '';
+  const savedPhone = localStorage.getItem('gtech_client_phone') || '';
+  const savedCompany = localStorage.getItem('gtech_client_company') || '';
+  const savedDestination = localStorage.getItem('gtech_client_destination') || '';
+
+  let modalEl = document.getElementById('email-order-modal');
+  if (!modalEl) {
+    modalEl = document.createElement('div');
+    modalEl.id = 'email-order-modal';
+    modalEl.className = 'fixed inset-0 z-[250] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in';
+    document.body.appendChild(modalEl);
+  }
+
+  const itemsPreviewHtml = cart.map(item => `
+    <div class="flex items-center justify-between text-xs py-1.5 border-b border-slate-800/80 last:border-0">
+      <div class="flex items-center gap-2 truncate pr-2">
+        <span class="w-5 h-5 rounded bg-slate-800 text-slate-300 font-bold flex items-center justify-center text-[10px] flex-shrink-0">${item.quantity}x</span>
+        <span class="text-white font-medium truncate">${item.name}</span>
+        ${item.selectedColor ? `<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-950 text-amber-300 border border-amber-600/40">${item.selectedColor}</span>` : ''}
+      </div>
+      <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 flex-shrink-0">${item.badge}</span>
+    </div>
+  `).join('');
+
+  const simPlanName = selectedCartSimPlan !== 'none'
+    ? (selectedCartSimPlan === 'us_can_mex' ? 'USA, Can, Mex (+$30/año)' : selectedCartSimPlan.toUpperCase())
+    : (isEs ? 'Solo Equipos (Sin SIM)' : 'Hardware Only');
+
+  modalEl.innerHTML = `
+    <div class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] my-auto">
+      
+      <!-- Modal Header -->
+      <div class="p-5 sm:p-6 bg-slate-950 border-b border-slate-800 flex items-start justify-between flex-shrink-0">
+        <div class="flex items-start gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-rose-950/80 border border-rose-800/60 flex items-center justify-center text-rose-400 flex-shrink-0">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-rose-400 bg-rose-950/90 px-2 py-0.5 rounded border border-rose-900/60">
+                ${isEs ? 'Sistema de Despacho para PC' : 'Desktop Procurement System'}
+              </span>
+              <span class="text-[10px] font-mono text-slate-400">${totalUnits} ${isEs ? 'equipos' : 'units'}</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">
+              ${t('cart.order_modal_title')}
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              ${t('cart.order_modal_subtitle')}
+            </p>
+          </div>
+        </div>
+
+        <button onclick="closeEmailOrderModal()" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors" aria-label="Cerrar">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div id="email-modal-body" class="p-5 sm:p-6 overflow-y-auto space-y-5">
+        
+        <!-- Cart Items Summary Card -->
+        <div class="bg-slate-950 border border-slate-800/90 rounded-2xl p-3.5">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+            <span>${isEs ? 'Equipos en la Estación' : 'Equipment in Station'} (${totalUnits})</span>
+            <span class="text-[11px] text-emerald-400 font-mono">SIM: ${simPlanName}</span>
+          </div>
+          <div class="max-h-32 overflow-y-auto pr-1">
+            ${itemsPreviewHtml}
+          </div>
+        </div>
+
+        <!-- Order Form -->
+        <form id="email-order-form" onsubmit="event.preventDefault();" class="space-y-4">
+          
+          <!-- Anti-bot honeypot field -->
+          <div style="display:none !important; position:absolute; left:-9999px;">
+            <label for="order-honey">Leave this field blank</label>
+            <input type="text" id="order-honey" name="website_url" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="order-name" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                ${t('cart.field_name')}
+              </label>
+              <input 
+                type="text" 
+                id="order-name" 
+                required 
+                value="${savedName}"
+                placeholder="${t('cart.field_name_ph')}" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label for="order-email" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                ${t('cart.field_email')}
+              </label>
+              <input 
+                type="email" 
+                id="order-email" 
+                required 
+                value="${savedEmail}"
+                placeholder="${t('cart.field_email_ph')}" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="order-phone" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                ${t('cart.field_phone')}
+              </label>
+              <input 
+                type="tel" 
+                id="order-phone" 
+                value="${savedPhone}"
+                placeholder="${t('cart.field_phone_ph')}" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label for="order-company" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                ${t('cart.field_company')}
+              </label>
+              <input 
+                type="text" 
+                id="order-company" 
+                value="${savedCompany}"
+                placeholder="${t('cart.field_company_ph')}" 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="order-destination" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+              ${t('cart.field_destination')}
+            </label>
+            <input 
+              type="text" 
+              id="order-destination" 
+              required 
+              value="${savedDestination}"
+              placeholder="${t('cart.field_destination_ph')}" 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="order-notes" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+              ${t('cart.field_notes')}
+            </label>
+            <textarea 
+              id="order-notes" 
+              rows="2"
+              placeholder="${t('cart.field_notes_ph')}" 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition-colors resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Legal & Privacy Compliance (Florida FIPA & FCC) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+            <div class="flex items-start gap-2.5">
+              <svg class="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <p class="text-[11px] text-slate-400 leading-relaxed">
+                ${t('cart.legal_disclaimer')}
+              </p>
+            </div>
+            <label class="flex items-center gap-2 text-xs text-slate-300 pt-1 cursor-pointer">
+              <input type="checkbox" id="order-privacy-consent" checked class="rounded border-slate-700 text-rose-600 focus:ring-rose-500 bg-slate-950">
+              <span class="text-[11px] text-slate-400">${t('cart.privacy_consent')}</span>
+            </label>
+          </div>
+
+          <div id="email-modal-error" class="hidden text-xs font-semibold text-rose-400 bg-rose-950/60 border border-rose-900 p-3 rounded-xl"></div>
+
+        </form>
+      </div>
+
+      <!-- Modal Footer Action Buttons -->
+      <div id="email-modal-footer" class="p-4 sm:p-5 bg-slate-950 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 flex-shrink-0">
+        <button 
+          type="button" 
+          onclick="closeEmailOrderModal()" 
+          class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 transition-colors border border-slate-800 text-center">
+          ${isEs ? 'Regresar al Carrito' : 'Back to Cart'}
+        </button>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <!-- Copy Button -->
+          <button 
+            type="button" 
+            onclick="submitOrderViaEmail('copy')" 
+            class="px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700 flex items-center justify-center gap-1.5"
+            title="${t('cart.btn_copy_quote')}">
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span>${t('cart.btn_copy_quote')}</span>
+          </button>
+
+          <!-- Email Client Button -->
+          <button 
+            type="button" 
+            onclick="submitOrderViaEmail('mailapp')" 
+            class="px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700 flex items-center justify-center gap-1.5"
+            title="${t('cart.btn_open_mail_app')}">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span>Mail / Outlook</span>
+          </button>
+
+          <!-- Primary: Gmail Web Button -->
+          <button 
+            type="button" 
+            id="btn-submit-gmail"
+            onclick="submitOrderViaEmail('gmail')" 
+            class="bg-rose-700 hover:bg-rose-600 active:scale-[0.99] text-white px-5 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-rose-950/60 transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+            </svg>
+            <span>${t('cart.btn_open_gmail')}</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  modalEl.classList.remove('hidden');
+  modalEl.classList.add('flex');
+  document.body.style.overflow = 'hidden';
+}
+
+export function closeEmailOrderModal(): void {
+  const modalEl = document.getElementById('email-order-modal');
+  if (modalEl) {
+    modalEl.classList.add('hidden');
+    modalEl.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+}
+
+export async function submitOrderViaEmail(clientType: 'gmail' | 'mailapp' | 'copy'): Promise<void> {
+  const nameInput = document.getElementById('order-name') as HTMLInputElement | null;
+  const emailInput = document.getElementById('order-email') as HTMLInputElement | null;
+  const phoneInput = document.getElementById('order-phone') as HTMLInputElement | null;
+  const companyInput = document.getElementById('order-company') as HTMLInputElement | null;
+  const destInput = document.getElementById('order-destination') as HTMLInputElement | null;
+  const notesInput = document.getElementById('order-notes') as HTMLTextAreaElement | null;
+  const honeyInput = document.getElementById('order-honey') as HTMLInputElement | null;
+  const errorEl = document.getElementById('email-modal-error');
+
+  const isEs = getLanguage() === 'es';
+
+  // Anti-bot Honeypot check
+  if (honeyInput && honeyInput.value.trim() !== '') {
+    closeEmailOrderModal();
+    return;
+  }
+
+  const name = nameInput?.value.trim() || '';
+  const email = emailInput?.value.trim().toLowerCase() || '';
+  const phone = phoneInput?.value.trim() || '';
+  const company = companyInput?.value.trim() || '';
+  const destination = destInput?.value.trim() || '';
+  const notes = notesInput?.value.trim() || '';
+
+  // Validation
+  if (!name || name.length < 2) {
+    if (errorEl) {
+      errorEl.textContent = isEs ? 'Por favor ingresa tu nombre completo o responsable.' : 'Please enter your full name or contact person.';
+      errorEl.classList.remove('hidden');
+    }
+    nameInput?.focus();
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    if (errorEl) {
+      errorEl.textContent = isEs ? 'Por favor ingresa un correo electrónico válido.' : 'Please provide a valid email address.';
+      errorEl.classList.remove('hidden');
+    }
+    emailInput?.focus();
+    return;
+  }
+
+  if (!destination || destination.length < 2) {
+    if (errorEl) {
+      errorEl.textContent = isEs ? 'Por favor especifica la ciudad o país de entrega.' : 'Please specify the delivery destination.';
+      errorEl.classList.remove('hidden');
+    }
+    destInput?.focus();
+    return;
+  }
+
+  if (errorEl) {
+    errorEl.classList.add('hidden');
+  }
+
+  // Save profile to localStorage for future orders
+  try {
+    localStorage.setItem('gtech_client_name', name);
+    localStorage.setItem('gtech_client_email', email);
+    if (phone) localStorage.setItem('gtech_client_phone', phone);
+    if (company) localStorage.setItem('gtech_client_company', company);
+    localStorage.setItem('gtech_client_destination', destination);
+  } catch (err) {
+    console.warn('Could not save client profile in localStorage');
+  }
+
+  // Fast quote generation
+  let quoteNumber = generateFallbackQuoteNumber();
+  const totalUnits = getCartCount();
+  const dateStr = new Date().toLocaleDateString(isEs ? 'es-ES' : 'en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+
+  // Asynchronously register in Turso DB backend (/api/quotes)
+  try {
+    const payload = {
+      customerName: name,
+      customerEmail: email,
+      customerPhone: phone || null,
+      companyName: company || null,
+      destination: destination,
+      notes: notes || null,
+      items: cart.map(i => ({
+        id: i.id,
+        name: i.name,
+        badge: i.badge,
+        quantity: i.quantity,
+        selectedColor: i.selectedColor || null
+      })),
+      totalUnits,
+      simPlan: selectedCartSimPlan,
+      channel: clientType === 'gmail' ? 'gmail' : (clientType === 'mailapp' ? 'email_client' : 'clipboard')
+    };
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    const apiRes = await fetch('/api/quotes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
+    if (apiRes.ok) {
+      const data = await apiRes.json();
+      if (data.quoteNumber) {
+        quoteNumber = data.quoteNumber;
+      }
+    }
+  } catch (apiErr) {
+    console.warn('Quote submitted in offline fallback mode:', apiErr);
+  }
+
+  // Prepare SIM Plan text
+  const planNames: Record<string, { es: string; en: string }> = {
+    us_can_mex: { es: 'United States, Canadá, México ($30/año por radio)', en: 'United States, Canada, Mexico ($30/yr per radio)' },
+    brazil: { es: 'Brasil ($45/año por radio)', en: 'Brazil ($45/yr per radio)' },
+    latam: { es: 'Latín América ($45/año por radio)', en: 'Latin America ($45/yr per radio)' },
+    europe: { es: 'Europa ($50/año por radio)', en: 'Europe ($50/yr per radio)' },
+    global: { es: 'Global Multi ($50/año por radio)', en: 'Global Multi ($50/yr per radio)' }
+  };
+  const simPlanText = selectedCartSimPlan !== 'none' && planNames[selectedCartSimPlan]
+    ? `${totalUnits}x Tarjetas SIM [${isEs ? planNames[selectedCartSimPlan].es : planNames[selectedCartSimPlan].en}]`
+    : (isEs ? 'Ninguno (Solo Equipos Hardware)' : 'None (Hardware Only)');
+
+  // Build Items text
+  const itemsText = cart.map(i => {
+    const color = i.selectedColor ? ` [Color: ${i.selectedColor}]` : '';
+    return `• ${i.quantity}x ${i.name}${color} (${i.badge})`;
+  }).join('\n');
+
+  // Build Subject and Email Body
+  const companyPrefix = company ? ` (${company})` : '';
+  const emailSubject = isEs
+    ? `[COTIZACIÓN G-TECH #${quoteNumber}] Solicitud de Equipos PoC - ${name}${companyPrefix}`
+    : `[G-TECH QUOTE #${quoteNumber}] PoC Radio Equipment Request - ${name}${companyPrefix}`;
+
+  const emailBody = isEs
+? `G-TECH.US | SOLICITUD FORMAL DE COTIZACIÓN Y DESPACHO
+======================================================
+Referencia Oficial: #${quoteNumber}
+Fecha de Emisión: ${dateStr}
+
+DATOS DEL CLIENTE / ORGANIZACIÓN:
+------------------------------------------------------
+• Nombre / Responsable: ${name}
+• Correo Electrónico: ${email}
+• Teléfono / WhatsApp: ${phone || 'N/A'}
+• Empresa u Organización: ${company || 'N/A'}
+• Destino de Entrega: ${destination}
+
+RESUMEN DE EQUIPOS SELECCIONADOS:
+------------------------------------------------------
+${itemsText}
+
+COBERTURA DE TARJETAS SIM ANUAL:
+------------------------------------------------------
+• ${simPlanText}
+
+TOTAL DE UNIDADES: ${totalUnits} equipo(s)
+
+NOTAS OPERATIVAS / REQUERIMIENTOS ESPECIALES:
+------------------------------------------------------
+${notes || 'Ninguna especificación adicional.'}
+
+------------------------------------------------------
+AVISO LEGAL Y CUMPLIMIENTO (FLORIDA FIPA & FCC):
+Esta solicitud constituye un Request for Quotation (RFQ) formal y reserva preventiva de inventario en almacén. No se realizan cargos automáticos a tarjetas de crédito por este medio. Toda orden se formaliza mediante factura comercial oficial de G-TECH.US bajo normativas de telecomunicaciones de la FCC y las leyes de privacidad comercial del Estado de Florida.
+
+G-TECH.US Tactical Radio Systems (🐺 G tech)
+Dirección Operativa: Geramel • Orlando, Florida, USA.
+Contacto Directo: ${OFFICIAL_EMAIL}
+======================================================`
+: `G-TECH.US | FORMAL QUOTATION & DISPATCH REQUEST
+======================================================
+Official Reference: #${quoteNumber}
+Date of Issuance: ${dateStr}
+
+CUSTOMER / ORGANIZATION DETAILS:
+------------------------------------------------------
+• Full Name / Contact: ${name}
+• Official Email: ${email}
+• Phone / Direct WhatsApp: ${phone || 'N/A'}
+• Company / Organization: ${company || 'N/A'}
+• Delivery Destination: ${destination}
+
+EQUIPMENT SELECTION BREAKDOWN:
+------------------------------------------------------
+${itemsText}
+
+ANNUAL SIM COVERAGE PLAN:
+------------------------------------------------------
+• ${simPlanText}
+
+TOTAL FLEET UNITS: ${totalUnits} device(s)
+
+OPERATIONAL NOTES & SPECIAL REQUIREMENTS:
+------------------------------------------------------
+${notes || 'No additional specifications provided.'}
+
+------------------------------------------------------
+LEGAL NOTICE & REGULATORY COMPLIANCE (FLORIDA FIPA & FCC):
+This document represents a formal Request For Quotation (RFQ) and warehouse inventory reservation. No automated credit card charges are processed via this web portal. All orders are formalized via official G-TECH commercial invoices adhering to FCC regulations and Florida Information Protection Act standards.
+
+G-TECH.US Tactical Radio Systems (🐺 G tech)
+Executive Direction: Geramel • Orlando, Florida, USA.
+Direct Engineering Contact: ${OFFICIAL_EMAIL}
+======================================================`;
+
+  // Dispatch according to clientType
+  const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(OFFICIAL_EMAIL)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+  const mailAppUrl = `mailto:${encodeURIComponent(OFFICIAL_EMAIL)}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+  if (clientType === 'gmail') {
+    window.open(gmailWebUrl, '_blank');
+  } else if (clientType === 'mailapp') {
+    window.location.href = mailAppUrl;
+  } else if (clientType === 'copy') {
+    try {
+      await navigator.clipboard.writeText(emailBody);
+    } catch {
+      // Fallback copy
+      const tArea = document.createElement('textarea');
+      tArea.value = emailBody;
+      document.body.appendChild(tArea);
+      tArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tArea);
+    }
+  }
+
+  // Display success view inside modal
+  const modalBody = document.getElementById('email-modal-body');
+  const modalFooter = document.getElementById('email-modal-footer');
+
+  if (modalBody && modalFooter) {
+    modalBody.innerHTML = `
+      <div class="py-6 text-center space-y-4 animate-fade-in">
+        <div class="w-16 h-16 mx-auto bg-emerald-950/80 border border-emerald-800/80 rounded-2xl flex items-center justify-center text-emerald-400">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full border border-emerald-800">
+            ${isEs ? '¡Cotización Registrada con Éxito!' : 'Quote Recorded Successfully!'}
+          </span>
+          <h4 class="text-xl font-black text-white mt-3">
+            ${t('cart.quote_ref')} <span class="font-mono text-cyan-400">${quoteNumber}</span>
+          </h4>
+          <p class="text-xs text-slate-300 max-w-md mx-auto mt-2 leading-relaxed">
+            ${clientType === 'gmail'
+              ? (isEs ? 'Hemos abierto una pestaña en tu navegador con Gmail Web listo para enviar a Geramel en G-TECH.' : 'We opened a new tab with Gmail Web composer ready to send to Geramel at G-TECH.')
+              : (clientType === 'copy'
+                ? (isEs ? 'El resumen completo de la cotización ha sido copiado a tu portapapeles.' : 'The complete quotation summary was copied to your clipboard.')
+                : (isEs ? 'Se ha activado tu cliente de correo para enviar la solicitud.' : 'Your email client has been triggered to dispatch the quote.'))}
+          </p>
+        </div>
+
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl max-w-md mx-auto text-left text-xs space-y-1.5 text-slate-400">
+          <div class="flex justify-between"><span class="text-slate-500">${isEs ? 'Destinatario:' : 'Recipient:'}</span> <span class="text-white font-mono">${OFFICIAL_EMAIL}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">${isEs ? 'Cliente:' : 'Customer:'}</span> <span class="text-white">${name}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">${isEs ? 'Destino:' : 'Destination:'}</span> <span class="text-white">${destination}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">${isEs ? 'Equipos:' : 'Units:'}</span> <span class="text-emerald-400 font-bold">${totalUnits}</span></div>
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2 max-w-md mx-auto">
+          <a 
+            href="${gmailWebUrl}" 
+            target="_blank"
+            class="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-rose-700 hover:bg-rose-600 transition-colors flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+            <span>${isEs ? 'Volver a Abrir Gmail' : 'Re-open Gmail'}</span>
+          </a>
+
+          <button 
+            type="button" 
+            onclick="closeEmailOrderModal(); closeCartDrawer();" 
+            class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700">
+            ${isEs ? 'Entendido / Cerrar' : 'Done / Close'}
+          </button>
+        </div>
+
+      </div>
+    `;
+
+    modalFooter.innerHTML = `
+      <div class="w-full flex items-center justify-between text-xs text-slate-500">
+        <span>G-TECH.US Tactical Portal • Orlando, FL</span>
+        <button onclick="closeEmailOrderModal()" class="text-slate-400 hover:text-white font-bold transition-colors">
+          ${isEs ? 'Cerrar' : 'Close'}
+        </button>
+      </div>
+    `;
+  }
+}
+
 (window as any).setCartSimPlan = (planId: string) => setCartSimPlan(planId);
 (window as any).addToCart = (id: string, color?: string, img?: string) => addToCart(id, color, img);
 (window as any).removeFromCart = (id: string, color?: string) => removeFromCart(id, color);
@@ -449,3 +1040,6 @@ export function setCartSimPlan(planId: string): void {
 (window as any).openCartDrawer = () => openCartDrawer();
 (window as any).closeCartDrawer = () => closeCartDrawer();
 (window as any).generateWhatsAppMessage = () => generateWhatsAppMessage();
+(window as any).openEmailOrderModal = () => openEmailOrderModal();
+(window as any).closeEmailOrderModal = () => closeEmailOrderModal();
+(window as any).submitOrderViaEmail = (clientType: 'gmail' | 'mailapp' | 'copy') => submitOrderViaEmail(clientType);

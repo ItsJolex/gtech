@@ -115,6 +115,13 @@
               <span>Accesorios</span>
               <span id="accessories-count-badge" class="bg-black/30 px-1.5 py-0.5 rounded text-[10px] font-mono">9</span>
             </button>
+            <button 
+              id="tab-quotes" 
+              class="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Pedidos & Cotizaciones</span>
+              <span id="quotes-count-badge" class="bg-rose-900/60 border border-rose-700/50 text-rose-300 px-1.5 py-0.5 rounded text-[10px] font-mono">0</span>
+            </button>
           </nav>
 
           <!-- Action Buttons -->
@@ -155,73 +162,134 @@
     <!-- Main Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-      <!-- Catalog Action Header (Search, Filters & New Product Button) -->
-      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 sm:p-5 rounded-3xl shadow-sm">
-        
-        <!-- Search and Quick Filter Badges -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
-          <!-- Search box -->
-          <div class="relative flex-1 max-w-md">
-            <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <input 
-              type="text" 
-              id="search-input" 
-              placeholder="Buscar por modelo, ID, categoría o especificación..." 
-              class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-crimson-600 transition-colors"
-            />
+      <!-- ================= CATALOG VIEW (RADIOS & ACCESSORIES) ================= -->
+      <div id="catalog-view" class="space-y-6">
+        <!-- Catalog Action Header (Search, Filters & New Product Button) -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 sm:p-5 rounded-3xl shadow-sm">
+          
+          <!-- Search and Quick Filter Badges -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+            <!-- Search box -->
+            <div class="relative flex-1 max-w-md">
+              <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Buscar por modelo, ID, categoría o especificación..." 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-crimson-600 transition-colors"
+              />
+            </div>
+
+            <!-- Status Filter Dropdown / Pills -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs">
+              <button class="filter-pill px-3 py-1.5 rounded-lg font-bold bg-slate-800 text-white transition-colors" data-filter="all">Todos (<span id="count-all">0</span>)</button>
+              <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="visible">Visibles (<span id="count-visible">0</span>)</button>
+              <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="hidden">Ocultos (<span id="count-hidden">0</span>)</button>
+              <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="low_stock">Bajo Stock (<span id="count-low">0</span>)</button>
+              <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="trash">Papelera (<span id="count-trash">0</span>)</button>
+            </div>
+
+            <!-- Accessory Category Filter Pills (Shown only when Accesorios tab is active) -->
+            <div id="accessory-category-filters" class="hidden items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs border-t sm:border-t-0 sm:border-l border-slate-800 pt-2 sm:pt-0 sm:pl-3">
+              <span class="text-[10px] font-bold uppercase text-slate-500 tracking-wider hidden lg:inline">Categoría:</span>
+              <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-bold bg-cyan-900/60 text-cyan-300 border border-cyan-700/60 transition-colors" data-acc-cat="all">Todas</button>
+              <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-acc-cat="microphones">🎙️ Micrófonos</button>
+              <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-acc-cat="earphones">🎧 Auriculares</button>
+              <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-acc-cat="chargers">⚡ Cargadores</button>
+            </div>
           </div>
 
-          <!-- Status Filter Dropdown / Pills -->
-          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs">
-            <button class="filter-pill px-3 py-1.5 rounded-lg font-bold bg-slate-800 text-white transition-colors" data-filter="all">Todos (<span id="count-all">0</span>)</button>
-            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="visible">Visibles (<span id="count-visible">0</span>)</button>
-            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="hidden">Ocultos (<span id="count-hidden">0</span>)</button>
-            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="low_stock">Bajo Stock (<span id="count-low">0</span>)</button>
-            <button class="filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-filter="trash">Papelera (<span id="count-trash">0</span>)</button>
-          </div>
+          <!-- Add New Product CTA -->
+          <button 
+            id="btn-new-product" 
+            class="bg-crimson-700 hover:bg-crimson-600 active:scale-[0.98] text-white px-5 py-3 rounded-2xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-crimson-950/60 transition-all flex items-center justify-center gap-2 flex-shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Nuevo Radio Táctico</span>
+          </button>
 
-          <!-- Accessory Category Filter Pills (Shown only when Accesorios tab is active) -->
-          <div id="accessory-category-filters" class="hidden items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs border-t sm:border-t-0 sm:border-l border-slate-800 pt-2 sm:pt-0 sm:pl-3">
-            <span class="text-[10px] font-bold uppercase text-slate-500 tracking-wider hidden lg:inline">Categoría:</span>
-            <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-bold bg-cyan-900/60 text-cyan-300 border border-cyan-700/60 transition-colors" data-acc-cat="all">Todas</button>
-            <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-acc-cat="microphones">🎙️ Micrófonos</button>
-            <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-acc-cat="earphones">🎧 Auriculares</button>
-            <button class="acc-cat-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-acc-cat="chargers">⚡ Cargadores</button>
-          </div>
         </div>
 
-        <!-- Add New Radio CTA -->
-        <button 
-          id="btn-new-product" 
-          class="bg-crimson-700 hover:bg-crimson-600 active:scale-[0.98] text-white px-5 py-3 rounded-2xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-crimson-950/60 transition-all flex items-center justify-center gap-2 flex-shrink-0">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          <span>Nuevo Radio Táctico</span>
-        </button>
+        <!-- Live Catalog Grid / Table -->
+        <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl overflow-hidden shadow-xl">
+          <div class="p-4 sm:p-6 border-b border-slate-800/80 flex items-center justify-between">
+            <div>
+              <h2 id="catalog-section-title" class="text-base sm:text-lg font-black text-white tracking-wide">Inventario Activo de Radios PoC</h2>
+              <p id="catalog-section-desc" class="text-xs text-slate-400">Modifica precios, inventario, ficha técnica o alterna visibilidad. Cualquier cambio se sincroniza en vivo con Turso.</p>
+            </div>
+            <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
+              Sincronización Inmediata
+            </span>
+          </div>
 
+          <!-- Product Cards Grid -->
+          <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 sm:p-6">
+            <!-- Populated dynamically via src/admin.ts -->
+            <div class="col-span-full py-16 text-center text-slate-500">
+              <div class="inline-block animate-spin w-8 h-8 border-4 border-crimson-600 border-t-transparent rounded-full mb-3"></div>
+              <p class="text-sm font-semibold">Cargando flota de radios desde Turso DB...</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Live Catalog Grid / Table -->
-      <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl overflow-hidden shadow-xl">
-        <div class="p-4 sm:p-6 border-b border-slate-800/80 flex items-center justify-between">
-          <div>
-            <h2 id="catalog-section-title" class="text-base sm:text-lg font-black text-white tracking-wide">Inventario Activo de Radios PoC</h2>
-            <p id="catalog-section-desc" class="text-xs text-slate-400">Modifica precios, inventario, ficha técnica o alterna visibilidad. Cualquier cambio se sincroniza en vivo con Turso.</p>
+      <!-- ================= QUOTES & ORDERS VIEW (TURSO DB) ================= -->
+      <div id="quotes-view" class="hidden space-y-6">
+        <!-- Quotes Action Header (Search, Status Filter, Refresh) -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-slate-900/80 border border-slate-800 p-4 sm:p-5 rounded-3xl shadow-sm">
+          
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+            <!-- Search Quotes -->
+            <div class="relative flex-1 max-w-md">
+              <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input 
+                type="text" 
+                id="search-quotes-input" 
+                placeholder="Buscar por # cotización, cliente, email o destino..." 
+                class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 transition-colors"
+              />
+            </div>
+
+            <!-- Status Filter Pills -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs">
+              <button class="quote-filter-pill px-3 py-1.5 rounded-lg font-bold bg-slate-800 text-white transition-colors" data-quote-filter="all">Todas (<span id="qcount-all">0</span>)</button>
+              <button class="quote-filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-quote-filter="pending">Pendientes (<span id="qcount-pending">0</span>)</button>
+              <button class="quote-filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-quote-filter="contacted">Contactadas (<span id="qcount-contacted">0</span>)</button>
+              <button class="quote-filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-quote-filter="quoted">Cotizadas (<span id="qcount-quoted">0</span>)</button>
+              <button class="quote-filter-pill px-3 py-1.5 rounded-lg font-semibold text-slate-400 hover:text-white bg-slate-950 transition-colors" data-quote-filter="completed">Completadas (<span id="qcount-completed">0</span>)</button>
+            </div>
           </div>
-          <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
-            Sincronización Inmediata
-          </span>
+
+          <!-- Refresh Button -->
+          <button 
+            id="btn-refresh-quotes" 
+            class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs border border-slate-700 transition-all flex items-center justify-center gap-2 flex-shrink-0">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>Actualizar</span>
+          </button>
+
         </div>
 
-        <!-- Product Cards Grid -->
-        <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 sm:p-6">
-          <!-- Populated dynamically via src/admin.ts -->
-          <div class="col-span-full py-16 text-center text-slate-500">
-            <div class="inline-block animate-spin w-8 h-8 border-4 border-crimson-600 border-t-transparent rounded-full mb-3"></div>
-            <p class="text-sm font-semibold">Cargando flota de radios desde Turso DB...</p>
+        <!-- Quotes Container -->
+        <div class="bg-slate-900/60 border border-slate-800/80 rounded-3xl overflow-hidden shadow-xl">
+          <div class="p-4 sm:p-6 border-b border-slate-800/80 flex items-center justify-between">
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-white tracking-wide">Registro Oficial de Cotizaciones y Pedidos</h2>
+              <p class="text-xs text-slate-400">Solicitudes generadas por clientes vía Gmail, correo electrónico y web. Conectado en vivo con Turso DB.</p>
+            </div>
+            <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
+              Turso DB Live
+            </span>
+          </div>
+
+          <div id="quotes-container" class="divide-y divide-slate-800/80 p-4 sm:p-6 space-y-4">
+            <!-- Dynamically populated via src/admin.ts -->
+            <div class="py-16 text-center text-slate-500">
+              <div class="inline-block animate-spin w-8 h-8 border-4 border-rose-600 border-t-transparent rounded-full mb-3"></div>
+              <p class="text-sm font-semibold">Cargando cotizaciones...</p>
+            </div>
           </div>
         </div>
       </div>
-
     </main>
   </div>
 

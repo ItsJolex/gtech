@@ -211,9 +211,10 @@ document.getElementById('toggle-price-display')?.addEventListener('click', async
 async function updateTabBadges() {
   if (!adminToken) return;
   try {
-    const [radiosRes, accRes] = await Promise.all([
+    const [radiosRes, accRes, quotesRes] = await Promise.all([
       fetch('/api/admin/products?category=radio', { headers: { Authorization: `Bearer ${adminToken}` } }),
       fetch('/api/admin/accessories', { headers: { Authorization: `Bearer ${adminToken}` } }),
+      fetch('/api/admin/quotes', { headers: { Authorization: `Bearer ${adminToken}` } }),
     ]);
 
     if (radiosRes.ok) {
@@ -227,6 +228,12 @@ async function updateTabBadges() {
       const count = accessories.filter((a: any) => !a.isDeleted).length;
       const b = document.getElementById('accessories-count-badge');
       if (b) b.textContent = String(count);
+    }
+    if (quotesRes.ok) {
+      const quotes = await quotesRes.json();
+      const pendingCount = quotes.filter((q: any) => q.status === 'pending').length;
+      const b = document.getElementById('quotes-count-badge');
+      if (b) b.textContent = String(pendingCount);
     }
   } catch (err) {
     console.warn('Could not update tab counts:', err);
@@ -1339,9 +1346,50 @@ if (adminToken) {
   adminApp.classList.add('hidden');
 }
 
-// Tab navigation for Radios / Accessories
+// -------------------------------------------------------------
+// TAB NAVIGATION: RADIOS / ACCESSORIES / QUOTES & ORDERS
+// -------------------------------------------------------------
 const tabRadios = document.getElementById('tab-radios');
 const tabAccessories = document.getElementById('tab-accessories');
+const tabQuotes = document.getElementById('tab-quotes');
+const catalogView = document.getElementById('catalog-view');
+const quotesView = document.getElementById('quotes-view');
+const quotesContainer = document.getElementById('quotes-container');
+const searchQuotesInput = document.getElementById('search-quotes-input') as HTMLInputElement | null;
+const btnRefreshQuotes = document.getElementById('btn-refresh-quotes');
+const quoteFilterPills = document.querySelectorAll('.quote-filter-pill');
+
+// Quotes State
+interface QuoteItem {
+  id: string;
+  name: string;
+  badge: string;
+  quantity: number;
+  selectedColor?: string | null;
+}
+
+interface QuoteRecord {
+  id: string;
+  quoteNumber: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone?: string | null;
+  companyName?: string | null;
+  destination: string;
+  notes?: string | null;
+  items: QuoteItem[];
+  totalUnits: number;
+  simPlan: string;
+  channel: string;
+  status: 'pending' | 'contacted' | 'quoted' | 'completed' | 'cancelled';
+  ipAddress?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+let allQuotes: QuoteRecord[] = [];
+let currentQuoteFilter = 'all';
+let currentQuoteSearch = '';
 
 function setNewProductLabel(label: string) {
   const labelSpan = btnNewProduct?.querySelector('span');
@@ -1352,10 +1400,32 @@ function setNewProductLabel(label: string) {
   }
 }
 
-function setActiveTab(category: 'radio' | 'accessory') {
-  currentCategory = category;
+function setActiveTab(category: 'radio' | 'accessory' | 'quotes') {
   const titleEl = document.getElementById('catalog-section-title');
   const descEl = document.getElementById('catalog-section-desc');
+
+  if (category === 'quotes') {
+    tabQuotes?.classList.add('bg-rose-700', 'text-white', 'shadow-sm');
+    tabQuotes?.classList.remove('text-slate-400');
+    tabRadios?.classList.remove('bg-crimson-700', 'text-white', 'shadow-sm');
+    tabRadios?.classList.add('text-slate-400');
+    tabAccessories?.classList.remove('bg-crimson-700', 'text-white', 'shadow-sm');
+    tabAccessories?.classList.add('text-slate-400');
+
+    catalogView?.classList.add('hidden');
+    quotesView?.classList.remove('hidden');
+    loadQuotes();
+    return;
+  }
+
+  // Radios or Accessories tab
+  quotesView?.classList.add('hidden');
+  catalogView?.classList.remove('hidden');
+
+  tabQuotes?.classList.remove('bg-rose-700', 'text-white', 'shadow-sm');
+  tabQuotes?.classList.add('text-slate-400');
+
+  currentCategory = category;
 
   if (category === 'radio') {
     tabRadios?.classList.add('bg-crimson-700', 'text-white', 'shadow-sm');
@@ -1407,3 +1477,415 @@ function setActiveTab(category: 'radio' | 'accessory') {
 
 tabRadios?.addEventListener('click', () => setActiveTab('radio'));
 tabAccessories?.addEventListener('click', () => setActiveTab('accessory'));
+tabQuotes?.addEventListener('click', () => setActiveTab('quotes'));
+
+// -------------------------------------------------------------
+// QUOTES & ORDERS TURSO DB MANAGEMENT
+// -------------------------------------------------------------
+async function loadQuotes() {
+  if (!adminToken || !quotesContainer) return;
+
+  quotesContainer.innerHTML = `
+    <div class="py-16 text-center text-slate-500">
+      <div class="inline-block animate-spin w-8 h-8 border-4 border-rose-600 border-t-transparent rounded-full mb-3"></div>
+      <p class="text-sm font-semibold">Cargando cotizaciones desde Turso DB...</p>
+    </div>
+  `;
+
+  try {
+    const res = await fetch('/api/admin/quotes', {
+      headers: { Authorization: `Bearer ${adminToken}` },
+    });
+
+    if (res.ok) {
+      allQuotes = await res.json();
+      updateQuoteCounts();
+      renderQuotes();
+    } else {
+      const errData = await res.json().catch(() => ({}));
+      quotesContainer.innerHTML = `
+        <div class="py-12 text-center text-rose-400">
+          <p class="font-bold">Error al cargar cotizaciones</p>
+          <p class="text-xs text-slate-500 mt-1">${errData.error || 'Verifica la conexión a Turso o credenciales.'}</p>
+        </div>
+      `;
+    }
+  } catch (err: any) {
+    quotesContainer.innerHTML = `
+      <div class="py-12 text-center text-rose-400">
+        <p class="font-bold">Error de conexión con el servidor de cotizaciones</p>
+      </div>
+    `;
+  }
+}
+
+function updateQuoteCounts() {
+  const allCount = allQuotes.length;
+  const pendingCount = allQuotes.filter((q) => q.status === 'pending').length;
+  const contactedCount = allQuotes.filter((q) => q.status === 'contacted').length;
+  const quotedCount = allQuotes.filter((q) => q.status === 'quoted').length;
+  const completedCount = allQuotes.filter((q) => q.status === 'completed').length;
+
+  const qAll = document.getElementById('qcount-all');
+  const qPending = document.getElementById('qcount-pending');
+  const qContacted = document.getElementById('qcount-contacted');
+  const qQuoted = document.getElementById('qcount-quoted');
+  const qCompleted = document.getElementById('qcount-completed');
+  const qBadge = document.getElementById('quotes-count-badge');
+
+  if (qAll) qAll.textContent = String(allCount);
+  if (qPending) qPending.textContent = String(pendingCount);
+  if (qContacted) qContacted.textContent = String(contactedCount);
+  if (qQuoted) qQuoted.textContent = String(quotedCount);
+  if (qCompleted) qCompleted.textContent = String(completedCount);
+  if (qBadge) qBadge.textContent = String(pendingCount);
+}
+
+function renderQuotes() {
+  if (!quotesContainer) return;
+
+  const filtered = allQuotes.filter((q) => {
+    // Status filter
+    if (currentQuoteFilter !== 'all' && q.status !== currentQuoteFilter) {
+      return false;
+    }
+
+    // Search filter
+    if (currentQuoteSearch) {
+      const s = currentQuoteSearch.toLowerCase();
+      const matchNum = (q.quoteNumber || '').toLowerCase().includes(s);
+      const matchName = (q.customerName || '').toLowerCase().includes(s);
+      const matchEmail = (q.customerEmail || '').toLowerCase().includes(s);
+      const matchCompany = (q.companyName || '').toLowerCase().includes(s);
+      const matchDest = (q.destination || '').toLowerCase().includes(s);
+      return matchNum || matchName || matchEmail || matchCompany || matchDest;
+    }
+
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    quotesContainer.innerHTML = `
+      <div class="py-16 text-center text-slate-500">
+        <svg class="w-12 h-12 mx-auto text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <p class="text-sm font-bold text-slate-400">No se encontraron cotizaciones con este criterio</p>
+        <p class="text-xs text-slate-500 mt-1">Prueba seleccionando "Todas" o limpiando el cuadro de búsqueda.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const channelMap: Record<string, { label: string; color: string; icon: string }> = {
+    gmail: {
+      label: 'Gmail Web',
+      color: 'bg-rose-950/80 text-rose-300 border-rose-800',
+      icon: '📧',
+    },
+    email_client: {
+      label: 'App Correo',
+      color: 'bg-cyan-950/80 text-cyan-300 border-cyan-800',
+      icon: '✉️',
+    },
+    clipboard: {
+      label: 'Portapapeles',
+      color: 'bg-slate-800 text-slate-300 border-slate-700',
+      icon: '📋',
+    },
+    whatsapp: {
+      label: 'WhatsApp',
+      color: 'bg-emerald-950/80 text-emerald-300 border-emerald-800',
+      icon: '💬',
+    },
+  };
+
+  const statusMap: Record<string, { label: string; badgeClass: string }> = {
+    pending: { label: 'Pendiente', badgeClass: 'bg-amber-950/90 text-amber-300 border-amber-700' },
+    contacted: { label: 'Contactado', badgeClass: 'bg-cyan-950/90 text-cyan-300 border-cyan-700' },
+    quoted: { label: 'Cotización Enviada', badgeClass: 'bg-purple-950/90 text-purple-300 border-purple-700' },
+    completed: { label: 'Completada / Despachada', badgeClass: 'bg-emerald-950/90 text-emerald-300 border-emerald-700' },
+    cancelled: { label: 'Cancelada', badgeClass: 'bg-slate-900 text-slate-400 border-slate-700' },
+  };
+
+  quotesContainer.innerHTML = filtered
+    .map((q) => {
+      const channelInfo = channelMap[q.channel] || channelMap.gmail;
+      const statusInfo = statusMap[q.status] || statusMap.pending;
+
+      const createdDate = q.createdAt
+        ? new Date(q.createdAt).toLocaleString('es-ES', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })
+        : 'Reciente';
+
+      const itemsListHtml = (q.items || [])
+        .map((item) => {
+          const colorBadge = item.selectedColor
+            ? `<span class="px-1.5 py-0.2 rounded bg-slate-950 text-amber-300 border border-amber-600/40 text-[10px] ml-1">Color: ${item.selectedColor}</span>`
+            : '';
+          return `
+            <div class="flex items-center justify-between text-xs py-1 border-b border-slate-800/60 last:border-0">
+              <span class="text-white font-medium">
+                <span class="text-rose-400 font-bold">${item.quantity}x</span> ${item.name} ${colorBadge}
+              </span>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                ${item.badge}
+              </span>
+            </div>
+          `;
+        })
+        .join('');
+
+      const simPlanMap: Record<string, string> = {
+        none: 'Solo Equipos (Sin SIM)',
+        us_can_mex: '🇺🇸 🇨🇦 🇲🇽 USA, Canadá, México (+$30/año)',
+        brazil: '🇧🇷 Brasil (+$45/año)',
+        latam: '🌎 Latín América (+$45/año)',
+        europe: '🇪🇺 Europa (+$50/año)',
+        global: '🌐 Global Multi (+$50/año)',
+      };
+      const simText = simPlanMap[q.simPlan] || q.simPlan || 'Solo Equipos';
+
+      const directGmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+        q.customerEmail
+      )}&su=${encodeURIComponent(`[G-TECH] Respuesta a Cotización #${q.quoteNumber}`)}`;
+
+      const phoneLink = q.customerPhone
+        ? `<a href="tel:${q.customerPhone}" class="text-cyan-400 hover:underline flex items-center gap-1">📞 ${q.customerPhone}</a>`
+        : '<span class="text-slate-600">No especificado</span>';
+
+      return `
+        <div class="p-5 sm:p-6 bg-slate-900/90 border border-slate-800/90 rounded-2xl space-y-4 hover:border-slate-700 transition-colors">
+          
+          <!-- Top Row: Reference, Date, Channel & Status Select -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-sm sm:text-base font-mono font-extrabold text-white bg-slate-950 px-3 py-1 rounded-xl border border-slate-800">
+                #${q.quoteNumber}
+              </span>
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${channelInfo.color} flex items-center gap-1">
+                <span>${channelInfo.icon}</span>
+                <span>${channelInfo.label}</span>
+              </span>
+              <span class="text-xs text-slate-400">
+                📅 ${createdDate}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 self-end sm:self-auto">
+              <span class="text-[10px] font-bold px-2.5 py-1 rounded-full border ${statusInfo.badgeClass} hidden sm:inline-block">
+                ${statusInfo.label}
+              </span>
+              <select 
+                onchange="window.updateAdminQuoteStatus('${q.id}', this.value)" 
+                class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-rose-500">
+                <option value="pending" ${q.status === 'pending' ? 'selected' : ''}>⏳ Pendiente</option>
+                <option value="contacted" ${q.status === 'contacted' ? 'selected' : ''}>💬 Contactado</option>
+                <option value="quoted" ${q.status === 'quoted' ? 'selected' : ''}>📄 Cotización Enviada</option>
+                <option value="completed" ${q.status === 'completed' ? 'selected' : ''}>✅ Completada</option>
+                <option value="cancelled" ${q.status === 'cancelled' ? 'selected' : ''}>❌ Cancelada</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Middle Row: Customer Details & Products Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            
+            <!-- Customer Details Card -->
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 space-y-2 text-xs">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 block">Datos del Cliente</span>
+              <div class="text-sm font-extrabold text-white flex items-center gap-2">
+                <span>${q.customerName}</span>
+                ${q.companyName ? `<span class="text-xs font-normal text-slate-400">(${q.companyName})</span>` : ''}
+              </div>
+              <div class="space-y-1 text-slate-300 pt-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-slate-500">Email:</span>
+                  <a href="mailto:${q.customerEmail}" class="text-cyan-400 hover:underline font-mono">${q.customerEmail}</a>
+                  <a href="${directGmailHref}" target="_blank" class="text-[10px] px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 hover:bg-rose-900 transition-colors" title="Responder por Gmail Web">
+                    Gmail Web ↗
+                  </a>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-slate-500">Teléfono:</span>
+                  ${phoneLink}
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-slate-500">Destino de Entrega:</span>
+                  <span class="text-white font-semibold">📍 ${q.destination}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Items & SIM Plan Card -->
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400">Equipos Solicitados</span>
+                <span class="text-xs font-mono font-bold text-white bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                  Total: ${q.totalUnits} unidad(es)
+                </span>
+              </div>
+              <div class="space-y-1 max-h-28 overflow-y-auto pr-1">
+                ${itemsListHtml}
+              </div>
+              <div class="pt-1.5 border-t border-slate-800/80 text-[11px] text-emerald-400 flex items-center justify-between">
+                <span class="text-slate-500">SIM Anual:</span>
+                <span class="font-medium">${simText}</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Notes Section -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/60">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Notas del Cliente:</span>
+              <p class="text-slate-300 italic leading-relaxed">
+                ${q.notes ? `"${q.notes}"` : 'Sin notas operativas especiales.'}
+              </p>
+            </div>
+
+            <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Notas Administrativas / Seguimiento:</span>
+                <button 
+                  type="button" 
+                  onclick="window.saveAdminQuoteNotes('${q.id}', (document.getElementById('admin-notes-${q.id}') as HTMLTextAreaElement).value)" 
+                  class="text-[10px] font-bold px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition-colors">
+                  Guardar Nota
+                </button>
+              </div>
+              <textarea 
+                id="admin-notes-${q.id}" 
+                rows="2" 
+                placeholder="Escribe notas internas (ej. Factura #492 enviada por Geramel, tracking UPS...)" 
+                class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 resize-none"
+              >${q.notes || ''}</textarea>
+            </div>
+          </div>
+
+          <!-- Bottom Action Bar -->
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
+            <span class="text-[10px] text-slate-500 font-mono">ID: ${q.id}</span>
+            <div class="flex items-center gap-2">
+              <button 
+                type="button" 
+                onclick="window.deleteAdminQuote('${q.id}')" 
+                class="px-3 py-1.5 text-xs text-rose-400 hover:text-white hover:bg-rose-950/60 rounded-lg border border-rose-900/60 transition-colors"
+                title="Eliminar registro de cotización">
+                Eliminar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      `;
+    })
+    .join('');
+}
+
+// Global quote methods for inline HTML buttons
+(window as any).updateAdminQuoteStatus = async (quoteId: string, status: string) => {
+  if (!adminToken) return;
+  try {
+    const res = await fetch('/api/admin/quotes', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${adminToken}`,
+      },
+      body: JSON.stringify({ id: quoteId, status }),
+    });
+
+    if (res.ok) {
+      const q = allQuotes.find((x) => x.id === quoteId);
+      if (q) q.status = status as any;
+      updateQuoteCounts();
+      renderQuotes();
+      showToast('Estado de cotización actualizado');
+    } else {
+      showToast('Error al actualizar estado', true);
+    }
+  } catch (err) {
+    showToast('Error de conexión', true);
+  }
+};
+
+(window as any).saveAdminQuoteNotes = async (quoteId: string, notes: string) => {
+  if (!adminToken) return;
+  try {
+    const res = await fetch('/api/admin/quotes', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${adminToken}`,
+      },
+      body: JSON.stringify({ id: quoteId, notes }),
+    });
+
+    if (res.ok) {
+      const q = allQuotes.find((x) => x.id === quoteId);
+      if (q) q.notes = notes;
+      showToast('Notas de cotización guardadas en Turso');
+    } else {
+      showToast('Error al guardar notas', true);
+    }
+  } catch (err) {
+    showToast('Error de conexión', true);
+  }
+};
+
+(window as any).deleteAdminQuote = async (quoteId: string) => {
+  if (!adminToken) return;
+  if (!confirm('¿Estás seguro de que deseas eliminar permanentemente este registro de cotización?')) {
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/admin/quotes', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${adminToken}`,
+      },
+      body: JSON.stringify({ id: quoteId }),
+    });
+
+    if (res.ok) {
+      allQuotes = allQuotes.filter((x) => x.id !== quoteId);
+      updateQuoteCounts();
+      renderQuotes();
+      showToast('Cotización eliminada');
+    } else {
+      showToast('Error al eliminar cotización', true);
+    }
+  } catch (err) {
+    showToast('Error de conexión', true);
+  }
+};
+
+// Search & Filter Listeners for Quotes
+searchQuotesInput?.addEventListener('input', (e) => {
+  currentQuoteSearch = (e.target as HTMLInputElement).value.trim();
+  renderQuotes();
+});
+
+btnRefreshQuotes?.addEventListener('click', () => {
+  loadQuotes();
+  showToast('Cotizaciones actualizadas');
+});
+
+quoteFilterPills.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    quoteFilterPills.forEach((b) => {
+      b.classList.remove('bg-slate-800', 'text-white');
+      b.classList.add('bg-slate-950', 'text-slate-400');
+    });
+    btn.classList.add('bg-slate-800', 'text-white');
+    btn.classList.remove('bg-slate-950', 'text-slate-400');
+
+    currentQuoteFilter = (btn as HTMLElement).dataset.quoteFilter || 'all';
+    renderQuotes();
+  });
+});
+

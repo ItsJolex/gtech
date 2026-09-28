@@ -283,7 +283,42 @@ export const translations: Translations = {
   },
   'cart.explore_btn': { en: 'Explore Catalog', es: 'Explorar Catálogo' },
   'cart.total_units': { en: 'Total Units', es: 'Unidades Totales' },
-  'cart.request_btn': { en: 'Request Quote via WhatsApp', es: 'Solicitar Cotización por WhatsApp' },
+  'cart.request_btn': { en: 'Order via WhatsApp', es: 'Cotizar por WhatsApp' },
+  'cart.request_gmail_btn': { en: 'Order via Gmail / Email (PC)', es: 'Cotizar por Gmail / Correo (PC)' },
+  'cart.order_modal_title': { en: 'Formal Quotation & Dispatch Request', es: 'Solicitud Formal de Cotización y Despacho' },
+  'cart.order_modal_subtitle': {
+    en: 'Fill in your contact details to generate an official equipment order for Geramel / G-TECH.',
+    es: 'Completa tus datos de contacto para generar una orden oficial de equipos para Geramel / G-TECH.'
+  },
+  'cart.field_name': { en: 'Full Name / Contact Person *', es: 'Nombre Completo / Responsable *' },
+  'cart.field_name_ph': { en: 'e.g. John Doe', es: 'Ej. Carlos Méndez' },
+  'cart.field_email': { en: 'Official Email (for Quotation) *', es: 'Correo Electrónico (para Cotización) *' },
+  'cart.field_email_ph': { en: 'name@company.com', es: 'correo@empresa.com' },
+  'cart.field_phone': { en: 'Phone / Direct WhatsApp (Optional)', es: 'Teléfono / WhatsApp Directo (Opcional)' },
+  'cart.field_phone_ph': { en: '+1 (555) 000-0000', es: '+1 (555) 000-0000' },
+  'cart.field_company': { en: 'Company / Organization (Optional)', es: 'Empresa u Organización (Opcional)' },
+  'cart.field_company_ph': { en: 'e.g. Tactical Security LLC', es: 'Ej. Seguridad Táctica LLC' },
+  'cart.field_destination': { en: 'Delivery Destination (City, State / Country) *', es: 'Destino de Despacho (Ciudad, Estado / País) *' },
+  'cart.field_destination_ph': { en: 'e.g. Orlando, FL, USA', es: 'Ej. Orlando, FL, EE.UU.' },
+  'cart.field_notes': { en: 'Operational Notes / Special Requirements', es: 'Notas Operativas / Requerimientos Especiales' },
+  'cart.field_notes_ph': {
+    en: 'e.g. Specific frequencies, urgent dispatch, custom billing...',
+    es: 'Ej. Frecuencias específicas, entrega urgente, facturación especial...'
+  },
+  'cart.btn_open_gmail': { en: 'Open in Gmail Web', es: 'Abrir en Gmail Web' },
+  'cart.btn_open_mail_app': { en: 'Open in Email Client (Outlook / Mail)', es: 'Abrir en App de Correo (Outlook / Mail)' },
+  'cart.btn_copy_quote': { en: 'Copy Order Summary', es: 'Copiar Resumen de Pedido' },
+  'cart.quote_copied': { en: 'Order Copied to Clipboard!', es: '¡Orden Copiada al Portapapeles!' },
+  'cart.legal_disclaimer': {
+    en: 'Legal Notice: This request constitutes a formal Request For Quotation (RFQ) and inventory reservation. No automated charges or credit card numbers are collected online. Transactions are formalized through official commercial invoices under FCC standards and Florida FIPA.',
+    es: 'Aclaratoria Legal: Esta solicitud constituye una Cotización Formal y reserva de inventario. No se realizan cobros automáticos ni se solicitan números de tarjeta de crédito en línea. Las operaciones se formalizan mediante factura comercial oficial bajo normas FCC y leyes de Florida (Florida FIPA).'
+  },
+  'cart.privacy_consent': {
+    en: 'I agree to receive official quotation and technical dispatch communications from G-TECH.US.',
+    es: 'Acepto recibir cotizaciones y comunicaciones técnicas de despacho oficial de G-TECH.US.'
+  },
+  'cart.quote_success_title': { en: 'Quotation Generated & Registered', es: 'Cotización Generada y Registrada' },
+  'cart.quote_ref': { en: 'Official Reference #:', es: 'Referencia Oficial #:' },
   'cart.clear_btn': { en: 'Clear Station', es: 'Vaciar Estación' },
   'cart.oos_title': { en: 'Product Temporarily Out of Stock', es: 'Producto Temporalmente Agotado' },
   'cart.oos_status': { en: 'is currently out of stock.', es: 'se encuentra actualmente agotado.' },
