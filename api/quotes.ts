@@ -41,20 +41,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(200).json({ success: true, message: 'Received' });
       }
 
-      const customerName = String(body.customerName || '').trim();
-      const customerEmail = String(body.customerEmail || '').trim().toLowerCase();
-      const customerPhone = body.customerPhone ? String(body.customerPhone).trim() : null;
-      const companyName = body.companyName ? String(body.companyName).trim() : null;
-      const destination = String(body.destination || '').trim();
-      const notes = body.notes ? String(body.notes).trim() : null;
-      const items = Array.isArray(body.items) ? body.items : [];
+      const customerName = String(body.customerName || '').trim().slice(0, 100);
+      const customerEmail = String(body.customerEmail || '').trim().toLowerCase().slice(0, 100);
+      const customerPhone = body.customerPhone ? String(body.customerPhone).trim().slice(0, 30) : null;
+      const companyName = body.companyName ? String(body.companyName).trim().slice(0, 100) : null;
+      const destination = String(body.destination || '').trim().slice(0, 200);
+      const notes = body.notes ? String(body.notes).trim().slice(0, 1500) : null;
+      
+      const rawItems = Array.isArray(body.items) ? body.items.slice(0, 50) : [];
+      const items = rawItems.map((i: any) => ({
+        id: String(i.id || '').slice(0, 50),
+        name: String(i.name || '').slice(0, 150),
+        quantity: Math.min(Math.max(1, Number(i.quantity) || 1), 1000),
+        badge: String(i.badge || '').slice(0, 50),
+        selectedColor: i.selectedColor ? String(i.selectedColor).slice(0, 50) : null
+      }));
+
       const totalUnits = Number(body.totalUnits) || items.reduce((s: number, i: any) => s + (Number(i.quantity) || 1), 0);
-      const simPlan = body.simPlan ? String(body.simPlan).trim() : 'none';
-      const channel = body.channel ? String(body.channel).trim() : 'gmail';
+      const simPlan = String(body.simPlan || 'none').trim().slice(0, 50);
+      const channel = String(body.channel || 'gmail').trim().slice(0, 30);
 
       // Validation
       if (!customerName || customerName.length < 2) {
-        return res.status(400).json({ error: 'Customer name is required' });
+        return res.status(400).json({ error: 'Customer name is required (min 2 characters)' });
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -71,11 +80,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       const client = getTursoClient();
-      const quoteNumber = generateQuoteNumber();
-      const id = `quote-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
       
       const forwarded = req.headers['x-forwarded-for'];
       const ip = Array.isArray(forwarded) ? forwarded[0] : (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket?.remoteAddress || null);
+
+      // Rate limiting: max 15 quotes per 10 minutes per IP
+      if (ip) {
+        try {
+          const rateCheck = await client.execute({
+            sql: `SELECT COUNT(*) as count FROM quotes WHERE ip_address = ? AND created_at > datetime('now', '-10 minutes');`,
+            args: [ip]
+          });
+          const recentCount = Number(rateCheck.rows[0]?.count || 0);
+          if (recentCount >= 15) {
+            return res.status(429).json({ error: 'Too many quote requests from your connection. Please wait a few minutes or contact us directly via WhatsApp.' });
+          }
+        } catch (rateErr) {
+          console.warn('Rate limit query bypassed:', rateErr);
+        }
+      }
+
+      const quoteNumber = generateQuoteNumber();
+      const id = `quote-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
 
       const insertSql = `
         INSERT INTO quotes (

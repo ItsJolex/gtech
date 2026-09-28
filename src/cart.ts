@@ -472,6 +472,8 @@ function generateFallbackQuoteNumber(): string {
   return `GT-${year}${month}${day}-${rand}`;
 }
 
+let emailModalEscHandler: ((e: KeyboardEvent) => void) | null = null;
+
 export function openEmailOrderModal(): void {
   if (cart.length === 0) return;
 
@@ -490,7 +492,26 @@ export function openEmailOrderModal(): void {
     modalEl = document.createElement('div');
     modalEl.id = 'email-order-modal';
     modalEl.className = 'fixed inset-0 z-[250] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in';
+    modalEl.setAttribute('role', 'dialog');
+    modalEl.setAttribute('aria-modal', 'true');
     document.body.appendChild(modalEl);
+  }
+
+  // Dismiss on clicking backdrop
+  modalEl.onclick = (e) => {
+    if (e.target === modalEl) {
+      closeEmailOrderModal();
+    }
+  };
+
+  // Keyboard navigation: Escape key dismiss
+  if (!emailModalEscHandler) {
+    emailModalEscHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeEmailOrderModal();
+      }
+    };
+    window.addEventListener('keydown', emailModalEscHandler);
   }
 
   const itemsPreviewHtml = cart.map(item => `
@@ -725,6 +746,10 @@ export function closeEmailOrderModal(): void {
     modalEl.classList.add('hidden');
     modalEl.classList.remove('flex');
     document.body.style.overflow = '';
+  }
+  if (emailModalEscHandler) {
+    window.removeEventListener('keydown', emailModalEscHandler);
+    emailModalEscHandler = null;
   }
 }
 

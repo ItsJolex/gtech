@@ -1541,6 +1541,16 @@ function updateQuoteCounts() {
   if (qBadge) qBadge.textContent = String(pendingCount);
 }
 
+function escapeHtml(str: string | null | undefined): string {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function renderQuotes() {
   if (!quotesContainer) return;
 
@@ -1621,15 +1631,15 @@ function renderQuotes() {
       const itemsListHtml = (q.items || [])
         .map((item) => {
           const colorBadge = item.selectedColor
-            ? `<span class="px-1.5 py-0.2 rounded bg-slate-950 text-amber-300 border border-amber-600/40 text-[10px] ml-1">Color: ${item.selectedColor}</span>`
+            ? `<span class="px-1.5 py-0.2 rounded bg-slate-950 text-amber-300 border border-amber-600/40 text-[10px] ml-1">Color: ${escapeHtml(item.selectedColor)}</span>`
             : '';
           return `
             <div class="flex items-center justify-between text-xs py-1 border-b border-slate-800/60 last:border-0">
               <span class="text-white font-medium">
-                <span class="text-rose-400 font-bold">${item.quantity}x</span> ${item.name} ${colorBadge}
+                <span class="text-rose-400 font-bold">${item.quantity}x</span> ${escapeHtml(item.name)} ${colorBadge}
               </span>
               <span class="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-                ${item.badge}
+                ${escapeHtml(item.badge)}
               </span>
             </div>
           `;
@@ -1646,12 +1656,19 @@ function renderQuotes() {
       };
       const simText = simPlanMap[q.simPlan] || q.simPlan || 'Solo Equipos';
 
+      const safeEmail = escapeHtml(q.customerEmail);
+      const safePhone = escapeHtml(q.customerPhone);
+      const safeDestination = escapeHtml(q.destination);
+      const safeName = escapeHtml(q.customerName);
+      const safeCompany = escapeHtml(q.companyName);
+      const safeNotes = escapeHtml(q.notes);
+
       const directGmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
         q.customerEmail
       )}&su=${encodeURIComponent(`[G-TECH] Respuesta a Cotización #${q.quoteNumber}`)}`;
 
-      const phoneLink = q.customerPhone
-        ? `<a href="tel:${q.customerPhone}" class="text-cyan-400 hover:underline flex items-center gap-1">📞 ${q.customerPhone}</a>`
+      const phoneLink = safePhone
+        ? `<a href="tel:${safePhone}" class="text-cyan-400 hover:underline flex items-center gap-1">📞 ${safePhone}</a>`
         : '<span class="text-slate-600">No especificado</span>';
 
       return `
@@ -1661,7 +1678,7 @@ function renderQuotes() {
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-sm sm:text-base font-mono font-extrabold text-white bg-slate-950 px-3 py-1 rounded-xl border border-slate-800">
-                #${q.quoteNumber}
+                #${escapeHtml(q.quoteNumber)}
               </span>
               <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${channelInfo.color} flex items-center gap-1">
                 <span>${channelInfo.icon}</span>
@@ -1677,7 +1694,7 @@ function renderQuotes() {
                 ${statusInfo.label}
               </span>
               <select 
-                onchange="window.updateAdminQuoteStatus('${q.id}', this.value)" 
+                onchange="window.updateAdminQuoteStatus('${escapeHtml(q.id)}', this.value)" 
                 class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-rose-500">
                 <option value="pending" ${q.status === 'pending' ? 'selected' : ''}>⏳ Pendiente</option>
                 <option value="contacted" ${q.status === 'contacted' ? 'selected' : ''}>💬 Contactado</option>
@@ -1695,13 +1712,13 @@ function renderQuotes() {
             <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 space-y-2 text-xs">
               <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 block">Datos del Cliente</span>
               <div class="text-sm font-extrabold text-white flex items-center gap-2">
-                <span>${q.customerName}</span>
-                ${q.companyName ? `<span class="text-xs font-normal text-slate-400">(${q.companyName})</span>` : ''}
+                <span>${safeName}</span>
+                ${safeCompany ? `<span class="text-xs font-normal text-slate-400">(${safeCompany})</span>` : ''}
               </div>
               <div class="space-y-1 text-slate-300 pt-1">
                 <div class="flex items-center gap-2">
                   <span class="text-slate-500">Email:</span>
-                  <a href="mailto:${q.customerEmail}" class="text-cyan-400 hover:underline font-mono">${q.customerEmail}</a>
+                  <a href="mailto:${safeEmail}" class="text-cyan-400 hover:underline font-mono">${safeEmail}</a>
                   <a href="${directGmailHref}" target="_blank" class="text-[10px] px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800 hover:bg-rose-900 transition-colors" title="Responder por Gmail Web">
                     Gmail Web ↗
                   </a>
@@ -1712,7 +1729,7 @@ function renderQuotes() {
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="text-slate-500">Destino de Entrega:</span>
-                  <span class="text-white font-semibold">📍 ${q.destination}</span>
+                  <span class="text-white font-semibold">📍 ${safeDestination}</span>
                 </div>
               </div>
             </div>
@@ -1730,7 +1747,7 @@ function renderQuotes() {
               </div>
               <div class="pt-1.5 border-t border-slate-800/80 text-[11px] text-emerald-400 flex items-center justify-between">
                 <span class="text-slate-500">SIM Anual:</span>
-                <span class="font-medium">${simText}</span>
+                <span class="font-medium">${escapeHtml(simText)}</span>
               </div>
             </div>
 
@@ -1741,7 +1758,7 @@ function renderQuotes() {
             <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/60">
               <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Notas del Cliente:</span>
               <p class="text-slate-300 italic leading-relaxed">
-                ${q.notes ? `"${q.notes}"` : 'Sin notas operativas especiales.'}
+                ${safeNotes ? `"${safeNotes}"` : 'Sin notas operativas especiales.'}
               </p>
             </div>
 
@@ -1750,27 +1767,27 @@ function renderQuotes() {
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Notas Administrativas / Seguimiento:</span>
                 <button 
                   type="button" 
-                  onclick="window.saveAdminQuoteNotes('${q.id}', (document.getElementById('admin-notes-${q.id}') as HTMLTextAreaElement).value)" 
+                  onclick="window.saveAdminQuoteNotes('${escapeHtml(q.id)}', (document.getElementById('admin-notes-${escapeHtml(q.id)}') as HTMLTextAreaElement).value)" 
                   class="text-[10px] font-bold px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition-colors">
                   Guardar Nota
                 </button>
               </div>
               <textarea 
-                id="admin-notes-${q.id}" 
+                id="admin-notes-${escapeHtml(q.id)}" 
                 rows="2" 
                 placeholder="Escribe notas internas (ej. Factura #492 enviada por Geramel, tracking UPS...)" 
                 class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-rose-500 resize-none"
-              >${q.notes || ''}</textarea>
+              >${safeNotes}</textarea>
             </div>
           </div>
 
           <!-- Bottom Action Bar -->
           <div class="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs">
-            <span class="text-[10px] text-slate-500 font-mono">ID: ${q.id}</span>
+            <span class="text-[10px] text-slate-500 font-mono">ID: ${escapeHtml(q.id)}</span>
             <div class="flex items-center gap-2">
               <button 
                 type="button" 
-                onclick="window.deleteAdminQuote('${q.id}')" 
+                onclick="window.deleteAdminQuote('${escapeHtml(q.id)}')" 
                 class="px-3 py-1.5 text-xs text-rose-400 hover:text-white hover:bg-rose-950/60 rounded-lg border border-rose-900/60 transition-colors"
                 title="Eliminar registro de cotización">
                 Eliminar

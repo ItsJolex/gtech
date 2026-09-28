@@ -179,9 +179,9 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
             When utilizing the "Request Quote via WhatsApp" feature, quotation details are securely transferred to WhatsApp (Meta Platforms, Inc.). Such communications are subject to end-to-end encryption protocols in accordance with WhatsApp's privacy standards. We do not sell or monetize quotation data.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">3. Future Customer Portal & Database Safeguards</h4>
+          <h4 class="font-bold text-navy-900 text-base">3. Cloud Quotation Portal & Database Protection</h4>
           <p>
-            Any customer accounts, lead logs, or quotation records maintained in our forthcoming cloud administrative portal will adhere to AES-256 data-at-rest encryption and TLS 1.3 data-in-transit security standards.
+            Quotation requests submitted via Gmail, email client, or the web order station are securely stored in our cloud infrastructure (Turso DB / libSQL) protected by TLS 1.3 encryption in transit and AES-256 at rest. This data is strictly utilized by G-TECH technical dispatch to process official quotes, manage fleet reservations, and coordinate logistics. No credit card numbers or financial credentials are ever collected or stored.
           </p>
 
           <h4 class="font-bold text-navy-900 text-base">4. Your Privacy Rights</h4>
@@ -208,9 +208,9 @@ const LEGAL_DOCS: Record<LegalDocType, LegalDoc> = {
             Al pulsar "Solicitar Cotización por WhatsApp", los datos del carrito se transfieren a la aplicación WhatsApp (Meta Platforms, Inc.), operando bajo cifrado de extremo a extremo. G-TECH no comercializa ni vende datos de contacto a terceros.
           </p>
 
-          <h4 class="font-bold text-navy-900 text-base">3. Seguridad en la Futura Base de Datos y Panel de Gestión</h4>
+          <h4 class="font-bold text-navy-900 text-base">3. Protección en el Portal de Cotizaciones y Base de Datos</h4>
           <p>
-            Los registros de leads y pedidos que se gestionen en el próximo portal administrativo en la nube se almacenarán con cifrado AES-256 en reposo y transmisión segura TLS 1.3.
+            Las solicitudes de cotización generadas mediante Gmail, correo electrónico o la estación de pedidos se registran de forma segura en nuestra infraestructura en la nube (Turso DB / libSQL), protegidas mediante cifrado TLS 1.3 en tránsito y AES-256 en reposo. Esta información es empleada estrictamente por el departamento técnico comercial de G-TECH para emitir la cotización oficial, reservar inventario y coordinar la logística de despacho. No se recopilan ni almacenan números de tarjeta de crédito ni datos financieros sensibles.
           </p>
 
           <h4 class="font-bold text-navy-900 text-base">4. Derechos del Usuario</h4>
