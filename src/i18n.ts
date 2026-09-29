@@ -148,6 +148,7 @@ export const translations: Translations = {
     en: '© 2026 G-TECH.US (🐺 G tech). All rights reserved. Directed by Geramel. Orlando, Florida, USA.',
     es: '© 2026 G-TECH.US (🐺 G tech). Todos los derechos reservados. Dirección: Geramel. Orlando, Florida, EE.UU.'
   },
+  'footer.by_vendo': { en: 'By', es: 'Por' },
   'footer.link_privacy': { en: 'Privacy Policy', es: 'Política de Privacidad' },
   'footer.link_terms': { en: 'Terms of Service', es: 'Términos de Servicio' },
   'footer.link_ai': { en: 'AI Transparency', es: 'Transparencia de IA' },
