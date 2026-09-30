@@ -1,0 +1,4 @@
+Contact: mailto:security@gtechs.us
+Expires: 2027-03-30T00:00:00.000Z
+Preferred-Languages: es, en
+Policy: https://www.gtechs.us/

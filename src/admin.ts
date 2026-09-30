@@ -26,7 +26,9 @@ let currentSearch = '';
 let currentCategory: 'radio' | 'accessory' = 'radio';
 let currentAccCategory = 'all';
 let editingProduct: ExtendedProduct | null = null;
-let adminToken: string | null = sessionStorage.getItem('gtech_admin_token');
+// El token real vive en una cookie HttpOnly (inaccesible para JS).
+// Esta variable es solo un marcador de sesión: 'cookie' = logueado, null = sin sesión.
+let adminToken: string | null = null;
 
 // DOM Elements
 const authOverlay = document.getElementById('auth-overlay') as HTMLDivElement;
@@ -86,10 +88,10 @@ function showToast(message: string, isError = false) {
 
 function handle401(res: Response) {
   if (res.status === 401) {
-    sessionStorage.removeItem('gtech_admin_token');
     adminToken = null;
     adminApp.classList.add('hidden');
     authOverlay.classList.remove('hidden');
+    fetch('/api/admin/auth', { method: 'DELETE' }).catch(() => {});
     return true;
   }
   return false;
@@ -105,8 +107,8 @@ async function handleLogin(password: string) {
 
     const data = await res.json();
     if (res.ok && data.ok) {
-      adminToken = data.token;
-      sessionStorage.setItem('gtech_admin_token', adminToken!);
+      // El token llegó como cookie HttpOnly: JS solo guarda el marcador de sesión
+      adminToken = 'cookie';
       authOverlay.classList.add('hidden');
       adminApp.classList.remove('hidden');
       loadProducts();
@@ -180,8 +182,8 @@ togglePassBtn?.addEventListener('click', () => {
 });
 
 logoutBtn?.addEventListener('click', () => {
-  sessionStorage.removeItem('gtech_admin_token');
   adminToken = null;
+  fetch('/api/admin/auth', { method: 'DELETE' }).catch(() => {});
   adminApp.classList.add('hidden');
   authOverlay.classList.remove('hidden');
   adminPassInput.value = '';
@@ -409,8 +411,8 @@ function renderProducts() {
       ` : '';
 
       const compatHtml = (p.compatibility && p.compatibility.length > 0) ? `
-        <div class="text-[10px] text-slate-400 mt-1 truncate" title="Compatible con: ${p.compatibility.join(', ')}">
-          <span class="text-slate-500 font-bold uppercase">Compat:</span> ${p.compatibility.join(', ')}
+        <div class="text-[10px] text-slate-400 mt-1 truncate" title="Compatible con: ${escapeHtml(p.compatibility.join(', '))}">
+          <span class="text-slate-500 font-bold uppercase">Compat:</span> ${escapeHtml(p.compatibility.join(', '))}
         </div>
       ` : '';
 
@@ -455,7 +457,7 @@ function renderProducts() {
               <h3 class="text-sm font-extrabold text-white leading-tight group-hover:text-cyan-300 transition-colors line-clamp-2">
                 ${escapeHtml(p.name)}
               </h3>
-              ${p.nameEs && p.nameEs !== p.name ? `<p class="text-xs text-slate-400 line-clamp-1 italic">${p.nameEs}</p>` : ''}
+              ${p.nameEs && p.nameEs !== p.name ? `<p class="text-xs text-slate-400 line-clamp-1 italic">${escapeHtml(p.nameEs)}</p>` : ''}
               <div class="flex flex-wrap items-center gap-1.5 pt-1">
                 ${categoryBadge}
                 <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-slate-950 px-2 py-0.5 rounded-md">
@@ -473,13 +475,13 @@ function renderProducts() {
                   isDiscount
                     ? `
                   <div class="flex items-baseline gap-2">
-                    <span class="text-base font-extrabold text-emerald-400">${p.discountPrice}</span>
-                    <span class="text-xs text-slate-500 line-through">${p.priceEstimate || ''}</span>
+                    <span class="text-base font-extrabold text-emerald-400">${escapeHtml(p.discountPrice)}</span>
+                    <span class="text-xs text-slate-500 line-through">${escapeHtml(p.priceEstimate || '')}</span>
                     <span class="text-[9px] font-bold uppercase bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded">Oferta</span>
                   </div>
                 `
                     : `
-                  <span class="text-sm font-bold text-white">${p.priceEstimate || 'Cotizar vía WhatsApp'}</span>
+                  <span class="text-sm font-bold text-white">${escapeHtml(p.priceEstimate || 'Cotizar vía WhatsApp')}</span>
                 `
                 }
               </div>
@@ -1348,15 +1350,25 @@ downloadBackupBtn?.addEventListener('click', () => {
 // -------------------------------------------------------------
 // INITIAL STARTUP
 // -------------------------------------------------------------
-if (adminToken) {
-  authOverlay.classList.add('hidden');
-  adminApp.classList.remove('hidden');
-  loadProducts();
-  loadSettings();
-} else {
+// Restaurar sesión: la cookie HttpOnly viaja sola; validamos contra el servidor
+async function restoreSession() {
+  try {
+    const res = await fetch('/api/admin/settings');
+    if (res.ok) {
+      adminToken = 'cookie';
+      authOverlay.classList.add('hidden');
+      adminApp.classList.remove('hidden');
+      loadProducts();
+      loadSettings();
+      return;
+    }
+  } catch {
+    // sin conexión: mostramos el login
+  }
   authOverlay.classList.remove('hidden');
   adminApp.classList.add('hidden');
 }
+restoreSession();
 
 // -------------------------------------------------------------
 // TAB NAVIGATION: RADIOS / ACCESSORIES / QUOTES & ORDERS

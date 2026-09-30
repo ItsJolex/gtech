@@ -50,6 +50,10 @@
   .animate-radar-spin {
     animation: radar-spin 20s linear infinite;
   }
+
+  .animate-radar-spin-reverse {
+    animation: radar-spin 30s linear infinite reverse;
+  }
   
   .radar-sweep {
     position: absolute;

@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { createClient } from '@libsql/client/web';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { applyCors } from './_lib/cors.js';
 
 function getTursoClient() {
   const url = process.env.TURSO_DATABASE_URL;
@@ -21,7 +22,7 @@ function generateQuoteNumber(): string {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  applyCors(req, res);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
@@ -85,11 +86,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       const client = getTursoClient();
-      
-      const forwarded = req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'];
+
+      const forwarded = req.headers['x-real-ip'] || req.headers['x-forwarded-for'];
       const ip = Array.isArray(forwarded) ? forwarded[0] : (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket?.remoteAddress || null);
 
-      // Rate limiting: max 15 quotes per 10 minutes per IP
+      // Rate limiting: max 15 quotes per 10 minutes per IP (fail-closed)
       if (ip) {
         try {
           const rateCheck = await client.execute({
@@ -101,7 +102,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return res.status(429).json({ error: 'Too many quote requests from your connection. Please wait a few minutes or contact us directly via WhatsApp.' });
           }
         } catch (rateErr) {
-          console.warn('Rate limit query bypassed:', rateErr);
+          console.error('Rate limit check failed (blocking request):', rateErr);
+          return res.status(503).json({ error: 'Service temporarily unavailable. Please try again shortly.' });
         }
       }
 

@@ -15,6 +15,42 @@ import { resetFinder, generateWhatsAppForProduct } from './finder';
 import { openLegalModal, renderCookieBanner, dismissCookieBanner } from './legal';
 import { compareProducts } from './comparison';
 
+// Poster lightbox (antes script inline en index.html; requerido por CSP estricto)
+function closePosterLightbox() {
+  const lightbox = document.getElementById('poster-lightbox');
+  if (lightbox && !lightbox.classList.contains('hidden')) {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+    const img = document.getElementById('poster-lightbox-img') as HTMLImageElement | null;
+    if (img) img.src = '';
+  }
+}
+
+(window as any).openPosterLightbox = function (src: string, title: string) {
+  const lightbox = document.getElementById('poster-lightbox');
+  const img = document.getElementById('poster-lightbox-img') as HTMLImageElement | null;
+  const caption = document.getElementById('poster-lightbox-caption');
+  if (lightbox && img && caption) {
+    img.src = src;
+    img.alt = title;
+    caption.textContent = title;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+};
+
+document.getElementById('poster-lightbox')?.addEventListener('click', function (this: HTMLElement, e) {
+  if (e.target === this || (e.target as HTMLElement).closest('button')) {
+    closePosterLightbox();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePosterLightbox();
+});
+
 // Add global click listener for declarative data-action elements
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;

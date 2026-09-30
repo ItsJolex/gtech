@@ -256,7 +256,7 @@
             <div class="absolute inset-0 bg-gradient-to-tr from-navy-800/15 via-crimson-800/10 to-transparent rounded-full filter blur-3xl -z-10 avatar-glow"></div>
             <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-navy-800/10 -z-10 animate-radar-spin"></div>
             <div class="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full -z-10 radar-sweep"></div>
-            <div class="absolute w-56 h-56 sm:w-72 sm:h-72 rounded-full border border-dashed border-crimson-800/20 -z-10 animate-radar-spin" style="animation-duration: 30s; animation-direction: reverse;"></div>
+            <div class="absolute w-56 h-56 sm:w-72 sm:h-72 rounded-full border border-dashed border-crimson-800/20 -z-10 animate-radar-spin-reverse"></div>
 
             <!-- Floating Badge 1: Top Left (Moved safely OUTSIDE the character silhouette) -->
             <div class="absolute -top-3 left-0 sm:-left-8 lg:-left-12 bg-white/95 backdrop-blur-md border border-gray-200/90 px-3.5 py-2 rounded-2xl shadow-xl z-20 flex items-center gap-2.5 transition-transform hover:scale-105 pointer-events-auto">
@@ -940,43 +940,6 @@
         <div id="poster-lightbox-caption" class="mt-4 text-center text-white text-sm font-medium"></div>
       </div>
     </div>
-
-    <script>
-      window.openPosterLightbox = function(src, title) {
-        const lightbox = document.getElementById('poster-lightbox');
-        const img = document.getElementById('poster-lightbox-img');
-        const caption = document.getElementById('poster-lightbox-caption');
-        if (lightbox && img && caption) {
-          img.src = src;
-          img.alt = title;
-          caption.textContent = title;
-          lightbox.classList.remove('hidden');
-          lightbox.classList.add('flex');
-          document.body.style.overflow = 'hidden';
-        }
-      };
-
-      document.getElementById('poster-lightbox')?.addEventListener('click', function(e) {
-        if (e.target === this || e.target.closest('button')) {
-          this.classList.add('hidden');
-          this.classList.remove('flex');
-          document.body.style.overflow = '';
-          document.getElementById('poster-lightbox-img').src = '';
-        }
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          const lightbox = document.getElementById('poster-lightbox');
-          if (lightbox && !lightbox.classList.contains('hidden')) {
-            lightbox.classList.add('hidden');
-            lightbox.classList.remove('flex');
-            document.body.style.overflow = '';
-            document.getElementById('poster-lightbox-img').src = '';
-          }
-        }
-      });
-    </script>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
