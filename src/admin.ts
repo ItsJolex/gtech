@@ -391,6 +391,7 @@ function renderProducts() {
           microphones: '🎙️ Micrófono PTT',
           earphones: '🎧 Auricular Acústico',
           chargers: '⚡ Cargador / Base',
+          cases: '🛡️ Funda de Silicona',
         };
         const catName = catMap[p.category] || p.category;
         categoryBadge = `

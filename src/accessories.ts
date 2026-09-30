@@ -5,7 +5,7 @@ import accessoriesData from './accessories.json';
 import { initCart, addCartItem, openCartDrawer } from './cart';
 import { initI18n, getLanguage, t, onLanguageChange, toggleLanguage } from './i18n';
 
-type AccessoryCategory = 'microphones' | 'earphones' | 'chargers';
+type AccessoryCategory = 'microphones' | 'earphones' | 'chargers' | 'cases';
 type AccessoryFilter = 'all' | AccessoryCategory;
 
 interface AccessorySpec {

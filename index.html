@@ -344,6 +344,61 @@
             </button>
           </div>
         </div>
+
+        <!-- Official Tactical Accessories Live Showcase Section -->
+        <div id="accessories-section" class="mt-16 sm:mt-24 pt-12 border-t border-gray-200 scroll-mt-24">
+          <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="text-crimson-800 font-extrabold tracking-widest uppercase text-xs sm:text-sm mb-2 flex items-center justify-center gap-1.5" data-i18n="home_accessories.badge">
+              <span class="w-2 h-2 rounded-full bg-crimson-600 animate-pulse"></span>
+              División de Accesorios Oficiales
+            </span>
+            <h3 class="text-2xl sm:text-4xl font-extrabold text-navy-800 tracking-tight" data-i18n="home_accessories.title">
+              Accesorios Tácticos de Audio, Privacidad y Carga
+            </h3>
+            <p class="text-gray-600 text-xs sm:text-base mt-2.5 leading-relaxed" data-i18n="home_accessories.subtitle">
+              Equipa tu flota con micrófonos de hombro de uso rudo IP56, auriculares encubiertos de tubo acústico transparente, bases de carga y fundas de silicona antichoque.
+            </p>
+
+            <!-- Category Filter Pills -->
+            <div id="home-accessory-filters" class="flex flex-wrap items-center justify-center gap-2 mt-6">
+              <button type="button" data-home-acc-filter="all" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all bg-navy-900 text-white shadow-sm">
+                <span data-i18n="home_accessories.filter_all">Todos los Accesorios</span>
+              </button>
+              <button type="button" data-home-acc-filter="microphones" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">🎙️</span><span data-i18n="home_accessories.filter_mics">Micrófonos PTT</span>
+              </button>
+              <button type="button" data-home-acc-filter="earphones" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">🎧</span><span data-i18n="home_accessories.filter_earphones">Auriculares Encubiertos</span>
+              </button>
+              <button type="button" data-home-acc-filter="chargers" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">⚡</span><span data-i18n="home_accessories.filter_chargers">Bases de Carga</span>
+              </button>
+              <button type="button" data-home-acc-filter="cases" class="home-acc-filter-btn px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-gray-600 bg-white hover:bg-gray-100 border border-gray-200 transition-all">
+                <span class="mr-1" aria-hidden="true">🛡️</span><span data-i18n="home_accessories.filter_cases">Fundas de Silicona</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Accessories Cards Grid -->
+          <div id="home-accessories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+            <!-- Populated via main.ts -->
+          </div>
+
+          <!-- Dedicated Catalog Link Callout -->
+          <div class="bg-navy-900 rounded-3xl p-6 sm:p-8 border border-navy-700/80 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-crimson-600/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="text-center md:text-left space-y-1 relative z-10">
+              <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest">Guía Completa de Conexión</span>
+              <h4 class="text-lg sm:text-xl font-extrabold text-white">¿Deseas verificar la compatibilidad exacta de tu conector (Type-C / Type-K) o fundas?</h4>
+              <p class="text-xs sm:text-sm text-navy-200">Revisa la tabla comparativa de pines, compatibilidad y ficha técnica en nuestro catálogo especializado.</p>
+            </div>
+            <a href="/accessories.html" class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-crimson-700 hover:bg-crimson-800 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all hover:scale-105 active:scale-95 shadow-md text-center whitespace-nowrap relative z-10">
+              <span data-i18n="home_accessories.view_all">Explorar Catálogo Especializado & Guía de Conexión</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- AI Avatar Founder Video Briefings Section (Stitch Design) -->
@@ -422,8 +477,8 @@
 
               <!-- Alliance Visual Highlights Grid -->
               <div class="grid grid-cols-3 gap-3 my-6">
-                <div class="rounded-xl overflow-hidden bg-slate-950/80 border border-navy-700 aspect-square flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300">
-                  <img src="/images/alliances/fti-tactical-unit-badge.webp" alt="FTI Florida Tactical Unit Badge" class="w-full h-full object-contain drop-shadow-md">
+                <div class="rounded-xl overflow-hidden bg-white border border-navy-700 aspect-square flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300">
+                  <img src="/images/alliances/alpha-security-academy.webp" alt="Alpha Security Academy" class="w-full h-full object-contain drop-shadow-md">
                 </div>
                 <div class="rounded-xl overflow-hidden bg-slate-950/80 border border-navy-700 aspect-square flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300">
                   <img src="/images/alliances/fti-special-ops-emblem.webp" alt="FTI Special Operations Emblem" class="w-full h-full object-contain drop-shadow-md">
@@ -800,6 +855,15 @@
       <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden relative max-h-[90vh] overflow-y-auto">
         <div id="modal-content" class="p-6 md:p-8">
           <!-- Dynamic Content -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Accessory Specs Modal Overlay -->
+    <div id="home-accessory-modal" class="fixed inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm hidden items-center justify-center p-4">
+      <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden relative max-h-[90vh] overflow-y-auto p-6 sm:p-8">
+        <div id="home-accessory-modal-content">
+          <!-- Dynamic Content populated via main.ts -->
         </div>
       </div>
     </div>

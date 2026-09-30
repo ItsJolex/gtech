@@ -207,6 +207,7 @@ export const translations: Translations = {
   'accessories_page.filter_mics': { en: 'Shoulder & Palm Microphones', es: 'Micrófonos de Solapa / Hombro' },
   'accessories_page.filter_earphones': { en: 'Covert Acoustic Earpieces', es: 'Auriculares Encubiertos de Tubo Acústico' },
   'accessories_page.filter_chargers': { en: 'Multi-Chargers & Docks', es: 'Bases y Cargadores Múltiples' },
+  'accessories_page.filter_cases': { en: 'Rugged Silicone Cases', es: 'Fundas de Silicona Antichoque' },
   'accessories_page.btn_add_quote': { en: 'Quote Accessory', es: 'Cotizar Accesorio' },
   'accessories_page.btn_specs': { en: 'Technical Specs', es: 'Ver Ficha Técnica' },
   'accessories_page.btn_wa': { en: 'Inquire via WhatsApp', es: 'Consultar por WhatsApp' },
@@ -258,6 +259,7 @@ export const translations: Translations = {
   'home_accessories.filter_mics': { en: 'Shoulder Mics', es: 'Micrófonos PTT' },
   'home_accessories.filter_earphones': { en: 'Covert Earpieces', es: 'Auriculares Encubiertos' },
   'home_accessories.filter_chargers': { en: 'Multi-Chargers', es: 'Bases de Carga' },
+  'home_accessories.filter_cases': { en: 'Silicone Cases', es: 'Fundas de Silicona' },
   'home_accessories.view_all': { en: 'Explore Full Accessory Catalog & Connector Guide', es: 'Explorar Catálogo Especializado & Guía de Conexión' },
 
   // AI Avatar Video Briefings

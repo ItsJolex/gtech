@@ -336,5 +336,113 @@
     ],
     "inStock": true,
     "priceEstimate": "$65"
+  },
+  {
+    "id": "acc-silicone-case-type-a",
+    "name": "G-TECH Rugged Silicone Protective Case (Type-A)",
+    "nameEs": "Funda Protectora de Silicona de Uso Rudo G-TECH (Tipo A)",
+    "category": "cases",
+    "badge": "Shock-Absorbing Silicone",
+    "badgeEs": "Silicona Antichoque",
+    "image": "/images/accessories/silicone-case-type-a.webp",
+    "description": "High-durability shockproof silicone protective sleeve designed to shield radio bodies from direct impact, drops, scratches, and dust. Features top antenna bumper protection, center display window cutout, lower speaker slots, and ergonomic non-slip side grip ribs with debossed G-TECH insignia.",
+    "descriptionEs": "Funda protectora de silicona de alta durabilidad y absorción de impacto diseñada para blindar radios contra caídas, golpes, rayones y polvo. Cuenta con parachoques superior para perilla/antena, ventana para display, ranuras de audio inferiores y laterales texturizados antideslizantes con relieve G-TECH.",
+    "connector": "Funda Protectora / Rugged Case",
+    "connectorEs": "Funda Protectora / Uso Rudo",
+    "compatibility": [
+      "G-510 POCKET POC",
+      "G-280 POC-UHF",
+      "G-889 POC-UHF",
+      "G-H28 TACTICAL POC",
+      "Terminales PoC Compactos Serie G"
+    ],
+    "compatibilityEs": [
+      "G-510 POCKET POC",
+      "G-280 POC-UHF",
+      "G-889 POC-UHF",
+      "G-H28 TACTICAL POC",
+      "Terminales PoC Compactos Serie G"
+    ],
+    "specs": [
+      {
+        "label": "Material",
+        "labelEs": "Material",
+        "value": "High-Density Flexible Industrial Silicone",
+        "valueEs": "Silicona Industrial Flexible de Alta Densidad"
+      },
+      {
+        "label": "Drop & Impact Protection",
+        "labelEs": "Protección Anticaídas",
+        "value": "Reinforced Shock-Absorbing Corners & Bumpers",
+        "valueEs": "Esquinas y Bordes Reforzados Antichoque"
+      },
+      {
+        "label": "Grip & Ergonomics",
+        "labelEs": "Agarre y Ergonomía",
+        "value": "Non-Slip Textured Lateral Ribs",
+        "valueEs": "Estrías Laterales Antideslizantes"
+      },
+      {
+        "label": "Cutout Precision",
+        "labelEs": "Precisión de Cortes",
+        "value": "Full Access to Display, PTT, Audio Ports & Knobs",
+        "valueEs": "Acceso Total a Display, PTT, Conectores y Perillas"
+      }
+    ],
+    "inStock": true,
+    "priceEstimate": "$12"
+  },
+  {
+    "id": "acc-silicone-case-type-b",
+    "name": "G-TECH Rugged Silicone Protective Case (Type-B)",
+    "nameEs": "Funda Protectora de Silicona de Uso Rudo G-TECH (Tipo B)",
+    "category": "cases",
+    "badge": "Heavy-Duty 360° Shield",
+    "badgeEs": "Protección Envolvente 360°",
+    "image": "/images/accessories/silicone-case-type-b.webp",
+    "description": "Full-body wrap-around silicone protective case engineered for tactical and commercial handheld transceivers. Equipped with precision acoustic speaker vents, dedicated mic opening, large display/keypad window, and reinforced structural bumper ridges.",
+    "descriptionEs": "Funda protectora envolvente 360° fabricada en silicona elástica reforzada para transceptores portátiles tácticos y comerciales. Equipada con rejillas superiores acústicas para altavoz, orificio de micrófono de precisión, ventana para pantalla/teclado y costados ergonómicos antideslizantes.",
+    "connector": "Funda Protectora / Rugged Case",
+    "connectorEs": "Funda Protectora / Uso Rudo",
+    "compatibility": [
+      "ALERVITES AT1 BY BAOFENG",
+      "G-5288 PLUS LONG-RANGE",
+      "G8 PLUS TRI-MODE",
+      "Radios Portátiles Serie Dual-Band / VHF-UHF"
+    ],
+    "compatibilityEs": [
+      "ALERVITES AT1 BY BAOFENG",
+      "G-5288 PLUS LONG-RANGE",
+      "G8 PLUS TRI-MODE",
+      "Radios Portátiles Serie Dual-Band / VHF-UHF"
+    ],
+    "specs": [
+      {
+        "label": "Material",
+        "labelEs": "Material",
+        "value": "Tear-Resistant Heavy-Duty Silicone",
+        "valueEs": "Silicona Resistente al Desgarro y Fricción"
+      },
+      {
+        "label": "Acoustic Design",
+        "labelEs": "Diseño Acústico",
+        "value": "Triple Front Grille Slots + Mic Port",
+        "valueEs": "Triple Ranura Frontal de Audio + Puerto Mic"
+      },
+      {
+        "label": "Full Access Window",
+        "labelEs": "Ventana Frontal",
+        "value": "Open Layout for Screen and Keypad Operation",
+        "valueEs": "Apertura Amplia para Display y Teclado Numérico"
+      },
+      {
+        "label": "Environmental Resistance",
+        "labelEs": "Resistencia Ambiental",
+        "value": "Dust, Splash, and Abrasion Protection",
+        "valueEs": "Protección contra Polvo, Salpicaduras y Abrasión"
+      }
+    ],
+    "inStock": true,
+    "priceEstimate": "$12"
   }
 ]

@@ -1319,7 +1319,7 @@ interface HomeAccessory {
   id: string;
   name: string;
   nameEs: string;
-  category: 'microphones' | 'earphones' | 'chargers';
+  category: 'microphones' | 'earphones' | 'chargers' | 'cases';
   badge: string;
   badgeEs: string;
   image: string;
@@ -1335,7 +1335,7 @@ interface HomeAccessory {
 }
 
 const homeAccessoriesList = accessoriesData as HomeAccessory[];
-let activeHomeAccFilter: 'all' | 'microphones' | 'earphones' | 'chargers' = 'all';
+let activeHomeAccFilter: 'all' | 'microphones' | 'earphones' | 'chargers' | 'cases' = 'all';
 
 const homeAccGrid = document.getElementById('home-accessories-grid');
 const homeAccFilterContainer = document.getElementById('home-accessory-filters');
