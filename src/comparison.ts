@@ -62,8 +62,7 @@ export function getShortModelName(p: Product): string {
     'WA0069-Bodycam': 'G-K8 4K BODYCAM POC',
     'G-8900-Pro': 'G-8900 PRO BASE STATION',
     'G5-Plus': 'G5 PLUS COMMERCIAL POC',
-    'M88-Orange': 'M88 DUAL-MODE ORANGE',
-    'M88-Green': 'M88 DUAL-MODE GREEN'
+    'M88-Dual-Mode': 'M88 DUAL-MODE'
   };
   return map[p.id] || p.shortName || p.name;
 }
