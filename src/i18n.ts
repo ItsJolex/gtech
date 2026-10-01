@@ -991,6 +991,16 @@ export const PRODUCT_TRANSLATIONS_ES: Record<string, ProductLocalizedContent> = 
     name: 'G5 PLUS COMMERCIAL POC',
     badge: 'SCREENLESS HEAVY-DUTY POC',
     description: 'Radio PoC comercial sin pantalla de máxima durabilidad, diseñada para comunicaciones Push-to-Talk instantáneas y libres de distracciones. Equipada con doble dial giratorio superior independiente, rejilla acústica frontal con altavoz de alta potencia de 2W, botón PTT texturizado y blindaje contra caídas e impactos.'
+  },
+  'M88-Orange': {
+    name: 'M88 DUAL-MODE MINI POC - ORANGE',
+    badge: 'POC 4G & FRS DUAL-MODE',
+    description: 'Mini radio bidireccional de modo dual M88: comunicación Push-To-Talk nacional e ilimitada sobre red celular 4G LTE y canales directos locales FRS UHF. Cancelación activa de ruido DSP, soporte para tarjeta SIM, puerto de carga USB directo, pantalla a color LCD y teclado numérico completo de 12 botones en acabado naranja táctico.'
+  },
+  'M88-Green': {
+    name: 'M88 DUAL-MODE MINI POC - LIME GREEN',
+    badge: 'POC 4G & FRS DUAL-MODE',
+    description: 'Mini radio bidireccional de modo dual M88: comunicación Push-To-Talk nacional e ilimitada sobre red celular 4G LTE y canales directos locales FRS UHF. Cancelación activa de ruido DSP, soporte para tarjeta SIM, puerto de carga USB directo, pantalla a color LCD y teclado numérico completo de 12 botones en acabado verde lima de alta visibilidad.'
   }
 };
 

@@ -1173,5 +1173,139 @@
       "global-lte"
     ],
     "priceEstimate": "$95"
+  },
+  {
+    "id": "M88-Orange",
+    "name": "M88 DUAL-MODE MINI POC - ORANGE",
+    "badge": "DUAL-MODE 4G POC & FRS",
+    "image": "/images/m88-orange.webp",
+    "description": "M88 Dual-Mode Mini Walkie Talkie - 4G LTE PoC & FRS 2-Way Radio, Noise Cancelling, Unlimited Range, SIM Card Supported, USB Port, for Business Use. Finished in high-visibility tactical orange with a bright color LCD screen and a full 12-key numeric keypad.",
+    "inStock": true,
+    "stockStatus": "in_stock",
+    "stockCount": 35,
+    "fallbackSimilarId": "WA0060-Black",
+    "fallbackReason": "G6 PLUS POC provides rugged dual-knob tactical field communication.",
+    "specs": [
+      {
+        "label": "Dual-Mode RF",
+        "value": "4G LTE Nationwide PoC + Local FRS UHF 2-Way Radio"
+      },
+      {
+        "label": "Coverage",
+        "value": "Unlimited Nationwide Range (Cellular) + Local Direct Channel"
+      },
+      {
+        "label": "Noise Cancelling",
+        "value": "Advanced DSP Active Background Noise Cancellation"
+      },
+      {
+        "label": "SIM Card Slot",
+        "value": "Micro/Nano SIM Card Supported (Carrier Unlocked)"
+      },
+      {
+        "label": "Display & Keypad",
+        "value": "Color LCD Telemetry Screen + Full 12-Key Numeric Keypad"
+      },
+      {
+        "label": "Connectivity",
+        "value": "Direct USB Fast-Charging Port & Dedicated PTT / SOS"
+      },
+      {
+        "label": "Target Use",
+        "value": "Commercial Fleets, Hospitality, Security & Business Teams"
+      }
+    ],
+    "comparison": {
+      "connectivity": "Dual-Mode: 4G LTE PoC + Local FRS UHF",
+      "protection": "High-Impact Rugged Commercial Chassis",
+      "batteryRuntime": "26 Hours (Dual-Mode Standby)",
+      "audioOutput": "2.0W DSP Noise-Cancelling Front Speaker",
+      "controls": "Full 12-Key Numeric Keypad + Rotary Knobs",
+      "formFactor": "Compact Ergonomic Dual-Mode Handheld",
+      "antenna": "High-Efficiency Dual-Band Antenna System",
+      "emergency": "Instant SOS Alert & Quick Group Dispatch",
+      "videoVision": "Not available",
+      "certifications": "FCC / CE Commercial Compliance"
+    },
+    "tags": [
+      "dual-mode",
+      "m88",
+      "orange",
+      "poc-frs",
+      "numeric-keypad",
+      "unlimited-range",
+      "sim-supported",
+      "usb-port",
+      "noise-cancelling",
+      "business-use"
+    ],
+    "priceEstimate": "$125"
+  },
+  {
+    "id": "M88-Green",
+    "name": "M88 DUAL-MODE MINI POC - LIME GREEN",
+    "badge": "DUAL-MODE 4G POC & FRS",
+    "image": "/images/m88-green.webp",
+    "description": "M88 Dual-Mode Mini Walkie Talkie - 4G LTE PoC & FRS 2-Way Radio, Noise Cancelling, Unlimited Range, SIM Card Supported, USB Port, for Business Use. Finished in high-visibility lime green with a bright color LCD screen and a full 12-key numeric keypad.",
+    "inStock": true,
+    "stockStatus": "in_stock",
+    "stockCount": 35,
+    "fallbackSimilarId": "WA0060-Green",
+    "fallbackReason": "G6 PLUS GREEN POC provides rugged dual-knob tactical field communication.",
+    "specs": [
+      {
+        "label": "Dual-Mode RF",
+        "value": "4G LTE Nationwide PoC + Local FRS UHF 2-Way Radio"
+      },
+      {
+        "label": "Coverage",
+        "value": "Unlimited Nationwide Range (Cellular) + Local Direct Channel"
+      },
+      {
+        "label": "Noise Cancelling",
+        "value": "Advanced DSP Active Background Noise Cancellation"
+      },
+      {
+        "label": "SIM Card Slot",
+        "value": "Micro/Nano SIM Card Supported (Carrier Unlocked)"
+      },
+      {
+        "label": "Display & Keypad",
+        "value": "Color LCD Telemetry Screen + Full 12-Key Numeric Keypad"
+      },
+      {
+        "label": "Connectivity",
+        "value": "Direct USB Fast-Charging Port & Dedicated PTT / SOS"
+      },
+      {
+        "label": "Target Use",
+        "value": "Commercial Fleets, Hospitality, Security & Business Teams"
+      }
+    ],
+    "comparison": {
+      "connectivity": "Dual-Mode: 4G LTE PoC + Local FRS UHF",
+      "protection": "High-Impact Rugged Commercial Chassis",
+      "batteryRuntime": "26 Hours (Dual-Mode Standby)",
+      "audioOutput": "2.0W DSP Noise-Cancelling Front Speaker",
+      "controls": "Full 12-Key Numeric Keypad + Rotary Knobs",
+      "formFactor": "Compact Ergonomic Dual-Mode Handheld",
+      "antenna": "High-Efficiency Dual-Band Antenna System",
+      "emergency": "Instant SOS Alert & Quick Group Dispatch",
+      "videoVision": "Not available",
+      "certifications": "FCC / CE Commercial Compliance"
+    },
+    "tags": [
+      "dual-mode",
+      "m88",
+      "green",
+      "poc-frs",
+      "numeric-keypad",
+      "unlimited-range",
+      "sim-supported",
+      "usb-port",
+      "noise-cancelling",
+      "business-use"
+    ],
+    "priceEstimate": "$125"
   }
 ]

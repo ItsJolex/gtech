@@ -25,6 +25,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'POST') {
     const { key, value } = req.body || {};
     if (!key || value === undefined) return res.status(400).json({ error: 'Missing key or value' });
+    if (typeof key !== 'string' || key.length > 100) return res.status(400).json({error: 'Invalid key (max 100 chars)'});
+    const valStr = String(value);
+    if (valStr.length > 5000) return res.status(400).json({error: 'Value too long (max 5000 chars)'});
 
     await client.execute({
       sql: `

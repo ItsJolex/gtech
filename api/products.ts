@@ -1,5 +1,6 @@
 import { createClient } from '@libsql/client/web';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { applyCors } from './_lib/cors.js';
 
 function getTursoClient() {
   const url = process.env.TURSO_DATABASE_URL;
@@ -11,7 +12,7 @@ function getTursoClient() {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  applyCors(req, res);
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -58,8 +59,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     res.setHeader('Cache-Control', 's-maxage=5, stale-while-revalidate=30');
     return res.status(200).json(products);
-  } catch (err: any) {
-    console.error('Error querying Turso database in /api/products:', err);
-    return res.status(500).json({ error: err.message || 'Database error' });
+  } catch {
+    console.error('Error querying Turso database in /api/products');
+    return res.status(500).json({ error: 'Database error' });
   }
 }

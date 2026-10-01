@@ -137,8 +137,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
-  } catch (err: any) {
-    console.error('Error in /api/admin/quotes:', err);
-    return res.status(500).json({ error: err.message || 'Database error in admin quotes' });
+  } catch {
+    console.error('Error in /api/admin/quotes');
+    return res.status(500).json({ error: 'Database error in admin quotes' });
   }
 }

@@ -96,7 +96,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       if (typeof p.name !== 'string' || p.name.length > 250) return res.status(400).json({error: 'Invalid name'});
+      if (p.shortName && (typeof p.shortName !== 'string' || p.shortName.length > 250)) return res.status(400).json({error: 'Invalid short name'});
+      if (p.description && (typeof p.description !== 'string' || p.description.length > 5000)) return res.status(400).json({error: 'Description too long'});
       if (p.image && typeof p.image === 'string' && !p.image.startsWith('/') && !p.image.startsWith('https://')) return res.status(400).json({error: 'Invalid image URL'});
+      if (p.badge && (typeof p.badge !== 'string' || p.badge.length > 100)) return res.status(400).json({error: 'Invalid badge'});
+      if (p.priceEstimate && typeof p.priceEstimate !== 'string') return res.status(400).json({error: 'Invalid price estimate'});
+      if (p.discountPrice && typeof p.discountPrice !== 'string') return res.status(400).json({error: 'Invalid discount price'});
+      if (p.fallbackSimilarId && typeof p.fallbackSimilarId !== 'string') return res.status(400).json({error: 'Invalid fallback ID'});
+      if (p.fallbackReason && (typeof p.fallbackReason !== 'string' || p.fallbackReason.length > 500)) return res.status(400).json({error: 'Invalid fallback reason'});
+      if (p.specs && !Array.isArray(p.specs)) return res.status(400).json({error: 'Invalid specs'});
+      if (p.comparison && typeof p.comparison !== 'object') return res.status(400).json({error: 'Invalid comparison'});
+      if (p.tags && !Array.isArray(p.tags)) return res.status(400).json({error: 'Invalid tags'});
+      if (p.colors && !Array.isArray(p.colors)) return res.status(400).json({error: 'Invalid colors'});
+      if (p.category && (typeof p.category !== 'string' || p.category.length > 50)) return res.status(400).json({error: 'Invalid category'});
       const validStock = ['in_stock', 'low_stock', 'out_of_stock', 'preorder'];
       if (p.stockStatus && !validStock.includes(p.stockStatus)) return res.status(400).json({error: 'Invalid stock status'});
 
@@ -167,8 +179,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: 'Product ID is required for updating' });
       }
 
-      if (typeof p.name !== 'string' || p.name.length > 250) return res.status(400).json({error: 'Invalid name'});
+      if (p.name && (typeof p.name !== 'string' || p.name.length > 250)) return res.status(400).json({error: 'Invalid name'});
+      if (p.shortName && (typeof p.shortName !== 'string' || p.shortName.length > 250)) return res.status(400).json({error: 'Invalid short name'});
+      if (p.description && (typeof p.description !== 'string' || p.description.length > 5000)) return res.status(400).json({error: 'Description too long'});
       if (p.image && typeof p.image === 'string' && !p.image.startsWith('/') && !p.image.startsWith('https://')) return res.status(400).json({error: 'Invalid image URL'});
+      if (p.badge && (typeof p.badge !== 'string' || p.badge.length > 100)) return res.status(400).json({error: 'Invalid badge'});
+      if (p.priceEstimate && typeof p.priceEstimate !== 'string') return res.status(400).json({error: 'Invalid price estimate'});
+      if (p.discountPrice && typeof p.discountPrice !== 'string') return res.status(400).json({error: 'Invalid discount price'});
+      if (p.fallbackSimilarId && typeof p.fallbackSimilarId !== 'string') return res.status(400).json({error: 'Invalid fallback ID'});
+      if (p.fallbackReason && (typeof p.fallbackReason !== 'string' || p.fallbackReason.length > 500)) return res.status(400).json({error: 'Invalid fallback reason'});
+      if (p.specs && !Array.isArray(p.specs)) return res.status(400).json({error: 'Invalid specs'});
+      if (p.comparison && typeof p.comparison !== 'object') return res.status(400).json({error: 'Invalid comparison'});
+      if (p.tags && !Array.isArray(p.tags)) return res.status(400).json({error: 'Invalid tags'});
+      if (p.colors && !Array.isArray(p.colors)) return res.status(400).json({error: 'Invalid colors'});
+      if (p.category && (typeof p.category !== 'string' || p.category.length > 50)) return res.status(400).json({error: 'Invalid category'});
       const validStock = ['in_stock', 'low_stock', 'out_of_stock', 'preorder'];
       if (p.stockStatus && !validStock.includes(p.stockStatus)) return res.status(400).json({error: 'Invalid stock status'});
 
@@ -311,8 +335,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     return res.status(405).json({ error: `Method ${method} not allowed` });
-  } catch (err: any) {
-    console.error('API error in /api/admin/products:', err);
-    return res.status(500).json({ error: err.message || 'Internal server error' });
+  } catch {
+    console.error('API error in /api/admin/products');
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }

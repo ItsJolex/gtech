@@ -28,8 +28,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let client;
   try {
     client = getTursoClient();
-  } catch (err: any) {
-    return res.status(500).json({ error: err.message });
+  } catch {
+    return res.status(500).json({ error: 'Internal server error' });
   }
 
   const { method } = req;
@@ -97,6 +97,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!a || !a.id || !a.name || !a.category) {
         return res.status(400).json({ error: 'Missing required fields (id, name, category)' });
       }
+
+      if (typeof a.name !== 'string' || a.name.length > 250) return res.status(400).json({error: 'Invalid name'});
+      if (a.nameEs && (typeof a.nameEs !== 'string' || a.nameEs.length > 250)) return res.status(400).json({error: 'Invalid nameEs'});
+      if (a.category && (typeof a.category !== 'string' || a.category.length > 50)) return res.status(400).json({error: 'Invalid category'});
+      if (a.badge && (typeof a.badge !== 'string' || a.badge.length > 100)) return res.status(400).json({error: 'Invalid badge'});
+      if (a.badgeEs && (typeof a.badgeEs !== 'string' || a.badgeEs.length > 100)) return res.status(400).json({error: 'Invalid badgeEs'});
+      if (a.image && typeof a.image === 'string' && !a.image.startsWith('/') && !a.image.startsWith('https://')) return res.status(400).json({error: 'Invalid image URL'});
+      if (a.secondaryImage && typeof a.secondaryImage === 'string' && !a.secondaryImage.startsWith('/') && !a.secondaryImage.startsWith('https://')) return res.status(400).json({error: 'Invalid secondary image URL'});
+      if (a.description && (typeof a.description !== 'string' || a.description.length > 5000)) return res.status(400).json({error: 'Description too long'});
+      if (a.descriptionEs && (typeof a.descriptionEs !== 'string' || a.descriptionEs.length > 5000)) return res.status(400).json({error: 'DescriptionEs too long'});
+      if (a.connector && (typeof a.connector !== 'string' || a.connector.length > 200)) return res.status(400).json({error: 'Invalid connector'});
+      if (a.connectorEs && (typeof a.connectorEs !== 'string' || a.connectorEs.length > 200)) return res.status(400).json({error: 'Invalid connectorEs'});
+      if (a.compatibility && !Array.isArray(a.compatibility)) return res.status(400).json({error: 'Invalid compatibility'});
+      if (a.specs && !Array.isArray(a.specs)) return res.status(400).json({error: 'Invalid specs'});
+      if (a.priceEstimate && typeof a.priceEstimate !== 'string') return res.status(400).json({error: 'Invalid price estimate'});
+      if (a.sortOrder !== undefined && typeof a.sortOrder !== 'number') return res.status(400).json({error: 'Invalid sort order'});
 
       const existing = await client.execute({
         sql: 'SELECT id FROM accessories WHERE id = ?;',
@@ -292,8 +308,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     return res.status(405).json({ error: `Method ${method} not allowed` });
-  } catch (err: any) {
-    console.error('API error in /api/admin/accessories:', err);
-    return res.status(500).json({ error: err.message || 'Internal server error' });
+  } catch {
+    console.error('API error in /api/admin/accessories');
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }

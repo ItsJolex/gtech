@@ -1,8 +1,9 @@
 import { createClient } from '@libsql/client/web';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { applyCors } from './_lib/cors.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  applyCors(req, res);
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -22,7 +23,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const showPrices = result.rows.length > 0 ? result.rows[0].value === 'true' : false;
     res.setHeader('Cache-Control', 's-maxage=5, stale-while-revalidate=30');
     return res.status(200).json({ showPrices });
-  } catch (err: any) {
+  } catch {
     return res.status(200).json({ showPrices: false });
   }
 }
